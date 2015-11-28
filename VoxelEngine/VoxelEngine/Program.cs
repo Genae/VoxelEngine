@@ -60,6 +60,7 @@ namespace VoxelEngine
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             Camera.OnRenderFrame(e);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
             Map.OnRenderFrame(e);
             SwapBuffers();
         }
