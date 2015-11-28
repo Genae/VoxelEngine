@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -11,8 +12,9 @@ namespace VoxelEngine
     public class Engine : GameWindow
     {
         public Camera3D Camera;
-        public Chunk Chunk;
+        public Map Map;
         private Matrix4 _matrixProjection;
+        private int timer;
 
         [STAThread]
         public static void Main()
@@ -29,7 +31,7 @@ namespace VoxelEngine
             base.OnLoad(e);
             // Load stuff
             Camera = new Camera3D();
-            Chunk = new Chunk();
+            Map = new Map(16);
 
             //Settings
             VSync = VSyncMode.On;
@@ -49,10 +51,16 @@ namespace VoxelEngine
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
+            timer += (int)(1000*e.Time);
+            if (timer >= 1000)
+            {
+                Console.WriteLine((int)(1 / e.Time));
+                timer = 0;
+            }
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             Camera.OnRenderFrame(e);
-            Chunk.OnRenderFrame(e);
+            Map.OnRenderFrame(e);
             SwapBuffers();
         }
 

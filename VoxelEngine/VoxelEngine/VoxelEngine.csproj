@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="GameData\Chunk.cs" />
+    <Compile Include="GameData\Map.cs" />
     <Compile Include="GameData\Voxel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
