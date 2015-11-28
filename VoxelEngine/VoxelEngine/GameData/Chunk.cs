@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Dynamic;
-using System.Runtime.CompilerServices;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
@@ -21,6 +19,8 @@ namespace VoxelEngine.GameData
         int _mIndexBuffer;
         int _mColorBuffer;
         int _length;
+        private bool _loaded;
+        private bool _active;
 
         public Chunk(Vector3 pos)
         {
@@ -40,13 +40,14 @@ namespace VoxelEngine.GameData
             Voxels[1, 0, 0] = new Voxel();
             Voxels[0, 1, 0] = new Voxel();
             Voxels[1, 1, 0] = new Voxel();
-            var w = Stopwatch.StartNew();
-            OnChunkUpdated();
-            Console.WriteLine(w.ElapsedMilliseconds);
         }
 
         public void OnRenderFrame(FrameEventArgs e)
         {
+            if (_length == 0 || !_active)
+                return;
+            if(!_loaded)
+                OnChunkUpdated();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mColorBuffer);
             GL.ColorPointer(4, ColorPointerType.Float, 0, 0);
             GL.EnableClientState(ArrayCap.ColorArray);
@@ -72,6 +73,8 @@ namespace VoxelEngine.GameData
             float[] colors;
             CreateCubes(out arrayBuffer, out arrayElementBuffer, out colors);
 
+            if (arrayBuffer.Length == 0)
+                return;
             GL.GenBuffers(1, out _mVertexBuffer);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
             GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(arrayBuffer) * arrayBuffer.Length), arrayBuffer, BufferUsageHint.StaticDraw);
@@ -85,6 +88,7 @@ namespace VoxelEngine.GameData
             GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(colors) * colors.Length), colors, BufferUsageHint.StaticDraw);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+            _loaded = true;
         }
 
         private void CreateCubes(out float[] arrayBuffer, out ushort[] arrayElementBuffer, out float[] color)
@@ -184,6 +188,94 @@ namespace VoxelEngine.GameData
             arrayElementBuffer = triangles.ToArray();
             _length = arrayElementBuffer.Length;
             color = colors.ToArray();
+        }
+
+        public bool HasSolidBorder(int dir)
+        {
+            switch (dir)
+            {
+                case 1: //+x
+                    for (var y = 0; y < ChunkSize; y++)
+                    {
+                        for (var z = 0; z < ChunkSize; z++)
+                        {
+                            if (!Voxels[ChunkSize - 1, y, z].IsActive)
+                                return false;
+                        }
+                    }
+                    return true;
+                case 2: //-x
+                    for (var y = 0; y < ChunkSize; y++)
+                    {
+                        for (var z = 0; z < ChunkSize; z++)
+                        {
+                            if (!Voxels[0, y, z].IsActive)
+                                return false;
+                        }
+                    }
+                    return true;
+                case 3: //+y
+                    for (var x = 0; x < ChunkSize; x++)
+                    {
+                        for (var z = 0; z < ChunkSize; z++)
+                        {
+                            if (!Voxels[x, ChunkSize - 1, z].IsActive)
+                                return false;
+                        }
+                    }
+                    return true;
+                case 4: //-y
+                    for (var x = 0; x < ChunkSize; x++)
+                    {
+                        for (var z = 0; z < ChunkSize; z++)
+                        {
+                            if (!Voxels[x, 0, z].IsActive)
+                                return false;
+                        }
+                    }
+                    return true;
+                case 5: //+z
+                    for (var x = 0; x < ChunkSize; x++)
+                    {
+                        for (var y = 0; y < ChunkSize; y++)
+                        {
+                            if (!Voxels[x, y, ChunkSize - 1].IsActive)
+                                return false;
+                        }
+                    }
+                    return true;
+                case 6: //-z
+                    for (var x = 0; x < ChunkSize; x++)
+                    {
+                        for (var y = 0; y < ChunkSize; y++)
+                        {
+                            if (!Voxels[x, y, 0].IsActive)
+                                return false;
+                        }
+                    }
+                    return true;
+            }
+            return false;
+        }
+
+        public void SetActive(bool a)
+        {
+            if (a == _active)
+                return;
+            _active = a;
+            if(_active)
+                OnChunkUpdated();
+            else
+                Unload();
+        }
+
+        public void Unload()
+        {
+            if(!_loaded)
+                return;
+            GL.DeleteBuffers(1, ref _mVertexBuffer);
+            GL.DeleteBuffers(1, ref _mIndexBuffer);
+            GL.DeleteBuffers(1, ref _mColorBuffer);
         }
     }
     struct Vertex
