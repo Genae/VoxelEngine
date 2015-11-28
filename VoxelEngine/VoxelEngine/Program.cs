@@ -36,7 +36,6 @@ namespace VoxelEngine
             GL.ClearColor(Color.CornflowerBlue);
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
-
         }
 
         protected override void OnResize(EventArgs e)

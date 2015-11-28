@@ -14,9 +14,10 @@ namespace VoxelEngine.GameData
         public Voxel[,,] Voxels;
 
         //drawing
-        int m_vertexBuffer = 0;
-        int m_indexBuffer = 0;
-        int length;
+        int _mVertexBuffer;
+        int _mIndexBuffer;
+        int _mColorBuffer;
+        int _length;
 
         public Chunk()
         {
@@ -28,24 +29,31 @@ namespace VoxelEngine.GameData
                     for (int z = 0; z < ChunkSize; z++)
                     {
                         Voxels[x,y,z]  = new Voxel();
-                        
                     }
                 }
             }
+            /*Voxels[0,0,0]= new Voxel();
+            Voxels[1, 0, 0] = new Voxel();
+            Voxels[0, 1, 0] = new Voxel();
+            Voxels[1, 1, 0] = new Voxel();*/
             OnChunkUpdated();
         }
 
         public void OnRenderFrame(FrameEventArgs e)
         {
-            GL.BindBuffer(BufferTarget.ArrayBuffer, m_vertexBuffer);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, m_indexBuffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _mColorBuffer);
+            GL.ColorPointer(4, ColorPointerType.Float, 0, 0);
+            GL.EnableClientState(ArrayCap.ColorArray);
 
             GL.EnableClientState(ArrayCap.VertexArray);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
             GL.VertexPointer(3, VertexPointerType.Float, Vector3.SizeInBytes, 0);
 
-            GL.DrawElements(BeginMode.TriangleStrip, length, DrawElementsType.UnsignedShort, 0);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
+            GL.DrawElements(BeginMode.Triangles, _length, DrawElementsType.UnsignedShort, 0);
 
             GL.Disable(EnableCap.VertexArray);
+            GL.Disable(EnableCap.ColorArray);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
@@ -54,25 +62,30 @@ namespace VoxelEngine.GameData
         public void OnChunkUpdated()
         {
             ushort[] arrayElementBuffer;
-            Vertex[] arrayBuffer;
-            CreateCubes(out arrayBuffer, out arrayElementBuffer);
+            float[] arrayBuffer;
+            float[] colors;
+            CreateCubes(out arrayBuffer, out arrayElementBuffer, out colors);
 
-            GL.GenBuffers(1, out m_vertexBuffer);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, m_vertexBuffer);
-            int size = System.Runtime.InteropServices.Marshal.SizeOf(typeof(Vertex));
-            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(size * arrayBuffer.Length), arrayBuffer, BufferUsageHint.StaticDraw);
+            GL.GenBuffers(1, out _mVertexBuffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
+            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(arrayBuffer) * arrayBuffer.Length), arrayBuffer, BufferUsageHint.StaticDraw);
 
-            GL.GenBuffers(1, out m_indexBuffer);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, m_indexBuffer);
-
+            GL.GenBuffers(1, out _mIndexBuffer);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
             GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(ushort) * arrayElementBuffer.Length), arrayElementBuffer, BufferUsageHint.StaticDraw);
+
+            GL.GenBuffers(1, out _mColorBuffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _mColorBuffer);
+            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(colors) * colors.Length), colors, BufferUsageHint.StaticDraw);
+
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
         }
 
-        private void CreateCubes(out Vertex[] arrayBuffer, out ushort[] arrayElementBuffer)
+        private void CreateCubes(out float[] arrayBuffer, out ushort[] arrayElementBuffer, out float[] color)
         {
-            var vertices = new List<Vertex>();
+            var vertices = new List<float>();
             var triangles = new List<ushort>();
+            var colors = new List<float>();
             ushort offset = 0;
             for (int x = 0; x < ChunkSize; x++)
             {
@@ -85,14 +98,25 @@ namespace VoxelEngine.GameData
                         {
                             vertices.AddRange(new []
                             {
-                                new Vertex(255,0,0,255,-0.5f + x,  0.5f + y,  0.5f + z), // vertex[0]
-			                    new Vertex(0,255,0,255, 0.5f + x,  0.5f + y,  0.5f + z), // vertex[1]
-			                    new Vertex(0,0,255,255, 0.5f + x, -0.5f + y,  0.5f + z), // vertex[2]
-			                    new Vertex(255,255,0,255,-0.5f + x, -0.5f + y,  0.5f + z), // vertex[3]
-			                    new Vertex(255,0,255,255,-0.5f + x,  0.5f + y, -0.5f + z), // vertex[4]
-			                    new Vertex(0,255,255,255, 0.5f + x,  0.5f + y, -0.5f + z), // vertex[5]
-			                    new Vertex(255,255,255,255, 0.5f + x, -0.5f + y, -0.5f + z), // vertex[6]
-			                    new Vertex(0,0,0,255,-0.5f + x, -0.5f + y, -0.5f + z)  // vertex[7]
+                                -0.5f + x,  0.5f + y,  0.5f + z, // vertex[0]
+			                     0.5f + x,  0.5f + y,  0.5f + z, // vertex[1]
+			                     0.5f + x, -0.5f + y,  0.5f + z, // vertex[2]
+			                    -0.5f + x, -0.5f + y,  0.5f + z, // vertex[3]
+			                    -0.5f + x,  0.5f + y, -0.5f + z, // vertex[4]
+			                     0.5f + x,  0.5f + y, -0.5f + z, // vertex[5]
+			                     0.5f + x, -0.5f + y, -0.5f + z, // vertex[6]
+			                    -0.5f + x, -0.5f + y, -0.5f + z  // vertex[7]
+                            });
+                            colors.AddRange(new []
+                            {
+                                1.0f, 0.0f, 0.0f, 1.0f,
+                                0.0f, 1.0f, 0.0f, 1.0f,
+                                0.0f, 0.0f, 1.0f, 1.0f,
+                                0.0f, 1.0f, 1.0f, 1.0f,
+                                1.0f, 0.0f, 0.0f, 1.0f,
+                                0.0f, 1.0f, 0.0f, 1.0f,
+                                0.0f, 0.0f, 1.0f, 1.0f,
+                                0.0f, 1.0f, 1.0f, 1.0f,
                             });
                             triangles.AddRange(new []
                             {
@@ -116,7 +140,8 @@ namespace VoxelEngine.GameData
             }
             arrayBuffer = vertices.ToArray();
             arrayElementBuffer = triangles.ToArray();
-            length = arrayElementBuffer.Length;
+            _length = arrayElementBuffer.Length;
+            color = colors.ToArray();
         }
     }
     struct Vertex
