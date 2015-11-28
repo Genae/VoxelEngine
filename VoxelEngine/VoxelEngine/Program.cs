@@ -1,64 +1,68 @@
 ﻿using System;
 using System.Drawing;
 using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using VoxelEngine.Camera;
+using VoxelEngine.GameData;
 
-namespace Example
+namespace VoxelEngine
 {
-    class MyApplication
+    public class Engine : GameWindow
     {
+        public Camera3D Camera;
+        public Chunk Chunk;
+        private Matrix4 _matrixProjection;
+
         [STAThread]
         public static void Main()
         {
-            using (var game = new GameWindow())
+            using (var game = new Engine())
             {
-                game.Load += (sender, e) =>
-                {
-                    // setup settings, load textures, sounds
-                    game.VSync = VSyncMode.On;
-                };
-
-                game.Resize += (sender, e) =>
-                {
-                    GL.Viewport(0, 0, game.Width, game.Height);
-                };
-
-                game.UpdateFrame += (sender, e) =>
-                {
-                    // add game logic, input handling
-                    if (game.Keyboard[Key.Escape])
-                    {
-                        game.Exit();
-                    }
-                };
-
-                game.RenderFrame += (sender, e) =>
-                {
-                    // render graphics
-                    GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-                    GL.MatrixMode(MatrixMode.Projection);
-                    GL.LoadIdentity();
-                    GL.Ortho(-1.0, 1.0, -1.0, 1.0, 0.0, 4.0);
-
-                    GL.Begin(PrimitiveType.Triangles);
-
-                    GL.Color3(Color.Aquamarine);
-                    GL.Vertex2(-1.0f, 1.0f);
-                    GL.Color3(Color.SpringGreen);
-                    GL.Vertex2(0.0f, -1.0f);
-                    GL.Color3(Color.Ivory);
-                    GL.Vertex2(1.0f, 1.0f);
-
-                    GL.End();
-
-                    game.SwapBuffers();
-                };
-
                 // Run the game at 60 updates per second
-                game.Run(60.0);
+                game.Run(60);
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            // Load stuff
+            Camera = new Camera3D();
+            Chunk = new Chunk();
+
+            //Settings
+            VSync = VSyncMode.On;
+            GL.ClearColor(Color.CornflowerBlue);
+            GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.CullFace);
+
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            GL.Viewport(0, 0, Width, Height);
+            _matrixProjection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1f, 100f);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref _matrixProjection);
+        }
+
+        protected override void OnRenderFrame(FrameEventArgs e)
+        {
+            base.OnRenderFrame(e);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            Camera.OnRenderFrame(e);
+            Chunk.OnRenderFrame(e);
+            SwapBuffers();
+        }
+
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            base.OnUpdateFrame(e);
+            if (Keyboard[Key.Escape])
+            {
+                Exit();
             }
         }
     }
