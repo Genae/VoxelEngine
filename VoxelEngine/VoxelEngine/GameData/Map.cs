@@ -69,7 +69,7 @@ namespace VoxelEngine.GameData
                 {
                     for (int z = 0; z < Chunks.GetLength(2); z++)
                     {
-                        Chunks[x, y, z].Visible = frustum.SphereVsFrustum(new Vector3(x, y, z)* Chunk.Scale * Chunk.ChunkSize/2, Chunk.Scale*Chunk.ChunkSize);
+                        Chunks[x, y, z].Visible = frustum.SphereVsFrustum(new Vector3(x + 0.5f, y + 0.5f, z + 0.5f) * Chunk.Scale * Chunk.ChunkSize, Chunk.Scale*Chunk.ChunkSize);
                         if (Chunks[x, y, z].Visible) v++;
                         else i++;
                     }

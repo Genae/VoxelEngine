@@ -36,17 +36,13 @@ namespace VoxelEngine.GameData
                     }
                 }
             }
-            var rand = new Random(1);
+            var rand = new Random(0);
             for (int i = 0; i < 70; i++)
             {
                 var x = rand.Next(Voxels.GetLength(0));
                 var y = rand.Next(Voxels.GetLength(1));
                 var z = rand.Next(Voxels.GetLength(2));
                 Voxels[x, y, z].BlockType = 2;
-                x = rand.Next(Voxels.GetLength(0));
-                y = rand.Next(Voxels.GetLength(1));
-                z = rand.Next(Voxels.GetLength(2));
-                Voxels[x, y, z].IsActive = false;
             }
         }
 
