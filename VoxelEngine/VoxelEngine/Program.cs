@@ -30,7 +30,7 @@ namespace VoxelEngine
             base.OnLoad(e);
             // Load stuff
             Camera = new Camera3D();
-            Map = new Map(1);
+            Map = new Map(16);
 
             //Settings
             VSync = VSyncMode.On;
@@ -59,7 +59,7 @@ namespace VoxelEngine
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             Camera.OnRenderFrame(e);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); //PolygonMode important, MaterialFace.Front only renders front side?
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
             Map.OnRenderFrame(e);
             SwapBuffers();
         }
