@@ -10,7 +10,7 @@ namespace VoxelEngine
 {
     public class Engine : GameWindow
     {
-        public Camera3D Camera;
+        public GameCameraController Camera;
         public Map Map;
         private Matrix4 _matrixProjection;
         private int timer;
@@ -29,7 +29,7 @@ namespace VoxelEngine
         {
             base.OnLoad(e);
             // Load stuff
-            Camera = new Camera3D();
+            Camera = new GameCameraController();
             Map = new Map(16);
 
             //Settings
