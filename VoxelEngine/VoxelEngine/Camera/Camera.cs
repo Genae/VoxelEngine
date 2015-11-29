@@ -11,7 +11,7 @@ namespace VoxelEngine.Camera
         //Relative Directions
         public Vector3 Left => -Right;
         public Vector3 Right => new Vector3(_cameraMatrix.M11, _cameraMatrix.M21, _cameraMatrix.M31);
-        public Vector3 Up => new Vector3(_cameraMatrix.M12, _cameraMatrix.M22, _cameraMatrix.M33);
+        public Vector3 Up => new Vector3(_cameraMatrix.M12, _cameraMatrix.M22, _cameraMatrix.M32);
         public Vector3 Down => -Up;
         public Vector3 Forward => -Backward;
         public Vector3 Backward => new Vector3(_cameraMatrix.M13, _cameraMatrix.M23, _cameraMatrix.M33);

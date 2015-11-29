@@ -30,7 +30,7 @@ namespace VoxelEngine
             base.OnLoad(e);
             // Load stuff
             Camera = new GameCameraController();
-            Map = new Map(16);
+            Map = new Map(8);
 
             //Settings
             VSync = VSyncMode.On;
