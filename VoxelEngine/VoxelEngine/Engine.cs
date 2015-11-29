@@ -14,7 +14,7 @@ namespace VoxelEngine
         public GameCameraController Camera;
         public Map Map;
         private Matrix4 _matrixProjection;
-        private int timer;
+        private int _timer, _counter;
         public static Vector2 ScreenSize;
         public static Vector2 ScreenPos;
 
@@ -64,11 +64,13 @@ namespace VoxelEngine
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            timer += (int)(1000*e.Time);
-            if (timer >= 1000)
+            _counter++;
+            _timer += (int)(1000*e.Time);
+            if (_timer >= 1000)
             {
-                Console.WriteLine((int)(1 / e.Time));
-                timer = 0;
+                Console.WriteLine(_counter);
+                _timer = 0;
+                _counter = 0;
             }
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
