@@ -2,7 +2,7 @@
 {
     public class Voxel
     {
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; } = false;
         public int BlockType { get; set; } = 1;
     }
 }

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using VoxelEngine.Camera;
 
 namespace VoxelEngine.GameData
@@ -13,12 +9,12 @@ namespace VoxelEngine.GameData
     {
         public Chunk[,,] Chunks;
 
-        public Map(int size)
+        public Map(int size, int height)
         {
-            Chunks = new Chunk[size, size, size];
+            Chunks = new Chunk[size, height, size];
             for (int x = 0; x < size; x++)
             {
-                for (int y = 0; y < size; y++)
+                for (int y = 0; y < height; y++)
                 {
                     for (int z = 0; z < size; z++)
                     {
@@ -52,6 +48,51 @@ namespace VoxelEngine.GameData
             }
         }
 
+        public void LoadHeightmap(short[,] heightmap)
+        {
+            for (int x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            {
+                for (int z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                {
+                    var height = heightmap[x, z];
+                    for (int y = 0; y < height; y++)
+                    {
+                        GetVoxel(x, y, z).IsActive = true;
+                    }
+                }
+            }
+        }
+
+        public void LoadHeightmap(float[,] heightmap, short maxHeight)
+        {
+            var v = 0;
+            for (int x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            {
+                for (int z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                {
+                    var height = heightmap[x, z]* maxHeight;
+                    for (int y = 0; y < height; y++)
+                    {
+                        GetVoxel(x, y, z).IsActive = true;
+                        v++;
+                    }
+                }
+            }
+            foreach (var chunk in Chunks)
+            {
+                chunk.OnChunkUpdated();
+            }
+            Console.WriteLine(v);
+        }
+
+        public Voxel GetVoxel(int x, int y, int z)
+        {
+            var cx = x/Chunk.ChunkSize;
+            var cy = y/Chunk.ChunkSize;
+            var cz = z/Chunk.ChunkSize;
+            return Chunks[cx, cy, cz].Voxels[x%Chunk.ChunkSize, y%Chunk.ChunkSize, z%Chunk.ChunkSize];
+        }
+
         private bool IsChunkActive(int x, int y , int z)
         {
             return x == 0 || x == Chunks.GetLength(0) - 1 || !Chunks[x - 1, y, z].HasSolidBorder(1) || !Chunks[x + 1, y, z].HasSolidBorder(2) ||
@@ -61,8 +102,6 @@ namespace VoxelEngine.GameData
 
         public void ApplyFrustum(Frustum frustum)
         {
-            var v = 0;
-            var i = 0;
             for (int x = 0; x < Chunks.GetLength(0); x++)
             {
                 for (int y = 0; y < Chunks.GetLength(1); y++)
@@ -70,12 +109,10 @@ namespace VoxelEngine.GameData
                     for (int z = 0; z < Chunks.GetLength(2); z++)
                     {
                         Chunks[x, y, z].Visible = frustum.SphereVsFrustum(new Vector3(x + 0.5f, y + 0.5f, z + 0.5f) * Chunk.Scale * Chunk.ChunkSize, Chunk.Scale*Chunk.ChunkSize);
-                        if (Chunks[x, y, z].Visible) v++;
-                        else i++;
+
                     }
                 }
             }
-            //Console.WriteLine("Visible: " + v + ", Invisible: " + i);
         }
     }
 }

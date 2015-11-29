@@ -36,14 +36,6 @@ namespace VoxelEngine.GameData
                     }
                 }
             }
-            var rand = new Random(0);
-            for (int i = 0; i < 70; i++)
-            {
-                var x = rand.Next(Voxels.GetLength(0));
-                var y = rand.Next(Voxels.GetLength(1));
-                var z = rand.Next(Voxels.GetLength(2));
-                Voxels[x, y, z].BlockType = 2;
-            }
         }
 
         public void OnRenderFrame(FrameEventArgs e)
@@ -316,10 +308,10 @@ namespace VoxelEngine.GameData
             });
             colors.AddRange(new[]
             {
-                curType-1.0f, curType-1.0f, curType-1.0f, curType-1.0f,
-                curType-1.0f, curType-1.0f, curType-1.0f, curType-1.0f,
-                curType-1.0f, curType-1.0f, curType-1.0f, curType-1.0f,
-                curType-1.0f, curType-1.0f, curType-1.0f, curType-1.0f,
+                curType-1.0f, curType-0.5f, curType-0.5f, curType-1.0f,
+                curType-1.0f, curType-0.5f, curType-1.0f, curType-1.0f,
+                curType-0.5f, curType-1.0f, curType-1.0f, curType-1.0f,
+                curType-1.0f, curType-1.0f, curType-0.5f, curType-1.0f,
             });
             if (front)
             {

@@ -18,17 +18,6 @@ namespace VoxelEngine
         public static Vector2 ScreenSize;
         public static Vector2 ScreenPos;
 
-        [STAThread]
-        public static void Main()
-        {
-            using (var game = new Engine())
-            {
-                Instance = game;
-                // Run the game at 60 updates per second
-                game.Run(60);
-            }
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -37,7 +26,7 @@ namespace VoxelEngine
             CursorVisible = false;
             // Load stuff
             Camera = new GameCameraController();
-            Map = new Map(8);
+            Map = new Map(8, 4);
 
             //Settings
             VSync = VSyncMode.On;
@@ -75,7 +64,7 @@ namespace VoxelEngine
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             Camera.OnRenderFrame(e);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
             Map.OnRenderFrame(e);
             SwapBuffers();
         }
