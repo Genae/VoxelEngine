@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -60,7 +59,7 @@ namespace VoxelEngine
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             Camera.OnRenderFrame(e);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); //PolygonMode important, MaterialFace.Front only renders front side?
             Map.OnRenderFrame(e);
             SwapBuffers();
         }
@@ -72,6 +71,9 @@ namespace VoxelEngine
             {
                 Exit();
             }
+
+            //Camera.OnUpdateFrame(e);
+            
         }
     }
 }
