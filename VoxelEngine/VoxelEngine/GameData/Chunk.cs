@@ -296,7 +296,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 3, curType, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors);
                                         curRectangle = null;
                                     }
                                 }
@@ -321,7 +321,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 3, curType, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors);
                                     }
                                     curRectangle = null;
                                 }

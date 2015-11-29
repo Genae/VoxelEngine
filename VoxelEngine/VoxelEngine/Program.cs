@@ -72,7 +72,7 @@ namespace VoxelEngine
                 Exit();
             }
 
-            //Camera.OnUpdateFrame(e);
+            Camera.OnUpdateFrame(e);
             
         }
     }
