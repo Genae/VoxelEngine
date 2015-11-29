@@ -14,6 +14,8 @@ namespace VoxelEngine
         public Map Map;
         private Matrix4 _matrixProjection;
         private int timer;
+        public static Vector2 ScreenSize;
+        public static Vector2 ScreenPos;
 
         [STAThread]
         public static void Main()
@@ -28,6 +30,9 @@ namespace VoxelEngine
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            OnResize(e);
+            OnMove(e);
+            CursorVisible = false;
             // Load stuff
             Camera = new GameCameraController();
             Map = new Map(8);
@@ -46,6 +51,13 @@ namespace VoxelEngine
             _matrixProjection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1f, 100f);
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref _matrixProjection);
+            ScreenSize = new Vector2(Width, Height);
+        }
+
+        protected override void OnMove(EventArgs e)
+        {
+            base.OnMove(e);
+            ScreenPos = new Vector2(X, Y);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

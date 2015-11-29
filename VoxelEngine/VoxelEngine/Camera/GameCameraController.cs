@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 
 namespace VoxelEngine.Camera
@@ -60,6 +62,7 @@ namespace VoxelEngine.Camera
 
             _mouseDelta.X = _curMousePosition.X - _pastMousePosition.X;
             _mouseDelta.Y = -1 * (_curMousePosition.Y - _pastMousePosition.Y);
+            Mouse.SetPosition(Engine.ScreenSize.X/2 + Engine.ScreenPos.X, Engine.ScreenSize.Y/2 + Engine.ScreenPos.Y);
 
             if (mouse[MouseButton.Right])
             {
