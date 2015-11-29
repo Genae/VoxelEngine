@@ -3,6 +3,6 @@
     public class Voxel
     {
         public bool IsActive { get; set; } = true;
-        public int BlockType { get; set; }
+        public int BlockType { get; set; } = 1;
     }
 }
