@@ -10,8 +10,9 @@ namespace VoxelEngine.Camera
         public float CameraYRotation;
 
         private Matrix4 cameraMatrix;
-        private float _cameraSpeed = 5;
+        private float _cameraSpeed = 5, _facing, _pitch, _rotationSpeed = 0.01f;
         private Vector3 _cameraPos, _cameraForward;
+        private Vector2 _curMousePosition, _pastMousePosition, _mouseDelta, _mouseSpeed;
 
         public Camera3D()
         {
@@ -24,7 +25,8 @@ namespace VoxelEngine.Camera
         {
             //CameraYRotation = (CameraYRotation < 360f) ? (CameraYRotation + 0.1f * (float)e.Time) : 0f;
             //Matrix4.CreateRotationY(CameraYRotation, out cameraMatrix);
-            cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + _cameraForward, Vector3.UnitY);
+            Vector3 lookatPoint = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
+            cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos  + lookatPoint, Vector3.UnitY);
             
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(ref cameraMatrix);
@@ -38,32 +40,31 @@ namespace VoxelEngine.Camera
                 _cameraPos += new Vector3(0f, 0f, _cameraSpeed * (float)e.Time);
             }
 
-            if (Keyboard.GetState()[Key.S])
+            if (keyboard[Key.S])
             {
                 _cameraPos += new Vector3(0f, 0f, -_cameraSpeed * (float)e.Time);
             }
 
-            if (Keyboard.GetState()[Key.A])
+            if (keyboard[Key.A])
             {
                 _cameraPos += new Vector3(_cameraSpeed * (float)e.Time, 0f, 0f);
             }
 
-            if (Keyboard.GetState()[Key.D])
+            if (keyboard[Key.D])
             {
                 _cameraPos += new Vector3(-_cameraSpeed * (float)e.Time, 0f, 0f);
             }
-            if (Keyboard.GetState()[Key.Space])
+            if (keyboard[Key.Space])
             {
                 _cameraPos += new Vector3(0f, _cameraSpeed * (float)e.Time, 0f);
             }
 
-            if (Keyboard.GetState()[Key.C])
+            if (keyboard[Key.C])
             {
                 _cameraPos += new Vector3(0f, -_cameraSpeed * (float)e.Time, 0f);
             }
 
 
-            /*
             var mouse = Mouse.GetState();
             _curMousePosition.X = mouse.X;
             _curMousePosition.Y = mouse.Y;
@@ -76,14 +77,15 @@ namespace VoxelEngine.Camera
                 Console.WriteLine(_mouseDelta);
             }
 
-            _mouseSpeed.X += _mouseDelta.X;
+            /*_mouseSpeed.X += _mouseDelta.X;
             _mouseSpeed.Y += _mouseDelta.Y;
-
+            */
             _pastMousePosition = _curMousePosition;
 
+            _facing += _mouseDelta[0] * _rotationSpeed;
+            _pitch += _mouseDelta[1] * _rotationSpeed;
+            
 
-            cameraMatrix = Matrix4.Mult(cameraMatrix, Matrix4.CreateRotationY(_mouseSpeed.X * (float)e.Time));
-            cameraMatrix = Matrix4.Mult(cameraMatrix, Matrix4.CreateRotationX(_mouseSpeed.Y * (float)e.Time));*/
         }
     }
 }
