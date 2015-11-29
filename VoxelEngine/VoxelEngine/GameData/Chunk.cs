@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Diagnostics;
-using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
@@ -12,7 +9,7 @@ namespace VoxelEngine.GameData
     public class Chunk
     {
         public const int ChunkSize = 16;
-        public float scale = 0.1f;
+        public const float Scale = 0.1f;
         public Voxel[,,] Voxels;
         public Vector3 Pos;
 
@@ -23,6 +20,7 @@ namespace VoxelEngine.GameData
         int _length;
         private bool _loaded;
         private bool _active;
+        public bool Visible;
 
         public Chunk(Vector3 pos)
         {
@@ -54,7 +52,7 @@ namespace VoxelEngine.GameData
 
         public void OnRenderFrame(FrameEventArgs e)
         {
-            if (_length == 0 || !_active)
+            if (_length == 0 || !_active || !Visible)
                 return;
             if(!_loaded)
                 OnChunkUpdated();
@@ -108,7 +106,6 @@ namespace VoxelEngine.GameData
             var colors = new List<float>();
 
             var planes = new int[6, ChunkSize, ChunkSize, ChunkSize];
-            ushort offset = 0;
             for (int x = 0; x < ChunkSize; x++)
             {
                 for (int y = 0; y < ChunkSize; y++)
@@ -316,10 +313,10 @@ namespace VoxelEngine.GameData
             var offset = vertices.Count/3;
             vertices.AddRange(new[]
             {
-                (curRectangle.WorldA.X + Pos.X*ChunkSize)*scale, (curRectangle.WorldA.Y + Pos.Y*ChunkSize)*scale, (curRectangle.WorldA.Z + Pos.Z*ChunkSize)*scale, // vertex[0]
-			    (curRectangle.WorldB.X + Pos.X*ChunkSize)*scale, (curRectangle.WorldB.Y + Pos.Y*ChunkSize)*scale, (curRectangle.WorldB.Z + Pos.Z*ChunkSize)*scale, // vertex[1]
-			    (curRectangle.WorldC.X + Pos.X*ChunkSize)*scale, (curRectangle.WorldC.Y + Pos.Y*ChunkSize)*scale, (curRectangle.WorldC.Z + Pos.Z*ChunkSize)*scale, // vertex[2]
-			    (curRectangle.WorldD.X + Pos.X*ChunkSize)*scale, (curRectangle.WorldD.Y + Pos.Y*ChunkSize)*scale, (curRectangle.WorldD.Z + Pos.Z*ChunkSize)*scale, // vertex[3]
+                (curRectangle.WorldA.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldA.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldA.Z + Pos.Z*ChunkSize)*Scale, // vertex[0]
+			    (curRectangle.WorldB.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldB.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldB.Z + Pos.Z*ChunkSize)*Scale, // vertex[1]
+			    (curRectangle.WorldC.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldC.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldC.Z + Pos.Z*ChunkSize)*Scale, // vertex[2]
+			    (curRectangle.WorldD.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldD.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldD.Z + Pos.Z*ChunkSize)*Scale, // vertex[3]
             });
             colors.AddRange(new[]
             {
@@ -425,7 +422,7 @@ namespace VoxelEngine.GameData
             else
                 Unload();
         }
-
+        
         public void Unload()
         {
             if(!_loaded)

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
 
 namespace VoxelEngine.Camera
 {
@@ -59,6 +57,8 @@ namespace VoxelEngine.Camera
             }
         }
 
+        //Other Properties
+        public Frustum Frustum { get; }
 
         //internal
         private Matrix4 _cameraMatrix;
@@ -66,6 +66,7 @@ namespace VoxelEngine.Camera
         public Camera3D()
         {
             _cameraPos = new Vector3(0f, 0f, -5f);
+            Frustum = new Frustum();
         }
         
         public void OnRenderFrame(FrameEventArgs e)
@@ -78,8 +79,15 @@ namespace VoxelEngine.Camera
 
         private void RecalculateMatrix()
         {
-            var _cameraForward = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
-            _cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + _cameraForward, Vector3.UnitY);
+            var cameraForward = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
+            _cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + cameraForward, Vector3.UnitY);
+
+            Matrix4 projection;
+            GL.GetFloat(GetPName.ProjectionMatrix, out projection);
+            Matrix4 modelview;
+            GL.GetFloat(GetPName.ModelviewMatrix, out modelview);
+            Frustum.CalculateFrustum(projection, modelview);
+            Engine.Instance.Map.ApplyFrustum(Frustum);
         }
     }
 }

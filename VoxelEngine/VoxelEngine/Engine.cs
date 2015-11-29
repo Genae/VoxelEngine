@@ -10,6 +10,7 @@ namespace VoxelEngine
 {
     public class Engine : GameWindow
     {
+        public static Engine Instance;
         public GameCameraController Camera;
         public Map Map;
         private Matrix4 _matrixProjection;
@@ -22,6 +23,7 @@ namespace VoxelEngine
         {
             using (var game = new Engine())
             {
+                Instance = game;
                 // Run the game at 60 updates per second
                 game.Run(60);
             }

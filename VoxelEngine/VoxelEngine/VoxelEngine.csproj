@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera\Camera.cs" />
+    <Compile Include="Camera\Frustum.cs" />
     <Compile Include="Camera\GameCameraController.cs" />
     <Compile Include="GameData\Chunk.cs" />
     <Compile Include="GameData\Map.cs" />
