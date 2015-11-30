@@ -200,7 +200,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 1, vox, vertices, triangles, colors, normals, new Vector3(0, 1f, 0));
+                                        AddRect(curRectangle, o == 1, vox, vertices, triangles, colors, normals, new Vector3(1f, 0f, 0));
                                     }
                                     curRectangle = null;
                                 }
@@ -223,7 +223,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors, normals, new Vector3(0, 0, 1f));
+                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors, normals, new Vector3(0, 1f, 0f));
                                         curRectangle = null;
                                     }
                                 }
@@ -248,7 +248,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 2, vox, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
+                                        AddRect(curRectangle, o == 2, vox, vertices, triangles, colors, normals, new Vector3(0f, 1f, 0));
                                     }
                                     curRectangle = null;
                                 }
@@ -271,7 +271,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 5, curType, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
+                                        AddRect(curRectangle, o == 5, curType, vertices, triangles, colors, normals, new Vector3(0, 0, 1f));
                                         curRectangle = null;
                                     }
                                 }
@@ -296,7 +296,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 5, vox, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
+                                        AddRect(curRectangle, o == 5, vox, vertices, triangles, colors, normals, new Vector3(0, 0, 1f));
                                     }
                                     curRectangle = null;
                                 }
