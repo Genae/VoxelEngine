@@ -52,6 +52,8 @@ namespace VoxelEngine.GameData
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
             GL.VertexPointer(3, VertexPointerType.Float, Vector3.SizeInBytes, 0);
 
+            //set attributes for shader?
+
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
             GL.DrawElements(BeginMode.Triangles, _length, DrawElementsType.UnsignedShort, 0);
 

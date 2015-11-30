@@ -109,6 +109,9 @@ namespace VoxelEngine.Shaders
                  GL.DeleteShader(fragmentShader);
             }
 
+            //add shader attributes here
+            
+
             GL.LinkProgram(_program);
             GL.GetProgramInfoLog(_program, out info);
             GL.GetProgram(_program, GetProgramParameterName.LinkStatus, out statusCode);
