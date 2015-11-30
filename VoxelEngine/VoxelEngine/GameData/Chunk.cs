@@ -53,6 +53,11 @@ namespace VoxelEngine.GameData
             GL.VertexPointer(3, VertexPointerType.Float, Vector3.SizeInBytes, 0);
 
             //set attributes for shader?
+            /*GL.EnableVertexAttribArray(0);
+            GL.BindAttribLocation(_program, 0, "vertexPosition");
+            GL.VertexAttribPointer(0, Vector3.SizeInBytes, VertexAttribPointerType.Float, false, Vector3.SizeInBytes, 0);*/
+            
+
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
             GL.DrawElements(BeginMode.Triangles, _length, DrawElementsType.UnsignedShort, 0);
