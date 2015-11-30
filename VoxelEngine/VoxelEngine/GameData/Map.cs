@@ -1,13 +1,16 @@
 ﻿using System;
+using System.IO;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using VoxelEngine.Camera;
+using VoxelEngine.Shaders;
 
 namespace VoxelEngine.GameData
 {
     public class Map
     {
         public Chunk[,,] Chunks;
+        public Shader Shader;
 
         public Map(int size, int height)
         {
@@ -32,10 +35,14 @@ namespace VoxelEngine.GameData
                     }
                 }
             }
+            var vert = File.ReadAllText("Shaders/shader.vert");
+            var frag = File.ReadAllText("Shaders/shader.frag");
+            Shader = new Shader(vert, frag);
         }
 
         public void OnRenderFrame(FrameEventArgs e)
         {
+            Shader.Bind(Shader);
             for (int x = 0; x < Chunks.GetLength(0); x++)
             {
                 for (int y = 0; y < Chunks.GetLength(1); y++)
