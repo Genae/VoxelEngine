@@ -33,6 +33,26 @@ namespace VoxelEngine
             GL.ClearColor(Color.CornflowerBlue);
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
+
+            //light
+            float[] mat_specular = { 1.0f, 1.0f, 1.0f, 1.0f };
+            float[] mat_shininess = { 50.0f };
+            float[] light_position = { 1.0f, 1.0f, 1.0f, 0.0f };
+            float[] light_ambient = { 0.5f, 0.5f, 0.5f, 1.0f };
+            float[] lmodel_ambient = { 0.7f, 0.2f, 0.2f, 1.0f };
+
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            GL.ShadeModel(ShadingModel.Smooth);
+
+            GL.Material(MaterialFace.Front, MaterialParameter.Specular, mat_specular);
+            GL.Material(MaterialFace.Front, MaterialParameter.Shininess, mat_shininess);
+            GL.Light(LightName.Light0, LightParameter.Position, light_position);
+            GL.Light(LightName.Light0, LightParameter.Ambient, light_ambient);
+            GL.Light(LightName.Light0, LightParameter.Diffuse, mat_specular);
+            GL.LightModel(LightModelParameter.LightModelAmbient, lmodel_ambient);
+
+            GL.Enable(EnableCap.Lighting);
+            GL.Enable(EnableCap.Light0);
         }
 
         protected override void OnResize(EventArgs e)

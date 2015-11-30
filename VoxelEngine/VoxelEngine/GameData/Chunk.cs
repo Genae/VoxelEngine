@@ -53,11 +53,6 @@ namespace VoxelEngine.GameData
             GL.EnableClientState(ArrayCap.VertexArray);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
             GL.VertexPointer(3, VertexPointerType.Float, Vector3.SizeInBytes, 0);
-
-            //set attributes for shader?
-            /*GL.EnableVertexAttribArray(0);
-            GL.BindAttribLocation(_program, 0, "vertexPosition");
-            GL.VertexAttribPointer(0, Vector3.SizeInBytes, VertexAttribPointerType.Float, false, Vector3.SizeInBytes, 0);*/
             
             GL.EnableClientState(ArrayCap.NormalArray);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mNormalBuffer);
@@ -205,7 +200,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 1, vox, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
+                                        AddRect(curRectangle, o == 1, vox, vertices, triangles, colors, normals, new Vector3(0, 1f, 0));
                                     }
                                     curRectangle = null;
                                 }
@@ -228,7 +223,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
+                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors, normals, new Vector3(0, 0, 1f));
                                         curRectangle = null;
                                     }
                                 }
