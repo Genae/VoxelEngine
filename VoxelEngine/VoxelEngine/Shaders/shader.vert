@@ -16,7 +16,7 @@ void main(void)
 	//lightDir = vec3(-1.0, -1.0, -1.0);
 
 	//vec4 for test purposes, gl_Color correct!
-	vColor = vec4(1.0, 0.0, 0.0, 1.0) * pow(dot(normalize(gl_NormalMatrix * gl_Normal), vec3(0.0, -1.0, 0.0)), 2.0);
+	vColor = gl_Color * dot((vec3)normalize(gl_Normal), vec3(0.7, -1.0, 0.3));
 
 	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;  
 }
