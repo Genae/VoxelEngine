@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
@@ -17,6 +18,7 @@ namespace VoxelEngine.GameData
         int _mVertexBuffer;
         int _mIndexBuffer;
         int _mColorBuffer;
+        int _mNormalBuffer;
         int _length;
         private bool _loaded;
         private bool _active;
@@ -57,7 +59,9 @@ namespace VoxelEngine.GameData
             GL.BindAttribLocation(_program, 0, "vertexPosition");
             GL.VertexAttribPointer(0, Vector3.SizeInBytes, VertexAttribPointerType.Float, false, Vector3.SizeInBytes, 0);*/
             
-
+            GL.EnableClientState(ArrayCap.NormalArray);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _mNormalBuffer);
+            GL.NormalPointer(NormalPointerType.Float, Vector3.SizeInBytes, 0);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
             GL.DrawElements(BeginMode.Triangles, _length, DrawElementsType.UnsignedShort, 0);
@@ -71,34 +75,40 @@ namespace VoxelEngine.GameData
         
         public void OnChunkUpdated()
         {
-            ushort[] arrayElementBuffer;
-            float[] arrayBuffer;
+            ushort[] triangles;
+            float[] vertecies;
             float[] colors;
-            CreateCubes(out arrayBuffer, out arrayElementBuffer, out colors);
+            float[] normals;
+            CreateCubes(out vertecies, out triangles, out colors, out normals);
 
-            if (arrayBuffer.Length == 0)
+            if (vertecies.Length == 0)
                 return;
             GL.GenBuffers(1, out _mVertexBuffer);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
-            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(arrayBuffer) * arrayBuffer.Length), arrayBuffer, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(vertecies) * vertecies.Length), vertecies, BufferUsageHint.StaticDraw);
 
             GL.GenBuffers(1, out _mIndexBuffer);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(ushort) * arrayElementBuffer.Length), arrayElementBuffer, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(ushort) * triangles.Length), triangles, BufferUsageHint.StaticDraw);
 
             GL.GenBuffers(1, out _mColorBuffer);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mColorBuffer);
             GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(colors) * colors.Length), colors, BufferUsageHint.StaticDraw);
 
+            GL.GenBuffers(1, out _mNormalBuffer);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _mNormalBuffer);
+            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(normals) * normals.Length), normals, BufferUsageHint.StaticDraw);
+
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
             _loaded = true;
         }
 
-        private void CreateCubes(out float[] arrayBuffer, out ushort[] arrayElementBuffer, out float[] color)
+        private void CreateCubes(out float[] arrayBuffer, out ushort[] arrayElementBuffer, out float[] color, out float[] normal)
         {
             var vertices = new List<float>();
             var triangles = new List<ushort>();
             var colors = new List<float>();
+            var normals = new List<float>();
 
             var planes = new int[6, ChunkSize, ChunkSize, ChunkSize];
             for (int x = 0; x < ChunkSize; x++)
@@ -141,15 +151,16 @@ namespace VoxelEngine.GameData
 
             for (int i = 0; i < 6; i++)
             {
-                RunGreedyMeshing(planes, i, vertices, triangles, colors);
+                RunGreedyMeshing(planes, i, vertices, triangles, colors, normals);
             }
             arrayBuffer = vertices.ToArray();
             arrayElementBuffer = triangles.ToArray();
             _length = arrayElementBuffer.Length;
             color = colors.ToArray();
+            normal = normals.ToArray();
         }
 
-        private void RunGreedyMeshing(int[,,,] planes, int o, List<float> vertices, List<ushort> triangles, List<float> colors)
+        private void RunGreedyMeshing(int[,,,] planes, int o, List<float> vertices, List<ushort> triangles, List<float> colors, List<float> normals)
         {
             Rect curRectangle = null;
             var curType = 0;
@@ -169,7 +180,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 1, curType, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 1, curType, vertices, triangles, colors, normals, new Vector3(1f,0,0));
                                         curRectangle = null;
                                     }
                                 }
@@ -194,7 +205,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 1, vox, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 1, vox, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
                                     }
                                     curRectangle = null;
                                 }
@@ -217,7 +228,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 2, curType, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
                                         curRectangle = null;
                                     }
                                 }
@@ -242,7 +253,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 2, vox, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 2, vox, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
                                     }
                                     curRectangle = null;
                                 }
@@ -265,7 +276,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 5, curType, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 5, curType, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
                                         curRectangle = null;
                                     }
                                 }
@@ -290,7 +301,7 @@ namespace VoxelEngine.GameData
                                 {
                                     if (curRectangle != null)
                                     {
-                                        AddRect(curRectangle, o == 5, vox, vertices, triangles, colors);
+                                        AddRect(curRectangle, o == 5, vox, vertices, triangles, colors, normals, new Vector3(1f, 0, 0));
                                     }
                                     curRectangle = null;
                                 }
@@ -303,7 +314,7 @@ namespace VoxelEngine.GameData
             
         }
 
-        private void AddRect(Rect curRectangle, bool front, int curType, List<float> vertices, List<ushort> triangles, List<float> colors)
+        private void AddRect(Rect curRectangle, bool front, int curType, List<float> vertices, List<ushort> triangles, List<float> colors, List<float> normals, Vector3 normal)
         {
             var offset = vertices.Count/3;
             vertices.AddRange(new[]
@@ -319,6 +330,14 @@ namespace VoxelEngine.GameData
                 curType-1.0f, curType-0.5f, curType-1.0f, curType-1.0f,
                 curType-0.5f, curType-1.0f, curType-1.0f, curType-1.0f,
                 curType-1.0f, curType-1.0f, curType-0.5f, curType-1.0f,
+            });
+            var norm = normal*(front ? 1 : -1);
+            normals.AddRange(new[]
+            {
+                norm.X, norm.Y, norm.Z,
+                norm.X, norm.Y, norm.Z,
+                norm.X, norm.Y, norm.Z,
+                norm.X, norm.Y, norm.Z
             });
             if (front)
             {
