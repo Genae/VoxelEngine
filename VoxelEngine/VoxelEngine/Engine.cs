@@ -26,7 +26,7 @@ namespace VoxelEngine
             CursorVisible = false;
             // Load stuff
             Camera = new GameCameraController();
-            Map = new Map(8, 4);
+            Map = new Map(32, 4);
 
             //Settings
             VSync = VSyncMode.On;
