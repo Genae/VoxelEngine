@@ -21,7 +21,7 @@ namespace TestGame
         {
             base.OnLoad(e);
             var ds = new DiamondSquare(0.5f, Map.Chunks.GetLength(0)*Chunk.ChunkSize + 1, Map.Chunks.GetLength(2) * Chunk.ChunkSize + 1);
-            Map.LoadHeightmap(ds.Generate(new Random(0)), (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize *0.75));
+            Map.LoadHeightmap(ds.Generate(new Random()), (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize *0.75));
         }
     }
 }
