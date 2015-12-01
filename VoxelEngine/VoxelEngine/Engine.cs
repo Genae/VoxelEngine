@@ -1,22 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using VoxelEngine.Camera;
 using VoxelEngine.GameData;
+using VoxelEngine.Shaders;
 
 namespace VoxelEngine
 {
     public class Engine : GameWindow
     {
         public static Engine Instance;
-        public GameCameraController Camera;
-        public Map Map;
         private Matrix4 _matrixProjection;
         private int _timer, _counter;
-        public static Vector2 ScreenSize;
-        public static Vector2 ScreenPos;
+        public Vector2 ScreenSize;
+        public Vector2 ScreenPos;
+
+        public List<Camera3D> Cameras = new List<Camera3D>();
+        public List<Mesh> Meshes = new List<Mesh>();
+        public List<Shader> Shaders = new List<Shader>();
 
         protected override void OnLoad(EventArgs e)
         {
@@ -24,9 +28,6 @@ namespace VoxelEngine
             OnResize(e);
             OnMove(e);
             CursorVisible = false;
-            // Load stuff
-            Camera = new GameCameraController();
-            Map = new Map(16, 4);
 
             //Settings
             VSync = VSyncMode.On;
@@ -38,8 +39,7 @@ namespace VoxelEngine
             float[] mat_specular = { 1.0f, 1.0f, 1.0f, 1.0f };
             float[] mat_shininess = { 50.0f };
             float[] light_position = { 1.0f, 1.0f, 1.0f, 0.0f };
-            float[] light_ambient = { 0.5f, 0.5f, 0.5f, 1.0f };
-            float[] lmodel_ambient = { 0.7f, 0.2f, 0.2f, 1.0f };
+            float[] light_ambient = { 1f, 0.5f, 0.5f, 1.0f };
 
             GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
             GL.ShadeModel(ShadingModel.Smooth);
@@ -49,12 +49,7 @@ namespace VoxelEngine
             GL.Light(LightName.Light0, LightParameter.Position, light_position);
             GL.Light(LightName.Light0, LightParameter.Ambient, light_ambient);
             GL.Light(LightName.Light0, LightParameter.Diffuse, mat_specular);
-            GL.LightModel(LightModelParameter.LightModelAmbient, lmodel_ambient);
-
-            //uniforms for shaders, stupid idea to load here.... kill me, viewDirection never changes
-            var uniformReference = GL.GetUniformLocation(Map.Shader._program, "viewDirection");
-            GL.Uniform3(uniformReference, Camera._camera.CameraForward);
-
+            
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.Light0);
         }
@@ -77,20 +72,34 @@ namespace VoxelEngine
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
+            CountFrames(e);
+            base.OnRenderFrame(e);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
+
+            Cameras[0].OnRenderFrame(e);
+            foreach (var shader in Shaders)
+            {
+                shader.OnRenderFrame(e);
+            }
+            foreach (var mesh in Meshes)
+            {
+                mesh.ApplyFrustum(Cameras[0].Frustum);
+                mesh.OnRenderFrame(e);
+            }
+            SwapBuffers();
+        }
+
+        private void CountFrames(FrameEventArgs e)
+        {
             _counter++;
-            _timer += (int)(1000*e.Time);
+            _timer += (int) (1000*e.Time);
             if (_timer >= 1000)
             {
                 Console.WriteLine(_counter);
                 _timer = 0;
                 _counter = 0;
             }
-            base.OnRenderFrame(e);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            Camera.OnRenderFrame(e);
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
-            Map.OnRenderFrame(e);
-            SwapBuffers();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -100,9 +109,6 @@ namespace VoxelEngine
             {
                 Exit();
             }
-
-            Camera.OnUpdateFrame(e);
-            
         }
     }
 }

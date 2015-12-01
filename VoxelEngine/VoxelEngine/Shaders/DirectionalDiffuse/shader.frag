@@ -14,5 +14,5 @@ void main (void)
 
 
 	//0.15 = ambient Light
-	gl_FragColor = 0.15 + vColor;
+	gl_FragColor = gl_FrontLightProduct[0].ambient + vColor;
 }

@@ -1,24 +1,26 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Input;
+using VoxelEngine;
+using VoxelEngine.Camera;
 
-namespace VoxelEngine.Camera
+namespace TestGame
 {
     //should be in the game, not in the engine!
     public class GameCameraController
     {
-        public Camera3D _camera;
+        public Camera3D Camera;
         private Vector2 _curMousePosition, _pastMousePosition, _mouseDelta, _mouseSpeed;
         private float _cameraSpeed = 5, _rotationSpeed = 0.01f;
 
         public GameCameraController()
         {
-            _camera = new Camera3D();
+            Camera = new Camera3D();
         }
 
         public void OnRenderFrame(FrameEventArgs e)
         {
-            _camera.OnRenderFrame(e);
+            Camera.OnRenderFrame(e);
         }
 
         public void OnUpdateFrame(FrameEventArgs e)
@@ -26,31 +28,31 @@ namespace VoxelEngine.Camera
             var keyboard = Keyboard.GetState();
             if (keyboard[Key.W])
             {
-                _camera.CameraPos += _camera.Forward * _cameraSpeed * (float)e.Time;
+                Camera.CameraPos += Camera.Forward * _cameraSpeed * (float)e.Time;
             }
 
             if (keyboard[Key.S])
             {
-                _camera.CameraPos += _camera.Backward * _cameraSpeed * (float)e.Time;
+                Camera.CameraPos += Camera.Backward * _cameraSpeed * (float)e.Time;
             }
 
             if (keyboard[Key.A])
             {
-                _camera.CameraPos += _camera.Left * _cameraSpeed * (float)e.Time;
+                Camera.CameraPos += Camera.Left * _cameraSpeed * (float)e.Time;
             }
 
             if (keyboard[Key.D])
             {
-                _camera.CameraPos += _camera.Right * _cameraSpeed * (float)e.Time;
+                Camera.CameraPos += Camera.Right * _cameraSpeed * (float)e.Time;
             }
             if (keyboard[Key.Space])
             {
-                _camera.CameraPos += _camera.Up * _cameraSpeed * (float)e.Time;
+                Camera.CameraPos += Camera.Up * _cameraSpeed * (float)e.Time;
             }
 
             if (keyboard[Key.C])
             {
-                _camera.CameraPos += _camera.Down * _cameraSpeed * (float)e.Time;
+                Camera.CameraPos += Camera.Down * _cameraSpeed * (float)e.Time;
             }
 
 
@@ -60,22 +62,20 @@ namespace VoxelEngine.Camera
 
             _mouseDelta.X = _curMousePosition.X - _pastMousePosition.X;
             _mouseDelta.Y = -1 * (_curMousePosition.Y - _pastMousePosition.Y);
-            Mouse.SetPosition(Engine.ScreenSize.X/2 + Engine.ScreenPos.X, Engine.ScreenSize.Y/2 + Engine.ScreenPos.Y);
+            Mouse.SetPosition(Engine.Instance.ScreenSize.X/2 + Engine.Instance.ScreenPos.X, Engine.Instance.ScreenSize.Y/2 + Engine.Instance.ScreenPos.Y);
 
             if (mouse[MouseButton.Right])
             {
                 Console.WriteLine(_mouseDelta);
             }
-
-            /*_mouseSpeed.X += _mouseDelta.X;
-            _mouseSpeed.Y += _mouseDelta.Y;
-            */
+            
             _pastMousePosition = _curMousePosition;
 
-            _camera.Facing += _mouseDelta[0] * _rotationSpeed;
-            _camera.Pitch += _mouseDelta[1] * _rotationSpeed;
+            Camera.Facing += _mouseDelta[0] * _rotationSpeed;
+            Camera.Pitch += _mouseDelta[1] * _rotationSpeed;
 
 
         }
     }
 }
+

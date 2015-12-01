@@ -1,10 +1,11 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using VoxelEngine.GameData;
 
 namespace VoxelEngine.Camera
 {
-    public class Camera3D
+    public class Camera3D : GameObject
     {
         //Relative Directions
         public Vector3 Left => -Right;
@@ -13,9 +14,7 @@ namespace VoxelEngine.Camera
         public Vector3 Down => -Up;
         public Vector3 Forward => -Backward;
         public Vector3 Backward => new Vector3(_cameraMatrix.M13, _cameraMatrix.M23, _cameraMatrix.M33);
-
-        public Vector3 CameraForward;
-
+        
         //Position and Rotation
         private Vector3 _cameraPos;
         public Vector3 CameraPos
@@ -69,6 +68,13 @@ namespace VoxelEngine.Camera
         {
             _cameraPos = new Vector3(0f, 0f, -5f);
             Frustum = new Frustum();
+            Engine.Instance.Cameras.Add(this);
+        }
+
+        public override void Destroy()
+        {
+            base.Destroy();
+            Engine.Instance.Cameras.Remove(this);
         }
         
         public void OnRenderFrame(FrameEventArgs e)
@@ -81,15 +87,14 @@ namespace VoxelEngine.Camera
 
         private void RecalculateMatrix()
         {
-            CameraForward = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
-            _cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + CameraForward, Vector3.UnitY);
+            var newForward = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
+            _cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + newForward, Vector3.UnitY);
 
             Matrix4 projection;
             GL.GetFloat(GetPName.ProjectionMatrix, out projection);
             Matrix4 modelview;
             GL.GetFloat(GetPName.ModelviewMatrix, out modelview);
             Frustum.CalculateFrustum(projection, modelview);
-            Engine.Instance.Map.ApplyFrustum(Frustum);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
-using VoxelEngine.Camera;
 using VoxelEngine.Shaders;
 
 namespace VoxelEngine.GameData
@@ -11,8 +9,6 @@ namespace VoxelEngine.GameData
     {
         public Chunk[,,] Chunks;
         public Shader Shader;
-
-        
 
         public Map(int size, int height)
         {
@@ -37,26 +33,7 @@ namespace VoxelEngine.GameData
                     }
                 }
             }
-            var vert = File.ReadAllText("Shaders/shader.vert");
-            var frag = File.ReadAllText("Shaders/shader.frag");
-            Shader = new Shader(vert, frag);
         }
-
-        public void OnRenderFrame(FrameEventArgs e)
-        {
-            Shader.Bind(Shader);
-            for (int x = 0; x < Chunks.GetLength(0); x++)
-            {
-                for (int y = 0; y < Chunks.GetLength(1); y++)
-                {
-                    for (int z = 0; z < Chunks.GetLength(2); z++)
-                    {
-                        Chunks[x, y, z].OnRenderFrame(e);
-                    }
-                }
-            }
-        }
-
         /*
         private int fboID;
         private int depthTextureID;
@@ -122,21 +99,6 @@ namespace VoxelEngine.GameData
             return x == 0 || x == Chunks.GetLength(0) - 1 || !Chunks[x - 1, y, z].HasSolidBorder(1) || !Chunks[x + 1, y, z].HasSolidBorder(2) ||
                    y == 0 || y == Chunks.GetLength(1) - 1 || !Chunks[x, y - 1, z].HasSolidBorder(3) || !Chunks[x, y + 1, z].HasSolidBorder(4) ||
                    z == 0 || z == Chunks.GetLength(2) - 1 || !Chunks[x, y, z - 1].HasSolidBorder(5) || !Chunks[x, y, z + 1].HasSolidBorder(6);
-        }
-
-        public void ApplyFrustum(Frustum frustum)
-        {
-            for (int x = 0; x < Chunks.GetLength(0); x++)
-            {
-                for (int y = 0; y < Chunks.GetLength(1); y++)
-                {
-                    for (int z = 0; z < Chunks.GetLength(2); z++)
-                    {
-                        Chunks[x, y, z].Visible = frustum.SphereVsFrustum(new Vector3(x + 0.5f, y + 0.5f, z + 0.5f) * Chunk.Scale * Chunk.ChunkSize, Chunk.Scale*Chunk.ChunkSize);
-
-                    }
-                }
-            }
         }
     }
 }

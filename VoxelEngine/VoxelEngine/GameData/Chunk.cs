@@ -1,32 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
-
+using VoxelEngine.Shaders.DirectionalDiffuse;
 
 namespace VoxelEngine.GameData
 {
-    public class Chunk
+    public class Chunk : Mesh
     {
         public const int ChunkSize = 16;
-        public const float Scale = 0.1f;
         public Voxel[,,] Voxels;
-        public Vector3 Pos;
 
-        //drawing
-        int _mVertexBuffer;
-        int _mIndexBuffer;
-        int _mColorBuffer;
-        int _mNormalBuffer;
-        int _length;
-        private bool _loaded;
-        private bool _active;
-        public bool Visible;
-
-        public Chunk(Vector3 pos)
+        public Chunk(Vector3 pos):base(ChunkSize, pos)
         {
-            Pos = pos;
+            Shader = new DirectionalDiffuse();
             Voxels = new Voxel[ChunkSize, ChunkSize, ChunkSize];
             for (int x = 0; x < ChunkSize; x++)
             {
@@ -40,37 +26,11 @@ namespace VoxelEngine.GameData
             }
         }
 
-        public void OnRenderFrame(FrameEventArgs e)
+        protected override void Load()
         {
-            if (_length == 0 || !_active || !Visible)
-                return;
-            if(!_loaded)
-                OnChunkUpdated();
-
-            GL.EnableClientState(ArrayCap.ColorArray);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _mColorBuffer);
-            GL.ColorPointer(4, ColorPointerType.Float, 0, 0);
-            
-
-            GL.EnableClientState(ArrayCap.VertexArray);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
-            GL.VertexPointer(3, VertexPointerType.Float, Vector3.SizeInBytes, 0);
-            
-            GL.EnableClientState(ArrayCap.NormalArray);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _mNormalBuffer);
-            GL.NormalPointer(NormalPointerType.Float, Vector3.SizeInBytes, 0);
-            
-
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
-            GL.DrawElements(BeginMode.Triangles, _length, DrawElementsType.UnsignedShort, 0);
-
-            GL.Disable(EnableCap.VertexArray);
-            GL.Disable(EnableCap.ColorArray);
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+            OnChunkUpdated();
         }
-        
+
         public void OnChunkUpdated()
         {
             ushort[] triangles;
@@ -79,26 +39,7 @@ namespace VoxelEngine.GameData
             float[] normals;
             CreateCubes(out vertecies, out triangles, out colors, out normals);
 
-            if (vertecies.Length == 0)
-                return;
-            GL.GenBuffers(1, out _mVertexBuffer);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
-            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(vertecies) * vertecies.Length), vertecies, BufferUsageHint.StaticDraw);
-
-            GL.GenBuffers(1, out _mIndexBuffer);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, new IntPtr(sizeof(ushort) * triangles.Length), triangles, BufferUsageHint.StaticDraw);
-
-            GL.GenBuffers(1, out _mColorBuffer);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _mColorBuffer);
-            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(colors) * colors.Length), colors, BufferUsageHint.StaticDraw);
-
-            GL.GenBuffers(1, out _mNormalBuffer);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _mNormalBuffer);
-            GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(BlittableValueType.StrideOf(normals) * normals.Length), normals, BufferUsageHint.StaticDraw);
-
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
-            _loaded = true;
+            CreateMesh(vertecies, triangles, colors, normals);
         }
 
         private void CreateCubes(out float[] arrayBuffer, out ushort[] arrayElementBuffer, out float[] color, out float[] normal)
@@ -153,7 +94,7 @@ namespace VoxelEngine.GameData
             }
             arrayBuffer = vertices.ToArray();
             arrayElementBuffer = triangles.ToArray();
-            _length = arrayElementBuffer.Length;
+            Length = arrayElementBuffer.Length;
             color = colors.ToArray();
             normal = normals.ToArray();
         }
@@ -322,13 +263,7 @@ namespace VoxelEngine.GameData
 			    (curRectangle.WorldC.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldC.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldC.Z + Pos.Z*ChunkSize)*Scale, // vertex[2]
 			    (curRectangle.WorldD.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldD.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldD.Z + Pos.Z*ChunkSize)*Scale, // vertex[3]
             });
-            colors.AddRange(new[]
-            {
-                curType-1.0f, curType-0.5f, curType-0.5f, curType-1.0f,
-                curType-1.0f, curType-0.5f, curType-1.0f, curType-1.0f,
-                curType-0.5f, curType-1.0f, curType-1.0f, curType-1.0f,
-                curType-1.0f, curType-1.0f, curType-0.5f, curType-1.0f,
-            });
+            colors.AddRange(GetColor(Color.Chartreuse));
             var norm = normal*(front ? 1 : -1);
             normals.AddRange(new[]
             {
@@ -354,6 +289,17 @@ namespace VoxelEngine.GameData
                 });
             }
             
+        }
+
+        private float[] GetColor(Color c)
+        {
+            return new[]
+            {
+                c.R/255f, c.G/255f, c.B/255f, c.A/255f,
+                c.R/255f, c.G/255f, c.B/255f, c.A/255f,
+                c.R/255f, c.G/255f, c.B/255f, c.A/255f,
+                c.R/255f, c.G/255f, c.B/255f, c.A/255f
+            };
         }
 
         public bool HasSolidBorder(int dir)
@@ -422,26 +368,6 @@ namespace VoxelEngine.GameData
                     return true;
             }
             return false;
-        }
-
-        public void SetActive(bool a)
-        {
-            if (a == _active)
-                return;
-            _active = a;
-            if(_active)
-                OnChunkUpdated();
-            else
-                Unload();
-        }
-        
-        public void Unload()
-        {
-            if(!_loaded)
-                return;
-            GL.DeleteBuffers(1, ref _mVertexBuffer);
-            GL.DeleteBuffers(1, ref _mIndexBuffer);
-            GL.DeleteBuffers(1, ref _mColorBuffer);
         }
     }
 

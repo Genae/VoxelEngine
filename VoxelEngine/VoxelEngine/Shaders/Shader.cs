@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
@@ -16,7 +17,7 @@ namespace VoxelEngine.Shaders
         
         public static bool IsSupported => (new Version(GL.GetString(StringName.Version).Substring(0, 3)) >= new Version(2, 0));
 
-        public int _program;
+        protected int Program;
         private readonly Dictionary<string, int> _variables = new Dictionary<string, int>();
 
         public Shader(string source, Type type)
@@ -26,11 +27,15 @@ namespace VoxelEngine.Shaders
                 Console.WriteLine("Failed to create Shader." + Environment.NewLine + "Your system doesn't support Shader.", "Error");
                 return;
             }
-
+            var success = false;
             if (type == Type.Vertex)
-                Compile(source, "");
+                success = Compile(source, "");
             else
-                Compile("", source);
+                success = Compile("", source);
+            if (success)
+            {
+                Engine.Instance.Shaders.Add(this);
+            }
         }
 
         public Shader(string vsource, string fsource)
@@ -45,7 +50,7 @@ namespace VoxelEngine.Shaders
         }
 
         // I prefer to return the bool rather than throwing an exception lol
-        private void Compile(string vertexSource, string fragmentSource)
+        private bool Compile(string vertexSource, string fragmentSource)
         {
             int statusCode;
             string info;
@@ -53,15 +58,15 @@ namespace VoxelEngine.Shaders
             if (vertexSource == "" && fragmentSource == "")
             {
                 Console.WriteLine("Failed to compile Shader." + Environment.NewLine + "Nothing to Compile.", "Error");
-                return;
+                return false;
             }
 
-            if (_program > 0)
-                 GL.DeleteProgram(_program);
+            if (Program > 0)
+                 GL.DeleteProgram(Program);
 
             _variables.Clear();
 
-            _program = GL.CreateProgram();
+            Program = GL.CreateProgram();
 
             if (vertexSource != "")
             {
@@ -76,13 +81,13 @@ namespace VoxelEngine.Shaders
                     Console.WriteLine("Failed to Compile Vertex Shader Source." + Environment.NewLine + info + Environment.NewLine + "Status Code: " + statusCode);
 
                      GL.DeleteShader(vertexShader);
-                     GL.DeleteProgram(_program);
-                    _program = 0;
+                     GL.DeleteProgram(Program);
+                    Program = 0;
 
-                    return;
+                    return false;
                 }
 
-                 GL.AttachShader(_program, vertexShader);
+                 GL.AttachShader(Program, vertexShader);
                  GL.DeleteShader(vertexShader);
             }
 
@@ -99,30 +104,31 @@ namespace VoxelEngine.Shaders
                     Console.WriteLine("Failed to Compile Fragment Shader Source." + Environment.NewLine + info + Environment.NewLine + "Status Code: " + statusCode);
 
                      GL.DeleteShader(fragmentShader);
-                     GL.DeleteProgram(_program);
-                    _program = 0;
+                     GL.DeleteProgram(Program);
+                    Program = 0;
 
-                    return;
+                    return false;
                 }
 
-                 GL.AttachShader(_program, fragmentShader);
+                 GL.AttachShader(Program, fragmentShader);
                  GL.DeleteShader(fragmentShader);
             }
 
             //add shader attributes here
             
 
-            GL.LinkProgram(_program);
-            GL.GetProgramInfoLog(_program, out info);
-            GL.GetProgram(_program, GetProgramParameterName.LinkStatus, out statusCode);
+            GL.LinkProgram(Program);
+            GL.GetProgramInfoLog(Program, out info);
+            GL.GetProgram(Program, GetProgramParameterName.LinkStatus, out statusCode);
 
             if (statusCode != 1)
             {
                 Console.WriteLine("Failed to Link Shader Program." + Environment.NewLine + info + Environment.NewLine + "Status Code: " + statusCode);
 
-                 GL.DeleteProgram(_program);
-                _program = 0;
+                 GL.DeleteProgram(Program);
+                Program = 0;
             }
+            return true;
         }
 
         private int GetVariableLocation(string name)
@@ -130,7 +136,7 @@ namespace VoxelEngine.Shaders
             if (_variables.ContainsKey(name))
                 return _variables[name];
 
-            int location = GL.GetUniformLocation(_program, name);
+            int location = GL.GetUniformLocation(Program, name);
 
             if (location != -1)
                 _variables.Add(name, location);
@@ -143,9 +149,9 @@ namespace VoxelEngine.Shaders
 
         public void SetVariable(string name, float x)
         {
-            if (_program > 0)
+            if (Program > 0)
             {
-                 GL.UseProgram(_program);
+                 GL.UseProgram(Program);
 
                 int location = GetVariableLocation(name);
                 if (location != -1)
@@ -157,9 +163,9 @@ namespace VoxelEngine.Shaders
 
         public void SetVariable(string name, float x, float y)
         {
-            if (_program > 0)
+            if (Program > 0)
             {
-                 GL.UseProgram(_program);
+                 GL.UseProgram(Program);
 
                 int location = GetVariableLocation(name);
                 if (location != -1)
@@ -171,9 +177,9 @@ namespace VoxelEngine.Shaders
 
         public void SetVariable(string name, float x, float y, float z)
         {
-            if (_program > 0)
+            if (Program > 0)
             {
-                 GL.UseProgram(_program);
+                 GL.UseProgram(Program);
 
                 int location = GetVariableLocation(name);
                 if (location != -1)
@@ -185,9 +191,9 @@ namespace VoxelEngine.Shaders
 
         public void SetVariable(string name, float x, float y, float z, float w)
         {
-            if (_program > 0)
+            if (Program > 0)
             {
-                 GL.UseProgram(_program);
+                 GL.UseProgram(Program);
 
                 int location = GetVariableLocation(name);
                 if (location != -1)
@@ -199,9 +205,9 @@ namespace VoxelEngine.Shaders
 
         public void SetVariable(string name, Matrix4 matrix)
         {
-            if (_program > 0)
+            if (Program > 0)
             {
-                 GL.UseProgram(_program);
+                 GL.UseProgram(Program);
 
                 int location = GetVariableLocation(name);
                 if (location != -1)
@@ -230,9 +236,9 @@ namespace VoxelEngine.Shaders
 
         public static void Bind(Shader shader)
         {
-            if (shader != null && shader._program > 0)
+            if (shader != null && shader.Program > 0)
             {
-                 GL.UseProgram(shader._program);
+                 GL.UseProgram(shader.Program);
             }
             else
             {
@@ -242,8 +248,20 @@ namespace VoxelEngine.Shaders
 
         public void Dispose()
         {
-            if (_program != 0)
-                 GL.DeleteProgram(_program);
+            if (Program != 0)
+            {
+                GL.DeleteProgram(Program);
+                Engine.Instance.Shaders.Remove(this);
+            }
+        }
+
+        public static string LoadFile(string src)
+        {
+            return File.ReadAllText(src);
+        }
+
+        public virtual void OnRenderFrame(FrameEventArgs frameEventArgs)
+        {
         }
     }
 }
