@@ -16,7 +16,7 @@ namespace VoxelEngine.Shaders
         
         public static bool IsSupported => (new Version(GL.GetString(StringName.Version).Substring(0, 3)) >= new Version(2, 0));
 
-        private int _program;
+        public int _program;
         private readonly Dictionary<string, int> _variables = new Dictionary<string, int>();
 
         public Shader(string source, Type type)

@@ -51,6 +51,10 @@ namespace VoxelEngine
             GL.Light(LightName.Light0, LightParameter.Diffuse, mat_specular);
             GL.LightModel(LightModelParameter.LightModelAmbient, lmodel_ambient);
 
+            //uniforms for shaders, stupid idea to load here.... kill me, viewDirection never changes
+            var uniformReference = GL.GetUniformLocation(Map.Shader._program, "viewDirection");
+            GL.Uniform3(uniformReference, Camera._camera.CameraForward);
+
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.Light0);
         }

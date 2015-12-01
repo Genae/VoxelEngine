@@ -7,7 +7,7 @@ namespace VoxelEngine.Camera
     //should be in the game, not in the engine!
     public class GameCameraController
     {
-        private Camera3D _camera;
+        public Camera3D _camera;
         private Vector2 _curMousePosition, _pastMousePosition, _mouseDelta, _mouseSpeed;
         private float _cameraSpeed = 5, _rotationSpeed = 0.01f;
 

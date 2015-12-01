@@ -14,6 +14,8 @@ namespace VoxelEngine.Camera
         public Vector3 Forward => -Backward;
         public Vector3 Backward => new Vector3(_cameraMatrix.M13, _cameraMatrix.M23, _cameraMatrix.M33);
 
+        public Vector3 CameraForward;
+
         //Position and Rotation
         private Vector3 _cameraPos;
         public Vector3 CameraPos
@@ -79,8 +81,8 @@ namespace VoxelEngine.Camera
 
         private void RecalculateMatrix()
         {
-            var cameraForward = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
-            _cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + cameraForward, Vector3.UnitY);
+            CameraForward = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
+            _cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + CameraForward, Vector3.UnitY);
 
             Matrix4 projection;
             GL.GetFloat(GetPName.ProjectionMatrix, out projection);
