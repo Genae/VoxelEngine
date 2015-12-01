@@ -19,7 +19,7 @@ namespace VoxelEngine.Shaders.DirectionalDiffuse
             //var uniformReference = GL.GetUniformLocation(Program, "viewDirection");
             //GL.Uniform3(uniformReference, Engine.Instance.Cameras[0].Forward);
             _angle = (_angle < 360f) ? (_angle + 1f * (float)e.Time) : 0f;
-            SetVariable("direction", new Vector3((float)Math.Cos(_angle), _direction.Y, (float)Math.Sin(_angle)).Normalized());
+            SetVariable("direction", new Vector3(1f, (float)Math.Cos(_angle), (float)Math.Sin(_angle)).Normalized());
         }
     }
 }
