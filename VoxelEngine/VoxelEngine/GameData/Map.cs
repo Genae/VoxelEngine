@@ -12,6 +12,8 @@ namespace VoxelEngine.GameData
         public Chunk[,,] Chunks;
         public Shader Shader;
 
+        
+
         public Map(int size, int height)
         {
             Chunks = new Chunk[size, height, size];
@@ -54,6 +56,21 @@ namespace VoxelEngine.GameData
                 }
             }
         }
+
+        /*
+        private int fboID;
+        private int depthTextureID;
+
+        private void generateShadowFBO()
+        {
+            int shadowMapWidth = 200;
+            int shadowMapHeight = 200;
+
+            GL.GenTextures(0, out depthTextureID);
+            GL.BindTexture(TextureTarget.Texture2D, depthTextureID);
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, TextureParameterName.TextureMinFilter);
+        }*/
 
         public void LoadHeightmap(short[,] heightmap)
         {

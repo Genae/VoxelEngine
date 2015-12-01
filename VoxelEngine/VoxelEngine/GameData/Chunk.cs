@@ -46,9 +46,11 @@ namespace VoxelEngine.GameData
                 return;
             if(!_loaded)
                 OnChunkUpdated();
+
+            GL.EnableClientState(ArrayCap.ColorArray);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mColorBuffer);
             GL.ColorPointer(4, ColorPointerType.Float, 0, 0);
-            GL.EnableClientState(ArrayCap.ColorArray);
+            
 
             GL.EnableClientState(ArrayCap.VertexArray);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mVertexBuffer);
@@ -57,6 +59,7 @@ namespace VoxelEngine.GameData
             GL.EnableClientState(ArrayCap.NormalArray);
             GL.BindBuffer(BufferTarget.ArrayBuffer, _mNormalBuffer);
             GL.NormalPointer(NormalPointerType.Float, Vector3.SizeInBytes, 0);
+            
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, _mIndexBuffer);
             GL.DrawElements(BeginMode.Triangles, _length, DrawElementsType.UnsignedShort, 0);
