@@ -6,6 +6,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using VoxelEngine.Camera;
 using VoxelEngine.GameData;
+using VoxelEngine.Light;
 using VoxelEngine.Shaders;
 
 namespace VoxelEngine
@@ -21,6 +22,7 @@ namespace VoxelEngine
         public List<Camera3D> Cameras = new List<Camera3D>();
         public List<Mesh> Meshes = new List<Mesh>();
         public List<Shader> Shaders = new List<Shader>();
+        public List<LightSource> Lights = new List<LightSource>();
 
         protected override void OnLoad(EventArgs e)
         {
@@ -34,16 +36,14 @@ namespace VoxelEngine
             GL.ClearColor(Color.CornflowerBlue);
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
 
             //light
             float[] mat_specular = { 1.0f, 1.0f, 1.0f, 1.0f };
             float[] mat_shininess = { 50.0f };
             float[] light_position = { 1.0f, 1.0f, 1.0f, 0.0f };
             float[] light_ambient = { 1f, 0.5f, 0.5f, 1.0f };
-
-            GL.ClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-            GL.ShadeModel(ShadingModel.Smooth);
-
+            
             GL.Material(MaterialFace.Front, MaterialParameter.Specular, mat_specular);
             GL.Material(MaterialFace.Front, MaterialParameter.Shininess, mat_shininess);
             GL.Light(LightName.Light0, LightParameter.Position, light_position);
@@ -75,9 +75,12 @@ namespace VoxelEngine
             CountFrames(e);
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
 
             Cameras[0].OnRenderFrame(e);
+            foreach (var lightSource in Lights)
+            {
+                lightSource.OnRenderFrame(e);
+            }
             foreach (var shader in Shaders)
             {
                 shader.OnRenderFrame(e);

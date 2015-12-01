@@ -1,6 +1,7 @@
 //variables passed to fragment shader
 varying vec4 vColor;  
 varying vec3 vNormal;
+varying vec4 vColorAmb;
 
 uniform vec3 viewDirection;
 
@@ -14,5 +15,5 @@ void main (void)
 
 
 	//0.15 = ambient Light
-	gl_FragColor = gl_FrontLightProduct[0].ambient + vColor;
+	gl_FragColor = vColorAmb + vColor;
 }

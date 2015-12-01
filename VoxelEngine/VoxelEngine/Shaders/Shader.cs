@@ -20,23 +20,8 @@ namespace VoxelEngine.Shaders
         protected int Program;
         private readonly Dictionary<string, int> _variables = new Dictionary<string, int>();
 
-        public Shader(string source, Type type)
-        {
-            if (!IsSupported)
-            {
-                Console.WriteLine("Failed to create Shader." + Environment.NewLine + "Your system doesn't support Shader.", "Error");
-                return;
-            }
-            var success = false;
-            if (type == Type.Vertex)
-                success = Compile(source, "");
-            else
-                success = Compile("", source);
-            if (success)
-            {
-                Engine.Instance.Shaders.Add(this);
-            }
-        }
+        public Shader(string source, Type type) : this(type == Type.Vertex?source:"", type == Type.Fragment?source:"")
+        {}
 
         public Shader(string vsource, string fsource)
         {
@@ -46,7 +31,11 @@ namespace VoxelEngine.Shaders
                 return;
             }
 
-            Compile(vsource, fsource);
+            var success = Compile(vsource, fsource);
+            if (success)
+            {
+                Engine.Instance.Shaders.Add(this);
+            }
         }
 
         // I prefer to return the bool rather than throwing an exception lol
@@ -216,6 +205,20 @@ namespace VoxelEngine.Shaders
                 }
 
                  GL.UseProgram(0);
+            }
+        }
+
+        public void SetVariable(string name, float[] farray)
+        {
+            if (Program > 0)
+            {
+                GL.UseProgram(Program);
+                int location = GetVariableLocation(name);
+                if (location != -1)
+                {
+                    GL.Uniform3(location, farray.Length, farray);
+                }
+                GL.UseProgram(0);
             }
         }
 
