@@ -70,8 +70,7 @@ namespace VoxelEngine
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             
             Cameras[0].OnRenderFrame(e);
-
-
+            
             foreach (var lightSource in Lights)
             {
                 lightSource.OnRenderFrame(e);
@@ -85,11 +84,12 @@ namespace VoxelEngine
                 mesh.ApplyFrustum(Cameras[0].Frustum);
                 mesh.OnRenderFrame(e);
             }
-            
+
 
             SetRenderUI(true);
             ui.OnRenderFrame(e);
             SetRenderUI(false);
+
             SwapBuffers();
         }
 
@@ -114,6 +114,8 @@ namespace VoxelEngine
                 GL.Disable(EnableCap.Lighting);
                 
                 GL.Enable(EnableCap.Texture2D);
+                GL.Enable(EnableCap.Blend);
+                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             }
             else
             {
@@ -122,6 +124,7 @@ namespace VoxelEngine
                 GL.PopMatrix();
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.PopMatrix();
+                GL.Disable(EnableCap.Blend);
             }
         }
 

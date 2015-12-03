@@ -26,7 +26,7 @@ namespace TestGame
             base.OnLoad(e);
             // Load stuff
             CameraController = new GameCameraController();
-            Map = new Map(16, 4);
+            Map = new Map(16, 8);
             var ds = new DiamondSquare(0.5f, Map.Chunks.GetLength(0)*Chunk.ChunkSize + 1, Map.Chunks.GetLength(2) * Chunk.ChunkSize + 1);
             Map.LoadHeightmap(ds.Generate(new Random()), (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize *0.75));
         }

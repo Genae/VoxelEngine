@@ -263,7 +263,7 @@ namespace VoxelEngine.GameData
 			    (curRectangle.WorldC.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldC.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldC.Z + Pos.Z*ChunkSize)*Scale, // vertex[2]
 			    (curRectangle.WorldD.X + Pos.X*ChunkSize)*Scale, (curRectangle.WorldD.Y + Pos.Y*ChunkSize)*Scale, (curRectangle.WorldD.Z + Pos.Z*ChunkSize)*Scale, // vertex[3]
             });
-            colors.AddRange(GetColor(Color.Chartreuse));
+            colors.AddRange(GetColor(Color.DarkGreen));
             var norm = normal*(front ? 1 : -1);
             normals.AddRange(new[]
             {
