@@ -6,6 +6,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using VoxelEngine.Camera;
 using VoxelEngine.GameData;
+using VoxelEngine.GUI;
 using VoxelEngine.Light;
 using VoxelEngine.Shaders;
 
@@ -24,12 +25,15 @@ namespace VoxelEngine
         public List<Shader> Shaders = new List<Shader>();
         public List<LightSource> Lights = new List<LightSource>();
 
+        private AwsomUI ui;
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            ui = new AwsomUI();
             OnResize(e);
             OnMove(e);
-            CursorVisible = false;
+            //CursorVisible = false;
 
             //Settings
             VSync = VSyncMode.On;
@@ -39,17 +43,6 @@ namespace VoxelEngine
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
 
             //light
-            float[] mat_specular = { 1.0f, 1.0f, 1.0f, 1.0f };
-            float[] mat_shininess = { 50.0f };
-            float[] light_position = { 1.0f, 1.0f, 1.0f, 0.0f };
-            float[] light_ambient = { 1f, 0.5f, 0.5f, 1.0f };
-            
-            GL.Material(MaterialFace.Front, MaterialParameter.Specular, mat_specular);
-            GL.Material(MaterialFace.Front, MaterialParameter.Shininess, mat_shininess);
-            GL.Light(LightName.Light0, LightParameter.Position, light_position);
-            GL.Light(LightName.Light0, LightParameter.Ambient, light_ambient);
-            GL.Light(LightName.Light0, LightParameter.Diffuse, mat_specular);
-            
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.Light0);
         }
@@ -75,8 +68,10 @@ namespace VoxelEngine
             CountFrames(e);
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
+            
             Cameras[0].OnRenderFrame(e);
+
+
             foreach (var lightSource in Lights)
             {
                 lightSource.OnRenderFrame(e);
@@ -90,7 +85,44 @@ namespace VoxelEngine
                 mesh.ApplyFrustum(Cameras[0].Frustum);
                 mesh.OnRenderFrame(e);
             }
+            
+
+            SetRenderUI(true);
+            ui.OnRenderFrame(e);
+            SetRenderUI(false);
             SwapBuffers();
+        }
+
+        private void SetRenderUI(bool ui)
+        {
+            if (ui)
+            {
+                GL.MatrixMode(MatrixMode.Projection);
+                GL.PushMatrix();
+                GL.LoadIdentity();
+
+
+                GL.Ortho(0, Width, 0, Height, -1, 1);
+
+                GL.MatrixMode(MatrixMode.Modelview);
+                GL.PushMatrix();
+                GL.LoadIdentity();
+                GL.PushAttrib(AttribMask.DepthBufferBit | AttribMask.LightingBit);
+
+                GL.Disable(EnableCap.DepthTest);
+                GL.Disable(EnableCap.CullFace);
+                GL.Disable(EnableCap.Lighting);
+                
+                GL.Enable(EnableCap.Texture2D);
+            }
+            else
+            {
+                GL.PopAttrib();
+                GL.MatrixMode(MatrixMode.Projection);
+                GL.PopMatrix();
+                GL.MatrixMode(MatrixMode.Modelview);
+                GL.PopMatrix();
+            }
         }
 
         private void CountFrames(FrameEventArgs e)
@@ -99,7 +131,7 @@ namespace VoxelEngine
             _timer += (int) (1000*e.Time);
             if (_timer >= 1000)
             {
-                Console.WriteLine(_counter);
+                Console.WriteLine((int)(_counter*(1000f/_timer)));
                 _timer = 0;
                 _counter = 0;
             }

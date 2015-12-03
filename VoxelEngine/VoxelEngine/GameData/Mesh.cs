@@ -67,6 +67,8 @@ namespace VoxelEngine.GameData
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
+
+            Shader.Bind(null);
         }
 
         protected void CreateMesh(float[] vertecies, ushort[] triangles, float[] colors, float[] normals)
@@ -97,7 +99,7 @@ namespace VoxelEngine.GameData
             Loaded = true;
         }
 
-        public void ApplyFrustum(Frustum frustum)
+        public virtual void ApplyFrustum(Frustum frustum)
         {
             Visible = frustum.SphereVsFrustum(new Vector3(Pos.X + 0.5f*Size, Pos.Y + 0.5f*Size, Pos.Z + 0.5f*Size), Size);
         }

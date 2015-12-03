@@ -62,7 +62,7 @@ namespace TestGame
 
             _mouseDelta.X = _curMousePosition.X - _pastMousePosition.X;
             _mouseDelta.Y = -1 * (_curMousePosition.Y - _pastMousePosition.Y);
-            Mouse.SetPosition(Engine.Instance.ScreenSize.X/2 + Engine.Instance.ScreenPos.X, Engine.Instance.ScreenSize.Y/2 + Engine.Instance.ScreenPos.Y);
+            //Mouse.SetPosition(Engine.Instance.ScreenSize.X/2 + Engine.Instance.ScreenPos.X, Engine.Instance.ScreenSize.Y/2 + Engine.Instance.ScreenPos.Y);
 
             if (mouse[MouseButton.Right])
             {

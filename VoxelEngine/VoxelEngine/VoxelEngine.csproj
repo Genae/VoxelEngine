@@ -37,6 +37,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Awesomium.Core, Version=1.7.4.2, Culture=neutral, PublicKeyToken=e1a0d7c8071a5214, processorArchitecture=x86">
+      <HintPath>..\packages\Unofficial.Awesomium.Complete.1.7.4.2\lib\Awesomium.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Awesomium.Windows.Controls, Version=1.7.4.2, Culture=neutral, PublicKeyToken=7a34e179b8b61c39, processorArchitecture=x86">
+      <HintPath>..\packages\Unofficial.Awesomium.Complete.1.7.4.2\lib\Awesomium.Windows.Controls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.1.1.1589.5942\lib\NET40\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -60,6 +68,9 @@
     <Compile Include="GameData\Mesh.cs" />
     <Compile Include="GameData\Voxel.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="GUI\AwsomUI.cs" />
+    <Compile Include="GUI\TexUtil.cs" />
+    <Compile Include="GUI\UiElement.cs" />
     <Compile Include="Light\DirectionalLight.cs" />
     <Compile Include="Light\LightSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +89,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FBX\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GUI\MC.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GUI\Unbenannt.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
