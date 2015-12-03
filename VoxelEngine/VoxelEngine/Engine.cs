@@ -135,6 +135,7 @@ namespace VoxelEngine
             if (_timer >= 1000)
             {
                 Console.WriteLine((int)(_counter*(1000f/_timer)));
+                ui.SetFPS((int)(_counter * (1000f / _timer)));
                 _timer = 0;
                 _counter = 0;
             }
