@@ -28,7 +28,7 @@ namespace VoxelEngine.GUI
                     return;
                 GenTex((BitmapSurface)view.Surface, new AweRect(0,0,view.Width, view.Height));
                 surface = (BitmapSurface) view.Surface;
-                surface.SaveToPNG(@"C:\test\test.png");
+                //surface.SaveToPNG(@"C:\test\test.png");
 
                 surface.Updated += (sender, args) =>
                 {
