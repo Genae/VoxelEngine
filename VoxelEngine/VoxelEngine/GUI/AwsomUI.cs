@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
-using System.Threading.Tasks;
 using Awesomium.Core;
 using OpenTK.Graphics.OpenGL;
-using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
+using FrameEventArgs = OpenTK.FrameEventArgs;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace VoxelEngine.GUI
 {
@@ -39,9 +39,9 @@ namespace VoxelEngine.GUI
 
         private void GenTex(BitmapSurface surface, AweRect bounds)
         {
-            Bitmap b = new Bitmap(view.Width, view.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Bitmap b = new Bitmap(view.Width, view.Height, PixelFormat.Format32bppArgb);
             BitmapData bits0 = b.LockBits(
-                new System.Drawing.Rectangle(0, 0, view.Width, view.Height),
+                new Rectangle(0, 0, view.Width, view.Height),
                 ImageLockMode.ReadWrite, b.PixelFormat);
             surface.CopyTo(bits0.Scan0, bits0.Stride, 4, false, false);
             b.UnlockBits(bits0);
@@ -51,10 +51,10 @@ namespace VoxelEngine.GUI
 
         public void SetFPS(int fps)
         {
-            view.LoadHTML("<html><head></head><body style=\"color: red; font-size: 40pt; font-family:Comic Sans MS\">FPS: " + fps + "</body></html>");
+            view.LoadHTML("<html><head></head><body style=\"color: red; font-size: 40pt; font-family:Courier New\">FPS: " + fps + "</body></html>");
         }
 
-        public void OnRenderFrame(OpenTK.FrameEventArgs args)
+        public void OnRenderFrame(FrameEventArgs args)
         {
             WebCore.Update();
             if (surface == null)

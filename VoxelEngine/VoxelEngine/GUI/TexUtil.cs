@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL;
 using Img = System.Drawing.Imaging;
-using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
 namespace VoxelEngine.GUI
 {
@@ -40,11 +38,11 @@ namespace VoxelEngine.GUI
             GL.GenTextures(1, out tex);
             GL.BindTexture(TextureTarget.Texture2D, tex);
 
-            Img.BitmapData data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
-                Img.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Img.BitmapData data = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                Img.ImageLockMode.ReadOnly, Img.PixelFormat.Format32bppArgb);
 
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
-                OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+                PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
             bitmap.UnlockBits(data);
 
 
