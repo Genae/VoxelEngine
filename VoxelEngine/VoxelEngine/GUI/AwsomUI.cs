@@ -62,7 +62,9 @@ namespace VoxelEngine.GUI
                 view.Dispose();
                 return;
             }
-            var surface = (BitmapSurface)view.Surface;
+            if (!view.IsDocumentReady)
+                return;
+                
             var docHeight = (int) view.ExecuteJavascriptWithResult(PAGE_HEIGHT_FUNC);
 
             Error lastError = view.GetLastError();
