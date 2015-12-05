@@ -117,6 +117,11 @@ namespace VoxelEngine
             base.OnUpdateFrame(e);
             Input.Input.OnUpdateFrame(e);
 
+            foreach (var awsomUI in ui)
+            {
+                awsomUI.OnUpdateFrame(e);
+            }
+
             //Listen to KeyEvents
             if (Keyboard[Key.Escape])
             {

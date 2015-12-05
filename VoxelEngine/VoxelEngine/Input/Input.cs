@@ -54,9 +54,12 @@ namespace VoxelEngine.Input
             return !_currentMouseState[button] && _lastMouseState[button];
         }
 
-        public static Vector2 GetMousePosition()
+        public static Vector2 GetMousePosition(bool uiMode = false)
         {
-            return new Vector2(_currentMouseState.X, _currentMouseState.Y);
+            var p = Engine.Instance.PointToClient(new Point(_currentMouseState.X, _currentMouseState.Y));
+            if(uiMode)
+                return new Vector2(p.X, Engine.Instance.ClientRectangle.Height - p.Y);
+            return new Vector2(p.X, p.Y);
         }
 
         public static Vector2 GetMouseDelta()
@@ -64,18 +67,18 @@ namespace VoxelEngine.Input
             return new Vector2(_curRelMouseState.X - _lastRelMouseState.X, -1 * (_curRelMouseState.Y - _curRelMouseState.Y));
         }
 
-        public static bool IsMouseInRect(int x, int y, int width, int height)
+        public static bool IsMouseInRect(int x, int y, int width, int height, bool uiMode = false)
         {
-            var mPos = GetMousePosition();
+            var mPos = GetMousePosition(uiMode);
             var xEnd = x + width;
             var yEnd = y + width;
             if (mPos.X > x && mPos.X < xEnd && mPos.Y > y && mPos.Y < yEnd) return true;
             return false;
         }
 
-        public static bool IsMouseInRect(Rectangle rect)
+        public static bool IsMouseInRect(Rectangle rect, bool uiMode = false)
         {
-            return IsMouseInRect(rect.X, rect.Y, rect.Width, rect.Height);
+            return IsMouseInRect(rect.X, rect.Y, rect.Width, rect.Height, uiMode);
         }
 
         public static int GetMouseScroll()

@@ -17,6 +17,7 @@ namespace VoxelEngine.GUI
         private Bitmap _buffer;
         private int _textureId;
         private bool _isDirty;
+        private bool _hasFocus;
         private WebView _webView;
         //Others
         protected Rectangle Position;
@@ -44,12 +45,6 @@ namespace VoxelEngine.GUI
             view.IsTransparent = true;
             view.Source = new Uri("file:///" + new FileInfo(url).FullName);
 
-            /*var surface = ((BitmapSurface) view.Surface);
-            surface.Updated += (sender, args) =>
-            {
-                GenTex(view, args.DirtyRegion);
-            };*/
-
             view.LoadingFrameComplete += (s, e) =>
             {
                 if (!e.IsMainFrame)
@@ -57,13 +52,18 @@ namespace VoxelEngine.GUI
                 
                 // Take snapshots of the page.
                 CreateTexture((WebView)s, context);
+                var surface = ((BitmapSurface)view.Surface);
+                surface.Updated += (sender, args) =>
+                {
+                    CreateTexture((WebView)s, context);
+                };
             };
             context._webView = view;
         }
         #endregion
         
         #region Rendering
-        private static void CreateTexture(WebView view, AwsomUI context)
+        private static void CreateTexture(WebView view, AwsomUI context, bool resize = false)
         {
             lock (context._lock)
             {
@@ -76,23 +76,28 @@ namespace VoxelEngine.GUI
                 if (!view.IsDocumentReady)
                     return;
 
-                var docHeight = (int)view.ExecuteJavascriptWithResult(PAGE_HEIGHT_FUNC);
-
-                Error lastError = view.GetLastError();
-
-                // Report errors.
-                if (lastError != Error.None)
-                    Console.WriteLine("Error: {0} occurred while getting the page's height.", lastError);
-
-                // Exit if the operation failed or the height is 0.
-                if (docHeight == 0)
-                    return;
-
-                if (docHeight != view.Height)
+                if (resize)
                 {
-                    view.Resize(view.Width, docHeight);
-                    return;
+                    var dh = view.ExecuteJavascriptWithResult(PAGE_HEIGHT_FUNC);
+                    var docHeight = dh.IsInteger ? (int)dh : 0;
+
+                    Error lastError = view.GetLastError();
+
+                    // Report errors.
+                    if (lastError != Error.None)
+                        Console.WriteLine("Error: {0} occurred while getting the page's height.", lastError);
+
+                    // Exit if the operation failed or the height is 0.
+                    if (docHeight != 0)
+                    {
+                        if (docHeight != view.Height)
+                        {
+                            view.Resize(view.Width, docHeight);
+                            return;
+                        }
+                    }
                 }
+                
                 var b = new Bitmap(view.Width, view.Height, PixelFormat.Format32bppArgb);
                 var bits0 = b.LockBits(
                     new Rectangle(0, 0, view.Width, view.Height),
@@ -140,16 +145,58 @@ namespace VoxelEngine.GUI
 
         public void OnUpdateFrame(FrameEventArgs e)
         {
-            if (Input.Input.IsMouseInRect(Position))
+            if (Input.Input.IsMouseInRect(Position, true))
             {
-                var mousePos = GlobalToView(Input.Input.GetMousePosition());
-                _webView.InjectMouseMove((int)mousePos.X, (int)mousePos.Y);
+                _hasFocus = true;
+                WebCore.QueueWork(() => InjectMouse());
+            }
+            else
+            {
+                if (_hasFocus) //lost focus this frame
+                {
+                    WebCore.QueueWork(ResetMouse);
+                    _hasFocus = false;
+                }
             }
         }
 
-        private Vector2 GlobalToView(Vector2 getMousePosition)
+        private void InjectMouse()
         {
-            throw new NotImplementedException();
+            var mousePos = UiToWebView(Input.Input.GetMousePosition(true));
+            _webView.InjectMouseMove((int) mousePos.X, (int) mousePos.Y);
+            for (var i = 0; i < 3; i++)
+            {
+                if (Input.Input.GetMouseButtonDown((OpenTK.Input.MouseButton)i))
+                {
+                    _webView.InjectMouseDown((MouseButton)i);
+                    Console.WriteLine("Click");
+                }
+            }
+            for (var i = 0; i < 3; i++)
+            {
+                if (Input.Input.GetMouseButtonUp((OpenTK.Input.MouseButton)i))
+                {
+                    _webView.InjectMouseUp((MouseButton)i);
+                }
+            }
+        }
+        private void ResetMouse()
+        {
+            _webView.InjectMouseMove(0,0);
+            for (var i = 0; i < 3; i++)
+            {
+                if (Input.Input.GetMouseButtonUp((OpenTK.Input.MouseButton)i))
+                {
+                    _webView.InjectMouseUp((MouseButton)i);
+                }
+            }
+        }
+
+        private Vector2 UiToWebView(Vector2 pos)
+        {
+            var relX = (pos.X - Position.X)/Position.Width;
+            var relY = 1 - (pos.Y - Position.Y)/Position.Height;
+            return new Vector2(relX * _webView.Width, relY * _webView.Height);
         }
 
         #endregion
