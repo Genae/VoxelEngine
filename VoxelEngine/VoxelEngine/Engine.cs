@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
@@ -34,10 +35,12 @@ namespace VoxelEngine
 
         public Thread WebThread;
         public static object Lock = new object();
-        
+
+        #region OnStuff
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            OnFocusedChanged(e);
             OnResize(e);
             OnMove(e);
             //CursorVisible = false;
@@ -52,6 +55,12 @@ namespace VoxelEngine
             //light
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.Light0);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            WebThread.Abort();
         }
 
         protected override void OnResize(EventArgs e)
@@ -103,6 +112,46 @@ namespace VoxelEngine
             SwapBuffers();
         }
 
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            base.OnUpdateFrame(e);
+            Input.Input.OnUpdateFrame(e);
+
+            //Listen to KeyEvents
+            if (Keyboard[Key.Escape])
+            {
+                Exit();
+            }
+            if (Input.Input.GetKeyDown(Key.F11))
+            {
+                ToggleFullscreen();
+            }
+        }
+
+        private void ToggleFullscreen()
+        {
+            if (WindowState != WindowState.Fullscreen)
+            {
+                WindowBorder = WindowBorder.Hidden;
+                WindowState = WindowState.Fullscreen;
+                Input.Input.UpdateInputFocus(this);
+            }
+            else
+            {
+                WindowBorder = WindowBorder.Resizable;
+                WindowState = WindowState.Normal;
+                Input.Input.UpdateInputFocus(this);
+            }
+        }
+
+        protected override void OnFocusedChanged(EventArgs e)
+        {
+            base.OnFocusedChanged(e);
+            Input.Input.UpdateInputFocus(this);
+        }
+        #endregion
+
+        #region Helpers
         private void SetRenderUI(bool ui)
         {
             if (ui)
@@ -122,7 +171,7 @@ namespace VoxelEngine
                 GL.Disable(EnableCap.DepthTest);
                 GL.Disable(EnableCap.CullFace);
                 GL.Disable(EnableCap.Lighting);
-                
+
                 GL.Enable(EnableCap.Texture2D);
                 GL.Enable(EnableCap.Blend);
                 GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
@@ -141,24 +190,12 @@ namespace VoxelEngine
         private void CountFrames(FrameEventArgs e)
         {
             _counter++;
-            _timer += (int) (1000*e.Time);
+            _timer += (int)(1000 * e.Time);
             if (_timer >= 1000)
             {
-                Console.WriteLine((int)(_counter*(1000f/_timer)));
+                Console.WriteLine((int)(_counter * (1000f / _timer)));
                 _timer = 0;
                 _counter = 0;
-            }
-        }
-
-        protected override void OnUpdateFrame(FrameEventArgs e)
-        {
-            base.OnUpdateFrame(e);
-            Input.Input.OnUpdateFrame(e);
-
-            //Listen to KeyEvents
-            if (Keyboard[Key.Escape])
-            {
-                Exit();
             }
         }
 
@@ -184,24 +221,7 @@ namespace VoxelEngine
                 }
             }
         }
+        #endregion
 
-        protected override void OnFocusedChanged(EventArgs e)
-        {
-            base.OnFocusedChanged(e);
-            
-            var pi = (WindowInfo.GetType()).GetProperty("WindowHandle");
-            var hnd = ((IntPtr)pi.GetValue(WindowInfo, null));
-
-            if (Focused)
-            {
-                Console.WriteLine("capture");
-                Input.Input.SetCapture(hnd);
-            }
-            else
-            {
-                Console.WriteLine("Release");
-                Input.Input.ReleaseCapture();
-            }
-        }
     }
 }

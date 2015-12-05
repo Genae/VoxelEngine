@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using OpenTK;
 using OpenTK.Input;
 
@@ -82,10 +83,63 @@ namespace VoxelEngine.Input
             return (int)_currentMouseState.Scroll.Y;
         }
 
+        public static void UpdateInputFocus(GameWindow window)
+        {
+            var pi = (window.WindowInfo.GetType()).GetProperty("WindowHandle");
+            var hnd = ((IntPtr)pi.GetValue(window.WindowInfo, null));
+            var location = new Point(0,0);
+            ClientToScreen(hnd, ref location);
+            if (window.Focused)
+            {
+                var windowRect = (RECT)(window.ClientRectangle);
+                windowRect.Right += location.X;
+                windowRect.Left += location.X;
+                windowRect.Top += location.Y;
+                windowRect.Bottom += location.Y;
+                ClipCursor(ref windowRect);
+                Console.WriteLine(windowRect);
+            }
+            else
+            {
+                var rect = new RECT();
+                ClipCursor(ref rect);
+            }
+        }
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern IntPtr SetCapture(IntPtr hwnd);
+        private static extern IntPtr SetCapture(IntPtr hwnd);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-        public static extern bool ReleaseCapture();
+        private static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        private static extern bool ClipCursor(ref RECT rcClip);
+
+        public struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+            public static implicit operator Rectangle(RECT rect)
+            {
+                return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
+            }
+            public static implicit operator RECT(Rectangle rect)
+            {
+                return new RECT(rect.Left, rect.Top, rect.Right, rect.Bottom);
+            }
+            public RECT(int left, int top, int right, int bottom)
+            {
+                Left = left;
+                Top = top;
+                Right = right;
+                Bottom = bottom;
+            }
+        }
+
     }
 }
