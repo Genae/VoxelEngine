@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
 using OpenTK;
 using OpenTK.Input;
 

@@ -31,7 +31,7 @@ namespace VoxelEngine
         public List<Shader> Shaders = new List<Shader>();
         public List<LightSource> Lights = new List<LightSource>();
 
-        public List<AwsomUI> ui = new List<AwsomUI>();
+        public List<UiElement> UIElements = new List<UiElement>();
 
         public Thread WebThread;
         public static object Lock = new object();
@@ -103,9 +103,9 @@ namespace VoxelEngine
 
 
             SetRenderUI(true);
-            foreach (var awsomUI in ui)
+            foreach (var uiElement in UIElements)
             {
-                awsomUI.OnRenderFrame(e);
+                uiElement.OnRenderFrame(e);
             }
             SetRenderUI(false);
 
@@ -117,9 +117,9 @@ namespace VoxelEngine
             base.OnUpdateFrame(e);
             Input.Input.OnUpdateFrame(e);
 
-            foreach (var awsomUI in ui)
+            foreach (var uiElement in UIElements)
             {
-                awsomUI.OnUpdateFrame(e);
+                uiElement.OnUpdateFrame(e);
             }
 
             //Listen to KeyEvents

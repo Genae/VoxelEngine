@@ -5,38 +5,30 @@ using System.IO;
 using System.Linq;
 using Awesomium.Core;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
 using FrameEventArgs = OpenTK.FrameEventArgs;
-using PixelFormat = System.Drawing.Imaging.PixelFormat;
+using MouseButton = OpenTK.Input.MouseButton;
 
 namespace VoxelEngine.GUI
 {
-    public class AwsomUI
+    public class AwsomUI : UiElement
     {
         //WebView
-        private Bitmap _buffer;
-        private int _textureId;
-        private bool _isDirty;
         private bool _hasFocus;
         private WebView _webView;
         //Others
-        protected Rectangle Position;
-        private readonly object _lock = new object();
 
         #region JSFunctions
-        const string PAGE_HEIGHT_FUNC = "(function() { " +
+        const string PageHeightFunc = "(function() { " +
             "var bodyElmnt = document.body; var html = document.documentElement; " +
             "var height = Math.max( bodyElmnt.scrollHeight, bodyElmnt.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight ); " +
             "return height; })();";
         #endregion
 
         #region Creation
-        public AwsomUI(string url, Rectangle position)
+        public AwsomUI(string url, Rectangle position) : base(position)
         {
             Engine.Instance.EnsureWebCore();
             WebCore.QueueWork(()=>CreateView(url, this));
-            Position = position;
-            Engine.Instance.ui.Add(this);
         }
 
         private static void CreateView(string url, AwsomUI context)
@@ -65,7 +57,7 @@ namespace VoxelEngine.GUI
         #region Rendering
         private static void CreateTexture(WebView view, AwsomUI context, bool resize = false)
         {
-            lock (context._lock)
+            lock (context.Lock)
             {
                 if (!view.IsLive)
                 {
@@ -78,7 +70,7 @@ namespace VoxelEngine.GUI
 
                 if (resize)
                 {
-                    var dh = view.ExecuteJavascriptWithResult(PAGE_HEIGHT_FUNC);
+                    var dh = view.ExecuteJavascriptWithResult(PageHeightFunc);
                     var docHeight = dh.IsInteger ? (int)dh : 0;
 
                     Error lastError = view.GetLastError();
@@ -104,51 +96,21 @@ namespace VoxelEngine.GUI
                     ImageLockMode.ReadWrite, b.PixelFormat);
                 ((BitmapSurface)view.Surface).CopyTo(bits0.Scan0, bits0.Stride, 4, false, false);
                 b.UnlockBits(bits0);
-                context._buffer = b;
-                context._isDirty = true;
+                context.Image = b;
+                context.IsDirty = true;
             }
-        }
-
-        public void OnRenderFrame(FrameEventArgs args)
-        {
-            if (_buffer == null)
-                return;
-            if (_isDirty)
-            {
-                lock (_lock)
-                {
-                    _textureId = TexUtil.BitmapToTexture(_buffer);
-                }
-            }
-
-            GL.BindTexture(TextureTarget.Texture2D, _textureId);
-
-            GL.Begin(BeginMode.Quads);
-
-            GL.TexCoord2(0, 1);
-            GL.Vertex3(Position.X, Position.Y, 0);
-
-            GL.TexCoord2(1, 1);
-            GL.Vertex3(Position.X + Position.Width, Position.Y, 0);
-
-            GL.TexCoord2(1, 0);
-            GL.Vertex3(Position.X + Position.Width, Position.Y + Position.Height, 0);
-
-            GL.TexCoord2(0, 0);
-            GL.Vertex3(Position.X, Position.Y + Position.Height, 0);
-
-            GL.End();
         }
         #endregion
 
         #region Update
 
-        public void OnUpdateFrame(FrameEventArgs e)
+        public override void OnUpdateFrame(FrameEventArgs e)
         {
+            base.OnUpdateFrame(e);
             if (Input.Input.IsMouseInRect(Position, true))
             {
                 _hasFocus = true;
-                WebCore.QueueWork(() => InjectMouse());
+                WebCore.QueueWork(InjectMouse);
             }
             else
             {
@@ -166,17 +128,17 @@ namespace VoxelEngine.GUI
             _webView.InjectMouseMove((int) mousePos.X, (int) mousePos.Y);
             for (var i = 0; i < 3; i++)
             {
-                if (Input.Input.GetMouseButtonDown((OpenTK.Input.MouseButton)i))
+                if (Input.Input.GetMouseButtonDown((MouseButton)i))
                 {
-                    _webView.InjectMouseDown((MouseButton)i);
+                    _webView.InjectMouseDown((Awesomium.Core.MouseButton)i);
                     Console.WriteLine("Click");
                 }
             }
             for (var i = 0; i < 3; i++)
             {
-                if (Input.Input.GetMouseButtonUp((OpenTK.Input.MouseButton)i))
+                if (Input.Input.GetMouseButtonUp((MouseButton)i))
                 {
-                    _webView.InjectMouseUp((MouseButton)i);
+                    _webView.InjectMouseUp((Awesomium.Core.MouseButton)i);
                 }
             }
         }
@@ -185,9 +147,9 @@ namespace VoxelEngine.GUI
             _webView.InjectMouseMove(0,0);
             for (var i = 0; i < 3; i++)
             {
-                if (Input.Input.GetMouseButtonUp((OpenTK.Input.MouseButton)i))
+                if (Input.Input.GetMouseButtonUp((MouseButton)i))
                 {
-                    _webView.InjectMouseUp((MouseButton)i);
+                    _webView.InjectMouseUp((Awesomium.Core.MouseButton)i);
                 }
             }
         }
