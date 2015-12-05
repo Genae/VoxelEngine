@@ -3,8 +3,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Awesomium.Core;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using FrameEventArgs = OpenTK.FrameEventArgs;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
@@ -13,10 +13,14 @@ namespace VoxelEngine.GUI
 {
     public class AwsomUI
     {
+        //WebView
         private Bitmap _buffer;
         private int _textureId;
         private bool _isDirty;
+        private WebView _webView;
+        //Others
         protected Rectangle Position;
+        private readonly object _lock = new object();
 
         #region JSFunctions
         const string PAGE_HEIGHT_FUNC = "(function() { " +
@@ -25,8 +29,10 @@ namespace VoxelEngine.GUI
             "return height; })();";
         #endregion
 
+        #region Creation
         public AwsomUI(string url, Rectangle position)
         {
+            Engine.Instance.EnsureWebCore();
             WebCore.QueueWork(()=>CreateView(url, this));
             Position = position;
             Engine.Instance.ui.Add(this);
@@ -52,51 +58,63 @@ namespace VoxelEngine.GUI
                 // Take snapshots of the page.
                 CreateTexture((WebView)s, context);
             };
+            context._webView = view;
         }
-
+        #endregion
+        
+        #region Rendering
         private static void CreateTexture(WebView view, AwsomUI context)
         {
-            if (!view.IsLive)
+            lock (context._lock)
             {
-                // Dispose the view.
-                view.Dispose();
-                return;
+                if (!view.IsLive)
+                {
+                    // Dispose the view.
+                    view.Dispose();
+                    return;
+                }
+                if (!view.IsDocumentReady)
+                    return;
+
+                var docHeight = (int)view.ExecuteJavascriptWithResult(PAGE_HEIGHT_FUNC);
+
+                Error lastError = view.GetLastError();
+
+                // Report errors.
+                if (lastError != Error.None)
+                    Console.WriteLine("Error: {0} occurred while getting the page's height.", lastError);
+
+                // Exit if the operation failed or the height is 0.
+                if (docHeight == 0)
+                    return;
+
+                if (docHeight != view.Height)
+                {
+                    view.Resize(view.Width, docHeight);
+                    return;
+                }
+                var b = new Bitmap(view.Width, view.Height, PixelFormat.Format32bppArgb);
+                var bits0 = b.LockBits(
+                    new Rectangle(0, 0, view.Width, view.Height),
+                    ImageLockMode.ReadWrite, b.PixelFormat);
+                ((BitmapSurface)view.Surface).CopyTo(bits0.Scan0, bits0.Stride, 4, false, false);
+                b.UnlockBits(bits0);
+                context._buffer = b;
+                context._isDirty = true;
             }
-            if (!view.IsDocumentReady)
-                return;
-                
-            var docHeight = (int) view.ExecuteJavascriptWithResult(PAGE_HEIGHT_FUNC);
-
-            Error lastError = view.GetLastError();
-
-            // Report errors.
-            if (lastError != Error.None)
-                Console.WriteLine("Error: {0} occurred while getting the page's height.", lastError);
-
-            // Exit if the operation failed or the height is 0.
-            if (docHeight == 0)
-                return;
-
-            if (docHeight != view.Height)
-            {
-                view.Resize(view.Width, docHeight);
-            }
-            var b = new Bitmap(view.Width, view.Height, PixelFormat.Format32bppArgb);
-            var bits0 = b.LockBits(
-                new Rectangle(0, 0, view.Width, view.Height),
-                ImageLockMode.ReadWrite, b.PixelFormat);
-            ((BitmapSurface)view.Surface).CopyTo(bits0.Scan0, bits0.Stride, 4, false, false);
-            b.UnlockBits(bits0);
-            context._buffer = b;
-            context._isDirty = true;
         }
 
         public void OnRenderFrame(FrameEventArgs args)
         {
             if (_buffer == null)
                 return;
-            if(_isDirty)
-                _textureId = TexUtil.BitmapToTexture(_buffer);
+            if (_isDirty)
+            {
+                lock (_lock)
+                {
+                    _textureId = TexUtil.BitmapToTexture(_buffer);
+                }
+            }
 
             GL.BindTexture(TextureTarget.Texture2D, _textureId);
 
@@ -116,5 +134,24 @@ namespace VoxelEngine.GUI
 
             GL.End();
         }
+        #endregion
+
+        #region Update
+
+        public void OnUpdateFrame(FrameEventArgs e)
+        {
+            if (Input.Input.IsMouseInRect(Position))
+            {
+                var mousePos = GlobalToView(Input.Input.GetMousePosition());
+                _webView.InjectMouseMove((int)mousePos.X, (int)mousePos.Y);
+            }
+        }
+
+        private Vector2 GlobalToView(Vector2 getMousePosition)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

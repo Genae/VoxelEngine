@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using System.Threading;
 using Awesomium.Core;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using OpenTK.Platform;
 using VoxelEngine.Camera;
 using VoxelEngine.GameData;
 using VoxelEngine.GUI;
@@ -31,7 +33,8 @@ namespace VoxelEngine
         public List<AwsomUI> ui = new List<AwsomUI>();
 
         public Thread WebThread;
-
+        public static object Lock = new object();
+        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -150,16 +153,7 @@ namespace VoxelEngine
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-
-            //Run UIRenderer
-            if (ui.Count > 0)
-            {
-                if (!WebCore.IsInitialized)
-                {
-                    WebThread = new Thread(RunWebCore);
-                    WebThread.Start();
-                }
-            }
+            Input.Input.OnUpdateFrame(e);
 
             //Listen to KeyEvents
             if (Keyboard[Key.Escape])
@@ -177,6 +171,37 @@ namespace VoxelEngine
             });
             WebCore.CreateWebSession(new WebPreferences() { CustomCSS = "::-webkit-scrollbar { visibility: hidden; }" });
             WebCore.Run();
+        }
+
+        public void EnsureWebCore()
+        {
+            lock (Lock)
+            {
+                if (!WebCore.IsInitialized)
+                {
+                    WebThread = new Thread(RunWebCore);
+                    WebThread.Start();
+                }
+            }
+        }
+
+        protected override void OnFocusedChanged(EventArgs e)
+        {
+            base.OnFocusedChanged(e);
+            
+            var pi = (WindowInfo.GetType()).GetProperty("WindowHandle");
+            var hnd = ((IntPtr)pi.GetValue(WindowInfo, null));
+
+            if (Focused)
+            {
+                Console.WriteLine("capture");
+                Input.Input.SetCapture(hnd);
+            }
+            else
+            {
+                Console.WriteLine("Release");
+                Input.Input.ReleaseCapture();
+            }
         }
     }
 }

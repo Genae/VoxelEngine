@@ -71,6 +71,7 @@
     <Compile Include="GUI\AwsomUI.cs" />
     <Compile Include="GUI\TexUtil.cs" />
     <Compile Include="GUI\UiElement.cs" />
+    <Compile Include="Input\Input.cs" />
     <Compile Include="Light\DirectionalLight.cs" />
     <Compile Include="Light\LightSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
