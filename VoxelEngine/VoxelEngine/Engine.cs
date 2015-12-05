@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
+using Awesomium.Core;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
@@ -9,6 +11,7 @@ using VoxelEngine.GameData;
 using VoxelEngine.GUI;
 using VoxelEngine.Light;
 using VoxelEngine.Shaders;
+using FrameEventArgs = OpenTK.FrameEventArgs;
 
 namespace VoxelEngine
 {
@@ -25,12 +28,13 @@ namespace VoxelEngine
         public List<Shader> Shaders = new List<Shader>();
         public List<LightSource> Lights = new List<LightSource>();
 
-        private AwsomUI ui;
+        public List<AwsomUI> ui = new List<AwsomUI>();
+
+        public Thread WebThread;
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            ui = new AwsomUI();
             OnResize(e);
             OnMove(e);
             //CursorVisible = false;
@@ -87,7 +91,10 @@ namespace VoxelEngine
 
 
             SetRenderUI(true);
-            ui.OnRenderFrame(e);
+            foreach (var awsomUI in ui)
+            {
+                awsomUI.OnRenderFrame(e);
+            }
             SetRenderUI(false);
 
             SwapBuffers();
@@ -135,7 +142,6 @@ namespace VoxelEngine
             if (_timer >= 1000)
             {
                 Console.WriteLine((int)(_counter*(1000f/_timer)));
-                ui.SetFPS((int)(_counter * (1000f / _timer)));
                 _timer = 0;
                 _counter = 0;
             }
@@ -144,10 +150,33 @@ namespace VoxelEngine
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
+
+            //Run UIRenderer
+            if (ui.Count > 0)
+            {
+                if (!WebCore.IsInitialized)
+                {
+                    WebThread = new Thread(RunWebCore);
+                    WebThread.Start();
+                }
+            }
+
+            //Listen to KeyEvents
             if (Keyboard[Key.Escape])
             {
                 Exit();
             }
+        }
+
+        private void RunWebCore()
+        {
+            WebCore.Initialize(new WebConfig()
+            {
+                LogPath = Environment.CurrentDirectory + "/awesomium.log",
+                LogLevel = LogLevel.Verbose,
+            });
+            WebCore.CreateWebSession(new WebPreferences() { CustomCSS = "::-webkit-scrollbar { visibility: hidden; }" });
+            WebCore.Run();
         }
     }
 }

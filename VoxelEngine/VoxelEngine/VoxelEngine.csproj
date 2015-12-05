@@ -94,6 +94,9 @@
     <Content Include="GUI\MC.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="GUI\TestButton.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="GUI\Unbenannt.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

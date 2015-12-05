@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using Awesomium.Core;
 using OpenTK.Graphics.OpenGL;
@@ -11,78 +13,104 @@ namespace VoxelEngine.GUI
 {
     public class AwsomUI
     {
-        private WebView view;
-        private BitmapSurface surface;
-        private int tex;
-        private Thread t;
-        public AwsomUI()
+        private Bitmap _buffer;
+        private int _textureId;
+        private bool _isDirty;
+        protected Rectangle Position;
+
+        #region JSFunctions
+        const string PAGE_HEIGHT_FUNC = "(function() { " +
+            "var bodyElmnt = document.body; var html = document.documentElement; " +
+            "var height = Math.max( bodyElmnt.scrollHeight, bodyElmnt.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight ); " +
+            "return height; })();";
+        #endregion
+
+        public AwsomUI(string url, Rectangle position)
         {
-            //tex = TexUtil.LoadTexture(@"GUI\Unbenannt.bmp", true);
-            WebSession session = WebCore.CreateWebSession(new WebPreferences(){CustomCSS = "::-webkit-scrollbar { visibility: hidden; }"});
-            view = WebCore.CreateWebView(Engine.Instance.Width/2, Engine.Instance.Height/2, session);
+            WebCore.QueueWork(()=>CreateView(url, this));
+            Position = position;
+            Engine.Instance.ui.Add(this);
+        }
+
+        private static void CreateView(string url, AwsomUI context)
+        {
+            var view = WebCore.CreateWebView(context.Position.Width, context.Position.Height, WebCore.Sessions.Last());
             view.IsTransparent = true;
+            view.Source = new Uri("file:///" + new FileInfo(url).FullName);
+
+            /*var surface = ((BitmapSurface) view.Surface);
+            surface.Updated += (sender, args) =>
+            {
+                GenTex(view, args.DirtyRegion);
+            };*/
 
             view.LoadingFrameComplete += (s, e) =>
             {
                 if (!e.IsMainFrame)
                     return;
-                GenTex((BitmapSurface)view.Surface, new AweRect(0,0,view.Width, view.Height));
-                surface = (BitmapSurface) view.Surface;
-                //surface.SaveToPNG(@"C:\test\test.png");
-
-                surface.Updated += (sender, args) =>
-                {
-                    GenTex((BitmapSurface) view.Surface, args.DirtyRegion);
-                };
+                
+                // Take snapshots of the page.
+                CreateTexture((WebView)s, context);
             };
         }
 
-        private void GenTex(BitmapSurface surface, AweRect bounds)
+        private static void CreateTexture(WebView view, AwsomUI context)
         {
-            Bitmap b = new Bitmap(view.Width, view.Height, PixelFormat.Format32bppArgb);
-            BitmapData bits0 = b.LockBits(
+            if (!view.IsLive)
+            {
+                // Dispose the view.
+                view.Dispose();
+                return;
+            }
+            var surface = (BitmapSurface)view.Surface;
+            var docHeight = (int) view.ExecuteJavascriptWithResult(PAGE_HEIGHT_FUNC);
+
+            Error lastError = view.GetLastError();
+
+            // Report errors.
+            if (lastError != Error.None)
+                Console.WriteLine("Error: {0} occurred while getting the page's height.", lastError);
+
+            // Exit if the operation failed or the height is 0.
+            if (docHeight == 0)
+                return;
+
+            if (docHeight != view.Height)
+            {
+                view.Resize(view.Width, docHeight);
+            }
+            var b = new Bitmap(view.Width, view.Height, PixelFormat.Format32bppArgb);
+            var bits0 = b.LockBits(
                 new Rectangle(0, 0, view.Width, view.Height),
                 ImageLockMode.ReadWrite, b.PixelFormat);
-            surface.CopyTo(bits0.Scan0, bits0.Stride, 4, false, false);
+            ((BitmapSurface)view.Surface).CopyTo(bits0.Scan0, bits0.Stride, 4, false, false);
             b.UnlockBits(bits0);
-            //b.Save(@"C:\test\test.bmp");
-            tex = TexUtil.BitmapToTexture(b);
-        }
-
-        public void SetFPS(int fps)
-        {
-            view.LoadHTML("<html><head></head><body style=\"color: red; font-size: 40pt; font-family:Courier New\">FPS: " + fps + "</body></html>");
+            context._buffer = b;
+            context._isDirty = true;
         }
 
         public void OnRenderFrame(FrameEventArgs args)
         {
-            WebCore.Update();
-            if (surface == null)
-            {
+            if (_buffer == null)
                 return;
-            }
-            DrawImage(tex);
-        }
+            if(_isDirty)
+                _textureId = TexUtil.BitmapToTexture(_buffer);
 
-        public  void DrawImage(int image)
-        {
-            //GL.Color4(Color.Transparent);
-
-            GL.BindTexture(TextureTarget.Texture2D, image);
+            GL.BindTexture(TextureTarget.Texture2D, _textureId);
 
             GL.Begin(BeginMode.Quads);
 
             GL.TexCoord2(0, 1);
-            GL.Vertex3(1, 1, 0);
+            GL.Vertex3(Position.X, Position.Y, 0);
 
             GL.TexCoord2(1, 1);
-            GL.Vertex3(view.Width, 1, 0);
+            GL.Vertex3(Position.X + Position.Width, Position.Y, 0);
 
             GL.TexCoord2(1, 0);
-            GL.Vertex3(view.Width, view.Height, 0);
+            GL.Vertex3(Position.X + Position.Width, Position.Y + Position.Height, 0);
 
             GL.TexCoord2(0, 0);
-            GL.Vertex3(1, view.Height, 0);
+            GL.Vertex3(Position.X, Position.Y + Position.Height, 0);
 
             GL.End();
         }
