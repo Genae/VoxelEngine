@@ -71,6 +71,7 @@ namespace VoxelEngine
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref _matrixProjection);
             ScreenSize = new Vector2(Width, Height);
+            Input.Input.UpdateInputFocus(this);
         }
 
         protected override void OnMove(EventArgs e)

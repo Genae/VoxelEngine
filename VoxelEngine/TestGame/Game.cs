@@ -32,7 +32,11 @@ namespace TestGame
             var ds = new DiamondSquare(0.5f, Map.Chunks.GetLength(0)*Chunk.ChunkSize + 1, Map.Chunks.GetLength(2) * Chunk.ChunkSize + 1);
             Map.LoadHeightmap(ds.Generate(new Random()), (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize *0.75));
 
-            new AwsomUI("GUI/TestButton.html", new Rectangle(0,0,100,100));
+            var ui = new AwsomUI("GUI/TestButton.html", new RelativePosition(RelativePosition.AnchorPoint.BottomRight, 100, 100));
+            ui.BindCallback(new Callback("sayClick", false, (sender, args) =>
+            {
+                Console.WriteLine("Click :D");
+            }));
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)

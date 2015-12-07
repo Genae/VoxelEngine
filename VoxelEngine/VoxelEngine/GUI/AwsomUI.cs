@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -15,6 +16,8 @@ namespace VoxelEngine.GUI
         //WebView
         private bool _hasFocus;
         private WebView _webView;
+        private JSObject _jsObject;
+        private List<Callback> Callbacks = new List<Callback>();
         //Others
 
         #region JSFunctions
@@ -25,7 +28,7 @@ namespace VoxelEngine.GUI
         #endregion
 
         #region Creation
-        public AwsomUI(string url, Rectangle position) : base(position)
+        public AwsomUI(string url, Position position) : base(position)
         {
             Engine.Instance.EnsureWebCore();
             WebCore.QueueWork(()=>CreateView(url, this));
@@ -49,11 +52,18 @@ namespace VoxelEngine.GUI
                 {
                     CreateTexture((WebView)s, context);
                 };
+
+                context._jsObject = view.CreateGlobalJavascriptObject("cSharp");
             };
             context._webView = view;
         }
+
+        public void BindCallback(Callback cb)
+        {
+            Callbacks.Add(cb);
+        }
         #endregion
-        
+
         #region Rendering
         private static void CreateTexture(WebView view, AwsomUI context, bool resize = false)
         {
@@ -103,7 +113,6 @@ namespace VoxelEngine.GUI
         #endregion
 
         #region Update
-
         public override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
@@ -120,6 +129,15 @@ namespace VoxelEngine.GUI
                     _hasFocus = false;
                 }
             }
+
+            if(_jsObject != null)
+            WebCore.QueueWork(() =>
+            {
+                foreach (var cb in Callbacks.Where(c => !c.Bound))
+                {
+                    _jsObject.Bind(cb.MethodName, cb.HasReturnValue, cb.Handler);
+                }
+            });
         }
 
         private void InjectMouse()
@@ -131,7 +149,6 @@ namespace VoxelEngine.GUI
                 if (Input.Input.GetMouseButtonDown((MouseButton)i))
                 {
                     _webView.InjectMouseDown((Awesomium.Core.MouseButton)i);
-                    Console.WriteLine("Click");
                 }
             }
             for (var i = 0; i < 3; i++)
@@ -162,5 +179,20 @@ namespace VoxelEngine.GUI
         }
 
         #endregion
+    }
+
+    public class Callback
+    {
+        public Callback(string methodName, bool hasReturnValue, JavascriptMethodEventHandler handler)
+        {
+            MethodName = methodName;
+            HasReturnValue = hasReturnValue;
+            Handler = handler;
+        }
+
+        public bool Bound { get; set; }
+        public string MethodName { get; set; }
+        public bool HasReturnValue { get; set; }
+        public JavascriptMethodEventHandler Handler { get; set; }
     }
 }

@@ -6,14 +6,14 @@ namespace VoxelEngine.GUI
 {
     public class UiElement
     {
-        protected Rectangle Position;
+        protected Position Position;
         protected Bitmap Image;
         protected int TextureId;
         protected bool IsDirty;
 
         protected readonly object Lock = new object();
 
-        public UiElement(Rectangle position)
+        public UiElement(Position position)
         {
             Position = position;
 

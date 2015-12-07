@@ -93,13 +93,12 @@ namespace VoxelEngine.Input
             ClientToScreen(hnd, ref location);
             if (window.Focused)
             {
-                var windowRect = (RECT)(window.ClientRectangle);
+                RECT windowRect = window.ClientRectangle;
                 windowRect.Right += location.X;
                 windowRect.Left += location.X;
                 windowRect.Top += location.Y;
                 windowRect.Bottom += location.Y;
                 ClipCursor(ref windowRect);
-                Console.WriteLine(windowRect);
             }
             else
             {
@@ -108,6 +107,7 @@ namespace VoxelEngine.Input
             }
         }
 
+        #region Imports
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         private static extern IntPtr SetCapture(IntPtr hwnd);
 
@@ -142,6 +142,7 @@ namespace VoxelEngine.Input
                 Bottom = bottom;
             }
         }
+        #endregion
 
     }
 }

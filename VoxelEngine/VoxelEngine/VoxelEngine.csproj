@@ -69,6 +69,7 @@
     <Compile Include="GameData\Voxel.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GUI\AwsomUI.cs" />
+    <Compile Include="GUI\Position.cs" />
     <Compile Include="GUI\TexUtil.cs" />
     <Compile Include="GUI\UiElement.cs" />
     <Compile Include="Input\Input.cs" />
@@ -90,17 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FBX\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="GUI\MC.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GUI\TestButton.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GUI\Unbenannt.bmp">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
