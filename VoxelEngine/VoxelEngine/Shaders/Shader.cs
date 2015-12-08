@@ -237,16 +237,14 @@ namespace VoxelEngine.Shaders
             SetVariable(name, color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
         }
 
-        public static void Bind(Shader shader)
+        public void Bind()
         {
-            if (shader != null && shader.Program > 0)
-            {
-                 GL.UseProgram(shader.Program);
-            }
-            else
-            {
-                 GL.UseProgram(0);
-            }
+            GL.UseProgram(Program > 0 ? Program : 0);
+        }
+
+        public void Unbind()
+        {
+            GL.UseProgram(0);
         }
 
         public void Dispose()

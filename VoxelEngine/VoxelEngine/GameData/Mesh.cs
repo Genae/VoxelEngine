@@ -39,12 +39,17 @@ namespace VoxelEngine.GameData
         
         public void OnRenderFrame(FrameEventArgs e)
         {
+            Render(true);
+        }
+
+        public void Render(bool ownShader)
+        {
             if (Length == 0 || !Active || !Visible)
                 return;
             if (!Loaded)
                 Load();
 
-            Shader.Bind(Shader);
+            if(ownShader) Shader.Bind();
             GL.EnableClientState(ArrayCap.ColorArray);
             GL.BindBuffer(BufferTarget.ArrayBuffer, MColorBuffer);
             GL.ColorPointer(4, ColorPointerType.Float, 0, 0);
@@ -68,7 +73,7 @@ namespace VoxelEngine.GameData
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
 
-            Shader.Bind(null);
+            if (ownShader) Shader.Unbind();
         }
 
         protected void CreateMesh(float[] vertecies, ushort[] triangles, float[] colors, float[] normals)

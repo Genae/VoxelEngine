@@ -85,13 +85,13 @@ namespace VoxelEngine
             CountFrames(e);
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            
-            Cameras[0].OnRenderFrame(e);
-            
             foreach (var lightSource in Lights)
             {
                 lightSource.OnRenderFrame(e);
+                GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             }
+
+            Cameras[0].OnRenderFrame(e);
             foreach (var shader in Shaders)
             {
                 shader.OnRenderFrame(e);

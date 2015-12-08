@@ -21,7 +21,11 @@ namespace VoxelEngine.Light
 
         public void OnRenderFrame(FrameEventArgs e)
         {
-            
+            GenerateShadowMap();
+        }
+
+        protected virtual void GenerateShadowMap()
+        {
         }
     }
 }

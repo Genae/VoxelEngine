@@ -5,6 +5,7 @@ using TerrainGeneration.Algorithms;
 using VoxelEngine;
 using VoxelEngine.GameData;
 using VoxelEngine.GUI;
+using VoxelEngine.Light;
 
 namespace TestGame
 {
@@ -32,7 +33,9 @@ namespace TestGame
             var ds = new DiamondSquare(0.5f, Map.Chunks.GetLength(0)*Chunk.ChunkSize + 1, Map.Chunks.GetLength(2) * Chunk.ChunkSize + 1);
             Map.LoadHeightmap(ds.Generate(new Random()), (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize *0.75));
 
-            var ui = new AwsomUI("GUI/TestButton.html", new RelativePosition(RelativePosition.AnchorPoint.BottomRight, 100, 100));
+            new DirectionalLight(new Vector3(0f, -1f, 1f));
+
+            var ui = new AwsomUI("GUI/TestButton.html", new RelativePosition(RelativePosition.AnchorPoint.TopLeft, 100, 100));
             ui.BindCallback(new Callback("sayClick", false, (sender, args) =>
             {
                 Console.WriteLine("Click :D");
