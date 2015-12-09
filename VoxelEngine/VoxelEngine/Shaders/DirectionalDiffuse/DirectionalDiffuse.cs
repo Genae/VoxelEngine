@@ -8,7 +8,17 @@ namespace VoxelEngine.Shaders.DirectionalDiffuse
         private const string VSource= "Shaders/DirectionalDiffuse/shader.vert";
         private const string FSource= "Shaders/DirectionalDiffuse/shader.frag";
         private float _angle;
-        private readonly Vector3 _direction = new Vector3(0.7f, -1.0f, 0.3f);
+
+        private static DirectionalDiffuse _instance;
+        public static DirectionalDiffuse Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    return (_instance = new DirectionalDiffuse());
+                return _instance;
+            }
+        }
 
         public DirectionalDiffuse() : base(LoadFile(VSource), LoadFile(FSource))
         {

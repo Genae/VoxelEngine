@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using OpenTK;
-using TerrainGeneration.Algorithms;
+using TestGame.MapGeneration;
 using VoxelEngine;
 using VoxelEngine.GameData;
 using VoxelEngine.GUI;
@@ -29,9 +29,11 @@ namespace TestGame
             base.OnLoad(e);
             // Load stuff
             CameraController = new GameCameraController();
-            Map = new Map(16, 8);
-            var ds = new DiamondSquare(0.5f, Map.Chunks.GetLength(0)*Chunk.ChunkSize + 1, Map.Chunks.GetLength(2) * Chunk.ChunkSize + 1);
-            Map.LoadHeightmap(ds.Generate(new Random()), (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize *0.75));
+
+            //map
+            Map = new Map(16, 16);
+            var hmg = new HeightmapGenerator(Map.Chunks.GetLength(0) * Chunk.ChunkSize + 1, Map.Chunks.GetLength(0) * Chunk.ChunkSize + 1, 10);
+            Map.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize * 0.75));
 
             new DirectionalLight(new Vector3(0f, -1f, 1f));
 

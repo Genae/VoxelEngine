@@ -58,7 +58,27 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="GameCameraController.cs" />
+    <Compile Include="MapGeneration\DiamondCutPattern.cs" />
     <Compile Include="MapGeneration\DiamondSquare.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\CutPattern.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\Events\VCircleEvent.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\Events\VDataEvent.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\Events\VEvent.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\Fortune.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\Nodes\VDataNode.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\Nodes\VEdgeNode.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\Nodes\VNode.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiCell.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiEdge.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiGraph.cs" />
+    <Compile Include="MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiTriangle.cs" />
+    <Compile Include="MapGeneration\Graph\Edge.cs" />
+    <Compile Include="MapGeneration\Graph\Graph.cs" />
+    <Compile Include="MapGeneration\HeightmapGenerator.cs" />
+    <Compile Include="MapGeneration\PeakSearchTree.cs" />
+    <Compile Include="MapGeneration\PeakSearchTreeTest.cs" />
+    <Compile Include="MapGeneration\SpanningTree.cs" />
+    <Compile Include="MapGeneration\Voronoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

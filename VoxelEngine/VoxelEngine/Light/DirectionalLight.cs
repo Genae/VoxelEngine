@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using VoxelEngine.Shaders;
+using VoxelEngine.Shaders.DirectionalShadow;
 using VoxelEngine.Shaders.ShadowMap;
 
 namespace VoxelEngine.Light
@@ -63,6 +65,19 @@ namespace VoxelEngine.Light
             _shader.Unbind();
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
+            //TODO move
+            var bias = new Matrix4(
+                0.5f, 0.0f, 0.0f, 0.0f,
+                0.0f, 0.5f, 0.0f, 0.0f,
+                0.0f, 0.0f, 0.5f, 0.0f,
+                0.5f, 0.5f, 0.5f, 1.0f
+            );
+
+            var depthMVPBias = bias*depthMVP;
+            /*DirectionalShadow.Instance.SetVariable("DepthMVP", depthMVP);
+            DirectionalShadow.Instance.SetVariable("ModelViewMatrix", depthViewMatrix);
+            DirectionalShadow.Instance.SetVariable("Matrix");
+            DirectionalShadow.Instance.SetVariable("Matrix");*/
         }
     }
 }

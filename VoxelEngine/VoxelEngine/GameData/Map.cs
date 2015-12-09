@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using OpenTK;
 using VoxelEngine.Shaders;
 
@@ -72,6 +73,31 @@ namespace VoxelEngine.GameData
                 {
                     var height = heightmap[x, z]* maxHeight;
                     for (int y = 0; y < height; y++)
+                    {
+                        GetVoxel(x, y, z).IsActive = true;
+                        v++;
+                    }
+                }
+            }
+            foreach (var chunk in Chunks)
+            {
+                chunk.OnChunkUpdated();
+            }
+            Console.WriteLine(v);
+        }
+
+        public void LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, short maxHeight)
+        {
+            var v = 0;
+            for (int x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            {
+                for (int z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                {
+                    if (cut[x, z] <= 0.5f)
+                        continue;
+                    var bot = (short)((bottom[x, z]+2)/3 * maxHeight);
+                    var height = (heightmap[x, z]+2)/3 * maxHeight;
+                    for (int y = bot; y < height; y++)
                     {
                         GetVoxel(x, y, z).IsActive = true;
                         v++;

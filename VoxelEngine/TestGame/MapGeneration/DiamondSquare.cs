@@ -3,7 +3,7 @@ using System.Linq;
 using OpenTK;
 using Random = System.Random;
 
-namespace TerrainGeneration.Algorithms
+namespace TestGame.MapGeneration
 {
     class DiamondSquare
     {

@@ -2,6 +2,7 @@
 using System.Drawing;
 using OpenTK;
 using VoxelEngine.Shaders.DirectionalDiffuse;
+using VoxelEngine.Shaders.DirectionalShadow;
 
 namespace VoxelEngine.GameData
 {
@@ -12,7 +13,7 @@ namespace VoxelEngine.GameData
 
         public Chunk(Vector3 pos):base(ChunkSize, pos)
         {
-            Shader = new DirectionalDiffuse();
+            Shader = DirectionalDiffuse.Instance;
             Voxels = new Voxel[ChunkSize, ChunkSize, ChunkSize];
             for (int x = 0; x < ChunkSize; x++)
             {
