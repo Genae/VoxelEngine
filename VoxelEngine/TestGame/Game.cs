@@ -29,13 +29,14 @@ namespace TestGame
             base.OnLoad(e);
             // Load stuff
             CameraController = new GameCameraController();
+            CameraController.Camera.CameraPos = new Vector3(-10,-10,-10);
 
             //map
-            Map = new Map(16, 16);
-            var hmg = new HeightmapGenerator(Map.Chunks.GetLength(0) * Chunk.ChunkSize + 1, Map.Chunks.GetLength(0) * Chunk.ChunkSize + 1, 10);
-            Map.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, (short)(Map.Chunks.GetLength(1) * Chunk.ChunkSize * 0.75));
+            int mapsize = 16 * Chunk.ChunkSize, mapheight = 16 * Chunk.ChunkSize;
+            var hmg = new HeightmapGenerator(mapsize + 1, mapsize + 1, 10);
+            Map = Map.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, (short)mapheight, mapheight*0.75f);
 
-            new DirectionalLight(new Vector3(0f, -1f, 1f));
+            new DirectionalLight(new Vector3(-10, -10, -10));
 
             var ui = new AwsomUI("GUI/TestButton.html", new RelativePosition(RelativePosition.AnchorPoint.TopLeft, 100, 100));
             ui.BindCallback(new Callback("sayClick", false, (sender, args) =>

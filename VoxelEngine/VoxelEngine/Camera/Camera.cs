@@ -89,6 +89,7 @@ namespace VoxelEngine.Camera
         {
             var newForward = new Vector3((float)Math.Cos(_facing), _pitch, (float)Math.Sin(_facing));
             _cameraMatrix = Matrix4.LookAt(_cameraPos, _cameraPos + newForward, Vector3.UnitY);
+            //_cameraMatrix = Matrix4.LookAt(_cameraPos, Vector3.Zero, Vector3.UnitY);
 
             Matrix4 projection;
             GL.GetFloat(GetPName.ProjectionMatrix, out projection);

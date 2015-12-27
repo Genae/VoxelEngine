@@ -2,7 +2,6 @@
 using System.Drawing;
 using OpenTK;
 using VoxelEngine.Shaders.DirectionalDiffuse;
-using VoxelEngine.Shaders.DirectionalShadow;
 
 namespace VoxelEngine.GameData
 {
@@ -10,6 +9,7 @@ namespace VoxelEngine.GameData
     {
         public const int ChunkSize = 16;
         public Voxel[,,] Voxels;
+        private bool[][,] _borders;
 
         public Chunk(Vector3 pos):base(ChunkSize, pos)
         {
@@ -25,6 +25,25 @@ namespace VoxelEngine.GameData
                     }
                 }
             }
+        }
+
+        public void UpdateBorder(bool[,] border, int side, bool runUpdate = true)
+        {
+            _borders[side] = border;
+            if(runUpdate)
+                OnChunkUpdated();
+        }
+
+        public void UpdateBorder(bool[][,] border, bool runUpdate = true)
+        {
+            _borders = border;
+            for (int i = 0; i < 6; i++)
+            {
+                if(_borders[i] == null)
+                    _borders[i] = new bool[ChunkSize,ChunkSize];
+            }
+            if (runUpdate)
+                OnChunkUpdated();
         }
 
         protected override void Load()
@@ -60,27 +79,27 @@ namespace VoxelEngine.GameData
                         var voxel = Voxels[x, y, z];
                         if (voxel != null && voxel.IsActive)
                         {
-                            if (x == 0 || !Voxels[x - 1, y, z].IsActive) //+x left
+                            if ((x == 0 && !_borders[0][y,z]) || (x != 0 && !Voxels[x - 1, y, z].IsActive)) //+x left
                             {
                                 planes[0, x, y, z] = Voxels[x, y, z].BlockType;
                             }
-                            if (x == ChunkSize - 1 || !Voxels[x + 1, y, z].IsActive) //-x right
+                            if ((x == ChunkSize - 1 && !_borders[1][y,z]) || (x != ChunkSize - 1 && !Voxels[x + 1, y, z].IsActive)) //-x right
                             {
                                 planes[1, x, y, z] = Voxels[x, y, z].BlockType;
                             }
-                            if (y == 0 || !Voxels[x, y - 1, z].IsActive) //+y bottom
+                            if ((y == 0 && !_borders[2][x,z]) || (y != 0 && !Voxels[x, y - 1, z].IsActive)) //+y bottom
                             {
                                 planes[2, x, y, z] = Voxels[x, y, z].BlockType;
                             }
-                            if (y == ChunkSize - 1 || !Voxels[x, y + 1, z].IsActive) //-y top
+                            if ((y == ChunkSize - 1 && !_borders[3][x,z]) || (y != ChunkSize-1 && !Voxels[x, y + 1, z].IsActive)) //-y top
                             {
                                 planes[3, x, y, z] = Voxels[x, y, z].BlockType;
                             }
-                            if (z == 0 || !Voxels[x, y, z - 1].IsActive) //+z back
+                            if ((z == 0 && !_borders[4][x,y]) || (z != 0 && !Voxels[x, y, z - 1].IsActive)) //+z back
                             {
                                 planes[4, x, y, z] = Voxels[x, y, z].BlockType;
                             }
-                            if (z == ChunkSize - 1 || !Voxels[x, y, z + 1].IsActive) //-z front
+                            if ((z == ChunkSize - 1 && !_borders[5][x,y]) || (z != ChunkSize-1 && !Voxels[x, y, z + 1].IsActive)) //-z front
                             {
                                 planes[5, x, y, z] = Voxels[x, y, z].BlockType;
                             }
@@ -303,8 +322,10 @@ namespace VoxelEngine.GameData
             };
         }
 
-        public bool HasSolidBorder(int dir)
+        public bool HasSolidBorder(int dir, out bool[,] border)
         {
+            border = new bool[ChunkSize,ChunkSize];
+            var solid = true;
             switch (dir)
             {
                 case 1: //+x
@@ -312,38 +333,38 @@ namespace VoxelEngine.GameData
                     {
                         for (var z = 0; z < ChunkSize; z++)
                         {
-                            if (!Voxels[ChunkSize - 1, y, z].IsActive)
-                                return false;
+                            border[y, z] = Voxels[ChunkSize - 1, y, z].IsActive;
+                            solid = solid && Voxels[ChunkSize - 1, y, z].IsActive;
                         }
                     }
-                    return true;
+                    return solid;
                 case 2: //-x
                     for (var y = 0; y < ChunkSize; y++)
                     {
                         for (var z = 0; z < ChunkSize; z++)
                         {
-                            if (!Voxels[0, y, z].IsActive)
-                                return false;
+                            border[y, z] = Voxels[0, y, z].IsActive;
+                            solid = solid && Voxels[0, y, z].IsActive;
                         }
                     }
-                    return true;
+                    return solid;
                 case 3: //+y
                     for (var x = 0; x < ChunkSize; x++)
                     {
                         for (var z = 0; z < ChunkSize; z++)
                         {
-                            if (!Voxels[x, ChunkSize - 1, z].IsActive)
-                                return false;
+                            border[x, z] = Voxels[x, ChunkSize - 1, z].IsActive;
+                            solid = solid && Voxels[x, ChunkSize - 1, z].IsActive;
                         }
                     }
-                    return true;
+                    return solid;
                 case 4: //-y
                     for (var x = 0; x < ChunkSize; x++)
                     {
                         for (var z = 0; z < ChunkSize; z++)
                         {
-                            if (!Voxels[x, 0, z].IsActive)
-                                return false;
+                            border[x, z] = Voxels[x, 0, z].IsActive;
+                            solid = solid && Voxels[x, 0, z].IsActive;
                         }
                     }
                     return true;
@@ -352,21 +373,21 @@ namespace VoxelEngine.GameData
                     {
                         for (var y = 0; y < ChunkSize; y++)
                         {
-                            if (!Voxels[x, y, ChunkSize - 1].IsActive)
-                                return false;
+                            border[x, y] = Voxels[x, y, ChunkSize - 1].IsActive;
+                            solid = solid && Voxels[x, y, ChunkSize - 1].IsActive;
                         }
                     }
-                    return true;
+                    return solid;
                 case 6: //-z
                     for (var x = 0; x < ChunkSize; x++)
                     {
                         for (var y = 0; y < ChunkSize; y++)
                         {
-                            if (!Voxels[x, y, 0].IsActive)
-                                return false;
+                            border[x,y] = Voxels[x, y, 0].IsActive;
+                            solid = solid && Voxels[x, y, 0].IsActive;
                         }
                     }
-                    return true;
+                    return solid;
             }
             return false;
         }

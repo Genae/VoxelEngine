@@ -10,105 +10,158 @@ namespace VoxelEngine.GameData
         public Chunk[,,] Chunks;
         public Shader Shader;
 
-        public Map(int size, int height)
+        protected Map(int size, int height)
         {
             Chunks = new Chunk[size, height, size];
-            for (int x = 0; x < size; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    for (int z = 0; z < size; z++)
-                    {
-                        Chunks[x, y, z] = new Chunk(new Vector3(x,y,z));
-                    }
-                }
-            }
-            for (int x = 0; x < Chunks.GetLength(0); x++)
-            {
-                for (int y = 0; y < Chunks.GetLength(1); y++)
-                {
-                    for (int z = 0; z < Chunks.GetLength(2); z++)
-                    {
-                        Chunks[x, y, z].SetActive(IsChunkActive(x, y, z));
-                    }
-                }
-            }
-        }
-        /*
-        private int fboID;
-        private int depthTextureID;
-
-        private void generateShadowFBO()
-        {
-            int shadowMapWidth = 200;
-            int shadowMapHeight = 200;
-
-            GL.GenTextures(0, out depthTextureID);
-            GL.BindTexture(TextureTarget.Texture2D, depthTextureID);
-
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, TextureParameterName.TextureMinFilter);
-        }*/
-
-        public void LoadHeightmap(short[,] heightmap)
-        {
-            for (int x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
-            {
-                for (int z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
-                {
-                    var height = heightmap[x, z];
-                    for (int y = 0; y < height; y++)
-                    {
-                        GetVoxel(x, y, z).IsActive = true;
-                    }
-                }
-            }
         }
 
-        public void LoadHeightmap(float[,] heightmap, short maxHeight)
+        public static Map CreateEmpty(int size, int height)
+        {
+            var map = new Map(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
+            for (int x = 0; x < size / Chunk.ChunkSize; x++)
+            {
+                for (int y = 0; y < height / Chunk.ChunkSize; y++)
+                {
+                    for (int z = 0; z < size / Chunk.ChunkSize; z++)
+                    {
+                        map.Chunks[x, y, z] = new Chunk(new Vector3(x, y, z));
+                    }
+                }
+            }
+            for (int x = 0; x < map.Chunks.GetLength(0); x++)
+            {
+                for (int y = 0; y < map.Chunks.GetLength(1); y++)
+                {
+                    for (int z = 0; z < map.Chunks.GetLength(2); z++)
+                    {
+                        map.SetIntoNeighbourContext(x, y, z);
+                    }
+                }
+            }
+            return map;
+        }
+
+        public static Map LoadHeightmap(short[,] heightmap, int height)
+        {
+            var size = heightmap.GetLength(0);
+            var map = new Map(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
+            for (int x = 0; x < size / Chunk.ChunkSize; x++)
+            {
+                for (int y = 0; y < height / Chunk.ChunkSize; y++)
+                {
+                    for (int z = 0; z < size / Chunk.ChunkSize; z++)
+                    {
+                        map.Chunks[x, y, z] = new Chunk(new Vector3(x, y, z));
+                    }
+                }
+            }
+            for (int x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            {
+                for (int z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                {
+                    var lheight = heightmap[x, z];
+                    for (int y = 0; y < lheight; y++)
+                    {
+                        map.GetVoxel(x, y, z).IsActive = true;
+                    }
+                }
+            }
+            for (int x = 0; x < map.Chunks.GetLength(0); x++)
+            {
+                for (int y = 0; y < map.Chunks.GetLength(1); y++)
+                {
+                    for (int z = 0; z < map.Chunks.GetLength(2); z++)
+                    {
+                        map.SetIntoNeighbourContext(x, y, z);
+                    }
+                }
+            }
+            return map;
+        }
+
+        public static Map LoadHeightmap(float[,] heightmap, int height)
         {
             var v = 0;
-            for (int x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            var size = heightmap.GetLength(0);
+            var map = new Map(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
+            for (int x = 0; x < size / Chunk.ChunkSize; x++)
             {
-                for (int z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                for (int y = 0; y < height / Chunk.ChunkSize; y++)
                 {
-                    var height = heightmap[x, z]* maxHeight;
-                    for (int y = 0; y < height; y++)
+                    for (int z = 0; z < size / Chunk.ChunkSize; z++)
                     {
-                        GetVoxel(x, y, z).IsActive = true;
+                        map.Chunks[x, y, z] = new Chunk(new Vector3(x, y, z));
+                    }
+                }
+            }
+            for (int x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            {
+                for (int z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                {
+                    var lheight = heightmap[x, z] * height;
+                    for (int y = 0; y < lheight; y++)
+                    {
+                        map.GetVoxel(x, y, z).IsActive = true;
                         v++;
                     }
                 }
             }
-            foreach (var chunk in Chunks)
-            {
-                chunk.OnChunkUpdated();
-            }
             Console.WriteLine(v);
+            for (int x = 0; x < map.Chunks.GetLength(0); x++)
+            {
+                for (int y = 0; y < map.Chunks.GetLength(1); y++)
+                {
+                    for (int z = 0; z < map.Chunks.GetLength(2); z++)
+                    {
+                        map.SetIntoNeighbourContext(x, y, z);
+                    }
+                }
+            }
+            return map;
         }
 
-        public void LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, short maxHeight)
+        public static Map LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, short height, float heightmapHeight)
         {
             var v = 0;
-            for (int x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            var size = heightmap.GetLength(0);
+            var map = new Map(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
+            for (int x = 0; x < size / Chunk.ChunkSize; x++)
             {
-                for (int z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                for (int y = 0; y < height / Chunk.ChunkSize; y++)
+                {
+                    for (int z = 0; z < size / Chunk.ChunkSize; z++)
+                    {
+                        map.Chunks[x, y, z] = new Chunk(new Vector3(x, y, z));
+                    }
+                }
+            }
+            for (int x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            {
+                for (int z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
                 {
                     if (cut[x, z] <= 0.5f)
                         continue;
-                    var bot = (short)((bottom[x, z]+2)/3 * maxHeight);
-                    var height = (heightmap[x, z]+2)/3 * maxHeight;
-                    for (int y = bot; y < height; y++)
+                    var bot = (short)((bottom[x, z]+2)/3 * heightmapHeight);
+                    var lheight = (heightmap[x, z]+2)/3 * heightmapHeight;
+                    for (int y = bot; y < lheight; y++)
                     {
-                        GetVoxel(x, y, z).IsActive = true;
+                        map.GetVoxel(x, y, z).IsActive = true;
                         v++;
                     }
                 }
             }
-            foreach (var chunk in Chunks)
-            {
-                chunk.OnChunkUpdated();
-            }
             Console.WriteLine(v);
+            for (int x = 0; x < map.Chunks.GetLength(0); x++)
+            {
+                for (int y = 0; y < map.Chunks.GetLength(1); y++)
+                {
+                    for (int z = 0; z < map.Chunks.GetLength(2); z++)
+                    {
+                        map.SetIntoNeighbourContext(x, y, z);
+                    }
+                }
+            }
+            return map;
         }
 
         public Voxel GetVoxel(int x, int y, int z)
@@ -119,11 +172,20 @@ namespace VoxelEngine.GameData
             return Chunks[cx, cy, cz].Voxels[x%Chunk.ChunkSize, y%Chunk.ChunkSize, z%Chunk.ChunkSize];
         }
 
-        private bool IsChunkActive(int x, int y , int z)
+        private void SetIntoNeighbourContext(int x, int y , int z)
         {
-            return x == 0 || x == Chunks.GetLength(0) - 1 || !Chunks[x - 1, y, z].HasSolidBorder(1) || !Chunks[x + 1, y, z].HasSolidBorder(2) ||
-                   y == 0 || y == Chunks.GetLength(1) - 1 || !Chunks[x, y - 1, z].HasSolidBorder(3) || !Chunks[x, y + 1, z].HasSolidBorder(4) ||
-                   z == 0 || z == Chunks.GetLength(2) - 1 || !Chunks[x, y, z - 1].HasSolidBorder(5) || !Chunks[x, y, z + 1].HasSolidBorder(6);
+            var borders = new bool[6][,];
+            var active = new[]
+            {
+                x == 0 || !Chunks[x - 1, y, z].HasSolidBorder(1, out borders[0]),
+                x == Chunks.GetLength(0) - 1 || !Chunks[x + 1, y, z].HasSolidBorder(2, out borders[1]),
+                y == 0 || !Chunks[x, y - 1, z].HasSolidBorder(3, out borders[2]),
+                y == Chunks.GetLength(1) - 1|| !Chunks[x, y + 1, z].HasSolidBorder(4, out borders[3]),
+                z == 0 || !Chunks[x, y, z - 1].HasSolidBorder(5, out borders[4]),
+                z == Chunks.GetLength(2) - 1 || !Chunks[x, y, z + 1].HasSolidBorder(6, out borders[5])
+            };
+            Chunks[x,y,z].UpdateBorder(borders, false);
+            Chunks[x,y,z].SetActive(active.Any());
         }
     }
 }
