@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Reflection;
 using System.Threading;
 using Awesomium.Core;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using OpenTK.Platform;
 using VoxelEngine.Camera;
 using VoxelEngine.GameData;
 using VoxelEngine.GUI;
 using VoxelEngine.Light;
 using VoxelEngine.Shaders;
+using VoxelEngine.Physics;
 using FrameEventArgs = OpenTK.FrameEventArgs;
 
 namespace VoxelEngine
@@ -30,6 +29,7 @@ namespace VoxelEngine
         public List<Mesh> Meshes = new List<Mesh>();
         public List<Shader> Shaders = new List<Shader>();
         public List<LightSource> Lights = new List<LightSource>();
+        public List<Collider> Collider = new List<Collider>();
 
         public List<UiElement> UIElements = new List<UiElement>();
 

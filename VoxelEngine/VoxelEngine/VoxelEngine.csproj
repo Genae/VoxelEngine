@@ -75,6 +75,8 @@
     <Compile Include="Input\Input.cs" />
     <Compile Include="Light\DirectionalLight.cs" />
     <Compile Include="Light\LightSource.cs" />
+    <Compile Include="Physics\Collider.cs" />
+    <Compile Include="Physics\Collision.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shaders\DirectionalShadow\DirectionalShadow.cs" />
     <Compile Include="Shaders\DirectionalDiffuse\DirectionalDiffuse.cs" />
