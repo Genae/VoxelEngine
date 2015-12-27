@@ -203,6 +203,10 @@ namespace VoxelEngine.Shaders
                 {
                     GL.UniformMatrix4(location, false, ref matrix);
                 }
+                else
+                {
+                    int i = 0;
+                }
 
                  GL.UseProgram(0);
             }

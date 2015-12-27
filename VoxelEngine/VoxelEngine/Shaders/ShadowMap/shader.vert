@@ -5,5 +5,5 @@ in vec3 vertexPosition_modelspace;
 uniform mat4 depthMVP;
 
 void main(){
- gl_Position =  depthMVP * vec4(vertexPosition_modelspace,1);
+ gl_Position =  depthMVP * gl_Vertex;
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using VoxelEngine.Shaders;
@@ -47,7 +48,7 @@ namespace VoxelEngine.Light
         {
             base.GenerateShadowMap();
             
-            var depthProjectionMatrix = Matrix4.CreateOrthographic(20, 20, -10, 20);
+            var depthProjectionMatrix = Matrix4.CreateOrthographic(50, 50, 1, 200);
             var depthViewMatrix = Matrix4.LookAt(Position.Xyz, Vector3.Zero, Vector3.UnitY);
             var depthModelMatrix = Matrix4.Identity;
             var depthMVP = depthProjectionMatrix*depthViewMatrix*depthModelMatrix;
@@ -56,15 +57,23 @@ namespace VoxelEngine.Light
             GL.Viewport(0,0,1024,1024);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             
-            _shader.Bind();
-            _shader.SetVariable("depthMVP", depthMVP);
+            //_shader.Bind();
+            //_shader.SetVariable("depthMVP", depthMVP);
             foreach (var mesh in Engine.Instance.Meshes)
             {
                 mesh.Render(false);
             }
-            _shader.Unbind();
+            //_shader.Unbind();
+            GL.Viewport(0, 0, Engine.Instance.Width, Engine.Instance.Height);
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
+            GL.ActiveTexture(TextureUnit.Texture0);
+            GL.BindTexture(TextureTarget.Texture2D, _dTexId);
+            var data_array = new float[1024*1024];
+            GL.GetTexImage(TextureTarget.Texture2D, 0, PixelFormat.DepthComponent, PixelType.Float, data_array);
+            var max = data_array.Max();
+            var min = data_array.Min();
+            //end shadowTexture
             //TODO move
             var bias = new Matrix4(
                 0.5f, 0.0f, 0.0f, 0.0f,
@@ -73,11 +82,16 @@ namespace VoxelEngine.Light
                 0.5f, 0.5f, 0.5f, 1.0f
             );
 
-            var depthMVPBias = bias*depthMVP;
-            /*DirectionalShadow.Instance.SetVariable("DepthMVP", depthMVP);
-            DirectionalShadow.Instance.SetVariable("ModelViewMatrix", depthViewMatrix);
-            DirectionalShadow.Instance.SetVariable("Matrix");
-            DirectionalShadow.Instance.SetVariable("Matrix");*/
+            var depthBiasMVP = bias*depthMVP;
+            Matrix4 projection;
+            GL.GetFloat(GetPName.ProjectionMatrix, out projection);
+            Matrix4 modelView;
+            GL.GetFloat(GetPName.ModelviewMatrix, out modelView);
+            Matrix4 MVP = projection * modelView;
+
+            //DirectionalShadow.Instance.SetVariable("MVP", MVP);
+            DirectionalShadow.Instance.SetVariable("DepthBiasMVP", depthBiasMVP);
+            DirectionalShadow.Instance.SetVariable("shadowMap", 0);
         }
     }
 }

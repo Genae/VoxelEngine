@@ -1,19 +1,16 @@
-//variables passed to fragment shader
-varying vec4 vColor;  
-varying vec3 vNormal;
-varying vec4 vColorAmb;
+// Interpolated values from the vertex shaders
+varying vec4 ShadowCoord;
+varying vec4 color;
 
-uniform vec3 viewDirection;
+// Values that stay constant for the whole mesh.
+uniform sampler2D shadowMap;
 
-void main (void)  
-{  
+void main(){
 
-	// light direction = vec3(0.7, -1.0, 0.3)
-	//vec3 reflectedLight = reflect(vec3(0.7, -1.0, 0.3), vNormal);
-	//vec4 specularLight = gl_Color * pow(max(0.0, dot(reflectedLight, normalize(viewDirection))), 3);
-	
+	float visibility = 1.0;
+ 	if ( texture( shadowMap, ShadowCoord.xy ).z  <  ShadowCoord.z){
+      visibility = 0.5;
+ 	}
 
-
-	//0.15 = ambient Light
-	gl_FragColor = vColorAmb + vColor;
+	gl_FragColor = color*visibility;
 }
