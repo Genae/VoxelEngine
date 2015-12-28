@@ -121,6 +121,7 @@ namespace VoxelEngine.GameData
 
         private void RunGreedyMeshing(int[,,,] planes, int o, List<float> vertices, List<ushort> triangles, List<float> colors, List<float> normals)
         {
+            var visited = new bool[6, ChunkSize, ChunkSize, ChunkSize];
             Rect curRectangle = null;
             var curType = 0;
             switch (o)
@@ -135,13 +136,17 @@ namespace VoxelEngine.GameData
                             for (int z = 0; z < ChunkSize; z++)
                             {
                                 var vox = planes[o, x, y, z];
-                                if (vox != curType)
+                                if (vox != curType || visited[o, x, z, y])
                                 {
                                     if (curRectangle != null)
                                     {
+                                        ExpandVertically(curRectangle, o, x, curType, planes);
                                         AddRect(curRectangle, o == 1, curType, vertices, triangles, colors, normals, new Vector3(1f,0,0));
+                                        SetVisited(curRectangle, o, x, visited);
                                         curRectangle = null;
                                     }
+                                    if (visited[o, x, z, y])
+                                        continue;
                                 }
                                 if (vox != 0)
                                 {
@@ -153,22 +158,26 @@ namespace VoxelEngine.GameData
                                     }
                                     else
                                     {
-                                        curRectangle = new Rect(x, y);
-                                        curRectangle.WorldA = new Vector3(x - 0.5f + o, y + 0.5f, z - 0.5f);
-                                        curRectangle.WorldB = new Vector3(x - 0.5f + o, y + 0.5f, z + 0.5f);
-                                        curRectangle.WorldC = new Vector3(x - 0.5f + o, y - 0.5f, z - 0.5f);
-                                        curRectangle.WorldD = new Vector3(x - 0.5f + o, y - 0.5f, z + 0.5f);
+                                        curRectangle = new Rect(z, y)
+                                        {
+                                            WorldA = new Vector3(x - 0.5f + o, y + 0.5f, z - 0.5f),
+                                            WorldB = new Vector3(x - 0.5f + o, y + 0.5f, z + 0.5f),
+                                            WorldC = new Vector3(x - 0.5f + o, y - 0.5f, z - 0.5f),
+                                            WorldD = new Vector3(x - 0.5f + o, y - 0.5f, z + 0.5f)
+                                        };
+                                        curType = vox;
                                     }
                                 }
                                 if (z == ChunkSize - 1)
                                 {
                                     if (curRectangle != null)
                                     {
+                                        ExpandVertically(curRectangle, o, x, curType, planes);
                                         AddRect(curRectangle, o == 1, vox, vertices, triangles, colors, normals, new Vector3(1f, 0f, 0));
+                                        SetVisited(curRectangle, o, x, visited);
+                                        curRectangle = null;
                                     }
-                                    curRectangle = null;
                                 }
-                                curType = vox;
                             }
                         }
                     }
@@ -183,13 +192,17 @@ namespace VoxelEngine.GameData
                             for (int z = 0; z < ChunkSize; z++)
                             {
                                 var vox = planes[o, x, y, z];
-                                if (vox != curType)
+                                if (vox != curType || visited[o, y, z, x])
                                 {
                                     if (curRectangle != null)
                                     {
+                                        ExpandVertically(curRectangle, o, y, curType, planes);
                                         AddRect(curRectangle, o == 2, curType, vertices, triangles, colors, normals, new Vector3(0, 1f, 0f));
+                                        SetVisited(curRectangle, o, y, visited);
                                         curRectangle = null;
                                     }
+                                    if (visited[o, y, z, x])
+                                        continue;
                                 }
                                 if (vox != 0)
                                 {
@@ -201,22 +214,26 @@ namespace VoxelEngine.GameData
                                     }
                                     else
                                     {
-                                        curRectangle = new Rect(x, y);
-                                        curRectangle.WorldA = new Vector3(x + 0.5f, y - 0.5f + o - 2, z - 0.5f);
-                                        curRectangle.WorldB = new Vector3(x + 0.5f, y - 0.5f + o - 2, z + 0.5f);
-                                        curRectangle.WorldC = new Vector3(x - 0.5f, y - 0.5f + o - 2, z - 0.5f);
-                                        curRectangle.WorldD = new Vector3(x - 0.5f, y - 0.5f + o - 2, z + 0.5f);
+                                        curRectangle = new Rect(z, x)
+                                        {
+                                            WorldA = new Vector3(x + 0.5f, y - 0.5f + o - 2, z - 0.5f),
+                                            WorldB = new Vector3(x + 0.5f, y - 0.5f + o - 2, z + 0.5f),
+                                            WorldC = new Vector3(x - 0.5f, y - 0.5f + o - 2, z - 0.5f),
+                                            WorldD = new Vector3(x - 0.5f, y - 0.5f + o - 2, z + 0.5f)
+                                        };
+                                        curType = vox;
                                     }
                                 }
                                 if (z == ChunkSize - 1)
                                 {
                                     if (curRectangle != null)
                                     {
+                                        ExpandVertically(curRectangle, o, y, curType, planes);
                                         AddRect(curRectangle, o == 2, vox, vertices, triangles, colors, normals, new Vector3(0f, 1f, 0));
+                                        SetVisited(curRectangle, o, y, visited);
+                                        curRectangle = null;
                                     }
-                                    curRectangle = null;
                                 }
-                                curType = vox;
                             }
                         }
                     }
@@ -231,13 +248,17 @@ namespace VoxelEngine.GameData
                             for (int x = 0; x < ChunkSize; x++)
                             {
                                 var vox = planes[o, x, y, z];
-                                if (vox != curType)
+                                if (vox != curType || visited[o, z, x,y])
                                 {
                                     if (curRectangle != null)
                                     {
+                                        ExpandVertically(curRectangle, o, z, curType, planes);
                                         AddRect(curRectangle, o == 5, curType, vertices, triangles, colors, normals, new Vector3(0, 0, 1f));
+                                        SetVisited(curRectangle, o, z, visited);
                                         curRectangle = null;
                                     }
+                                    if (visited[o, z, x, y])
+                                        continue;
                                 }
                                 if (vox != 0)
                                 {
@@ -249,28 +270,97 @@ namespace VoxelEngine.GameData
                                     }
                                     else
                                     {
-                                        curRectangle = new Rect(x, y);
-                                        curRectangle.WorldA = new Vector3(x + 0.5f, y - 0.5f, z - 0.5f + o - 4);
-                                        curRectangle.WorldB = new Vector3(x + 0.5f, y + 0.5f, z - 0.5f + o - 4);
-                                        curRectangle.WorldC = new Vector3(x - 0.5f, y - 0.5f, z - 0.5f + o - 4);
-                                        curRectangle.WorldD = new Vector3(x - 0.5f, y + 0.5f, z - 0.5f + o - 4);
+                                        curRectangle = new Rect(x, y)
+                                        {
+                                            WorldA = new Vector3(x + 0.5f, y - 0.5f, z - 0.5f + o - 4),
+                                            WorldB = new Vector3(x + 0.5f, y + 0.5f, z - 0.5f + o - 4),
+                                            WorldC = new Vector3(x - 0.5f, y - 0.5f, z - 0.5f + o - 4),
+                                            WorldD = new Vector3(x - 0.5f, y + 0.5f, z - 0.5f + o - 4)
+                                        };
+                                        curType = vox;
                                     }
                                 }
                                 if (x == ChunkSize - 1)
                                 {
                                     if (curRectangle != null)
                                     {
+                                        ExpandVertically(curRectangle, o, z, curType, planes);
                                         AddRect(curRectangle, o == 5, vox, vertices, triangles, colors, normals, new Vector3(0, 0, 1f));
+                                        SetVisited(curRectangle, o, z, visited);
+                                        curRectangle = null;
                                     }
-                                    curRectangle = null;
                                 }
-                                curType = vox;
                             }
                         }
                     }
                     break;
             }
             
+        }
+
+        private void ExpandVertically(Rect curRectangle, int side, int depth, int curType, int[,,,] planes)
+        {
+            while (true)
+            {
+                //reched end?
+                if (curRectangle.Y + curRectangle.Height == ChunkSize)
+                    return;
+                switch (side)
+                {
+                    case 0:
+                    case 1:
+                        //check next row
+                        for (int x = 0; x < curRectangle.Width; x++)
+                        {
+                            if (planes[side, depth, curRectangle.X + x, curRectangle.Y + curRectangle.Height] != curType)
+                                return;
+                        }
+                        curRectangle.Height++;
+                        curRectangle.WorldA.Y++;
+                        curRectangle.WorldB.Y++;
+                        break;
+                    case 2:
+                    case 3:
+                        //check next row
+                        for (int x = 0; x < curRectangle.Width; x++)
+                        {
+                            if (planes[side, curRectangle.X + x, depth, curRectangle.Y + curRectangle.Height] != curType)
+                                return;
+                        }
+                        curRectangle.Height++;
+                        curRectangle.WorldA.X++;
+                        curRectangle.WorldB.X++;
+                        break;
+                    case 4:
+                    case 5:
+                        //check next row
+                        for (int x = 0; x < curRectangle.Width; x++)
+                        {
+                            if (planes[side, curRectangle.Y + curRectangle.Height, curRectangle.X + x, depth] != curType)
+                                return;
+                        }
+                        curRectangle.Height++;
+                        curRectangle.WorldB.Y++;
+                        curRectangle.WorldD.Y++;
+                        break;
+                }
+            }
+                
+        }
+
+        private void SetVisited(Rect curRectangle, int side, int depth, bool[,,,] visited)
+        {
+            var x = curRectangle.X;
+            while (x < curRectangle.X + curRectangle.Width)
+            {
+                var y = curRectangle.Y;
+                while (y < curRectangle.Y + curRectangle.Height)
+                {
+                    visited[side, depth, x, y] = true;
+                    y++;
+                }
+                x++;
+            }
         }
 
         private void AddRect(Rect curRectangle, bool front, int curType, List<float> vertices, List<ushort> triangles, List<float> colors, List<float> normals, Vector3 normal)
