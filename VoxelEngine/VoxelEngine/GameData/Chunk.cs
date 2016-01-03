@@ -136,7 +136,7 @@ namespace VoxelEngine.GameData
                             for (int z = 0; z < ChunkSize; z++)
                             {
                                 var vox = planes[o, x, y, z];
-                                if (vox != curType || visited[o, x, z, y])
+                                if (vox != curType || visited[o, x, y, z])
                                 {
                                     if (curRectangle != null)
                                     {
@@ -145,7 +145,7 @@ namespace VoxelEngine.GameData
                                         SetVisited(curRectangle, o, x, visited);
                                         curRectangle = null;
                                     }
-                                    if (visited[o, x, z, y])
+                                    if (visited[o, x, y, z])
                                         continue;
                                 }
                                 if (vox != 0)
@@ -192,7 +192,7 @@ namespace VoxelEngine.GameData
                             for (int z = 0; z < ChunkSize; z++)
                             {
                                 var vox = planes[o, x, y, z];
-                                if (vox != curType || visited[o, y, z, x])
+                                if (vox != curType || visited[o, x, y, z])
                                 {
                                     if (curRectangle != null)
                                     {
@@ -201,7 +201,7 @@ namespace VoxelEngine.GameData
                                         SetVisited(curRectangle, o, y, visited);
                                         curRectangle = null;
                                     }
-                                    if (visited[o, y, z, x])
+                                    if (visited[o, x, y, z])
                                         continue;
                                 }
                                 if (vox != 0)
@@ -214,7 +214,7 @@ namespace VoxelEngine.GameData
                                     }
                                     else
                                     {
-                                        curRectangle = new Rect(z, x)
+                                        curRectangle = new Rect(x, z)
                                         {
                                             WorldA = new Vector3(x + 0.5f, y - 0.5f + o - 2, z - 0.5f),
                                             WorldB = new Vector3(x + 0.5f, y - 0.5f + o - 2, z + 0.5f),
@@ -248,7 +248,7 @@ namespace VoxelEngine.GameData
                             for (int x = 0; x < ChunkSize; x++)
                             {
                                 var vox = planes[o, x, y, z];
-                                if (vox != curType || visited[o, z, x,y])
+                                if (vox != curType || visited[o, x, y, z])
                                 {
                                     if (curRectangle != null)
                                     {
@@ -257,7 +257,7 @@ namespace VoxelEngine.GameData
                                         SetVisited(curRectangle, o, z, visited);
                                         curRectangle = null;
                                     }
-                                    if (visited[o, z, x, y])
+                                    if (visited[o, x, y, z])
                                         continue;
                                 }
                                 if (vox != 0)
@@ -336,7 +336,7 @@ namespace VoxelEngine.GameData
                         //check next row
                         for (int x = 0; x < curRectangle.Width; x++)
                         {
-                            if (planes[side, curRectangle.Y + curRectangle.Height, curRectangle.X + x, depth] != curType)
+                            if (planes[side, curRectangle.X + x, curRectangle.Y + curRectangle.Height, depth] != curType)
                                 return;
                         }
                         curRectangle.Height++;
@@ -350,16 +350,56 @@ namespace VoxelEngine.GameData
 
         private void SetVisited(Rect curRectangle, int side, int depth, bool[,,,] visited)
         {
-            var x = curRectangle.X;
-            while (x < curRectangle.X + curRectangle.Width)
+            switch (side)
             {
-                var y = curRectangle.Y;
-                while (y < curRectangle.Y + curRectangle.Height)
+                case 0:
+                case 1:
                 {
-                    visited[side, depth, x, y] = true;
-                    y++;
+                    var y = curRectangle.X;
+                    while (y < curRectangle.X + curRectangle.Width)
+                    {
+                        var z = curRectangle.Y;
+                        while (z < curRectangle.Y + curRectangle.Height)
+                        {
+                            visited[side, depth, y, z] = true;
+                            z++;
+                        }
+                        y++;
+                    }
+                    break;
                 }
-                x++;
+                case 2:
+                case 3:
+                {
+                    var x = curRectangle.X;
+                    while (x < curRectangle.X + curRectangle.Width)
+                    {
+                        var z = curRectangle.Y;
+                        while (z < curRectangle.Y + curRectangle.Height)
+                        {
+                            visited[side, x, depth, z] = true;
+                            z++;
+                        }
+                        x++;
+                    }
+                    break;
+                }
+                case 4:
+                case 5:
+                {
+                    var x = curRectangle.X;
+                    while (x < curRectangle.X + curRectangle.Width)
+                    {
+                        var y = curRectangle.Y;
+                        while (y < curRectangle.Y + curRectangle.Height)
+                        {
+                            visited[side, x, y, depth] = true;
+                            y++;
+                        }
+                        x++;
+                    }
+                    break;
+                }
             }
         }
 
