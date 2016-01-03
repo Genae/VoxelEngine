@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using OpenTK;
+using VoxelEngine.Algorithmen.GreedyMeshing;
 using VoxelEngine.Shaders.DirectionalDiffuse;
 
 namespace VoxelEngine.GameData
@@ -60,12 +61,12 @@ namespace VoxelEngine.GameData
             float[] vertecies;
             float[] colors;
             float[] normals;
-            CreateCubes(out vertecies, out triangles, out colors, out normals);
+            GreedyMeshing.CreateMesh(out vertecies, out triangles, out colors, out normals, Voxels, _borders);
 
             CreateMesh(vertecies, triangles, colors, normals);
         }
 
-        private void CreateCubes(out float[] arrayBuffer, out ushort[] arrayElementBuffer, out float[] color, out float[] normal)
+        /*private void CreateCubes(out float[] arrayBuffer, out ushort[] arrayElementBuffer, out float[] color, out float[] normal)
         {
             var vertices = new List<float>();
             var triangles = new List<ushort>();
@@ -113,8 +114,10 @@ namespace VoxelEngine.GameData
 
             for (int i = 0; i < 6; i++)
             {
-                RunGreedyMeshing(planes, i, vertices, triangles, colors, normals);
+                //RunGreedyMeshing(planes, i, vertices, triangles, colors, normals);
             }
+
+            
             arrayBuffer = vertices.ToArray();
             arrayElementBuffer = triangles.ToArray();
             Length = arrayElementBuffer.Length;
@@ -122,7 +125,7 @@ namespace VoxelEngine.GameData
             normal = normals.ToArray();
             ChunkBorders.SetActive(Length != 0);
         }
-
+        
         private void RunGreedyMeshing(int[,,,] planes, int o, List<float> vertices, List<ushort> triangles, List<float> colors, List<float> normals)
         {
             var visited = new bool[6, ChunkSize, ChunkSize, ChunkSize];
@@ -443,18 +446,8 @@ namespace VoxelEngine.GameData
                 });
             }
             
-        }
+        }*/
 
-        private float[] GetColor(Color c)
-        {
-            return new[]
-            {
-                c.R/255f, c.G/255f, c.B/255f, c.A/255f,
-                c.R/255f, c.G/255f, c.B/255f, c.A/255f,
-                c.R/255f, c.G/255f, c.B/255f, c.A/255f,
-                c.R/255f, c.G/255f, c.B/255f, c.A/255f
-            };
-        }
 
         public bool HasSolidBorder(int dir, out bool[,] border)
         {
@@ -530,21 +523,6 @@ namespace VoxelEngine.GameData
         {
             base.SetActive(a);
             //ChunkBorders.SetActive(a);
-        }
-    }
-
-    class Rect
-    {
-        public int X, Y;
-        public int Width, Height;
-        public Vector3 WorldA, WorldB, WorldC, WorldD;
-        
-        public Rect(int x, int y)
-        {
-            X = x;
-            Y = y;
-            Width = 1;
-            Height = 1;
         }
     }
 }

@@ -45,6 +45,10 @@
       <HintPath>..\packages\Unofficial.Awesomium.Complete.1.7.4.2\lib\Awesomium.Windows.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.1.1.1589.5942\lib\NET40\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -60,11 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithmen\GreedyMeshing\GreedyMeshingTests.cs" />
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Camera\Frustum.cs" />
     <Compile Include="GameData\Chunk.cs" />
     <Compile Include="GameData\ChunkBorder.cs" />
+    <Compile Include="GameData\Direction.cs" />
     <Compile Include="GameData\GameObject.cs" />
+    <Compile Include="Algorithmen\GreedyMeshing\GreedyMeshing.cs" />
     <Compile Include="GameData\Map.cs" />
     <Compile Include="GameData\Mesh.cs" />
     <Compile Include="GameData\Voxel.cs" />
