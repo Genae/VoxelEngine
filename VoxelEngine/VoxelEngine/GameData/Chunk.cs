@@ -61,7 +61,8 @@ namespace VoxelEngine.GameData
             float[] vertecies;
             float[] colors;
             float[] normals;
-            GreedyMeshing.CreateMesh(out vertecies, out triangles, out colors, out normals, Voxels, _borders);
+            GreedyMeshing.CreateMesh(out vertecies, out triangles, out colors, out normals, Voxels, _borders, Pos, Scale);
+            ChunkBorders.SetActive(triangles.Length != 0);
 
             CreateMesh(vertecies, triangles, colors, normals);
         }
@@ -123,7 +124,6 @@ namespace VoxelEngine.GameData
             Length = arrayElementBuffer.Length;
             color = colors.ToArray();
             normal = normals.ToArray();
-            ChunkBorders.SetActive(Length != 0);
         }
         
         private void RunGreedyMeshing(int[,,,] planes, int o, List<float> vertices, List<ushort> triangles, List<float> colors, List<float> normals)

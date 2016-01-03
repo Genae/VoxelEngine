@@ -7,7 +7,7 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
 {
     public static class GreedyMeshing
     {
-        public static void CreateMesh(out float[] vertices, out ushort[] triangles, out float[] colors, out float[] normals, Voxel[,,] voxels, bool[][,] borders)
+        public static void CreateMesh(out float[] vertices, out ushort[] triangles, out float[] colors, out float[] normals, Voxel[,,] voxels, bool[][,] borders, Vector3 pos, float scale)
         {
             //Voxels to Planes
             var planes = InitializePlanes(voxels, borders);
@@ -32,7 +32,7 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
             {
                 for (var depth = 0; depth < voxels.GetLength(0); depth++)
                 {
-                    AddRectsToMesh(side, depth, rects[side][depth], ref verticesL, ref trianglesL, ref colorsL, ref normalsL);
+                    AddRectsToMesh(side, depth, rects[side][depth], pos, scale, voxels.GetLength(0), ref verticesL, ref trianglesL, ref colorsL, ref normalsL);
                 }
             }
 
@@ -177,66 +177,55 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
         }
 
 
-        internal static void AddRectsToMesh(int side, int depth, Rect[] rects, ref List<float> vertices, ref List<ushort> triangles, ref List<float> colors, ref List<float> normals)
+        internal static void AddRectsToMesh(int side, int depth, Rect[] rects, Vector3 pos, float scale, float chunksize, ref List<float> vertices, ref List<ushort> triangles, ref List<float> colors, ref List<float> normals)
         {
             foreach (var rect in rects)
             {
                 var offset = vertices.Count / 3;
-
+                Vector3 vertA = Vector3.Zero, vertB = Vector3.Zero, vertC = Vector3.Zero, vertD = Vector3.Zero, norm = Vector3.Zero;
                 switch (side)
                 {
                     case 0:
                     case 1:
-                        vertices.AddRange(new[]
-                        {
-                            depth - 0.5f + side - 0, rect.X - 0.5f + rect.Width, rect.Y - 0.5f,
-                            depth - 0.5f + side - 0, rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height,
-                            depth - 0.5f + side - 0, rect.X - 0.5f, rect.Y - 0.5f,
-                            depth - 0.5f + side - 0, rect.X - 0.5f, rect.Y - 0.5f + rect.Height
-                        });
-                        normals.AddRange(new float[]
-                        {
-                            side%2==0?1:-1, 0, 0,
-                            side%2==0?1:-1, 0, 0,
-                            side%2==0?1:-1, 0, 0,
-                            side%2==0?1:-1, 0, 0,
-                        });
+                        vertA = new Vector3(depth - 0.5f + side - 0, rect.X - 0.5f + rect.Width, rect.Y - 0.5f);
+                        vertB = new Vector3(depth - 0.5f + side - 0, rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height);
+                        vertC = new Vector3(depth - 0.5f + side - 0, rect.X - 0.5f, rect.Y - 0.5f);
+                        vertD = new Vector3(depth - 0.5f + side - 0, rect.X - 0.5f, rect.Y - 0.5f + rect.Height);
+                        norm = new Vector3(side % 2 == 0 ? 1 : -1, 0, 0);
                         break;
                     case 2:
                     case 3:
-                        vertices.AddRange(new[]
-                        {
-                            rect.X - 0.5f + rect.Width, depth - 0.5f + side - 2, rect.Y - 0.5f,
-                            rect.X - 0.5f + rect.Width, depth - 0.5f + side - 2, rect.Y - 0.5f + rect.Height,
-                            rect.X - 0.5f, depth - 0.5f + side - 2, rect.Y - 0.5f,
-                            rect.X - 0.5f, depth - 0.5f + side - 2, rect.Y - 0.5f + rect.Height
-                        });
-                        normals.AddRange(new float[]
-                        {
-                            0, side%2==0?1:-1, 0,
-                            0, side%2==0?1:-1, 0,
-                            0, side%2==0?1:-1, 0,
-                            0, side%2==0?1:-1, 0
-                        });
+                        vertA = new Vector3(rect.X - 0.5f + rect.Width, depth - 0.5f + side - 2, rect.Y - 0.5f);
+                        vertB = new Vector3(rect.X - 0.5f + rect.Width, depth - 0.5f + side - 2, rect.Y - 0.5f + rect.Height);
+                        vertC = new Vector3(rect.X - 0.5f, depth - 0.5f + side - 2, rect.Y - 0.5f);
+                        vertD = new Vector3(rect.X - 0.5f, depth - 0.5f + side - 2, rect.Y - 0.5f + rect.Height);
+                        norm = new Vector3(0, side % 2 == 0 ? 1 : -1, 0);
                         break;
                     case 4:
                     case 5:
-                        vertices.AddRange(new[]
-                        {
-                            rect.X - 0.5f + rect.Width, rect.Y - 0.5f, depth - 0.5f + side - 4,
-                            rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height, depth - 0.5f + side - 4,
-                            rect.X - 0.5f, rect.Y - 0.5f, depth - 0.5f + side - 4,
-                            rect.X - 0.5f, rect.Y - 0.5f + rect.Height, depth - 0.5f + side - 4
-                        });
-                        normals.AddRange(new float[]
-                        {
-                            0, 0, side%2==0?1:-1,
-                            0, 0, side%2==0?1:-1,
-                            0, 0, side%2==0?1:-1,
-                            0, 0, side%2==0?1:-1,
-                        });
+                        vertA = new Vector3(rect.X - 0.5f + rect.Width, rect.Y - 0.5f, depth - 0.5f + side - 4);
+                        vertB = new Vector3(rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height, depth - 0.5f + side - 4);
+                        vertC = new Vector3(rect.X - 0.5f, rect.Y - 0.5f, depth - 0.5f + side - 4);
+                        vertD = new Vector3(rect.X - 0.5f, rect.Y - 0.5f + rect.Height, depth - 0.5f + side - 4);
+                        norm = new Vector3(0, 0, side % 2 == 0 ? 1 : -1);
                         break;
                 }
+
+                vertices.AddRange(new []
+                {
+                    (vertA.X + pos.X*chunksize) * scale, (vertA.Y + pos.Y*chunksize) * scale, (vertA.Z + pos.Z*chunksize) * scale,
+                    (vertB.X + pos.X*chunksize) * scale, (vertB.Y + pos.Y*chunksize) * scale, (vertB.Z + pos.Z*chunksize) * scale,
+                    (vertC.X + pos.X*chunksize) * scale, (vertC.Y + pos.Y*chunksize) * scale, (vertC.Z + pos.Z*chunksize) * scale,
+                    (vertD.X + pos.X*chunksize) * scale, (vertD.Y + pos.Y*chunksize) * scale, (vertD.Z + pos.Z*chunksize) * scale
+                });
+
+                normals.AddRange(new []
+                {
+                    norm.X, norm.X, norm.Z,
+                    norm.X, norm.X, norm.Z,
+                    norm.X, norm.X, norm.Z,
+                    norm.X, norm.X, norm.Z,
+                });
 
                 if (side % 2 == 0)
                 {
