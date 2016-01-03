@@ -22,6 +22,8 @@ namespace VoxelEngine
         public static Engine Instance;
         private Matrix4 _matrixProjection;
         private int _timer, _counter;
+        private bool _wireframe;
+        private bool _chunks;
         public Vector2 ScreenSize;
         public Vector2 ScreenPos;
 
@@ -50,8 +52,7 @@ namespace VoxelEngine
             GL.ClearColor(Color.CornflowerBlue);
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.CullFace);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
-
+            
             //light
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.Light0);
@@ -85,6 +86,14 @@ namespace VoxelEngine
             CountFrames(e);
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            if (_wireframe)
+            {
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line); //PolygonMode important, MaterialFace.Front only renders front side?
+            }
+            else
+            {
+                GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill); //PolygonMode important, MaterialFace.Front only renders front side?
+            }
             /*foreach (var lightSource in Lights)
             {
                 lightSource.OnRenderFrame(e);
@@ -101,7 +110,20 @@ namespace VoxelEngine
                 mesh.ApplyFrustum(Cameras[0].Frustum);
                 mesh.OnRenderFrame(e);
             }
-
+            if (_chunks)
+            {
+                GL.Disable(EnableCap.Lighting);
+                GL.LineWidth(4);
+                foreach (var mesh in Meshes)
+                {
+                    if (!(mesh is Chunk))
+                        continue;
+                    ((Chunk)mesh).ChunkBorders.ApplyFrustum(Cameras[0].Frustum);
+                    ((Chunk)mesh).ChunkBorders.OnRenderFrame(e);
+                }
+                GL.LineWidth(1);
+                GL.Enable(EnableCap.Lighting);
+            }
 
             SetRenderUI(true);
             foreach (var uiElement in UIElements)
@@ -132,6 +154,24 @@ namespace VoxelEngine
             {
                 ToggleFullscreen();
             }
+            if (Input.Input.GetKeyDown(Key.F12))
+            {
+                ToggleWireframe();
+            }
+            if (Input.Input.GetKeyDown(Key.F10))
+            {
+                ToggleChunks();
+            }
+        }
+
+        private void ToggleChunks()
+        {
+            _chunks = !_chunks;
+        }
+
+        private void ToggleWireframe()
+        {
+            _wireframe = !_wireframe;
         }
 
         private void ToggleFullscreen()

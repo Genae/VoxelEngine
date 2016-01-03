@@ -63,6 +63,7 @@
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Camera\Frustum.cs" />
     <Compile Include="GameData\Chunk.cs" />
+    <Compile Include="GameData\ChunkBorder.cs" />
     <Compile Include="GameData\GameObject.cs" />
     <Compile Include="GameData\Map.cs" />
     <Compile Include="GameData\Mesh.cs" />

@@ -180,7 +180,7 @@ namespace VoxelEngine.GameData
                 x == 0 || !Chunks[x - 1, y, z].HasSolidBorder(1, out borders[0]),
                 x == Chunks.GetLength(0) - 1 || !Chunks[x + 1, y, z].HasSolidBorder(2, out borders[1]),
                 y == 0 || !Chunks[x, y - 1, z].HasSolidBorder(3, out borders[2]),
-                y == Chunks.GetLength(1) - 1|| !Chunks[x, y + 1, z].HasSolidBorder(4, out borders[3]),
+                y == Chunks.GetLength(1) - 1 || !Chunks[x, y + 1, z].HasSolidBorder(4, out borders[3]),
                 z == 0 || !Chunks[x, y, z - 1].HasSolidBorder(5, out borders[4]),
                 z == Chunks.GetLength(2) - 1 || !Chunks[x, y, z + 1].HasSolidBorder(6, out borders[5])
             };

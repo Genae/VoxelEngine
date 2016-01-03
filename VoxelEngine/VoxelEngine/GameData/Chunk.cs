@@ -10,6 +10,7 @@ namespace VoxelEngine.GameData
         public const int ChunkSize = 16;
         public Voxel[,,] Voxels;
         private bool[][,] _borders;
+        public Mesh ChunkBorders;
 
         public Chunk(Vector3 pos):base(ChunkSize, pos)
         {
@@ -25,6 +26,8 @@ namespace VoxelEngine.GameData
                     }
                 }
             }
+            ChunkBorders = new ChunkBorder(ChunkSize, pos);
+            ChunkBorders.Shader = Shader;
         }
 
         public void UpdateBorder(bool[,] border, int side, bool runUpdate = true)
@@ -117,6 +120,7 @@ namespace VoxelEngine.GameData
             Length = arrayElementBuffer.Length;
             color = colors.ToArray();
             normal = normals.ToArray();
+            ChunkBorders.SetActive(Length != 0);
         }
 
         private void RunGreedyMeshing(int[,,,] planes, int o, List<float> vertices, List<ushort> triangles, List<float> colors, List<float> normals)
@@ -214,7 +218,7 @@ namespace VoxelEngine.GameData
                                     }
                                     else
                                     {
-                                        curRectangle = new Rect(x, z)
+                                        curRectangle = new Rect(z, x)
                                         {
                                             WorldA = new Vector3(x + 0.5f, y - 0.5f + o - 2, z - 0.5f),
                                             WorldB = new Vector3(x + 0.5f, y - 0.5f + o - 2, z + 0.5f),
@@ -371,16 +375,16 @@ namespace VoxelEngine.GameData
                 case 2:
                 case 3:
                 {
-                    var x = curRectangle.X;
-                    while (x < curRectangle.X + curRectangle.Width)
+                    var z = curRectangle.X;
+                    while (z < curRectangle.X + curRectangle.Width)
                     {
-                        var z = curRectangle.Y;
-                        while (z < curRectangle.Y + curRectangle.Height)
+                        var x = curRectangle.Y;
+                        while (x < curRectangle.Y + curRectangle.Height)
                         {
                             visited[side, x, depth, z] = true;
-                            z++;
+                            x++;
                         }
-                        x++;
+                        z++;
                     }
                     break;
                 }
@@ -520,6 +524,12 @@ namespace VoxelEngine.GameData
                     return solid;
             }
             return false;
+        }
+
+        public override void SetActive(bool a)
+        {
+            base.SetActive(a);
+            //ChunkBorders.SetActive(a);
         }
     }
 
