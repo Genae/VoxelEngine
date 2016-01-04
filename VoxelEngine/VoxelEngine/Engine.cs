@@ -56,6 +56,8 @@ namespace VoxelEngine
             //light
             GL.Enable(EnableCap.Lighting);
             GL.Enable(EnableCap.Light0);
+
+            
         }
 
         protected override void OnClosing(CancelEventArgs e)

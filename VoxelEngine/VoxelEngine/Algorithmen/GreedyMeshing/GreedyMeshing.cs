@@ -41,8 +41,8 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
             colors = colorsL.ToArray();
             normals = normalsL.ToArray();
         }
-        
-        internal static int[][][,] InitializePlanes(Voxel[,,] voxels, bool[][,] borders)
+
+        public static int[][][,] InitializePlanes(Voxel[,,] voxels, bool[][,] borders)
         {
             var planes = new int[6][][,];
             for (var side = 0; side < 6; side++)
@@ -96,7 +96,7 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
             return planes;
         }
 
-        internal static Rect[] CreateRectsForPlane(int[,] plane)
+        public static Rect[] CreateRectsForPlane(int[,] plane)
         {
             var rects = new List<Rect>();
             var visited = new bool[plane.GetLength(0), plane.GetLength(1)];
@@ -148,7 +148,7 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
             return rects.ToArray();
         }
 
-        internal static void SetVisited(Rect curRectangle, bool[,] visited)
+        public static void SetVisited(Rect curRectangle, bool[,] visited)
         {
             for (var i = curRectangle.X; i < curRectangle.X + curRectangle.Width; i++)
             {
@@ -261,7 +261,7 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
     }
 
 
-    class Rect
+    public class Rect
     {
         public int X, Y;
         public int Width, Height;

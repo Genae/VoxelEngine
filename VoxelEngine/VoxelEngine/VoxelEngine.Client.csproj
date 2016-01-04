@@ -45,10 +45,6 @@
       <HintPath>..\packages\Unofficial.Awesomium.Complete.1.7.4.2\lib\Awesomium.Windows.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.1.1.1589.5942\lib\NET40\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -64,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithmen\GreedyMeshing\GreedyMeshingTests.cs" />
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Camera\Frustum.cs" />
     <Compile Include="GameData\Chunk.cs" />
@@ -115,6 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FBX\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VoxelEngine.Base\VoxelEngine.Base.csproj">
+      <Project>{c4be09d1-f00e-4f5d-a6d0-6e0e8ca5d220}</Project>
+      <Name>VoxelEngine.Base</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

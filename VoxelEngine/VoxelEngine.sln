@@ -3,9 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelEngine", "VoxelEngine\VoxelEngine.csproj", "{3E149B58-C520-4E81-8296-0D5536A05B9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelEngine.Client", "VoxelEngine\VoxelEngine.Client.csproj", "{3E149B58-C520-4E81-8296-0D5536A05B9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGame", "TestGame\TestGame.csproj", "{53AFBD19-BFB4-4FE1-AA6F-339E75FF4C7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{EEAA2FD7-DD01-4C82-BF30-45F8A3936F3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{3C618C49-1A8F-4DC5-80E5-41E5E052F855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelEngine.Base", "VoxelEngine.Base\VoxelEngine.Base.csproj", "{C4BE09D1-F00E-4F5D-A6D0-6E0E8CA5D220}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelEngine.Server", "VoxelEngine.Server\VoxelEngine.Server.csproj", "{08A95181-66CB-4909-9F1E-31F36B8286EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelEngine.Tests", "VoxelEngine.Tests\VoxelEngine.Tests.csproj", "{D8DFBBF2-AADA-46A6-B957-6BC29F464612}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,8 +32,27 @@ Global
 		{53AFBD19-BFB4-4FE1-AA6F-339E75FF4C7C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{53AFBD19-BFB4-4FE1-AA6F-339E75FF4C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53AFBD19-BFB4-4FE1-AA6F-339E75FF4C7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4BE09D1-F00E-4F5D-A6D0-6E0E8CA5D220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4BE09D1-F00E-4F5D-A6D0-6E0E8CA5D220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4BE09D1-F00E-4F5D-A6D0-6E0E8CA5D220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4BE09D1-F00E-4F5D-A6D0-6E0E8CA5D220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08A95181-66CB-4909-9F1E-31F36B8286EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08A95181-66CB-4909-9F1E-31F36B8286EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08A95181-66CB-4909-9F1E-31F36B8286EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08A95181-66CB-4909-9F1E-31F36B8286EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8DFBBF2-AADA-46A6-B957-6BC29F464612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8DFBBF2-AADA-46A6-B957-6BC29F464612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8DFBBF2-AADA-46A6-B957-6BC29F464612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8DFBBF2-AADA-46A6-B957-6BC29F464612}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3E149B58-C520-4E81-8296-0D5536A05B9E} = {3C618C49-1A8F-4DC5-80E5-41E5E052F855}
+		{53AFBD19-BFB4-4FE1-AA6F-339E75FF4C7C} = {EEAA2FD7-DD01-4C82-BF30-45F8A3936F3F}
+		{C4BE09D1-F00E-4F5D-A6D0-6E0E8CA5D220} = {3C618C49-1A8F-4DC5-80E5-41E5E052F855}
+		{08A95181-66CB-4909-9F1E-31F36B8286EB} = {3C618C49-1A8F-4DC5-80E5-41E5E052F855}
+		{D8DFBBF2-AADA-46A6-B957-6BC29F464612} = {3C618C49-1A8F-4DC5-80E5-41E5E052F855}
 	EndGlobalSection
 EndGlobal
