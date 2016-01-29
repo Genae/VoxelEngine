@@ -17,7 +17,7 @@ namespace VoxelEngine.Client.GUI
         {
             Position = position;
 
-            Engine.Instance.UIElements.Add(this);
+            EngineClient.Instance.UIElements.Add(this);
         }
 
         public virtual void OnRenderFrame(FrameEventArgs args)

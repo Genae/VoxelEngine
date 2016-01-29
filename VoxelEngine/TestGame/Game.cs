@@ -1,6 +1,5 @@
 ﻿using System;
 using OpenTK;
-using TestGame.MapGeneration;
 using VoxelEngine.Client;
 using VoxelEngine.Client.GameData;
 using VoxelEngine.Client.GUI;
@@ -8,7 +7,7 @@ using VoxelEngine.Client.Light;
 
 namespace TestGame
 {
-    class Game : Engine
+    class Game : EngineClient
     {
         public GameCameraController CameraController;
         public Map Map;
@@ -31,9 +30,6 @@ namespace TestGame
             CameraController.Camera.CameraPos = new Vector3(-10,-10,-10);
 
             //map
-            int mapsize = 16 * Chunk.ChunkSize, mapheight = 16 * Chunk.ChunkSize;
-            var hmg = new HeightmapGenerator(mapsize + 1, mapsize + 1, 10);
-            //Map = Map.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, (short)mapheight, mapheight*0.75f);
             /*Map = Map.CreateEmpty(mapsize, mapheight);
 
             Map.Chunks[0, 0, 0].Voxels[0, 0, 0].IsActive = true;

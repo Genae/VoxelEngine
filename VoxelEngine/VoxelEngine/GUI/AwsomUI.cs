@@ -30,7 +30,7 @@ namespace VoxelEngine.Client.GUI
         #region Creation
         public AwsomUI(string url, Position position) : base(position)
         {
-            Engine.Instance.EnsureWebCore();
+            EngineClient.Instance.EnsureWebCore();
             WebCore.QueueWork(()=>CreateView(url, this));
         }
 

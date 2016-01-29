@@ -69,7 +69,7 @@
     <Compile Include="Algorithmen\GreedyMeshing\GreedyMeshing.cs" />
     <Compile Include="GameData\Map.cs" />
     <Compile Include="GameData\Mesh.cs" />
-    <Compile Include="Engine.cs" />
+    <Compile Include="EngineClient.cs" />
     <Compile Include="GUI\AwsomUI.cs" />
     <Compile Include="GUI\Position.cs" />
     <Compile Include="GUI\TexUtil.cs" />
@@ -80,6 +80,8 @@
     <Compile Include="Physics\Collider.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerAdapter\LocalServerAdapter.cs" />
+    <Compile Include="ServerAdapter\NetworkServerAdapter.cs" />
     <Compile Include="Shaders\DirectionalShadow\DirectionalShadow.cs" />
     <Compile Include="Shaders\DirectionalDiffuse\DirectionalDiffuse.cs" />
     <Compile Include="Shaders\Shader.cs" />

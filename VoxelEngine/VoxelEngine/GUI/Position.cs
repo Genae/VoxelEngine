@@ -53,21 +53,21 @@ namespace VoxelEngine.Client.GUI
                 case AnchorPoint.TopLeft:
                     return 0;
                 case AnchorPoint.TopCenter:
-                    return (Engine.Instance.ClientRectangle.Width - Width)/2;
+                    return (EngineClient.Instance.ClientRectangle.Width - Width)/2;
                 case AnchorPoint.TopRight:
-                    return Engine.Instance.ClientRectangle.Width-Width;
+                    return EngineClient.Instance.ClientRectangle.Width-Width;
                 case AnchorPoint.CenterLeft:
                     return 0;
                 case AnchorPoint.Center:
-                    return (Engine.Instance.ClientRectangle.Width - Width) / 2;
+                    return (EngineClient.Instance.ClientRectangle.Width - Width) / 2;
                 case AnchorPoint.CenterRight:
-                    return Engine.Instance.ClientRectangle.Width - Width;
+                    return EngineClient.Instance.ClientRectangle.Width - Width;
                 case AnchorPoint.BottomLeft:
                     return 0;
                 case AnchorPoint.BottomCenter:
-                    return (Engine.Instance.ClientRectangle.Width - Width) / 2;
+                    return (EngineClient.Instance.ClientRectangle.Width - Width) / 2;
                 case AnchorPoint.BottomRight:
-                    return Engine.Instance.ClientRectangle.Width - Width;
+                    return EngineClient.Instance.ClientRectangle.Width - Width;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -78,17 +78,17 @@ namespace VoxelEngine.Client.GUI
             switch (Anchor)
             {
                 case AnchorPoint.TopLeft:
-                    return Engine.Instance.ClientRectangle.Height - Height;
+                    return EngineClient.Instance.ClientRectangle.Height - Height;
                 case AnchorPoint.TopCenter:
-                    return Engine.Instance.ClientRectangle.Height - Height;
+                    return EngineClient.Instance.ClientRectangle.Height - Height;
                 case AnchorPoint.TopRight:
-                    return Engine.Instance.ClientRectangle.Height - Height;
+                    return EngineClient.Instance.ClientRectangle.Height - Height;
                 case AnchorPoint.CenterLeft:
-                    return (Engine.Instance.ClientRectangle.Height - Height)/2;
+                    return (EngineClient.Instance.ClientRectangle.Height - Height)/2;
                 case AnchorPoint.Center:
-                    return (Engine.Instance.ClientRectangle.Height - Height) / 2;
+                    return (EngineClient.Instance.ClientRectangle.Height - Height) / 2;
                 case AnchorPoint.CenterRight:
-                    return (Engine.Instance.ClientRectangle.Height - Height) / 2;
+                    return (EngineClient.Instance.ClientRectangle.Height - Height) / 2;
                 case AnchorPoint.BottomLeft:
                     return 0;
                 case AnchorPoint.BottomCenter:

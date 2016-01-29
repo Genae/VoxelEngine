@@ -58,12 +58,12 @@ namespace VoxelEngine.Client.Light
             
             //_shader.Bind();
             //_shader.SetVariable("depthMVP", depthMVP);
-            foreach (var mesh in Engine.Instance.Meshes)
+            foreach (var mesh in EngineClient.Instance.Meshes)
             {
                 mesh.Render(false);
             }
             //_shader.Unbind();
-            GL.Viewport(0, 0, Engine.Instance.Width, Engine.Instance.Height);
+            GL.Viewport(0, 0, EngineClient.Instance.Width, EngineClient.Instance.Height);
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 
             GL.ActiveTexture(TextureUnit.Texture0);

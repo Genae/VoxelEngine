@@ -55,9 +55,9 @@ namespace VoxelEngine.Client.Input
 
         public static Vector2 GetMousePosition(bool uiMode = false)
         {
-            var p = Engine.Instance.PointToClient(new Point(_currentMouseState.X, _currentMouseState.Y));
+            var p = EngineClient.Instance.PointToClient(new Point(_currentMouseState.X, _currentMouseState.Y));
             if(uiMode)
-                return new Vector2(p.X, Engine.Instance.ClientRectangle.Height - p.Y);
+                return new Vector2(p.X, EngineClient.Instance.ClientRectangle.Height - p.Y);
             return new Vector2(p.X, p.Y);
         }
 

@@ -14,13 +14,13 @@ namespace VoxelEngine.Client.Physics
         {
             Range = range;
             Position = position;
-            Engine.Instance.Collider.Add(this);
+            EngineClient.Instance.Collider.Add(this);
         }
 
         public override void Destroy()
         {
             base.Destroy();
-            Engine.Instance.Collider.Remove(this);
+            EngineClient.Instance.Collider.Remove(this);
         }
 
 

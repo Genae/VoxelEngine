@@ -68,13 +68,13 @@ namespace VoxelEngine.Client.Camera
         {
             _cameraPos = new Vector3(0f, 0f, -5f);
             Frustum = new Frustum();
-            Engine.Instance.Cameras.Add(this);
+            EngineClient.Instance.Cameras.Add(this);
         }
 
         public override void Destroy()
         {
             base.Destroy();
-            Engine.Instance.Cameras.Remove(this);
+            EngineClient.Instance.Cameras.Remove(this);
         }
         
         public void OnRenderFrame(FrameEventArgs e)

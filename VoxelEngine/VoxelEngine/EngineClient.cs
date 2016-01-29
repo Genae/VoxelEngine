@@ -7,6 +7,7 @@ using Awesomium.Core;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
+using VoxelEngine.Base.Networking;
 using VoxelEngine.Client.Camera;
 using VoxelEngine.Client.GameData;
 using VoxelEngine.Client.GUI;
@@ -17,9 +18,9 @@ using FrameEventArgs = OpenTK.FrameEventArgs;
 
 namespace VoxelEngine.Client
 {
-    public class Engine : GameWindow
+    public class EngineClient : GameWindow, IClient
     {
-        public static Engine Instance;
+        public static EngineClient Instance;
         private Matrix4 _matrixProjection;
         private int _timer, _counter;
         private bool _wireframe;

@@ -34,7 +34,7 @@ namespace VoxelEngine.Client.Shaders
             var success = Compile(vsource, fsource);
             if (success)
             {
-                Engine.Instance.Shaders.Add(this);
+                EngineClient.Instance.Shaders.Add(this);
             }
         }
 
@@ -251,7 +251,7 @@ namespace VoxelEngine.Client.Shaders
             if (Program != 0)
             {
                 GL.DeleteProgram(Program);
-                Engine.Instance.Shaders.Remove(this);
+                EngineClient.Instance.Shaders.Remove(this);
             }
         }
 

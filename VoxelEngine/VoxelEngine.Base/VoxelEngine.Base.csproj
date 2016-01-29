@@ -55,6 +55,10 @@
     <Compile Include="Data\Map\ChunkData.cs" />
     <Compile Include="Data\Map\MapData.cs" />
     <Compile Include="Data\Map\VoxelData.cs" />
+    <Compile Include="Networking\IClient.cs" />
+    <Compile Include="Networking\IClientAdapter.cs" />
+    <Compile Include="Networking\IServer.cs" />
+    <Compile Include="Networking\IServerAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +69,7 @@
     <Content Include="Librarys\Photon\PhotonLoadbalancingApi.pdb" />
     <Content Include="Librarys\Photon\PhotonLoadbalancingApi.XML" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Networking\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

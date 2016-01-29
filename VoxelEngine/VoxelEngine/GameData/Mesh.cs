@@ -28,7 +28,7 @@ namespace VoxelEngine.Client.GameData
         {
             Size = size;
             Pos = pos;
-            Engine.Instance.Meshes.Add(this);
+            EngineClient.Instance.Meshes.Add(this);
         }
 
         protected Mesh(float size, Vector3 pos, bool autoDraw)
@@ -36,13 +36,13 @@ namespace VoxelEngine.Client.GameData
             Size = size;
             Pos = pos;
             if(autoDraw)
-                Engine.Instance.Meshes.Add(this);
+                EngineClient.Instance.Meshes.Add(this);
         }
 
         public override void Destroy()
         {
             base.Destroy();
-            Engine.Instance.Meshes.Remove(this);
+            EngineClient.Instance.Meshes.Remove(this);
         }
         
         public virtual void OnRenderFrame(FrameEventArgs e)
