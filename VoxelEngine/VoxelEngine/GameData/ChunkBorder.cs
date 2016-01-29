@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 
-namespace VoxelEngine.GameData
+namespace VoxelEngine.Client.GameData
 {
     class ChunkBorder : Mesh
     {

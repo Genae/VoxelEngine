@@ -2,7 +2,7 @@
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace VoxelEngine.GUI
+namespace VoxelEngine.Client.GUI
 {
     public class UiElement
     {

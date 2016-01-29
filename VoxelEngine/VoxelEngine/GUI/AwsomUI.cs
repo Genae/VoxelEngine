@@ -9,7 +9,7 @@ using OpenTK;
 using FrameEventArgs = OpenTK.FrameEventArgs;
 using MouseButton = OpenTK.Input.MouseButton;
 
-namespace VoxelEngine.GUI
+namespace VoxelEngine.Client.GUI
 {
     public class AwsomUI : UiElement
     {

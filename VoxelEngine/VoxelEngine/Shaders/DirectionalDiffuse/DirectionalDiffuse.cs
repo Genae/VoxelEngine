@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenTK;
 
-namespace VoxelEngine.Shaders.DirectionalDiffuse
+namespace VoxelEngine.Client.Shaders.DirectionalDiffuse
 {
     public class DirectionalDiffuse : Shader
     {

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Drawing;
 using System.Linq;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using VoxelEngine.Shaders;
-using VoxelEngine.Shaders.DirectionalShadow;
-using VoxelEngine.Shaders.ShadowMap;
+using VoxelEngine.Client.Shaders;
+using VoxelEngine.Client.Shaders.DirectionalShadow;
+using VoxelEngine.Client.Shaders.ShadowMap;
 
-namespace VoxelEngine.Light
+namespace VoxelEngine.Client.Light
 {
     public class DirectionalLight : LightSource
     {

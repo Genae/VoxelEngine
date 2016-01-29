@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using VoxelEngine.Algorithmen.GreedyMeshing;
-using VoxelEngine.GameData;
+using VoxelEngine.Base.Data.Map;
+using VoxelEngine.Client.Algorithmen.GreedyMeshing;
 
 namespace VoxelEngine.Tests
 {
@@ -11,10 +11,10 @@ namespace VoxelEngine.Tests
         public void GreedyMeshingCanCreatePlanes()
         {
             //arange
-            var voxels = new Voxel[4, 4, 4];
+            var voxels = new VoxelData[4, 4, 4];
             for (int i = 0; i < voxels.Length; i++)
             {
-                voxels[i/16, (i/4)%4, i%4] = new Voxel();
+                voxels[i/16, (i/4)%4, i%4] = new VoxelData();
             }
             voxels[0, 0, 0].IsActive = true;
             var borders = new bool[6][,];
@@ -49,7 +49,7 @@ namespace VoxelEngine.Tests
             GreedyMeshing.SetVisited(curRectangle2, visited);
 
             //assert
-            Assert.That(visited, Is.EqualTo(new bool[,]
+            Assert.That(visited, Is.EqualTo(new[,]
             {
                 {false, false, false, false},
                 {false, true, false, false},
@@ -62,7 +62,7 @@ namespace VoxelEngine.Tests
         public void GreedyMeshingCanGreedyMeshPlanes()
         {
             //arange
-            var plane = new int[,]
+            var plane = new[,]
             {
                 {0, 0, 0, 0 },
                 {1, 1, 0, 0 },

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace VoxelEngine.GUI
+namespace VoxelEngine.Client.GUI
 {
     public class Position
     {

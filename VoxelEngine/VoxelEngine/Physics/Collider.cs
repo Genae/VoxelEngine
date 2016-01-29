@@ -1,7 +1,7 @@
-﻿using VoxelEngine.GameData;
-using OpenTK;
+﻿using OpenTK;
+using VoxelEngine.Client.GameData;
 
-namespace VoxelEngine.Physics
+namespace VoxelEngine.Client.Physics
 {
     //TODO make this abstract and add at least box colliders + sphere colliders
     public class Collider : GameObject

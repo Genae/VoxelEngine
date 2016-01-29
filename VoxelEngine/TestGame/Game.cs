@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Drawing;
 using OpenTK;
 using TestGame.MapGeneration;
-using VoxelEngine;
-using VoxelEngine.GameData;
-using VoxelEngine.GUI;
-using VoxelEngine.Light;
+using VoxelEngine.Client;
+using VoxelEngine.Client.GameData;
+using VoxelEngine.Client.GUI;
+using VoxelEngine.Client.Light;
 
 namespace TestGame
 {
@@ -34,7 +33,7 @@ namespace TestGame
             //map
             int mapsize = 16 * Chunk.ChunkSize, mapheight = 16 * Chunk.ChunkSize;
             var hmg = new HeightmapGenerator(mapsize + 1, mapsize + 1, 10);
-            Map = Map.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, (short)mapheight, mapheight*0.75f);
+            //Map = Map.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, (short)mapheight, mapheight*0.75f);
             /*Map = Map.CreateEmpty(mapsize, mapheight);
 
             Map.Chunks[0, 0, 0].Voxels[0, 0, 0].IsActive = true;

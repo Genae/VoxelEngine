@@ -7,15 +7,15 @@ using Awesomium.Core;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using VoxelEngine.Camera;
-using VoxelEngine.GameData;
-using VoxelEngine.GUI;
-using VoxelEngine.Light;
-using VoxelEngine.Shaders;
-using VoxelEngine.Physics;
+using VoxelEngine.Client.Camera;
+using VoxelEngine.Client.GameData;
+using VoxelEngine.Client.GUI;
+using VoxelEngine.Client.Light;
+using VoxelEngine.Client.Physics;
+using VoxelEngine.Client.Shaders;
 using FrameEventArgs = OpenTK.FrameEventArgs;
 
-namespace VoxelEngine
+namespace VoxelEngine.Client
 {
     public class Engine : GameWindow
     {

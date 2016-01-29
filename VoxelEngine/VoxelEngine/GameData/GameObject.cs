@@ -1,4 +1,4 @@
-namespace VoxelEngine.GameData
+namespace VoxelEngine.Client.GameData
 {
     public abstract class GameObject
     {

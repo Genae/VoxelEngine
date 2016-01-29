@@ -1,7 +1,7 @@
 ﻿using OpenTK;
-using VoxelEngine.GameData;
+using VoxelEngine.Client.GameData;
 
-namespace VoxelEngine.Light
+namespace VoxelEngine.Client.Light
 {
     public class LightSource : GameObject
     {

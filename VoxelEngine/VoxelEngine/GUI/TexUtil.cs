@@ -4,8 +4,9 @@ using System.IO;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL;
 using Img = System.Drawing.Imaging;
+using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
-namespace VoxelEngine.GUI
+namespace VoxelEngine.Client.GUI
 {
     public static class TexUtil
     {

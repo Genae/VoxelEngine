@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using OpenTK;
-using VoxelEngine.GameData;
+using VoxelEngine.Base.Data.Map;
 
-namespace VoxelEngine.Algorithmen.GreedyMeshing
+namespace VoxelEngine.Client.Algorithmen.GreedyMeshing
 {
     public static class GreedyMeshing
     {
-        public static void CreateMesh(out float[] vertices, out ushort[] triangles, out float[] colors, out float[] normals, Voxel[,,] voxels, bool[][,] borders, Vector3 pos, float scale)
+        public static void CreateMesh(out float[] vertices, out ushort[] triangles, out float[] colors, out float[] normals, VoxelData[,,] voxels, bool[][,] borders, Vector3 pos, float scale)
         {
             //Voxels to Planes
             var planes = InitializePlanes(voxels, borders);
@@ -42,7 +42,7 @@ namespace VoxelEngine.Algorithmen.GreedyMeshing
             normals = normalsL.ToArray();
         }
 
-        public static int[][][,] InitializePlanes(Voxel[,,] voxels, bool[][,] borders)
+        public static int[][][,] InitializePlanes(VoxelData[,,] voxels, bool[][,] borders)
         {
             var planes = new int[6][][,];
             for (var side = 0; side < 6; side++)

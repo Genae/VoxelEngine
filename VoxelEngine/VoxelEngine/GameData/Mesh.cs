@@ -1,10 +1,10 @@
 using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using VoxelEngine.Camera;
-using VoxelEngine.Shaders;
+using VoxelEngine.Client.Camera;
+using VoxelEngine.Client.Shaders;
 
-namespace VoxelEngine.GameData
+namespace VoxelEngine.Client.GameData
 {
     public abstract class Mesh : GameObject
     {

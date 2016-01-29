@@ -1,9 +1,9 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using VoxelEngine.GameData;
+using VoxelEngine.Client.GameData;
 
-namespace VoxelEngine.Camera
+namespace VoxelEngine.Client.Camera
 {
     public class Camera3D : GameObject
     {

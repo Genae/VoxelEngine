@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VoxelEngine.Physics
+namespace VoxelEngine.Client.Physics
 {
     public class Collision
     {

@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 
-namespace VoxelEngine.Shaders.DirectionalShadow
+namespace VoxelEngine.Client.Shaders.DirectionalShadow
 {
     public class DirectionalShadow : Shader
     {

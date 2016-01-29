@@ -86,6 +86,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VoxelEngine.Base\VoxelEngine.Base.csproj">
+      <Project>{c4be09d1-f00e-4f5d-a6d0-6e0e8ca5d220}</Project>
+      <Name>VoxelEngine.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VoxelEngine\VoxelEngine.Client.csproj">
       <Project>{3E149B58-C520-4E81-8296-0D5536A05B9E}</Project>
       <Name>VoxelEngine.Client</Name>

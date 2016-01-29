@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenTK;
 
-namespace VoxelEngine.Camera
+namespace VoxelEngine.Client.Camera
 {
     public class Frustum
     {

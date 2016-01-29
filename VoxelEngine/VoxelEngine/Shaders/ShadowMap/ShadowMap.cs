@@ -1,6 +1,6 @@
 ﻿using OpenTK;
 
-namespace VoxelEngine.Shaders.ShadowMap
+namespace VoxelEngine.Client.Shaders.ShadowMap
 {
     public class ShadowMap : Shader
     {

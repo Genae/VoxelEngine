@@ -7,8 +7,8 @@
     <ProjectGuid>{3E149B58-C520-4E81-8296-0D5536A05B9E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VoxelEngine</RootNamespace>
-    <AssemblyName>VoxelEngine</AssemblyName>
+    <RootNamespace>VoxelEngine.Client</RootNamespace>
+    <AssemblyName>VoxelEngine.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -69,7 +69,6 @@
     <Compile Include="Algorithmen\GreedyMeshing\GreedyMeshing.cs" />
     <Compile Include="GameData\Map.cs" />
     <Compile Include="GameData\Mesh.cs" />
-    <Compile Include="GameData\Voxel.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GUI\AwsomUI.cs" />
     <Compile Include="GUI\Position.cs" />

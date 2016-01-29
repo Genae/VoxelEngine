@@ -5,7 +5,7 @@ using System.IO;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace VoxelEngine.Shaders
+namespace VoxelEngine.Client.Shaders
 {
     public class Shader : IDisposable
     {
@@ -203,12 +203,7 @@ namespace VoxelEngine.Shaders
                 {
                     GL.UniformMatrix4(location, false, ref matrix);
                 }
-                else
-                {
-                    int i = 0;
-                }
-
-                 GL.UseProgram(0);
+                GL.UseProgram(0);
             }
         }
 

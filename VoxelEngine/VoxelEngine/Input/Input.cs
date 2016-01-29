@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Input;
 
-namespace VoxelEngine.Input
+namespace VoxelEngine.Client.Input
 {
     public static class Input
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Input;
-using VoxelEngine.Camera;
+using VoxelEngine.Client.Camera;
 
 namespace TestGame
 {
