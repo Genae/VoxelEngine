@@ -210,3 +210,23 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+VoxelUnity/[Ll]ibrary/
+VoxelUnity/[Tt]emp/
+VoxelUnity/[Oo]bj/
+VoxelUnity/[Bb]uild/
+VoxelUnity/Webplayer/
+VoxelUnity/.vs/
+
+# Unity3D generated meta files
+*.pidb.meta
+# Unity3D Generated File On Crash Reports
+sysinfo.txt
+*.svd
+*.userprefs
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
