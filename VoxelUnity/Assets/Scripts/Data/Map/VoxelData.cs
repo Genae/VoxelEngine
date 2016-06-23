@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Base.Data.Map
+﻿namespace Assets.Scripts.Data.Map
 {
     public class VoxelData
     {

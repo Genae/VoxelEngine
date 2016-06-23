@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Base.Data.Map;
+using Assets.Scripts.Data.Map;
 using UnityEngine;
 
-namespace Assets.Scripts.Base.Algorithms
+namespace Assets.Scripts.Algorithms
 {
     public static class GreedyMeshing
     {
-        public static void CreateMesh(out float[] vertices, out ushort[] triangles, out float[] normals, VoxelData[,,] voxels, bool[][,] borders, Vector3 pos, float scale)
+        public static void CreateMesh(out Vector3[] vertices, out int[] triangles, out Color[] colors, out Vector3[] normals, VoxelData[,,] voxels, bool[][,] neighbourBorders, Vector3 pos, float scale)
         {
             //Voxels to Planes
-            var planes = InitializePlanes(voxels, borders);
+            var planes = InitializePlanes(voxels, neighbourBorders);
 
             //Planes to Rects
             var rects = new Rect[6][][];
@@ -23,10 +23,10 @@ namespace Assets.Scripts.Base.Algorithms
             }
 
             //Rects to Mesh
-            var verticesL = new List<float>();
-            var trianglesL = new List<ushort>();
-            var colorsL = new List<float>();
-            var normalsL = new List<float>();
+            var verticesL = new List<Vector3>();
+            var trianglesL = new List<int>();
+            var colorsL = new List<Color>();
+            var normalsL = new List<Vector3>();
             for (var side = 0; side < 6; side++)
             {
                 for (var depth = 0; depth < voxels.GetLength(0); depth++)
@@ -38,6 +38,7 @@ namespace Assets.Scripts.Base.Algorithms
             vertices = verticesL.ToArray();
             triangles = trianglesL.ToArray();
             normals = normalsL.ToArray();
+            colors = colorsL.ToArray();
         }
 
         public static int[][][,] InitializePlanes(VoxelData[,,] voxels, bool[][,] borders)
@@ -173,13 +174,12 @@ namespace Assets.Scripts.Base.Algorithms
                 curRectangle.Height++;
             }
         }
-
-
-        internal static void AddRectsToMesh(int side, int depth, Rect[] rects, Vector3 pos, float scale, float chunksize, ref List<float> vertices, ref List<ushort> triangles, ref List<float> colors, ref List<float> normals)
-        {
+        
+        private static void AddRectsToMesh(int side, int depth, Rect[] rects, Vector3 pos, float scale, int chunksize, ref List<Vector3> vertices, ref List<int> triangles, ref List<Color> colors, ref List<Vector3> normals)
+        { 
             foreach (var rect in rects)
             {
-                var offset = vertices.Count / 3;
+                var offset = vertices.Count;
                 Vector3 vertA = Vector3.zero, vertB = Vector3.zero, vertC = Vector3.zero, vertD = Vector3.zero, norm = Vector3.zero;
                 switch (side)
                 {
@@ -209,52 +209,48 @@ namespace Assets.Scripts.Base.Algorithms
                         break;
                 }
 
-                vertices.AddRange(new[]
+                vertices.AddRange(new []
                 {
-                    (vertA.x + pos.x*chunksize) * scale, (vertA.y + pos.y*chunksize) * scale, (vertA.z + pos.z*chunksize) * scale,
-                    (vertB.x + pos.x*chunksize) * scale, (vertB.y + pos.y*chunksize) * scale, (vertB.z + pos.z*chunksize) * scale,
-                    (vertC.x + pos.x*chunksize) * scale, (vertC.y + pos.y*chunksize) * scale, (vertC.z + pos.z*chunksize) * scale,
-                    (vertD.x + pos.x*chunksize) * scale, (vertD.y + pos.y*chunksize) * scale, (vertD.z + pos.z*chunksize) * scale
+                    new Vector3((vertA.x + pos.x*chunksize) * scale, (vertA.y + pos.y*chunksize) * scale, (vertA.z + pos.z*chunksize) * scale),
+                    new Vector3((vertB.x + pos.x*chunksize) * scale, (vertB.y + pos.y*chunksize) * scale, (vertB.z + pos.z*chunksize) * scale),
+                    new Vector3((vertC.x + pos.x*chunksize) * scale, (vertC.y + pos.y*chunksize) * scale, (vertC.z + pos.z*chunksize) * scale),
+                    new Vector3((vertD.x + pos.x*chunksize) * scale, (vertD.y + pos.y*chunksize) * scale, (vertD.z + pos.z*chunksize) * scale)
                 });
 
                 normals.AddRange(new[]
                 {
-                    norm.x, norm.x, norm.z,
-                    norm.x, norm.x, norm.z,
-                    norm.x, norm.x, norm.z,
-                    norm.x, norm.x, norm.z,
+                    new Vector3(norm.x, norm.x, norm.z),
+                    new Vector3(norm.x, norm.x, norm.z),
+                    new Vector3(norm.x, norm.x, norm.z),
+                    new Vector3(norm.x, norm.x, norm.z)
                 });
 
-                if (side % 2 == 0)
+                colors.AddRange(new[]
+                {
+                    Color.green,
+                    Color.green,
+                    Color.green,
+                    Color.green,
+                });
+
+                if (side == 5 || side == 2 || side == 1)
                 {
                     triangles.AddRange(new[]
                     {
-                    (ushort) (0 + offset), (ushort) (1 + offset), (ushort) (3 + offset),
-                    (ushort) (0 + offset), (ushort) (3 + offset), (ushort) (2 + offset)
-                });
+                        0 + offset, 1 + offset, 3 + offset,
+                        0 + offset, 3 + offset, 2 + offset
+                    });
                 }
                 else
                 {
                     triangles.AddRange(new[]
                     {
-                    (ushort) (1 + offset), (ushort) (0 + offset), (ushort) (3 + offset),
-                    (ushort) (3 + offset), (ushort) (0 + offset), (ushort) (2 + offset)
-                });
+                        1 + offset, 0 + offset, 3 + offset,
+                        3 + offset, 0 + offset, 2 + offset
+                    });
                 }
             }
         }
-
-        private static float[] GetColor(Color c)
-        {
-            return new[]
-            {
-                c.r/255f, c.g/255f, c.b/255f, c.a/255f,
-                c.r/255f, c.g/255f, c.b/255f, c.a/255f,
-                c.r/255f, c.g/255f, c.b/255f, c.a/255f,
-                c.r/255f, c.g/255f, c.b/255f, c.a/255f
-            };
-        }
-
     }
 
 
