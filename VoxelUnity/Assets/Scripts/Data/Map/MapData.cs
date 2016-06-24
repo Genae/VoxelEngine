@@ -139,7 +139,11 @@ namespace Assets.Scripts.Data.Map
                     var lheight = (heightmap[x, z] + 2) / 3 * heightmapHeight;
                     for (int y = 0; y < map.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
                     {
-                        map.SetVoxel(x, y, z, new VoxelData() { IsActive = y < lheight && y > bot && cut[x, z] > 0.5f });
+                        map.SetVoxel(x, y, z, new VoxelData()
+                        {
+                            IsActive = y < (int)lheight && y > bot && cut[x, z] > 0.5f,
+                            BlockType = y == (int)lheight-1 ? 3 : (y >= (int)lheight - 4 ? 2 : 1)
+                        });
                         if (y < lheight && y > bot && cut[x, z] > 0.5f)
                             v++;
                     }

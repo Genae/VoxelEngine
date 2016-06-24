@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Algorithms;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Algorithms;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
@@ -9,11 +11,13 @@ namespace Assets.Scripts.Data.Map
         public Mesh ChunkMesh;
         public ChunkData ChunkData;
         public float Scale = 1f;
+        private Material[] _materials;
 
-        public void InitializeChunk(Vector3 pos, ChunkData data, Material mat)
+        public void InitializeChunk(Vector3 pos, ChunkData data, Material[] mats)
         {
             ChunkData = data;
             gameObject.transform.position = pos;
+            _materials = mats;
             data.ChunkUpdated += chunkData =>
             {
                 OnChunkUpdated();
@@ -23,7 +27,6 @@ namespace Assets.Scripts.Data.Map
             {
                 gameObject.AddComponent<MeshRenderer>();
             }
-            GetComponent<MeshRenderer>().sharedMaterial = mat;
             OnChunkUpdated();
         }
 
@@ -35,17 +38,24 @@ namespace Assets.Scripts.Data.Map
 
         public void OnChunkUpdated()
         {
-            int[] triangles;
+            Dictionary<int, int[]> triangles;
             Vector3[] vertices;
-            Color[] colors;
             Vector3[] normals;
-            GreedyMeshing.CreateMesh(out vertices, out triangles, out colors, out normals, ChunkData.Voxels, ChunkData.NeighbourBorders, gameObject.transform.position, Scale);
+            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, ChunkData.Voxels, ChunkData.NeighbourBorders);
             
             ChunkMesh.Clear();
             ChunkMesh.vertices = vertices;
-            ChunkMesh.colors = colors;
-            ChunkMesh.triangles = triangles;
             ChunkMesh.normals = normals;
+            ChunkMesh.subMeshCount = triangles.Keys.Count;
+
+            var keyArray = triangles.Keys.ToArray();
+            var myMats = new Material[triangles.Keys.Count];
+            for (int i = 0; i < triangles.Keys.Count; i++)
+            {
+                ChunkMesh.SetTriangles(triangles[keyArray[i]], i);
+                myMats[i] = _materials[keyArray[i]-1];
+            }
+            gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
         }
     }
 }

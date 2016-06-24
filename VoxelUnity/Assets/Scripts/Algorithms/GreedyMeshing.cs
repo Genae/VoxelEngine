@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Assets.Scripts.Algorithms
 {
     public static class GreedyMeshing
     {
-        public static void CreateMesh(out Vector3[] vertices, out int[] triangles, out Color[] colors, out Vector3[] normals, VoxelData[,,] voxels, bool[][,] neighbourBorders, Vector3 pos, float scale)
+        public static void CreateMesh(out Vector3[] vertices, out Dictionary<int, int[]> triangles, out Vector3[] normals, VoxelData[,,] voxels, bool[][,] neighbourBorders)
         {
             //Voxels to Planes
             var planes = InitializePlanes(voxels, neighbourBorders);
@@ -24,21 +25,19 @@ namespace Assets.Scripts.Algorithms
 
             //Rects to Mesh
             var verticesL = new List<Vector3>();
-            var trianglesL = new List<int>();
-            var colorsL = new List<Color>();
+            var trianglesL = new Dictionary<int, List<int>>();
             var normalsL = new List<Vector3>();
             for (var side = 0; side < 6; side++)
             {
                 for (var depth = 0; depth < voxels.GetLength(0); depth++)
                 {
-                    AddRectsToMesh(side, depth, rects[side][depth], pos, scale, voxels.GetLength(0), ref verticesL, ref trianglesL, ref colorsL, ref normalsL);
+                    AddRectsToMesh(side, depth, rects[side][depth], ref verticesL, ref trianglesL, ref normalsL);
                 }
             }
 
             vertices = verticesL.ToArray();
-            triangles = trianglesL.ToArray();
+            triangles = trianglesL.ToDictionary(v => v.Key, v => v.Value.ToArray());
             normals = normalsL.ToArray();
-            colors = colorsL.ToArray();
         }
 
         public static int[][][,] InitializePlanes(VoxelData[,,] voxels, bool[][,] borders)
@@ -124,7 +123,7 @@ namespace Assets.Scripts.Algorithms
                     {
                         if (curRectangle == null)
                         {
-                            curRectangle = new Rect(i, j);
+                            curRectangle = new Rect(i, j, vox);
                             curType = vox;
                         }
                         else
@@ -175,7 +174,7 @@ namespace Assets.Scripts.Algorithms
             }
         }
         
-        private static void AddRectsToMesh(int side, int depth, Rect[] rects, Vector3 pos, float scale, int chunksize, ref List<Vector3> vertices, ref List<int> triangles, ref List<Color> colors, ref List<Vector3> normals)
+        private static void AddRectsToMesh(int side, int depth, Rect[] rects, ref List<Vector3> vertices, ref Dictionary<int, List<int>> triangles, ref List<Vector3> normals)
         { 
             foreach (var rect in rects)
             {
@@ -189,7 +188,7 @@ namespace Assets.Scripts.Algorithms
                         vertB = new Vector3(depth - 0.5f + side - 0, rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height);
                         vertC = new Vector3(depth - 0.5f + side - 0, rect.X - 0.5f, rect.Y - 0.5f);
                         vertD = new Vector3(depth - 0.5f + side - 0, rect.X - 0.5f, rect.Y - 0.5f + rect.Height);
-                        norm = new Vector3(side % 2 == 0 ? 1 : -1, 0, 0);
+                        norm = new Vector3(side % 2 != 0 ? 1 : -1, 0, 0);
                         break;
                     case 2:
                     case 3:
@@ -197,7 +196,7 @@ namespace Assets.Scripts.Algorithms
                         vertB = new Vector3(rect.X - 0.5f + rect.Width, depth - 0.5f + side - 2, rect.Y - 0.5f + rect.Height);
                         vertC = new Vector3(rect.X - 0.5f, depth - 0.5f + side - 2, rect.Y - 0.5f);
                         vertD = new Vector3(rect.X - 0.5f, depth - 0.5f + side - 2, rect.Y - 0.5f + rect.Height);
-                        norm = new Vector3(0, side % 2 == 0 ? 1 : -1, 0);
+                        norm = new Vector3(0, side % 2 != 0 ? 1 : -1, 0);
                         break;
                     case 4:
                     case 5:
@@ -205,37 +204,32 @@ namespace Assets.Scripts.Algorithms
                         vertB = new Vector3(rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height, depth - 0.5f + side - 4);
                         vertC = new Vector3(rect.X - 0.5f, rect.Y - 0.5f, depth - 0.5f + side - 4);
                         vertD = new Vector3(rect.X - 0.5f, rect.Y - 0.5f + rect.Height, depth - 0.5f + side - 4);
-                        norm = new Vector3(0, 0, side % 2 == 0 ? 1 : -1);
+                        norm = new Vector3(0, 0, side % 2 != 0 ? 1 : -1);
                         break;
                 }
 
                 vertices.AddRange(new []
                 {
-                    new Vector3((vertA.x + pos.x*chunksize) * scale, (vertA.y + pos.y*chunksize) * scale, (vertA.z + pos.z*chunksize) * scale),
-                    new Vector3((vertB.x + pos.x*chunksize) * scale, (vertB.y + pos.y*chunksize) * scale, (vertB.z + pos.z*chunksize) * scale),
-                    new Vector3((vertC.x + pos.x*chunksize) * scale, (vertC.y + pos.y*chunksize) * scale, (vertC.z + pos.z*chunksize) * scale),
-                    new Vector3((vertD.x + pos.x*chunksize) * scale, (vertD.y + pos.y*chunksize) * scale, (vertD.z + pos.z*chunksize) * scale)
+                    new Vector3(vertA.x, vertA.y, vertA.z),
+                    new Vector3(vertB.x, vertB.y, vertB.z),
+                    new Vector3(vertC.x, vertC.y, vertC.z),
+                    new Vector3(vertD.x, vertD.y, vertD.z)
                 });
 
                 normals.AddRange(new[]
                 {
-                    new Vector3(norm.x, norm.x, norm.z),
-                    new Vector3(norm.x, norm.x, norm.z),
-                    new Vector3(norm.x, norm.x, norm.z),
-                    new Vector3(norm.x, norm.x, norm.z)
+                    new Vector3(norm.x, norm.y, norm.z),
+                    new Vector3(norm.x, norm.y, norm.z),
+                    new Vector3(norm.x, norm.y, norm.z),
+                    new Vector3(norm.x, norm.y, norm.z)
                 });
-
-                colors.AddRange(new[]
-                {
-                    Color.green,
-                    Color.green,
-                    Color.green,
-                    Color.green,
-                });
+                
+                if(!triangles.ContainsKey(rect.Type))
+                    triangles[rect.Type] = new List<int>();
 
                 if (side == 5 || side == 2 || side == 1)
                 {
-                    triangles.AddRange(new[]
+                    triangles[rect.Type].AddRange(new[]
                     {
                         0 + offset, 1 + offset, 3 + offset,
                         0 + offset, 3 + offset, 2 + offset
@@ -243,7 +237,7 @@ namespace Assets.Scripts.Algorithms
                 }
                 else
                 {
-                    triangles.AddRange(new[]
+                    triangles[rect.Type].AddRange(new[]
                     {
                         1 + offset, 0 + offset, 3 + offset,
                         3 + offset, 0 + offset, 2 + offset
@@ -258,13 +252,15 @@ namespace Assets.Scripts.Algorithms
     {
         public int X, Y;
         public int Width, Height;
+        public int Type;
 
-        public Rect(int x, int y)
+        public Rect(int x, int y, int type)
         {
             X = x;
             Y = y;
             Width = 1;
             Height = 1;
+            Type = type;
         }
 
         public override bool Equals(object obj)
