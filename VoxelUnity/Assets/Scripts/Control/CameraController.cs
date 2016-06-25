@@ -113,7 +113,8 @@ namespace Assets.Scripts.Control
                 if (Eye.transform.position.y - doZoom > CameraMaxHeight  ||
                     Eye.transform.position.y - doZoom < CameraMinHeight) return;
                 var zoomVector = new Vector3(0, 0, 1) * doZoom;//transform.forward.normalized*doZoom;
-                gameObject.transform.Translate(zoomVector, Space.Self);
+                if(!IsDesiredPositionOverBoundaries(zoomVector))
+                    gameObject.transform.Translate(zoomVector, Space.Self);
                 Eye.transform.position = new Vector3(Eye.transform.position.x, Eye.transform.position.y - doZoom, Eye.transform.position.z);
             }
         }
