@@ -27,14 +27,12 @@ namespace Assets.Scripts.Control
         public float CameraRotationSpeed = 1;
         private const float LookSmothDamp = 0.2f;
         public float CameraTiltSpeed = 1;
+        protected float LookSensitivity = 3;
 
         //internal values
         private float _desiredYRotation;
-        private float _desiredXRotation;
         private float _currentYRotation;
-        private float _currentXRotation;
         private float _yRotationV;
-        private float _xRotationV;
 
 
         protected void Update()
@@ -98,21 +96,13 @@ namespace Assets.Scripts.Control
             {
                 _desiredYRotation -= CameraRotationSpeed;
             }
-            if (Input.GetKey(KeyCode.X))
+            if (Input.GetMouseButton(1))
             {
-                _desiredXRotation += CameraTiltSpeed;
+                _desiredYRotation += (Input.GetAxis("Mouse X") * LookSensitivity);
             }
-            if (Input.GetKey(KeyCode.Y))
-            {
-                _desiredXRotation -= CameraTiltSpeed;
-            }
-
-            _desiredXRotation = Mathf.Clamp(_desiredXRotation, MinCameraTiltAngle, MaxCameraTiltAngle);
-            _currentXRotation = Mathf.SmoothDamp(_currentXRotation, _desiredXRotation, ref _xRotationV, LookSmothDamp);
             _currentYRotation = Mathf.SmoothDamp(_currentYRotation, _desiredYRotation, ref _yRotationV, LookSmothDamp);
 
-            transform.rotation = Quaternion.Euler(0, _currentYRotation, 0);
-            Eye.transform.localRotation = Quaternion.Euler(_currentXRotation, 0, 0);
+            transform.localRotation = Quaternion.Euler(0, _currentYRotation, 0);
         }
 
         private void ZoomCamera()
