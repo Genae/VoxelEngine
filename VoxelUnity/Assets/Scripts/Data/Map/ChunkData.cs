@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
 {
@@ -7,6 +8,7 @@ namespace Assets.Scripts.Data.Map
         public VoxelData[,,] Voxels;
         public bool[][,] NeighbourBorders;
         public bool[] NeighbourSolidBorders;
+        private ChunkData[] _neighbourData;
 
         public Action<ChunkData> ChunkUpdated;
 
@@ -23,17 +25,44 @@ namespace Assets.Scripts.Data.Map
                 OnChunkUpdated();
         }
 
+        public void VoxelUpdated(Vector3 position)
+        {
+            if ((int) position.x == 0)
+                UpdateNeighbour(0);
+            if ((int)position.x == Chunk.ChunkSize-1)
+                UpdateNeighbour(1);
+            if ((int)position.y == 0)
+                UpdateNeighbour(2);
+            if ((int)position.y == Chunk.ChunkSize - 1)
+                UpdateNeighbour(3);
+            if ((int)position.z == 0)
+                UpdateNeighbour(4);
+            if ((int)position.z == Chunk.ChunkSize - 1)
+                UpdateNeighbour(5);
+            OnChunkUpdated();
+        }
+
+        private void UpdateNeighbour(int side)
+        {
+            if (_neighbourData[side] == null)
+                return;
+            bool[,] border;
+            var solid = HasSolidBorder(side, out border);
+            _neighbourData[side].UpdateBorder(border, solid, side%2==0?side+1:side-1);
+        }
+
         private void OnChunkUpdated()
         {
             if(ChunkUpdated != null)
                 ChunkUpdated(this);
         }
 
-        public void UpdateBorder(bool[][,] border, bool[] solid, bool runUpdate = true)
+        public void UpdateBorder(bool[][,] border, bool[] solid, ChunkData[] neighbourData, bool runUpdate = true)
         {
+            _neighbourData = neighbourData;
             NeighbourBorders = border;
             NeighbourSolidBorders = solid;
-            for (int i = 0; i < 6; i++)
+            for (var i = 0; i < 6; i++)
             {
                 if (NeighbourBorders[i] == null)
                     NeighbourBorders[i] = new bool[Chunk.ChunkSize, Chunk.ChunkSize];

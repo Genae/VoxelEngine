@@ -39,12 +39,11 @@ namespace Assets.Scripts.Control
                     _clickedChunk = hit.transform.gameObject.GetComponent<Chunk>();
                     if (hit.transform.gameObject.tag == "Chunk")
                     {
-                        int x = ((int)hit.point.x + 1) % Chunk.ChunkSize;
-                        int y = ((int)hit.point.y + 1) % Chunk.ChunkSize;
-                        int z = ((int)hit.point.z + 1) % Chunk.ChunkSize;
+                        var x = ((int)hit.point.x + 1) % Chunk.ChunkSize;
+                        var y = ((int)hit.point.y + 1) % Chunk.ChunkSize;
+                        var z = ((int)hit.point.z + 1) % Chunk.ChunkSize;
                         Debug.Log("Position in Chunk: " + x + "|" + y + "|" + z);
-                        _clickedChunk.ChunkData.Voxels[x, y, z].IsActive = false;
-                        //Chunk Update?
+                        _clickedChunk.ChunkData.Voxels[x, y, z].BlockType = 0;
                     }
                 }
             }

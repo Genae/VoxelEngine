@@ -22,11 +22,11 @@ namespace Assets.Scripts.Data.Map
         {
             MapData = data;
 
-            for (int x = 0; x < MapData.Chunks.GetLength(0); x++)
+            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
             {
-                for (int y = 0; y < MapData.Chunks.GetLength(1); y++)
+                for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
                 {
-                    for (int z = 0; z < MapData.Chunks.GetLength(0); z++)
+                    for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
                         InitializeChunk(x, y, z);
                     }
@@ -40,10 +40,8 @@ namespace Assets.Scripts.Data.Map
         {
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
-            var chunkMC = chunk.AddComponent<MeshCollider>();
             chunkC.InitializeChunk(new Vector3(x * Chunk.ChunkSize, y * Chunk.ChunkSize, z * Chunk.ChunkSize), MapData.Chunks[x, y, z], Material);
             chunkC.tag = "Chunk";
-            chunkMC.sharedMesh = chunkC.ChunkMesh;
             chunk.transform.parent = transform;
         }
     }

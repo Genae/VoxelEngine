@@ -50,12 +50,15 @@ namespace Assets.Scripts.Data.Map
 
             var keyArray = triangles.Keys.ToArray();
             var myMats = new Material[triangles.Keys.Count];
-            for (int i = 0; i < triangles.Keys.Count; i++)
+            for (var i = 0; i < triangles.Keys.Count; i++)
             {
                 ChunkMesh.SetTriangles(triangles[keyArray[i]], i);
                 myMats[i] = _materials[keyArray[i]-1];
             }
             gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
+            GetComponent<MeshFilter>().mesh = ChunkMesh;
+            var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
+            mCollider.sharedMesh = ChunkMesh;
         }
     }
 }

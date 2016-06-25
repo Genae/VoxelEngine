@@ -44,12 +44,12 @@ namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi
 
         private void FillAllBlack(float[,] cutPattern)
         {
-            for (int x = 0; x < cutPattern.GetLength(0); x++)
+            for (var x = 0; x < cutPattern.GetLength(0); x++)
             {
                 FillBlack(cutPattern, x, 0);
                 FillBlack(cutPattern, x, cutPattern.GetLength(1) - 1);
             }
-            for (int y = 0; y < cutPattern.GetLength(1); y++)
+            for (var y = 0; y < cutPattern.GetLength(1); y++)
             {
                 FillBlack(cutPattern, 0, y);
                 FillBlack(cutPattern, cutPattern.GetLength(0)-1, y);
@@ -94,9 +94,9 @@ namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi
         private float[,] WhiteCanvas()
         {
             var canvas = new float[_width, _height];
-            for (int x = 0; x < canvas.GetLength(0); x++)
+            for (var x = 0; x < canvas.GetLength(0); x++)
             {
-                for (int y = 0; y < canvas.GetLength(1); y++)
+                for (var y = 0; y < canvas.GetLength(1); y++)
                 {
                     canvas[x, y] = 1;
                 }

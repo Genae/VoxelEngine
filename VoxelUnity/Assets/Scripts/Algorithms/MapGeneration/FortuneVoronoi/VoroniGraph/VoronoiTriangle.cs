@@ -17,7 +17,7 @@ namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph
             var sorted = new SortedList<float, Vector2>();
             foreach (var vector2 in vectors)
             {
-                float pos = vector2.y;
+                var pos = vector2.y;
                 while(sorted.ContainsKey(pos))
                 {
                     pos += 0.0000001f;
