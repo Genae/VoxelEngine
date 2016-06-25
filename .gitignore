@@ -230,3 +230,5 @@ sysinfo.txt
 *.userprefs
 *.pidb
 *.booproj
+VoxelUnity/Voxel.exe
+VoxelUnity/Voxel_Data/*

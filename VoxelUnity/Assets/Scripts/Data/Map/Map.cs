@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Algorithms.MapGeneration;
+using Assets.Scripts.Control;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,11 +9,13 @@ namespace Assets.Scripts.Data.Map
     {
         public MapData MapData;
         public Material[] Material;
+        public CameraController CameraController;
 
         public override void OnStartServer()
         {
             var hmg = new HeightmapGenerator(129, 129, 1234);
             InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 50, 50));
+            CameraController.gameObject.transform.position = new Vector3(0,50,0);
         }
 
         public void InitializeMap(MapData data)
