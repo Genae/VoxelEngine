@@ -8,16 +8,25 @@ namespace Assets.Scripts.Control
     {
 
         private Camera _mainCamera;
-
+        private Chunk _clickedChunk;
         private Ray ray;
 
         void Start()
         {
             _mainCamera = this.gameObject.GetComponentInChildren<Camera>();
-            if (_mainCamera == null) Debug.Log("_mainCamera in PlayerUtility is null");
+            if (_mainCamera == null) Debug.Log("_mainCamera in PlayerUtility.cs is null");
         }
 
         void Update()
+        {
+
+            GetClickedVoxel();
+            
+            Debug.DrawRay(ray.origin, ray.direction * 10000, Color.yellow);
+
+        }
+
+        private void GetClickedVoxel()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -27,23 +36,18 @@ namespace Assets.Scripts.Control
                 if (hit.collider != null)
                 {
                     Debug.Log(hit.transform.gameObject.name);
-                    if(hit.transform.gameObject.tag == "Chunk")
+                    _clickedChunk = hit.transform.gameObject.GetComponent<Chunk>();
+                    if (hit.transform.gameObject.tag == "Chunk")
                     {
-                        var pos = hit.point;
-                        int x = (int)pos.x + 1;
-                        int y = (int)pos.y + 1;
-                        int z = (int)pos.z + 1;
-                        Debug.Log(pos + " : " + x + "|" + y + "|" + z);
-                        x = x % Chunk.ChunkSize;
-                        y = y % Chunk.ChunkSize;
-                        z = z % Chunk.ChunkSize;
+                        int x = ((int)hit.point.x + 1) % Chunk.ChunkSize;
+                        int y = ((int)hit.point.y + 1) % Chunk.ChunkSize;
+                        int z = ((int)hit.point.z + 1) % Chunk.ChunkSize;
                         Debug.Log("Position in Chunk: " + x + "|" + y + "|" + z);
+                        _clickedChunk.ChunkData.Voxels[x, y, z].IsActive = false;
+                        //Chunk Update?
                     }
                 }
             }
-            
-            Debug.DrawRay(ray.origin, ray.direction * 10000, Color.yellow);
-
         }
 
     }
