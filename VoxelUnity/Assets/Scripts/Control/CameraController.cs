@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Control
 {
@@ -43,7 +42,10 @@ namespace Assets.Scripts.Control
             Physics.Raycast(ray, out hit, float.PositiveInfinity);
             if (hit.collider != null)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - hit.distance + CameraMinHeight + (CameraMaxHeight - CameraMinHeight)/2, transform.position.z);
+                if(hit.transform.gameObject.tag == "Ground")
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y - hit.distance + CameraMinHeight + (CameraMaxHeight - CameraMinHeight) / 2, transform.position.z);
+                }
             }
 
             //transform.rotation = Quaternion.Euler(0, CameraMove.CurrentYRotation, 0);
@@ -82,7 +84,8 @@ namespace Assets.Scripts.Control
             }
             var dTrans = new Vector3(desiredX, 0, desiredZ);
 
-            if (!IsDesiredPositionOverBoundaries(dTrans))
+            //removed cause cancer atm :D
+            //if (!IsDesiredPositionOverBoundaries(dTrans))
                 transform.Translate(dTrans);
         }
         

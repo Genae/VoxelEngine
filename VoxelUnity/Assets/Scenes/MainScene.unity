@@ -299,7 +299,7 @@ GameObject:
   - 65: {fileID: 1385738583}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -371,6 +371,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1435053538}
   - 114: {fileID: 1435053537}
+  - 114: {fileID: 1435053539}
   m_Layer: 2
   m_Name: WorldCamera
   m_TagString: Untagged
@@ -387,7 +388,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1435053536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c08fd6a69cce7d4fa1415faf9594012, type: 3}
+  m_Script: {fileID: 11500000, guid: 548acb95418847940b51a64de778746e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Eye: {fileID: 708627401}
@@ -417,6 +418,17 @@ Transform:
   - {fileID: 708627402}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!114 &1435053539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435053536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6086f3841389dc4ca0e34f0c30fc256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1694001576
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,13 +454,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1694001576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0388b4844db5ef41bc88227163de3b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 746c84e4e961b434f9b21ffcc13cfab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Material:
-  - {fileID: 2100000, guid: 834d7fd2c0ab58f4f91798feeeacc86c, type: 2}
-  - {fileID: 2100000, guid: 109137bbbe81c4048b8cd8ba926bed93, type: 2}
-  - {fileID: 2100000, guid: 407a595539e7cbf4e9642aa2ef14cf8e, type: 2}
+  - {fileID: 2100000, guid: 7babf79fea2977c4ab9683d8e3b9b406, type: 2}
+  - {fileID: 2100000, guid: e0af6220add80624a8fac795495ea21c, type: 2}
+  - {fileID: 2100000, guid: 1683ce3e1f5d5594fa74d696ca4c54db, type: 2}
   CameraController: {fileID: 1435053537}
 --- !u!114 &1694001578
 MonoBehaviour:
