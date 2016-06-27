@@ -37,7 +37,7 @@ namespace Assets.Scripts.Control
         protected void Update()
         {
             RaycastHit hit;
-            //geting the height
+            //getting the height
             var ray = new Ray(transform.position, Vector3.down);
             Physics.Raycast(ray, out hit, float.PositiveInfinity);
             if (hit.collider != null)
@@ -49,9 +49,13 @@ namespace Assets.Scripts.Control
             }
 
             //transform.rotation = Quaternion.Euler(0, CameraMove.CurrentYRotation, 0);
-            TranslateCamera();
-            RotateCamera();
-            ZoomCamera();
+            //solves conflicts with PlayerUtility
+            if (!Input.GetMouseButton(0))
+            {
+                TranslateCamera();
+                RotateCamera();
+                ZoomCamera();
+            }
         }
 
         public void TranslateCamera()
