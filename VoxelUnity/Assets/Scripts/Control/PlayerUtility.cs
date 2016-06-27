@@ -81,6 +81,7 @@ namespace Assets.Scripts.Control
             var z1 = (int)pos1.z;
             var z2 = (int)pos2.z;
 
+            //outofbounds catching
             if(y1 + _mouseScrollDelta > _maxMapHeight)
             {
                 _mouseScrollDelta = _maxMapHeight - y1 - 1;
@@ -92,7 +93,7 @@ namespace Assets.Scripts.Control
 
             if(_mouseScrollDelta >= 0)
             {
-                if (x1 < x2 && z1 < z2)
+                if (x1 <= x2 && z1 <= z2)
                 {
                     for (int x = x1; x <= x2; x++)
                     {
@@ -105,7 +106,7 @@ namespace Assets.Scripts.Control
                         }
                     }
                 }
-                else if (x1 > x2 && z1 < z2)
+                else if (x1 >= x2 && z1 <= z2)
                 {
                     for (int x = x2; x <= x1; x++)
                     {
@@ -118,7 +119,7 @@ namespace Assets.Scripts.Control
                         }
                     }
                 }
-                else if (x1 < x2 && z1 > z2)
+                else if (x1 <= x2 && z1 >= z2)
                 {
                     for (int x = x1; x <= x2; x++)
                     {
@@ -131,7 +132,7 @@ namespace Assets.Scripts.Control
                         }
                     }
                 }
-                else if (x1 > x2 && z1 > z2)
+                else if (x1 >= x2 && z1 >= z2)
                 {
                     for (int x = x2; x <= x1; x++)
                     {
@@ -147,7 +148,7 @@ namespace Assets.Scripts.Control
             }
             if (_mouseScrollDelta < 0)
             {
-                if (x1 < x2 && z1 < z2)
+                if (x1 <= x2 && z1 <= z2)
                 {
                     for (int x = x1; x <= x2; x++)
                     {
@@ -160,7 +161,7 @@ namespace Assets.Scripts.Control
                         }
                     }
                 }
-                else if (x1 > x2 && z1 < z2)
+                else if (x1 >= x2 && z1 <= z2)
                 {
                     for (int x = x2; x <= x1; x++)
                     {
@@ -173,7 +174,7 @@ namespace Assets.Scripts.Control
                         }
                     }
                 }
-                else if (x1 < x2 && z1 > z2)
+                else if (x1 <= x2 && z1 >= z2)
                 {
                     for (int x = x1; x <= x2; x++)
                     {
@@ -186,7 +187,7 @@ namespace Assets.Scripts.Control
                         }
                     }
                 }
-                else if (x1 > x2 && z1 > z2)
+                else if (x1 >= x2 && z1 >= z2)
                 {
                     for (int x = x2; x <= x1; x++)
                     {
