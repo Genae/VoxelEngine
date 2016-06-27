@@ -117,10 +117,11 @@ namespace Assets.Scripts.Data.Map
             return map;
         }*/
 
-        public static MapData LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, short height, float heightmapHeight)
+        public static MapData LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, int height, float heightmapHeight, int scaleMultiplier)
         {
             var v = 0;
-            var size = heightmap.GetLength(0);
+            var size = heightmap.GetLength(0)*scaleMultiplier;
+            height *= scaleMultiplier;
             var map = new MapData(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
             for (var x = 0; x < size / Chunk.ChunkSize; x++)
             {
@@ -136,21 +137,18 @@ namespace Assets.Scripts.Data.Map
             {
                 for (var z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
                 {
-                    var bot = (short)((bottom[x, z] + 2) / 3 * heightmapHeight);
-                    var lheight = (heightmap[x, z] + 2) / 3 * heightmapHeight;
+                    var bot = (short)((bottom[x/scaleMultiplier, z/scaleMultiplier] + 2) / 3 * heightmapHeight);
+                    var lheight = (heightmap[x/scaleMultiplier, z/scaleMultiplier] + 2) / 3 * heightmapHeight;
                     for (var y = 0; y < map.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
                     {
-                        var chunk = map.Chunks[x/Chunk.ChunkSize, y/Chunk.ChunkSize, z/Chunk.ChunkSize];
-                        var isActive = y < (int) lheight && y > bot && cut[x, z] > 0.5f;
+                        var isActive = y < (int) lheight && y > bot && cut[x/scaleMultiplier, z/scaleMultiplier] > 0.5f;
+                        if (!isActive)
+                            continue;
                         var blockType = y == (int) lheight - 1 ? 3 : (y >= (int) lheight - 4 ? 2 : (isActive ? 1 : 0));
-                        var pos = new Vector3(x%Chunk.ChunkSize, y%Chunk.ChunkSize, z%Chunk.ChunkSize);
-                        map.SetVoxel(x, y, z, new VoxelData(isActive, blockType, () => chunk.VoxelUpdated(pos)));
-                        if (y < lheight && y > bot && cut[x, z] > 0.5f)
-                            v++;
+                        map.SetVoxel(x, y, z, new VoxelData(true, blockType));
                     }
                 }
             }
-            Console.WriteLine(v);
             for (var x = 0; x < map.Chunks.GetLength(0); x++)
             {
                 for (var y = 0; y < map.Chunks.GetLength(1); y++)
@@ -163,21 +161,13 @@ namespace Assets.Scripts.Data.Map
             }
             return map;
         }
-
-        public VoxelData GetVoxel(int x, int y, int z)
-        {
-            var cx = x / Chunk.ChunkSize;
-            var cy = y / Chunk.ChunkSize;
-            var cz = z / Chunk.ChunkSize;
-            return Chunks[cx, cy, cz].Voxels[x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize];
-        }
-
+        
         public VoxelData SetVoxel(int x, int y, int z, VoxelData voxel)
         {
             var cx = x / Chunk.ChunkSize;
             var cy = y / Chunk.ChunkSize;
             var cz = z / Chunk.ChunkSize;
-            return Chunks[cx, cy, cz].Voxels[x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize] = voxel;
+            return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, voxel);
         }
 
         private void SetIntoNeighbourContext(int x, int y, int z)

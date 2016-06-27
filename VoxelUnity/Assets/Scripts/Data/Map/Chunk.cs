@@ -52,7 +52,7 @@ namespace Assets.Scripts.Data.Map
             Vector3[] vertices;
             Vector3[] normals;
             Vector2[] uvs;
-            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, ChunkData.Voxels, ChunkData.NeighbourBorders);
+            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, ChunkData, ChunkData.NeighbourBorders);
 
             ChunkMesh.Clear();
             ChunkMesh.vertices = vertices;

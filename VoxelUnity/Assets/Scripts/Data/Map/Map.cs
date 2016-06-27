@@ -14,8 +14,15 @@ namespace Assets.Scripts.Data.Map
         public override void OnStartServer()
         {
             var hmg = new HeightmapGenerator(129, 129, 1234);
-            InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 50, 50));
-            CameraController.gameObject.transform.position = new Vector3(0,50,0);
+            InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 2));
+            var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
+            var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
+            CameraController.RightLimit = mapSize*1.1f;
+            CameraController.TopLimit = mapSize*1.1f;
+            CameraController.CameraMinHeight = mapHeight*0.5f;
+            CameraController.CameraMaxHeight = mapHeight * 1.5f;
+
+            CameraController.gameObject.transform.position = new Vector3(0, mapHeight, 0);
         }
 
         public void InitializeMap(MapData data)

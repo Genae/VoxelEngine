@@ -15,7 +15,7 @@ namespace Assets.Scripts.Control
         private Ray ray;
         private int _mouseScrollDelta;
         //hardcoded mapheight since I dont know where it is set
-        private int _maxMapHeight = 48;
+        private int _maxMapHeight;
 
         private List<Vector3> _voxelPosList = new List<Vector3>();
 
@@ -211,11 +211,11 @@ namespace Assets.Scripts.Control
             {
                 //will not work in Start() since Map is not active at the start 
                 _mapData = GameObject.Find("Map").GetComponent<Map>().MapData;
+                _maxMapHeight = _mapData.Chunks.GetLength(0) * Chunk.ChunkSize;
             }
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
-            var vox = chunk.Voxels[(int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize];
-            vox.BlockType = 0;
+            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, 0);
         }
 
         private RaycastHit GetRaycastHitOnMousePosition()
@@ -250,10 +250,9 @@ namespace Assets.Scripts.Control
                     Debug.Log("GetVoxelOnHit() error");
                     return new Vector3(0,0,0);
             }
-            var vox1 = _clickedChunk.ChunkData.Voxels[(int)vec1.x % Chunk.ChunkSize, (int)vec1.y % Chunk.ChunkSize, (int)vec1.z % Chunk.ChunkSize];
-            var vox2 = _clickedChunk.ChunkData.Voxels[(int)vec2.x % Chunk.ChunkSize, (int)vec2.y % Chunk.ChunkSize, (int)vec2.z % Chunk.ChunkSize];
+            var vox1 = _clickedChunk.ChunkData.GetVoxelActive((int)vec1.x % Chunk.ChunkSize, (int)vec1.y % Chunk.ChunkSize, (int)vec1.z % Chunk.ChunkSize);
 
-            if (IsInChunk(vec1, _clickedChunk.transform.position) && vox1.IsActive)
+            if (IsInChunk(vec1, _clickedChunk.transform.position) && vox1)
             {
                 return vec1;
             }

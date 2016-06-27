@@ -7,7 +7,7 @@ namespace Assets.Scripts.Data.Map
 {
     public class ChunkData
     {
-        public VoxelData[,,] Voxels;
+        protected VoxelData[,,] Voxels;
         public bool[][,] NeighbourBorders;
         public bool[] NeighbourSolidBorders;
         private ChunkData[] _neighbourData;
@@ -28,9 +28,49 @@ namespace Assets.Scripts.Data.Map
                 OnChunkUpdated();
         }
 
-        public void VoxelUpdated(Vector3 position)
+        public void SetVoxelType(int x, int y, int z, int type)
         {
-            _dirtyVoxels.Add(position);
+            if ((Voxels[x, y, z] == null && type == 0) || (Voxels[x, y, z] != null && type == Voxels[x, y, z].BlockType))
+                return;
+            if (type == 0) // set to air
+            {
+                Voxels[x, y, z] = null;
+            }
+            else
+            {
+                if (Voxels[x, y, z] == null)
+                {
+                    Voxels[x, y, z] = new VoxelData(true, type);
+                }
+                else
+                {
+                    Voxels[x, y, z].BlockType = type;
+                }
+            }
+            _dirtyVoxels.Add(new Vector3(x, y, z));
+        }
+
+        public void SetVoxelActive(int x, int y, int z, bool active)
+        {
+            if ((Voxels[x, y, z] == null) || (Voxels[x, y, z] != null && active == Voxels[x, y, z].IsActive))
+                return;
+            Voxels[x, y, z].IsActive = active;
+            _dirtyVoxels.Add(new Vector3(x, y, z));
+        }
+
+        public int GetVoxelType(int x, int y, int z)
+        {
+            return Voxels[x, y, z] == null ? 0 : Voxels[x, y, z].BlockType;
+        }
+
+        public bool GetVoxelActive(int x, int y, int z)
+        {
+            return Voxels[x, y, z] != null && Voxels[x, y, z].IsActive;
+        }
+
+        public VoxelData SetVoxel(int x, int y, int z, VoxelData voxel)
+        {
+            return Voxels[x, y, z] = voxel;
         }
 
         public void CheckDirtyVoxels()
@@ -93,8 +133,8 @@ namespace Assets.Scripts.Data.Map
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
-                            border[y, z] = Voxels[Chunk.ChunkSize - 1, y, z].IsActive;
-                            solid = solid && Voxels[Chunk.ChunkSize - 1, y, z].IsActive;
+                            border[y, z] = GetVoxelActive(Chunk.ChunkSize - 1, y, z);
+                            solid = solid && GetVoxelActive(Chunk.ChunkSize - 1, y, z);
                         }
                     }
                     return solid;
@@ -103,8 +143,8 @@ namespace Assets.Scripts.Data.Map
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
-                            border[y, z] = Voxels[0, y, z].IsActive;
-                            solid = solid && Voxels[0, y, z].IsActive;
+                            border[y, z] = GetVoxelActive(0, y, z);
+                            solid = solid && GetVoxelActive(0, y, z);
                         }
                     }
                     return solid;
@@ -113,8 +153,8 @@ namespace Assets.Scripts.Data.Map
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
-                            border[x, z] = Voxels[x, Chunk.ChunkSize - 1, z].IsActive;
-                            solid = solid && Voxels[x, Chunk.ChunkSize - 1, z].IsActive;
+                            border[x, z] = GetVoxelActive(x, Chunk.ChunkSize - 1, z);
+                            solid = solid && GetVoxelActive(x, Chunk.ChunkSize - 1, z);
                         }
                     }
                     return solid;
@@ -123,8 +163,8 @@ namespace Assets.Scripts.Data.Map
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
-                            border[x, z] = Voxels[x, 0, z].IsActive;
-                            solid = solid && Voxels[x, 0, z].IsActive;
+                            border[x, z] = GetVoxelActive(x, 0, z);
+                            solid = solid && GetVoxelActive(x, 0, z);
                         }
                     }
                     return true;
@@ -133,8 +173,8 @@ namespace Assets.Scripts.Data.Map
                     {
                         for (var y = 0; y < Chunk.ChunkSize; y++)
                         {
-                            border[x, y] = Voxels[x, y, Chunk.ChunkSize - 1].IsActive;
-                            solid = solid && Voxels[x, y, Chunk.ChunkSize - 1].IsActive;
+                            border[x, y] = GetVoxelActive(x, y, Chunk.ChunkSize - 1);
+                            solid = solid && GetVoxelActive(x, y, Chunk.ChunkSize - 1);
                         }
                     }
                     return solid;
@@ -143,8 +183,8 @@ namespace Assets.Scripts.Data.Map
                     {
                         for (var y = 0; y < Chunk.ChunkSize; y++)
                         {
-                            border[x, y] = Voxels[x, y, 0].IsActive;
-                            solid = solid && Voxels[x, y, 0].IsActive;
+                            border[x, y] = GetVoxelActive(x, y, 0);
+                            solid = solid && GetVoxelActive(x, y, 0);
                         }
                     }
                     return solid;
