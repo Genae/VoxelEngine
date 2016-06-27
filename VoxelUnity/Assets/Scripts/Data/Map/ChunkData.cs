@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
@@ -9,6 +11,7 @@ namespace Assets.Scripts.Data.Map
         public bool[][,] NeighbourBorders;
         public bool[] NeighbourSolidBorders;
         private ChunkData[] _neighbourData;
+        private readonly List<Vector3> _dirtyVoxels = new List<Vector3>(); 
 
         public Action<ChunkData> ChunkUpdated;
 
@@ -27,19 +30,27 @@ namespace Assets.Scripts.Data.Map
 
         public void VoxelUpdated(Vector3 position)
         {
-            if ((int) position.x == 0)
+            _dirtyVoxels.Add(position);
+        }
+
+        public void CheckDirtyVoxels()
+        {
+            if (_dirtyVoxels.Count == 0)
+                return;
+            if (_dirtyVoxels.Any(v => (int)v.x == 0))
                 UpdateNeighbour(0);
-            if ((int)position.x == Chunk.ChunkSize-1)
+            if (_dirtyVoxels.Any(v => (int)v.x == Chunk.ChunkSize - 1))
                 UpdateNeighbour(1);
-            if ((int)position.y == 0)
+            if (_dirtyVoxels.Any(v => (int)v.y == 0))
                 UpdateNeighbour(2);
-            if ((int)position.y == Chunk.ChunkSize - 1)
+            if (_dirtyVoxels.Any(v => (int)v.y == Chunk.ChunkSize - 1))
                 UpdateNeighbour(3);
-            if ((int)position.z == 0)
+            if (_dirtyVoxels.Any(v => (int)v.z == 0))
                 UpdateNeighbour(4);
-            if ((int)position.z == Chunk.ChunkSize - 1)
+            if (_dirtyVoxels.Any(v => (int)v.z == Chunk.ChunkSize - 1))
                 UpdateNeighbour(5);
             OnChunkUpdated();
+            _dirtyVoxels.Clear();
         }
 
         private void UpdateNeighbour(int side)

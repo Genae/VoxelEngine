@@ -36,6 +36,14 @@ namespace Assets.Scripts.Data.Map
             NetworkServer.Spawn(gameObject);
         }
 
+        void Update()
+        {
+            foreach (var chunkData in MapData.Chunks)
+            {
+                chunkData.CheckDirtyVoxels();
+            }
+        }
+
         private void InitializeChunk(int x, int y, int z)
         {
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));

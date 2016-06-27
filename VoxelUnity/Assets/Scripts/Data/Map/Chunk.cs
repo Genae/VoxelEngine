@@ -12,6 +12,7 @@ namespace Assets.Scripts.Data.Map
         public ChunkData ChunkData;
         public float Scale = 1f;
         private Material[] _materials;
+        private bool _meshNeedsUpdate;
 
         public void InitializeChunk(Vector3 pos, ChunkData data, Material[] mats)
         {
@@ -36,13 +37,22 @@ namespace Assets.Scripts.Data.Map
             OnChunkUpdated();
         }
 
-        public void OnChunkUpdated()
+        void Update()
+        {
+            if (_meshNeedsUpdate)
+            {
+                UpdateMesh();
+                _meshNeedsUpdate = false;
+            }
+        }
+
+        private void UpdateMesh()
         {
             Dictionary<int, int[]> triangles;
             Vector3[] vertices;
             Vector3[] normals;
             GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, ChunkData.Voxels, ChunkData.NeighbourBorders);
-            
+
             ChunkMesh.Clear();
             ChunkMesh.vertices = vertices;
             ChunkMesh.normals = normals;
@@ -53,12 +63,17 @@ namespace Assets.Scripts.Data.Map
             for (var i = 0; i < triangles.Keys.Count; i++)
             {
                 ChunkMesh.SetTriangles(triangles[keyArray[i]], i);
-                myMats[i] = _materials[keyArray[i]-1];
+                myMats[i] = _materials[keyArray[i] - 1];
             }
             gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
             GetComponent<MeshFilter>().mesh = ChunkMesh;
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
             mCollider.sharedMesh = ChunkMesh;
+        }
+
+        public void OnChunkUpdated()
+        {
+            _meshNeedsUpdate = true;
         }
     }
 }
