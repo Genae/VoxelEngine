@@ -439,6 +439,7 @@ GameObject:
   - 4: {fileID: 1694001579}
   - 114: {fileID: 1694001578}
   - 114: {fileID: 1694001577}
+  - 114: {fileID: 1694001580}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -457,10 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0388b4844db5ef41bc88227163de3b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Material:
-  - {fileID: 2100000, guid: 834d7fd2c0ab58f4f91798feeeacc86c, type: 2}
-  - {fileID: 2100000, guid: 109137bbbe81c4048b8cd8ba926bed93, type: 2}
-  - {fileID: 2100000, guid: 407a595539e7cbf4e9642aa2ef14cf8e, type: 2}
+  MaterialRegistry: {fileID: 1694001580}
   CameraController: {fileID: 1435053539}
 --- !u!114 &1694001578
 MonoBehaviour:
@@ -508,6 +506,22 @@ Transform:
   - {fileID: 1385738581}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &1694001580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1694001576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9453a699d161d4e83cd4e5e1526220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Materials:
+  - {r: 0.40784317, g: 0.3803922, b: 0.35686275, a: 0}
+  - {r: 0.6117647, g: 0.34117648, b: 0.003921569, a: 0}
+  - {r: 0.101960786, g: 0.3882353, b: 0.03137255, a: 0}
+  Default: {fileID: 2100000, guid: 834d7fd2c0ab58f4f91798feeeacc86c, type: 2}
 --- !u!1 &1840244808
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Algorithms
 {
     public static class GreedyMeshing
     {
-        public static void CreateMesh(out Vector3[] vertices, out Dictionary<int, int[]> triangles, out Vector3[] normals, VoxelData[,,] voxels, bool[][,] neighbourBorders)
+        public static void CreateMesh(out Vector3[] vertices, out Dictionary<int, int[]> triangles, out Vector3[] normals, out Vector2[] uvs, VoxelData[,,] voxels, bool[][,] neighbourBorders)
         {
             //Voxels to Planes
             var planes = InitializePlanes(voxels, neighbourBorders);
@@ -27,17 +28,19 @@ namespace Assets.Scripts.Algorithms
             var verticesL = new List<Vector3>();
             var trianglesL = new Dictionary<int, List<int>>();
             var normalsL = new List<Vector3>();
+            var uvsL = new List<Vector2>();
             for (var side = 0; side < 6; side++)
             {
                 for (var depth = 0; depth < voxels.GetLength(0); depth++)
                 {
-                    AddRectsToMesh(side, depth, rects[side][depth], ref verticesL, ref trianglesL, ref normalsL);
+                    AddRectsToMesh(side, depth, rects[side][depth], ref verticesL, ref trianglesL, ref normalsL, ref uvsL);
                 }
             }
 
             vertices = verticesL.ToArray();
             triangles = trianglesL.ToDictionary(v => v.Key, v => v.Value.ToArray());
             normals = normalsL.ToArray();
+            uvs = uvsL.ToArray();
         }
 
         public static int[][][,] InitializePlanes(VoxelData[,,] voxels, bool[][,] borders)
@@ -174,7 +177,7 @@ namespace Assets.Scripts.Algorithms
             }
         }
         
-        private static void AddRectsToMesh(int side, int depth, Rect[] rects, ref List<Vector3> vertices, ref Dictionary<int, List<int>> triangles, ref List<Vector3> normals)
+        private static void AddRectsToMesh(int side, int depth, Rect[] rects, ref List<Vector3> vertices, ref Dictionary<int, List<int>> triangles, ref List<Vector3> normals, ref List<Vector2> uvs)
         { 
             foreach (var rect in rects)
             {
@@ -224,12 +227,12 @@ namespace Assets.Scripts.Algorithms
                     new Vector3(norm.x, norm.y, norm.z)
                 });
                 
-                if(!triangles.ContainsKey(rect.Type))
-                    triangles[rect.Type] = new List<int>();
+                if(!triangles.ContainsKey(0))
+                    triangles[0] = new List<int>();
 
                 if (side == 5 || side == 2 || side == 1)
                 {
-                    triangles[rect.Type].AddRange(new[]
+                    triangles[0].AddRange(new[]
                     {
                         0 + offset, 1 + offset, 3 + offset,
                         0 + offset, 3 + offset, 2 + offset
@@ -237,12 +240,21 @@ namespace Assets.Scripts.Algorithms
                 }
                 else
                 {
-                    triangles[rect.Type].AddRange(new[]
+                    triangles[0].AddRange(new[]
                     {
                         1 + offset, 0 + offset, 3 + offset,
                         3 + offset, 0 + offset, 2 + offset
                     });
                 }
+
+                var uvcoord = new Vector2((rect.Type - 1)/MaterialRegistry.AtlasSize/(float) MaterialRegistry.AtlasSize, (rect.Type - 1)%MaterialRegistry.AtlasSize/(float) MaterialRegistry.AtlasSize);
+                uvs.AddRange(new []
+                {
+                    new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
+                    new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
+                    new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
+                    new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
+                });
             }
         }
     }

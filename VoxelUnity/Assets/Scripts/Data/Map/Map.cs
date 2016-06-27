@@ -8,7 +8,7 @@ namespace Assets.Scripts.Data.Map
     public class Map : NetworkBehaviour
     {
         public MapData MapData;
-        public Material[] Material;
+        public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
 
         public override void OnStartServer()
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Data.Map
         {
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
-            chunkC.InitializeChunk(new Vector3(x * Chunk.ChunkSize, y * Chunk.ChunkSize, z * Chunk.ChunkSize), MapData.Chunks[x, y, z], Material);
+            chunkC.InitializeChunk(new Vector3(x * Chunk.ChunkSize, y * Chunk.ChunkSize, z * Chunk.ChunkSize), MapData.Chunks[x, y, z], new [] {MaterialRegistry.Default});
             chunkC.tag = "Chunk";
             chunk.transform.parent = transform;
         }

@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Stone
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: Default
+  m_Shader: {fileID: 10703, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -156,6 +156,10 @@ Material:
         second: 0.5
       data:
         first:
+          name: _Shininess
+        second: 0.078125
+      data:
+        first:
           name: _Parallax
         second: 0.02
       data:
@@ -165,7 +169,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0.068
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -189,7 +193,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0.624
+        second: 0
     m_Colors:
       data:
         first:
@@ -198,4 +202,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.3455882, g: 0.3455882, b: 0.3455882, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 0}

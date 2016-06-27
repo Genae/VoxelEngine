@@ -51,19 +51,21 @@ namespace Assets.Scripts.Data.Map
             Dictionary<int, int[]> triangles;
             Vector3[] vertices;
             Vector3[] normals;
-            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, ChunkData.Voxels, ChunkData.NeighbourBorders);
+            Vector2[] uvs;
+            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, ChunkData.Voxels, ChunkData.NeighbourBorders);
 
             ChunkMesh.Clear();
             ChunkMesh.vertices = vertices;
             ChunkMesh.normals = normals;
             ChunkMesh.subMeshCount = triangles.Keys.Count;
+            ChunkMesh.uv = uvs;
 
             var keyArray = triangles.Keys.ToArray();
             var myMats = new Material[triangles.Keys.Count];
             for (var i = 0; i < triangles.Keys.Count; i++)
             {
                 ChunkMesh.SetTriangles(triangles[keyArray[i]], i);
-                myMats[i] = _materials[keyArray[i] - 1];
+                myMats[i] = _materials[keyArray[i]];
             }
             gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
             GetComponent<MeshFilter>().mesh = ChunkMesh;
