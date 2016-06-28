@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Data;
 using Assets.Scripts.Data.Map;
+using Assets.Scripts.Data.Material;
 using UnityEngine;
 
 namespace Assets.Scripts.Algorithms
@@ -43,15 +43,15 @@ namespace Assets.Scripts.Algorithms
             uvs = uvsL.ToArray();
         }
 
-        public static int[][][,] InitializePlanes(ChunkData chunk, bool[][,] borders)
+        public static VoxelMaterial[][][,] InitializePlanes(ChunkData chunk, bool[][,] borders)
         {
-            var planes = new int[6][][,];
+            var planes = new VoxelMaterial[6][][,];
             for (var side = 0; side < 6; side++)
             {
-                planes[side] = new int[Chunk.ChunkSize][,];
+                planes[side] = new VoxelMaterial[Chunk.ChunkSize][,];
                 for (var depth = 0; depth < Chunk.ChunkSize; depth++)
                 {
-                    planes[side][depth] = new int[Chunk.ChunkSize, Chunk.ChunkSize];
+                    planes[side][depth] = new VoxelMaterial[Chunk.ChunkSize, Chunk.ChunkSize];
                 }
             }
             for (var x = 0; x < Chunk.ChunkSize; x++)
@@ -96,12 +96,12 @@ namespace Assets.Scripts.Algorithms
             return planes;
         }
 
-        public static Rect[] CreateRectsForPlane(int[,] plane)
+        public static Rect[] CreateRectsForPlane(VoxelMaterial[,] plane)
         {
             var rects = new List<Rect>();
             var visited = new bool[plane.GetLength(0), plane.GetLength(1)];
             Rect curRectangle = null;
-            var curType = 0;
+            VoxelMaterial curType = null;
 
 
             for (var j = 0; j < plane.GetLength(1); j++)
@@ -121,7 +121,7 @@ namespace Assets.Scripts.Algorithms
                         if (visited[i, j])
                             continue;
                     }
-                    if (vox != 0) //Create new Rect if there is no
+                    if (vox != null) //Create new Rect if there is no
                     {
                         if (curRectangle == null)
                         {
@@ -159,7 +159,7 @@ namespace Assets.Scripts.Algorithms
             }
         }
 
-        internal static void ExpandVertically(Rect curRectangle, int curType, int[,] plane)
+        internal static void ExpandVertically(Rect curRectangle, VoxelMaterial curType, VoxelMaterial[,] plane)
         {
             while (true)
             {
@@ -226,12 +226,12 @@ namespace Assets.Scripts.Algorithms
                     new Vector3(norm.x, norm.y, norm.z)
                 });
                 
-                if(!triangles.ContainsKey(0))
-                    triangles[0] = new List<int>();
+                if(!triangles.ContainsKey(rect.Type.GetMaterialId()))
+                    triangles[rect.Type.GetMaterialId()] = new List<int>();
 
                 if (side == 5 || side == 2 || side == 1)
                 {
-                    triangles[0].AddRange(new[]
+                    triangles[rect.Type.GetMaterialId()].AddRange(new[]
                     {
                         0 + offset, 1 + offset, 3 + offset,
                         0 + offset, 3 + offset, 2 + offset
@@ -239,14 +239,15 @@ namespace Assets.Scripts.Algorithms
                 }
                 else
                 {
-                    triangles[0].AddRange(new[]
+                    triangles[rect.Type.GetMaterialId()].AddRange(new[]
                     {
                         1 + offset, 0 + offset, 3 + offset,
                         3 + offset, 0 + offset, 2 + offset
                     });
                 }
 
-                var uvcoord = new Vector2((rect.Type - 1)/MaterialRegistry.AtlasSize/(float) MaterialRegistry.AtlasSize, (rect.Type - 1)%MaterialRegistry.AtlasSize/(float) MaterialRegistry.AtlasSize);
+                // ReSharper disable once PossibleLossOfFraction
+                var uvcoord = new Vector2(rect.Type.AtlasPosition/MaterialRegistry.AtlasSize/(float) MaterialRegistry.AtlasSize, rect.Type.AtlasPosition%MaterialRegistry.AtlasSize/(float) MaterialRegistry.AtlasSize);
                 uvs.AddRange(new []
                 {
                     new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
@@ -263,9 +264,9 @@ namespace Assets.Scripts.Algorithms
     {
         public int X, Y;
         public int Width, Height;
-        public int Type;
+        public VoxelMaterial Type;
 
-        public Rect(int x, int y, int type)
+        public Rect(int x, int y, VoxelMaterial type)
         {
             X = x;
             Y = y;
@@ -274,10 +275,9 @@ namespace Assets.Scripts.Algorithms
             Type = type;
         }
 
-        public override bool Equals(object obj)
+        protected bool Equals(Rect other)
         {
-            var re = (Rect)obj;
-            return re.X == X && re.Y == Y && re.Width == Width && re.Height == Height;
+            return X == other.X && Y == other.Y && Width == other.Width && Height == other.Height && Equals(Type, other.Type);
         }
 
         public override string ToString()

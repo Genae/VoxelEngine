@@ -2,6 +2,7 @@
 using UnityEngine;
 using Assets.Scripts.Data.Map;
 using System.Collections.Generic;
+using Assets.Scripts.Data.Material;
 
 
 namespace Assets.Scripts.Control
@@ -215,7 +216,7 @@ namespace Assets.Scripts.Control
             }
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
-            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, 0);
+            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.Air);
         }
 
         private RaycastHit GetRaycastHitOnMousePosition()

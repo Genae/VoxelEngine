@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Assets.Scripts.Data.Material;
 
 namespace Assets.Scripts.Data.Map
 {
@@ -151,9 +152,9 @@ namespace Assets.Scripts.Data.Map
                         var isActive = y < (int) lheight && y > bot && cut[x/scaleMultiplier, z/scaleMultiplier] > 0.5f;
                         if (!isActive)
                             continue;
-                        var blockType = y == (int) lheight - 1 ? 3 : (y >= (int) lheight - 4 ? 2 : (isActive ? 1 : 0));
-                        if (blockType == 3) PossibleTreePositions.Add(new Vector3(x, y, z)); //treePositionAdding
-                        map.SetVoxel(x, y, z, new VoxelData(true, blockType));
+                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : (isActive ? MaterialRegistry.Stone : MaterialRegistry.Air));
+                        if (blockType.Equals(MaterialRegistry.Grass)) PossibleTreePositions.Add(new Vector3(x, y, z)); //treePositionAdding
+                        map.SetVoxel(x, y, z, true, blockType);
                     }
                 }
             }
@@ -170,12 +171,12 @@ namespace Assets.Scripts.Data.Map
             return map;
         }
         
-        public VoxelData SetVoxel(int x, int y, int z, VoxelData voxel)
+        public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material)
         {
             var cx = x / Chunk.ChunkSize;
             var cy = y / Chunk.ChunkSize;
             var cz = z / Chunk.ChunkSize;
-            return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, voxel);
+            return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, active, material);
         }
 
         private void SetIntoNeighbourContext(int x, int y, int z)

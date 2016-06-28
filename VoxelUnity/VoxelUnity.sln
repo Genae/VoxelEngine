@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelUnity.CSharp", "VoxelUnity.CSharp.csproj", "{453B5CBC-A3BC-A824-E7D7-9B8D8318D348}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelUnity.CSharp.Editor", "VoxelUnity.CSharp.Editor.csproj", "{3E4180BB-D252-D0AA-9671-859D7FDE9EEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{453B5CBC-A3BC-A824-E7D7-9B8D8318D348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{453B5CBC-A3BC-A824-E7D7-9B8D8318D348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{453B5CBC-A3BC-A824-E7D7-9B8D8318D348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E4180BB-D252-D0AA-9671-859D7FDE9EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E4180BB-D252-D0AA-9671-859D7FDE9EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E4180BB-D252-D0AA-9671-859D7FDE9EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E4180BB-D252-D0AA-9671-859D7FDE9EEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

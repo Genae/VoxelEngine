@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Control;
+using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Multiblock;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -65,7 +66,7 @@ namespace Assets.Scripts.Data.Map
         {
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
-            chunkC.InitializeChunk(new Vector3(x * Chunk.ChunkSize, y * Chunk.ChunkSize, z * Chunk.ChunkSize), MapData.Chunks[x, y, z], new [] {MaterialRegistry.Default});
+            chunkC.InitializeChunk(new Vector3(x * Chunk.ChunkSize, y * Chunk.ChunkSize, z * Chunk.ChunkSize), MapData.Chunks[x, y, z], MaterialRegistry.GetMaterials());
             chunkC.tag = "Chunk";
             chunk.transform.parent = transform;
         }

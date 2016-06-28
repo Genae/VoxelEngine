@@ -5,17 +5,17 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{453B5CBC-A3BC-A824-E7D7-9B8D8318D348}</ProjectGuid>
+    <ProjectGuid>{3E4180BB-D252-D0AA-9671-859D7FDE9EEE}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile>
     </CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
     <RootNamespace>
@@ -54,50 +54,51 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.EditorTestsRunner">
+      <HintPath>Library\UnityAssemblies\UnityEditor.EditorTestsRunner.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>Library\UnityAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TreeEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.TreeEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>Library\UnityAssemblies\UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+      <HintPath>Library\UnityAssemblies\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Algorithms\GreedyMeshing.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\DiamondCutPattern.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\DiamondSquare.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\CutPattern.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\Events\VCircleEvent.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\Events\VDataEvent.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\Events\VEvent.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\Fortune.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\Nodes\VDataNode.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\Nodes\VEdgeNode.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\Nodes\VNode.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiCell.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiEdge.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiGraph.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\FortuneVoronoi\VoroniGraph\VoronoiTriangle.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\Graph\Edge.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\Graph\Graph.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\HeightmapGenerator.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\SpanningTree.cs" />
-    <Compile Include="Assets\Scripts\Algorithms\MapGeneration\Voronoi.cs" />
-    <Compile Include="Assets\Scripts\Control\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Control\PlayerUtility.cs" />
-    <Compile Include="Assets\Scripts\Data\Map\Chunk.cs" />
-    <Compile Include="Assets\Scripts\Data\Map\ChunkData.cs" />
-    <Compile Include="Assets\Scripts\Data\Map\Map.cs" />
-    <Compile Include="Assets\Scripts\Data\Map\MapData.cs" />
-    <Compile Include="Assets\Scripts\Data\Map\VoxelData.cs" />
-    <Compile Include="Assets\Scripts\Data\Material\MaterialRegistry.cs" />
-    <Compile Include="Assets\Scripts\Data\Material\VoxelMaterial.cs" />
-    <Compile Include="Assets\Scripts\Data\Multiblock\Multiblock.cs" />
-    <Compile Include="Assets\Scripts\Data\Multiblock\Tree.cs" />
-    <Compile Include="Assets\Scripts\Data\Multiblock\TreeManager.cs" />
-    <Compile Include="Assets\Scripts\Data\SerializableDictionary.cs" />
+    <ProjectReference Include="VoxelUnity.CSharp.csproj">
+      <Project>{453B5CBC-A3BC-A824-E7D7-9B8D8318D348}</Project>
+      <Name>VoxelUnity.CSharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\Editor\DictionaryDrawer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

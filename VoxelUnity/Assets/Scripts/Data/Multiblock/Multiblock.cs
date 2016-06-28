@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
+using Assets.Scripts.Data.Material;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock
 {
     public class Multiblock
     {
-        private readonly Dictionary<short, List<Vector3>> _voxels = new Dictionary<short, List<Vector3>>();
+        private readonly Dictionary<VoxelMaterial, List<Vector3>> _voxels = new Dictionary<VoxelMaterial, List<Vector3>>();
         
-        public void AddVoxelListToMultiblock(List<Vector3> list, short type)
+        public void AddVoxelListToMultiblock(List<Vector3> list, VoxelMaterial type)
         {
             if (!_voxels.ContainsKey(type))
             {
@@ -23,7 +24,7 @@ namespace Assets.Scripts.Data.Multiblock
             {
                 foreach (var v in _voxels[type])
                 {
-                    mapData.SetVoxel((int)v.x, (int)v.y, (int)v.z, new VoxelData(true, type));
+                    mapData.SetVoxel((int)v.x, (int)v.y, (int)v.z, true, type);
                 }
             }
         }

@@ -11,10 +11,10 @@ namespace Assets.Scripts.Data.Map
         public Mesh ChunkMesh;
         public ChunkData ChunkData;
         public float Scale = 1f;
-        private Material[] _materials;
+        private UnityEngine.Material[] _materials;
         private bool _meshNeedsUpdate;
 
-        public void InitializeChunk(Vector3 pos, ChunkData data, Material[] mats)
+        public void InitializeChunk(Vector3 pos, ChunkData data, UnityEngine.Material[] mats)
         {
             ChunkData = data;
             gameObject.transform.position = pos;
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Data.Map
             ChunkMesh.uv = uvs;
 
             var keyArray = triangles.Keys.ToArray();
-            var myMats = new Material[triangles.Keys.Count];
+            var myMats = new UnityEngine.Material[triangles.Keys.Count];
             for (var i = 0; i < triangles.Keys.Count; i++)
             {
                 ChunkMesh.SetTriangles(triangles[keyArray[i]], i);

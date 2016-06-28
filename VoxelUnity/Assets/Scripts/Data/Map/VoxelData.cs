@@ -17,7 +17,7 @@ namespace Assets.Scripts.Data.Map
             }
         }
 
-        public VoxelData(bool active, int blockType)
+        internal VoxelData(bool active, int blockType)
         {
             IsActive = active;
             _blockType = blockType;

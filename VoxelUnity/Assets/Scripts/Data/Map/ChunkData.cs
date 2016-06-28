@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data.Material;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
@@ -28,8 +29,9 @@ namespace Assets.Scripts.Data.Map
                 OnChunkUpdated();
         }
 
-        public void SetVoxelType(int x, int y, int z, int type)
+        public void SetVoxelType(int x, int y, int z, VoxelMaterial material)
         {
+            var type = MaterialRegistry.GetMaterialId(material);
             if ((Voxels[x, y, z] == null && type == 0) || (Voxels[x, y, z] != null && type == Voxels[x, y, z].BlockType))
                 return;
             if (type == 0) // set to air
@@ -58,9 +60,9 @@ namespace Assets.Scripts.Data.Map
             _dirtyVoxels.Add(new Vector3(x, y, z));
         }
 
-        public int GetVoxelType(int x, int y, int z)
+        public VoxelMaterial GetVoxelType(int x, int y, int z)
         {
-            return Voxels[x, y, z] == null ? 0 : Voxels[x, y, z].BlockType;
+            return MaterialRegistry.MaterialFromId(Voxels[x, y, z] == null ? 0 : Voxels[x, y, z].BlockType);
         }
 
         public bool GetVoxelActive(int x, int y, int z)
@@ -68,9 +70,9 @@ namespace Assets.Scripts.Data.Map
             return Voxels[x, y, z] != null && Voxels[x, y, z].IsActive;
         }
 
-        public VoxelData SetVoxel(int x, int y, int z, VoxelData voxel)
+        public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material)
         {
-            return Voxels[x, y, z] = voxel;
+            return Voxels[x, y, z] = new VoxelData(active, MaterialRegistry.GetMaterialId(material));
         }
 
         public void CheckDirtyVoxels()

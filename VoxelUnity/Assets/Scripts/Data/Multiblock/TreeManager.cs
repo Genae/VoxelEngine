@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
+using Assets.Scripts.Data.Material;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock
@@ -19,11 +20,11 @@ namespace Assets.Scripts.Data.Multiblock
             var tree = new Tree(position);
 
             var strainVoxels = GenerateStrain(position, mapData, treeData);
-            tree.AddVoxelListToMultiblock(strainVoxels, 4);
+            tree.AddVoxelListToMultiblock(strainVoxels, MaterialRegistry.Wood);
 
             var topOfStain = new Vector3(position.x - treeData.TreeTopDia / 2f + (treeData.TreeStainDia) / 2f, position.y + treeData.TreeStainHeight, position.z - treeData.TreeTopDia / 2f + (treeData.TreeStainDia) / 2f);
             var treeTopVoxels = GenerateTreeTop(topOfStain, mapData, treeData);
-            tree.AddVoxelListToMultiblock(treeTopVoxels, 5);
+            tree.AddVoxelListToMultiblock(treeTopVoxels, MaterialRegistry.Leaves);
 
             tree.InstantiateVoxels(mapData);
             TreeList.Add(tree);
