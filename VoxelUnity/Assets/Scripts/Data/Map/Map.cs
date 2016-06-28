@@ -2,6 +2,7 @@
 using Assets.Scripts.Control;
 using UnityEngine;
 using UnityEngine.Networking;
+using Assets.Scripts.Multiblock;
 
 namespace Assets.Scripts.Data.Map
 {
@@ -10,6 +11,8 @@ namespace Assets.Scripts.Data.Map
         public MapData MapData;
         public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
+
+        public TreeManager TreeManager;
 
         public override void OnStartServer()
         {
@@ -23,6 +26,9 @@ namespace Assets.Scripts.Data.Map
             CameraController.CameraMaxHeight = mapHeight * 1.5f;
 
             CameraController.gameObject.transform.position = new Vector3(0, mapHeight, 0);
+
+            TreeManager = new TreeManager();
+            TreeManager.GenerateTree(new Vector3(60, 80, 113), MapData);
         }
 
         public void InitializeMap(MapData data)
