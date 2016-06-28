@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
-namespace Assets.Scripts.Multiblock
+namespace Assets.Scripts.Data.Multiblock
 {
-    public class Tree
+    public class Tree : Multiblock
     {
-        public Multiblock Multiblock;
         public Vector3 Position;
         
-        public Tree(List<Vector3> voxelPosList, Vector3 position)
+        public Tree(Vector3 position)
         {
-            Multiblock = new Multiblock(voxelPosList);
             Position = position;
         }
         

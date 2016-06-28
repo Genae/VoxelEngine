@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Control;
+using Assets.Scripts.Data.Multiblock;
 using UnityEngine;
 using UnityEngine.Networking;
-using Assets.Scripts.Multiblock;
 
 namespace Assets.Scripts.Data.Map
 {
