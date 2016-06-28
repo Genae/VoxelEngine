@@ -28,7 +28,11 @@ namespace Assets.Scripts.Data.Map
             CameraController.gameObject.transform.position = new Vector3(0, mapHeight, 0);
 
             TreeManager = new TreeManager();
-            TreeManager.GenerateTree(new Vector3(60, 80, 113), MapData);
+            for(int i = 0; i < 100; i++)
+            {
+                var index = (int)Random.Range(0f, MapData.PossibleTreePositions.Count);
+                TreeManager.GenerateTree(MapData.PossibleTreePositions[index], MapData);
+            }
         }
 
         public void InitializeMap(MapData data)

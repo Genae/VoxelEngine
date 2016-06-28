@@ -1,15 +1,22 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Data.Map
 {
     public class MapData
     {
         public ChunkData[,,] Chunks { get; private set; }
+        public int Size, Height;
+
+        public static List<Vector3> PossibleTreePositions;
 
         protected MapData(int size, int height)
         {
             Chunks = new ChunkData[size, height, size];
+            PossibleTreePositions = new List<Vector3>();
+            Size = Chunks.GetLength(0);
+            Height = Chunks.GetLength(1);
         }
 
         /*public static MapData CreateEmpty(int size, int height)
@@ -145,6 +152,7 @@ namespace Assets.Scripts.Data.Map
                         if (!isActive)
                             continue;
                         var blockType = y == (int) lheight - 1 ? 3 : (y >= (int) lheight - 4 ? 2 : (isActive ? 1 : 0));
+                        if (blockType == 3) PossibleTreePositions.Add(new Vector3(x, y, z)); //treePositionAdding
                         map.SetVoxel(x, y, z, new VoxelData(true, blockType));
                     }
                 }
