@@ -5,45 +5,66 @@ using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
 {
-    public class Chunk : MonoBehaviour
+    public class Chunk : VoxelContainer
     {
-        public const int ChunkSize = 16;
-        public Mesh ChunkMesh;
-        public ChunkData ChunkData;
-        public float Scale = 1f;
-        private UnityEngine.Material[] _materials;
-        private bool _meshNeedsUpdate;
-
-        public void InitializeChunk(Vector3 pos, ChunkData data, UnityEngine.Material[] mats)
+        public const int ChunkSize2 = 16;
+        
+        public static GameObject CreateChunk(int x, int y, int z, Map map)
         {
-            ChunkData = data;
-            gameObject.transform.position = pos;
-            _materials = mats;
-            data.ChunkUpdated += chunkData =>
-            {
-                OnChunkUpdated();
-            };
-            ChunkMesh = GetComponent<MeshFilter>() == null ? gameObject.AddComponent<MeshFilter>().mesh : GetComponent<MeshFilter>().mesh;
-            if (gameObject.GetComponent<MeshRenderer>() == null)
-            {
-                gameObject.AddComponent<MeshRenderer>();
-            }
-            OnChunkUpdated();
+            var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
+            var chunkC = chunk.gameObject.AddComponent<Chunk>();
+            chunkC.InitializeContainer(new Vector3(x * ChunkSize2, y * ChunkSize2, z * ChunkSize2), map.MapData.Chunks[x, y, z], map.MaterialRegistry.Materials);
+            chunkC.tag = "Chunk";
+            chunk.transform.parent = map.transform;
+            return chunk;
         }
+    }
 
+    public class VoxelContainer : MonoBehaviour
+    {
+        public Mesh Mesh;
+        private UnityEngine.Material[] _materials;
+        protected bool MeshNeedsUpdate;
+        public ContainerData ContainerData;
 
-        protected void Load()
+        public static GameObject CreateContainer(Vector3 pos, ContainerData data, Map map, string name = null)
         {
-            OnChunkUpdated();
+            var container = new GameObject(string.Format(name!=null?name:"Container" + "[{0}, {1}, {2}]", pos.x, pos.y, pos.z));
+            var containerC = container.gameObject.AddComponent<VoxelContainer>();
+            containerC.InitializeContainer(pos, data, map.MaterialRegistry.Materials);
+            containerC.tag = "Container";
+            container.transform.parent = map.transform;
+            return container;
         }
 
         void Update()
         {
-            if (_meshNeedsUpdate)
+            if (MeshNeedsUpdate)
             {
                 UpdateMesh();
-                _meshNeedsUpdate = false;
+                MeshNeedsUpdate = false;
             }
+        }
+
+        public void OnContainerUpdated()
+        {
+            MeshNeedsUpdate = true;
+        }
+
+        protected void InitializeContainer(Vector3 pos, ContainerData data, UnityEngine.Material[] mats)
+        {
+            ContainerData = data;
+            gameObject.transform.position = pos;
+            _materials = mats;
+
+            data.ContainerUpdated += OnContainerUpdated;
+
+            Mesh = GetComponent<MeshFilter>() == null ? gameObject.AddComponent<MeshFilter>().mesh : GetComponent<MeshFilter>().mesh;
+            if (gameObject.GetComponent<MeshRenderer>() == null)
+            {
+                gameObject.AddComponent<MeshRenderer>();
+            }
+            OnContainerUpdated();
         }
 
         private void UpdateMesh()
@@ -52,30 +73,25 @@ namespace Assets.Scripts.Data.Map
             Vector3[] vertices;
             Vector3[] normals;
             Vector2[] uvs;
-            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, ChunkData, ChunkData.NeighbourBorders);
+            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, ContainerData, ContainerData.Size);
 
-            ChunkMesh.Clear();
-            ChunkMesh.vertices = vertices;
-            ChunkMesh.normals = normals;
-            ChunkMesh.subMeshCount = triangles.Keys.Count;
-            ChunkMesh.uv = uvs;
+            Mesh.Clear();
+            Mesh.vertices = vertices;
+            Mesh.normals = normals;
+            Mesh.subMeshCount = triangles.Keys.Count;
+            Mesh.uv = uvs;
 
             var keyArray = triangles.Keys.ToArray();
             var myMats = new UnityEngine.Material[triangles.Keys.Count];
             for (var i = 0; i < triangles.Keys.Count; i++)
             {
-                ChunkMesh.SetTriangles(triangles[keyArray[i]], i);
+                Mesh.SetTriangles(triangles[keyArray[i]], i);
                 myMats[i] = _materials[keyArray[i]];
             }
             gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
-            GetComponent<MeshFilter>().mesh = ChunkMesh;
+            GetComponent<MeshFilter>().mesh = Mesh;
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
-            mCollider.sharedMesh = ChunkMesh;
-        }
-
-        public void OnChunkUpdated()
-        {
-            _meshNeedsUpdate = true;
+            mCollider.sharedMesh = Mesh;
         }
     }
 }

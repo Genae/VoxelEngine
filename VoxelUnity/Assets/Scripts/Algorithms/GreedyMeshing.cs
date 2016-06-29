@@ -8,17 +8,31 @@ namespace Assets.Scripts.Algorithms
 {
     public static class GreedyMeshing
     {
-        public static void CreateMesh(out Vector3[] vertices, out Dictionary<int, int[]> triangles, out Vector3[] normals, out Vector2[] uvs, ChunkData chunk, bool[][,] neighbourBorders)
+        public static void CreateMesh(out Vector3[] vertices, out Dictionary<int, int[]> triangles, out Vector3[] normals, out Vector2[] uvs, ContainerData container, int containerSize)
         {
             //Voxels to Planes
-            var planes = InitializePlanes(chunk, neighbourBorders);
+            var chunk = container as ChunkData;
+            bool[][,] neighbourBorders;
+            if (chunk != null)
+            {
+                neighbourBorders = chunk.NeighbourBorders;
+            }
+            else
+            {
+                neighbourBorders = new bool[6][,];
+                for (var i = 0; i < 6; i++)
+                {
+                    neighbourBorders[i] = new bool[containerSize, containerSize];
+                }
+            }
+            var planes = InitializePlanes(container, neighbourBorders, containerSize);
 
             //Planes to Rects
             var rects = new Rect[6][][];
             for (var side = 0; side < 6; side++)
             {
-                rects[side] = new Rect[Chunk.ChunkSize][];
-                for (var depth = 0; depth < Chunk.ChunkSize; depth++)
+                rects[side] = new Rect[containerSize][];
+                for (var depth = 0; depth < containerSize; depth++)
                 {
                     rects[side][depth] = CreateRectsForPlane(planes[side][depth]);
                 }
@@ -31,7 +45,7 @@ namespace Assets.Scripts.Algorithms
             var uvsL = new List<Vector2>();
             for (var side = 0; side < 6; side++)
             {
-                for (var depth = 0; depth < Chunk.ChunkSize; depth++)
+                for (var depth = 0; depth < containerSize; depth++)
                 {
                     AddRectsToMesh(side, depth, rects[side][depth], ref verticesL, ref trianglesL, ref normalsL, ref uvsL);
                 }
@@ -43,31 +57,31 @@ namespace Assets.Scripts.Algorithms
             uvs = uvsL.ToArray();
         }
 
-        public static VoxelMaterial[][][,] InitializePlanes(ChunkData chunk, bool[][,] borders)
+        public static VoxelMaterial[][][,] InitializePlanes(ContainerData chunk, bool[][,] borders, int containerSize)
         {
             var planes = new VoxelMaterial[6][][,];
             for (var side = 0; side < 6; side++)
             {
-                planes[side] = new VoxelMaterial[Chunk.ChunkSize][,];
-                for (var depth = 0; depth < Chunk.ChunkSize; depth++)
+                planes[side] = new VoxelMaterial[containerSize][,];
+                for (var depth = 0; depth < containerSize; depth++)
                 {
-                    planes[side][depth] = new VoxelMaterial[Chunk.ChunkSize, Chunk.ChunkSize];
+                    planes[side][depth] = new VoxelMaterial[containerSize, containerSize];
                 }
             }
-            for (var x = 0; x < Chunk.ChunkSize; x++)
+            for (var x = 0; x < containerSize; x++)
             {
-                for (var y = 0; y < Chunk.ChunkSize; y++)
+                for (var y = 0; y < containerSize; y++)
                 {
-                    for (var z = 0; z < Chunk.ChunkSize; z++)
+                    for (var z = 0; z < containerSize; z++)
                     {
-                        if (/*voxel != null*/ chunk.GetVoxelActive(x, y, z))
+                        if (chunk.GetVoxelActive(x, y, z))
                         {
                             if ((x == 0 && !borders[0][y, z]) || (x != 0 && !chunk.GetVoxelActive(x - 1, y, z))) //+x left
                             {
                                 planes[0][x][y, z] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((x == Chunk.ChunkSize - 1 && !borders[1][y, z]) ||
-                                (x != Chunk.ChunkSize - 1 && !chunk.GetVoxelActive(x + 1, y, z))) //-x right
+                            if ((x == containerSize - 1 && !borders[1][y, z]) ||
+                                (x != containerSize - 1 && !chunk.GetVoxelActive(x + 1, y, z))) //-x right
                             {
                                 planes[1][x][y, z] = chunk.GetVoxelType(x, y, z);
                             }
@@ -75,8 +89,8 @@ namespace Assets.Scripts.Algorithms
                             {
                                 planes[2][y][x, z] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((y == Chunk.ChunkSize - 1 && !borders[3][x, z]) ||
-                                (y != Chunk.ChunkSize - 1 && !chunk.GetVoxelActive(x, y + 1, z))) //-y top
+                            if ((y == containerSize - 1 && !borders[3][x, z]) ||
+                                (y != containerSize - 1 && !chunk.GetVoxelActive(x, y + 1, z))) //-y top
                             {
                                 planes[3][y][x, z] = chunk.GetVoxelType(x, y, z);
                             }
@@ -84,8 +98,8 @@ namespace Assets.Scripts.Algorithms
                             {
                                 planes[4][z][x, y] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((z == Chunk.ChunkSize - 1 && !borders[5][x, y]) ||
-                                (z != Chunk.ChunkSize - 1 && !chunk.GetVoxelActive(x, y, z + 1))) //-z front
+                            if ((z == containerSize - 1 && !borders[5][x, y]) ||
+                                (z != containerSize - 1 && !chunk.GetVoxelActive(x, y, z + 1))) //-z front
                             {
                                 planes[5][z][x, y] = chunk.GetVoxelType(x, y, z);
                             }

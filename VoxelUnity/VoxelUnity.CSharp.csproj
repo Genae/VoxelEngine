@@ -95,9 +95,10 @@
     <Compile Include="Assets\Scripts\Data\Material\MaterialRegistry.cs" />
     <Compile Include="Assets\Scripts\Data\Material\VoxelMaterial.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Multiblock.cs" />
-    <Compile Include="Assets\Scripts\Data\Multiblock\Tree.cs" />
-    <Compile Include="Assets\Scripts\Data\Multiblock\TreeManager.cs" />
-    <Compile Include="Assets\Scripts\Data\SerializableDictionary.cs" />
+    <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Birch.cs" />
+    <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Oak.cs" />
+    <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
+    <Compile Include="Assets\Scripts\Data\Multiblock\Trees\TreeManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

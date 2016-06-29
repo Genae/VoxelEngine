@@ -130,24 +130,24 @@ namespace Assets.Scripts.Data.Map
             var v = 0;
             var size = heightmap.GetLength(0)*scaleMultiplier;
             height *= scaleMultiplier;
-            var map = new MapData(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
-            for (var x = 0; x < size / Chunk.ChunkSize; x++)
+            var map = new MapData(size / Chunk.ChunkSize2, height / Chunk.ChunkSize2);
+            for (var x = 0; x < size / Chunk.ChunkSize2; x++)
             {
-                for (var y = 0; y < height / Chunk.ChunkSize; y++)
+                for (var y = 0; y < height / Chunk.ChunkSize2; y++)
                 {
-                    for (var z = 0; z < size / Chunk.ChunkSize; z++)
+                    for (var z = 0; z < size / Chunk.ChunkSize2; z++)
                     {
                         map.Chunks[x, y, z] = new ChunkData();
                     }
                 }
             }
-            for (var x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            for (var x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize2; x++)
             {
-                for (var z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                for (var z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize2; z++)
                 {
                     var bot = (short)((bottom[x/scaleMultiplier, z/scaleMultiplier] + 2) / 3 * heightmapHeight);
                     var lheight = (heightmap[x/scaleMultiplier, z/scaleMultiplier] + 2) / 3 * heightmapHeight;
-                    for (var y = 0; y < map.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
+                    for (var y = 0; y < map.Chunks.GetLength(1) * Chunk.ChunkSize2; y++)
                     {
                         var isActive = y < (int) lheight && y > bot && cut[x/scaleMultiplier, z/scaleMultiplier] > 0.5f;
                         if (!isActive)
@@ -171,12 +171,12 @@ namespace Assets.Scripts.Data.Map
             return map;
         }
         
-        public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material)
+        public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material, Multiblock.Multiblock mb = null)
         {
-            var cx = x / Chunk.ChunkSize;
-            var cy = y / Chunk.ChunkSize;
-            var cz = z / Chunk.ChunkSize;
-            return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, active, material);
+            var cx = x / Chunk.ChunkSize2;
+            var cy = y / Chunk.ChunkSize2;
+            var cz = z / Chunk.ChunkSize2;
+            return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize2, y % Chunk.ChunkSize2, z % Chunk.ChunkSize2, active, material);
         }
 
         private void SetIntoNeighbourContext(int x, int y, int z)

@@ -2,6 +2,7 @@
 using Assets.Scripts.Control;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Multiblock;
+using Assets.Scripts.Data.Multiblock.Trees;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -19,8 +20,8 @@ namespace Assets.Scripts.Data.Map
         {
             var hmg = new HeightmapGenerator(129, 129, 1234);
             InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 2));
-            var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
-            var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
+            var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize2;
+            var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize2;
             CameraController.RightLimit = mapSize*1.1f;
             CameraController.TopLimit = mapSize*1.1f;
             CameraController.CameraMinHeight = mapHeight*0.5f;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.Data.Map
             for(int i = 0; i < 100; i++)
             {
                 var index = (int)Random.Range(0f, MapData.PossibleTreePositions.Count);
-                TreeManager.GenerateTree(MapData.PossibleTreePositions[index], MapData);
+                TreeManager.GenerateTree(MapData.PossibleTreePositions[index]);
             }
         }
 
@@ -46,7 +47,7 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
-                        InitializeChunk(x, y, z);
+                        Chunk.CreateChunk(x, y, z, this);
                     }
                 }
             }
@@ -60,15 +61,6 @@ namespace Assets.Scripts.Data.Map
             {
                 chunkData.CheckDirtyVoxels();
             }
-        }
-
-        private void InitializeChunk(int x, int y, int z)
-        {
-            var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
-            var chunkC = chunk.gameObject.AddComponent<Chunk>();
-            chunkC.InitializeChunk(new Vector3(x * Chunk.ChunkSize, y * Chunk.ChunkSize, z * Chunk.ChunkSize), MapData.Chunks[x, y, z], MaterialRegistry.GetMaterials());
-            chunkC.tag = "Chunk";
-            chunk.transform.parent = transform;
         }
     }
 }

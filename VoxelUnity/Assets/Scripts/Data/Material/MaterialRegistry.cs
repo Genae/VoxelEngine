@@ -1,25 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Editor;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Material
 {
-    [Serializable]
-    public class DictionaryMats : SerializableDictionary<MaterialTyp, UnityEngine.Material> { }
-
     public class MaterialRegistry : MonoBehaviour
     {
         private static readonly Dictionary<int, VoxelMaterial> VoxelMaterials = new Dictionary<int, VoxelMaterial>();
-        public DictionaryMats Materials;
+        public UnityEngine.Material[] Materials;
         public static int AtlasSize = 16;
-
-        public UnityEngine.Material[] GetMaterials()
-        {
-            return Materials.Values.ToArray();
-        }
-
+        
         public static VoxelMaterial MaterialFromId(int typeId)
         {
             return VoxelMaterials[typeId];
@@ -39,7 +30,6 @@ namespace Assets.Scripts.Data.Material
         private void CreateColorAtlas()
         {
             var tex = new Texture2D(AtlasSize, AtlasSize, TextureFormat.ARGB32, false);
-            var i = 0;
             foreach (MaterialTyp matTyp in Enum.GetValues(typeof(MaterialTyp)))
             {
                 var typ = matTyp;
@@ -50,7 +40,7 @@ namespace Assets.Scripts.Data.Material
                 tex.wrapMode = TextureWrapMode.Clamp;
                 tex.filterMode = FilterMode.Point;
                 tex.Apply();
-                Materials[typ].mainTexture = tex;
+                Materials[(int)typ].mainTexture = tex;
             }
         }
 
@@ -79,8 +69,10 @@ namespace Assets.Scripts.Data.Material
         public static readonly VoxelMaterial Stone = Create(MaterialTyp.Default, rgb(120, 120, 120));
         public static readonly VoxelMaterial Dirt = Create(MaterialTyp.Default, rgb(161, 109, 37));
         public static readonly VoxelMaterial Grass = Create(MaterialTyp.Default, rgb(62, 131, 51));
-        public static readonly VoxelMaterial Wood = Create(MaterialTyp.Default, rgb(142, 99, 56));
-        public static readonly VoxelMaterial Leaves = Create(MaterialTyp.Default, rgb(125, 173, 70));
+        public static readonly VoxelMaterial OakWood = Create(MaterialTyp.Default, rgb(142, 99, 56));
+        public static readonly VoxelMaterial OakLeaves = Create(MaterialTyp.Default, rgb(125, 173, 70));
+        public static readonly VoxelMaterial BirchWood = Create(MaterialTyp.Default, rgb(234, 231, 214));
+        public static readonly VoxelMaterial BirchLeaves = Create(MaterialTyp.Default, rgb(160, 185, 125));
 
         #endregion
 
