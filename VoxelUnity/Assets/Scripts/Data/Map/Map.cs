@@ -1,14 +1,14 @@
-﻿using Assets.Scripts.Algorithms.MapGeneration;
+﻿using System;
+using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Control;
 using Assets.Scripts.Data.Material;
-using Assets.Scripts.Data.Multiblock;
 using Assets.Scripts.Data.Multiblock.Trees;
 using UnityEngine;
-using UnityEngine.Networking;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Data.Map
 {
-    public class Map : NetworkBehaviour
+    public class Map : MonoBehaviour
     {
         public MapData MapData;
         public MaterialRegistry MaterialRegistry;
@@ -16,12 +16,12 @@ namespace Assets.Scripts.Data.Map
 
         public TreeManager TreeManager;
 
-        public override void OnStartServer()
+        public void Start()
         {
-            var hmg = new HeightmapGenerator(129, 129, 1234);
+            var hmg = new HeightmapGenerator(129, 129, 1337);
             InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 2));
-            var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize2;
-            var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize2;
+            var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
+            var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
             CameraController.RightLimit = mapSize*1.1f;
             CameraController.TopLimit = mapSize*1.1f;
             CameraController.CameraMinHeight = mapHeight*0.5f;
@@ -32,8 +32,13 @@ namespace Assets.Scripts.Data.Map
             TreeManager = new TreeManager();
             for(int i = 0; i < 100; i++)
             {
-                var index = (int)Random.Range(0f, MapData.PossibleTreePositions.Count);
-                TreeManager.GenerateTree(MapData.PossibleTreePositions[index]);
+                var pos = new Vector3(Random.Range(0, MapData.Chunks.GetLength(0)*Chunk.ChunkSize), 1000, Random.Range(0, MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
+                RaycastHit hit;
+                Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
+                if (hit.collider.tag.Equals("Chunk"))
+                {
+                    TreeManager.GenerateTree(hit.point);
+                }
             }
         }
 
@@ -51,8 +56,6 @@ namespace Assets.Scripts.Data.Map
                     }
                 }
             }
-
-            NetworkServer.Spawn(gameObject);
         }
 
         void Update()

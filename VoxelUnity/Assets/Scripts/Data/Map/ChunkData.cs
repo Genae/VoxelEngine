@@ -13,7 +13,7 @@ namespace Assets.Scripts.Data.Map
         private ChunkData[] _neighbourData;
 
 
-        public ChunkData() : base(Chunk.ChunkSize2)
+        public ChunkData() : base(Chunk.ChunkSize)
         {
         }
 
@@ -31,15 +31,15 @@ namespace Assets.Scripts.Data.Map
                 return;
             if (DirtyVoxels.Any(v => (int)v.x == 0))
                 UpdateNeighbour(0);
-            if (DirtyVoxels.Any(v => (int)v.x == Chunk.ChunkSize2 - 1))
+            if (DirtyVoxels.Any(v => (int)v.x == Chunk.ChunkSize - 1))
                 UpdateNeighbour(1);
             if (DirtyVoxels.Any(v => (int)v.y == 0))
                 UpdateNeighbour(2);
-            if (DirtyVoxels.Any(v => (int)v.y == Chunk.ChunkSize2 - 1))
+            if (DirtyVoxels.Any(v => (int)v.y == Chunk.ChunkSize - 1))
                 UpdateNeighbour(3);
             if (DirtyVoxels.Any(v => (int)v.z == 0))
                 UpdateNeighbour(4);
-            if (DirtyVoxels.Any(v => (int)v.z == Chunk.ChunkSize2 - 1))
+            if (DirtyVoxels.Any(v => (int)v.z == Chunk.ChunkSize - 1))
                 UpdateNeighbour(5);
             OnContainerUpdated();
             DirtyVoxels.Clear();
@@ -63,7 +63,7 @@ namespace Assets.Scripts.Data.Map
             for (var i = 0; i < 6; i++)
             {
                 if (NeighbourBorders[i] == null)
-                    NeighbourBorders[i] = new bool[Chunk.ChunkSize2, Chunk.ChunkSize2];
+                    NeighbourBorders[i] = new bool[Chunk.ChunkSize, Chunk.ChunkSize];
             }
             if (runUpdate)
                 OnContainerUpdated();
@@ -71,24 +71,24 @@ namespace Assets.Scripts.Data.Map
 
         public bool HasSolidBorder(int dir, out bool[,] border)
         {
-            border = new bool[Chunk.ChunkSize2, Chunk.ChunkSize2];
+            border = new bool[Chunk.ChunkSize, Chunk.ChunkSize];
             var solid = true;
             switch (dir)
             {
                 case 1: //+x
-                    for (var y = 0; y < Chunk.ChunkSize2; y++)
+                    for (var y = 0; y < Chunk.ChunkSize; y++)
                     {
-                        for (var z = 0; z < Chunk.ChunkSize2; z++)
+                        for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
-                            border[y, z] = GetVoxelActive(Chunk.ChunkSize2 - 1, y, z);
-                            solid = solid && GetVoxelActive(Chunk.ChunkSize2 - 1, y, z);
+                            border[y, z] = GetVoxelActive(Chunk.ChunkSize - 1, y, z);
+                            solid = solid && GetVoxelActive(Chunk.ChunkSize - 1, y, z);
                         }
                     }
                     return solid;
                 case 2: //-x
-                    for (var y = 0; y < Chunk.ChunkSize2; y++)
+                    for (var y = 0; y < Chunk.ChunkSize; y++)
                     {
-                        for (var z = 0; z < Chunk.ChunkSize2; z++)
+                        for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
                             border[y, z] = GetVoxelActive(0, y, z);
                             solid = solid && GetVoxelActive(0, y, z);
@@ -96,19 +96,19 @@ namespace Assets.Scripts.Data.Map
                     }
                     return solid;
                 case 3: //+y
-                    for (var x = 0; x < Chunk.ChunkSize2; x++)
+                    for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
-                        for (var z = 0; z < Chunk.ChunkSize2; z++)
+                        for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
-                            border[x, z] = GetVoxelActive(x, Chunk.ChunkSize2 - 1, z);
-                            solid = solid && GetVoxelActive(x, Chunk.ChunkSize2 - 1, z);
+                            border[x, z] = GetVoxelActive(x, Chunk.ChunkSize - 1, z);
+                            solid = solid && GetVoxelActive(x, Chunk.ChunkSize - 1, z);
                         }
                     }
                     return solid;
                 case 4: //-y
-                    for (var x = 0; x < Chunk.ChunkSize2; x++)
+                    for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
-                        for (var z = 0; z < Chunk.ChunkSize2; z++)
+                        for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
                             border[x, z] = GetVoxelActive(x, 0, z);
                             solid = solid && GetVoxelActive(x, 0, z);
@@ -116,19 +116,19 @@ namespace Assets.Scripts.Data.Map
                     }
                     return true;
                 case 5: //+z
-                    for (var x = 0; x < Chunk.ChunkSize2; x++)
+                    for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
-                        for (var y = 0; y < Chunk.ChunkSize2; y++)
+                        for (var y = 0; y < Chunk.ChunkSize; y++)
                         {
-                            border[x, y] = GetVoxelActive(x, y, Chunk.ChunkSize2 - 1);
-                            solid = solid && GetVoxelActive(x, y, Chunk.ChunkSize2 - 1);
+                            border[x, y] = GetVoxelActive(x, y, Chunk.ChunkSize - 1);
+                            solid = solid && GetVoxelActive(x, y, Chunk.ChunkSize - 1);
                         }
                     }
                     return solid;
                 case 6: //-z
-                    for (var x = 0; x < Chunk.ChunkSize2; x++)
+                    for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
-                        for (var y = 0; y < Chunk.ChunkSize2; y++)
+                        for (var y = 0; y < Chunk.ChunkSize; y++)
                         {
                             border[x, y] = GetVoxelActive(x, y, 0);
                             solid = solid && GetVoxelActive(x, y, 0);

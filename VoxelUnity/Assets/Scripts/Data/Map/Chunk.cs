@@ -7,13 +7,13 @@ namespace Assets.Scripts.Data.Map
 {
     public class Chunk : VoxelContainer
     {
-        public const int ChunkSize2 = 16;
+        public const int ChunkSize = 16;
         
         public static GameObject CreateChunk(int x, int y, int z, Map map)
         {
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
-            chunkC.InitializeContainer(new Vector3(x * ChunkSize2, y * ChunkSize2, z * ChunkSize2), map.MapData.Chunks[x, y, z], map.MaterialRegistry.Materials);
+            chunkC.InitializeContainer(new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize), map.MapData.Chunks[x, y, z], map.MaterialRegistry.Materials);
             chunkC.tag = "Chunk";
             chunk.transform.parent = map.transform;
             return chunk;
@@ -65,6 +65,7 @@ namespace Assets.Scripts.Data.Map
                 gameObject.AddComponent<MeshRenderer>();
             }
             OnContainerUpdated();
+            Update();
         }
 
         private void UpdateMesh()

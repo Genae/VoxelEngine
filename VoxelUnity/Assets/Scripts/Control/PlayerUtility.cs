@@ -210,11 +210,11 @@ namespace Assets.Scripts.Control
             {
                 //will not work in Start() since Map is not active at the start 
                 _mapData = GameObject.Find("Map").GetComponent<Map>().MapData;
-                _maxMapHeight = _mapData.Chunks.GetLength(0) * Chunk.ChunkSize2;
+                _maxMapHeight = _mapData.Chunks.GetLength(0) * Chunk.ChunkSize;
             }
             //for performance reasons this could be used to replace the meshcolliders TODO?
-            var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize2, (int)pos.y / Chunk.ChunkSize2, (int)pos.z / Chunk.ChunkSize2];
-            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize2, (int)pos.y % Chunk.ChunkSize2, (int)pos.z % Chunk.ChunkSize2, MaterialRegistry.Air);
+            var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
+            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.Air);
         }
 
         private RaycastHit GetRaycastHitOnMousePosition()
@@ -249,7 +249,7 @@ namespace Assets.Scripts.Control
                     Debug.Log("GetVoxelOnHit() error");
                     return new Vector3(0,0,0);
             }
-            var vox1 = _clickedChunk.ContainerData.GetVoxelActive((int)vec1.x % Chunk.ChunkSize2, (int)vec1.y % Chunk.ChunkSize2, (int)vec1.z % Chunk.ChunkSize2);
+            var vox1 = _clickedChunk.ContainerData.GetVoxelActive((int)vec1.x % Chunk.ChunkSize, (int)vec1.y % Chunk.ChunkSize, (int)vec1.z % Chunk.ChunkSize);
 
             if (IsInChunk(vec1, _clickedChunk.transform.position) && vox1)
             {
@@ -263,9 +263,9 @@ namespace Assets.Scripts.Control
 
         private bool IsInChunk(Vector3 vec, Vector3 position)
         {
-            return ((int) vec.x/Chunk.ChunkSize2)*Chunk.ChunkSize2 == (int) position.x &&
-                   ((int) vec.y/Chunk.ChunkSize2)*Chunk.ChunkSize2 == (int) position.y &&
-                   ((int) vec.z/Chunk.ChunkSize2)*Chunk.ChunkSize2 == (int) position.z;
+            return ((int) vec.x/Chunk.ChunkSize)*Chunk.ChunkSize == (int) position.x &&
+                   ((int) vec.y/Chunk.ChunkSize)*Chunk.ChunkSize == (int) position.y &&
+                   ((int) vec.z/Chunk.ChunkSize)*Chunk.ChunkSize == (int) position.z;
         }
 
         private string GetAxis(float x, float y, float z)
