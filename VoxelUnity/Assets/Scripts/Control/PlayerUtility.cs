@@ -29,7 +29,7 @@ namespace Assets.Scripts.Control
         {
             RemoveVoxels();
             
-            Debug.DrawRay(ray.origin, ray.direction * 10000, Color.yellow);
+            //Debug.DrawRay(ray.origin, ray.direction * 10000, Color.yellow);
         }
 
         private void RemoveVoxels()

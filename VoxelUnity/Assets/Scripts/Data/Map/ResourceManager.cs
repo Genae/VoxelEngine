@@ -104,7 +104,7 @@ namespace Assets.Scripts.Data.Map
         {
             for (var i = 0; i < path.Count - 2; i++)
             {
-                Debug.DrawLine(path[i], path[i+1], data.Material.Color, 6000, false);
+                //Debug.DrawLine(path[i], path[i+1], data.Material.Color, 6000, false);
                 DrawCapsule(path[i], path[i + 1], data.VeinRadius, data.Material, map);
             }
         }
