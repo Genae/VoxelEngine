@@ -29,9 +29,9 @@ namespace Assets.Scripts.Data.Material
         #region helper
         private void CreateColorAtlas()
         {
-            var tex = new Texture2D(AtlasSize, AtlasSize, TextureFormat.ARGB32, false);
             foreach (MaterialTyp matTyp in Enum.GetValues(typeof(MaterialTyp)))
             {
+                var tex = new Texture2D(AtlasSize, AtlasSize, TextureFormat.ARGB32, false);
                 var typ = matTyp;
                 foreach (var material in VoxelMaterials.Values.Where(vm => vm.MaterialId.Equals(typ)))
                 {
@@ -67,12 +67,15 @@ namespace Assets.Scripts.Data.Material
 
         public static readonly VoxelMaterial Air = Create(MaterialTyp.Default, Color.white);
         public static readonly VoxelMaterial Stone = Create(MaterialTyp.Default, rgb(120, 120, 120));
-        public static readonly VoxelMaterial Dirt = Create(MaterialTyp.Default, rgb(161, 109, 37));
-        public static readonly VoxelMaterial Grass = Create(MaterialTyp.Default, rgb(62, 131, 51));
-        public static readonly VoxelMaterial OakWood = Create(MaterialTyp.Default, rgb(142, 99, 56));
-        public static readonly VoxelMaterial OakLeaves = Create(MaterialTyp.Default, rgb(125, 173, 70));
+        public static readonly VoxelMaterial Dirt = Create(MaterialTyp.Default, rgb(160, 82, 45));
+        public static readonly VoxelMaterial Grass = Create(MaterialTyp.Default, rgb(50, 205, 50));
+        public static readonly VoxelMaterial OakWood = Create(MaterialTyp.Default, rgb(60, 30, 17));
+        public static readonly VoxelMaterial OakLeaves = Create(MaterialTyp.Default, rgb(35, 144, 35));
         public static readonly VoxelMaterial BirchWood = Create(MaterialTyp.Default, rgb(234, 231, 214));
         public static readonly VoxelMaterial BirchLeaves = Create(MaterialTyp.Default, rgb(160, 185, 125));
+        public static readonly VoxelMaterial Copper = Create(MaterialTyp.Metallic, rgb(184, 115, 51));
+        public static readonly VoxelMaterial Iron = Create(MaterialTyp.Metallic, rgb(123, 123, 123));
+        public static readonly VoxelMaterial Gold = Create(MaterialTyp.Metallic, rgb(255, 215, 0));
 
         #endregion
 

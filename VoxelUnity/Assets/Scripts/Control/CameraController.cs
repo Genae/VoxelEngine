@@ -6,7 +6,7 @@ namespace Assets.Scripts.Control
     {
         public Camera Eye;
         
-        public const float MouseBoundary = 30f;
+        public const float MouseBoundary = 0;
 
         //position limit
         public float LeftLimit = 0;

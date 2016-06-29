@@ -17,111 +17,6 @@ namespace Assets.Scripts.Data.Map
             Height = Chunks.GetLength(1);
         }
 
-        /*public static MapData CreateEmpty(int size, int height)
-        {
-            var map = new MapData(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
-            for (int x = 0; x < size / Chunk.ChunkSize; x++)
-            {
-                for (int y = 0; y < height / Chunk.ChunkSize; y++)
-                {
-                    for (int z = 0; z < size / Chunk.ChunkSize; z++)
-                    {
-                        map.Chunks[x, y, z] = new ChunkData();
-                    }
-                }
-            }
-            for (int x = 0; x < map.Chunks.GetLength(0); x++)
-            {
-                for (int y = 0; y < map.Chunks.GetLength(1); y++)
-                {
-                    for (int z = 0; z < map.Chunks.GetLength(2); z++)
-                    {
-                        map.SetIntoNeighbourContext(x, y, z);
-                    }
-                }
-            }
-            return map;
-        }
-
-        public static MapData LoadHeightmap(short[,] heightmap, int height)
-        {
-            var size = heightmap.GetLength(0);
-            var map = new MapData(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
-            for (int x = 0; x < size / Chunk.ChunkSize; x++)
-            {
-                for (int y = 0; y < height / Chunk.ChunkSize; y++)
-                {
-                    for (int z = 0; z < size / Chunk.ChunkSize; z++)
-                    {
-                        map.Chunks[x, y, z] = new ChunkData();
-                    }
-                }
-            }
-            for (int x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
-            {
-                for (int z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
-                {
-                    var lheight = heightmap[x, z];
-                    for (int y = 0; y < lheight; y++)
-                    {
-                        map.GetVoxel(x, y, z).IsActive = true;
-                    }
-                }
-            }
-            for (int x = 0; x < map.Chunks.GetLength(0); x++)
-            {
-                for (int y = 0; y < map.Chunks.GetLength(1); y++)
-                {
-                    for (int z = 0; z < map.Chunks.GetLength(2); z++)
-                    {
-                        map.SetIntoNeighbourContext(x, y, z);
-                    }
-                }
-            }
-            return map;
-        }
-
-        public static MapData LoadHeightmap(float[,] heightmap, int height)
-        {
-            var v = 0;
-            var size = heightmap.GetLength(0);
-            var map = new MapData(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
-            for (int x = 0; x < size / Chunk.ChunkSize; x++)
-            {
-                for (int y = 0; y < height / Chunk.ChunkSize; y++)
-                {
-                    for (int z = 0; z < size / Chunk.ChunkSize; z++)
-                    {
-                        map.Chunks[x, y, z] = new ChunkData();
-                    }
-                }
-            }
-            for (int x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
-            {
-                for (int z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
-                {
-                    var lheight = heightmap[x, z] * height;
-                    for (int y = 0; y < lheight; y++)
-                    {
-                        map.GetVoxel(x, y, z).IsActive = true;
-                        v++;
-                    }
-                }
-            }
-            Console.WriteLine(v);
-            for (int x = 0; x < map.Chunks.GetLength(0); x++)
-            {
-                for (int y = 0; y < map.Chunks.GetLength(1); y++)
-                {
-                    for (int z = 0; z < map.Chunks.GetLength(2); z++)
-                    {
-                        map.SetIntoNeighbourContext(x, y, z);
-                    }
-                }
-            }
-            return map;
-        }*/
-
         public static MapData LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, int height, float heightmapHeight, int scaleMultiplier)
         {
             var v = 0;
@@ -149,7 +44,7 @@ namespace Assets.Scripts.Data.Map
                         var isActive = y < (int) lheight && y > bot && cut[x/scaleMultiplier, z/scaleMultiplier] > 0.5f;
                         if (!isActive)
                             continue;
-                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : (isActive ? MaterialRegistry.Stone : MaterialRegistry.Air));
+                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : (y == (int)lheight - 10 ? MaterialRegistry.Gold : (isActive ? MaterialRegistry.Stone : MaterialRegistry.Air)));
                         map.SetVoxel(x, y, z, true, blockType);
                     }
                 }

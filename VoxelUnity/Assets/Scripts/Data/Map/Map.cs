@@ -19,7 +19,7 @@ namespace Assets.Scripts.Data.Map
         public void Start()
         {
             var hmg = new HeightmapGenerator(129, 129, 1337);
-            InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 2));
+            InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1));
             var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
             var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
             CameraController.RightLimit = mapSize*1.1f;
