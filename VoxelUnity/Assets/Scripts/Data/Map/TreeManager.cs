@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Data.Map;
+using Assets.Scripts.Data.Multiblock.Trees;
 using UnityEngine;
+using Tree = Assets.Scripts.Data.Multiblock.Trees.Tree;
 
-namespace Assets.Scripts.Data.Multiblock.Trees
+namespace Assets.Scripts.Data.Map
 {
     public class TreeManager
     {
@@ -26,6 +27,21 @@ namespace Assets.Scripts.Data.Multiblock.Trees
                     break;
             }
             TreeList.Add(tree);
+        }
+
+        public void GenerateTrees(int amount, MapData map)
+        {
+
+            for (int i = 0; i < 100; i++)
+            {
+                var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize));
+                RaycastHit hit;
+                Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
+                if (hit.collider.tag.Equals("Chunk"))
+                {
+                    GenerateTree(hit.point);
+                }
+            }
         }
     }
 

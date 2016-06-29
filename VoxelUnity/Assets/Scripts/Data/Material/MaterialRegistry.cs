@@ -76,6 +76,7 @@ namespace Assets.Scripts.Data.Material
         public static readonly VoxelMaterial Copper = Create(MaterialTyp.Metallic, rgb(184, 115, 51));
         public static readonly VoxelMaterial Iron = Create(MaterialTyp.Metallic, rgb(123, 123, 123));
         public static readonly VoxelMaterial Gold = Create(MaterialTyp.Metallic, rgb(255, 215, 0));
+        public static readonly VoxelMaterial Coal = Create(MaterialTyp.Default, rgb(0, 0, 0));
 
         #endregion
 

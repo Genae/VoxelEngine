@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Data.Material;
+﻿using Assets.Scripts.Data.Map;
+using Assets.Scripts.Data.Material;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock.Trees

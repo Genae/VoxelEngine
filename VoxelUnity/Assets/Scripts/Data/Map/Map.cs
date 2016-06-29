@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Control;
 using Assets.Scripts.Data.Material;
@@ -13,13 +14,12 @@ namespace Assets.Scripts.Data.Map
         public MapData MapData;
         public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
-
-        public TreeManager TreeManager;
+        
 
         public void Start()
         {
             var hmg = new HeightmapGenerator(129, 129, 1337);
-            InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1));
+            InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 2));
             var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
             var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
             CameraController.RightLimit = mapSize*1.1f;
@@ -29,17 +29,35 @@ namespace Assets.Scripts.Data.Map
 
             CameraController.gameObject.transform.position = new Vector3(0, mapHeight, 0);
 
-            TreeManager = new TreeManager();
-            for(int i = 0; i < 100; i++)
+            //Trees
+            var treeManager = new TreeManager();
+            treeManager.GenerateTrees(100, MapData);
+
+            //Ressources
+            var resourceManager = new ResourceManager();
+            var weights = new Dictionary<VoxelMaterial, int>
             {
-                var pos = new Vector3(Random.Range(0, MapData.Chunks.GetLength(0)*Chunk.ChunkSize), 1000, Random.Range(0, MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
-                RaycastHit hit;
-                Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
-                if (hit.collider.tag.Equals("Chunk"))
+                {MaterialRegistry.Copper,7},
+                {MaterialRegistry.Coal,7},
+                {MaterialRegistry.Iron,5},
+                {MaterialRegistry.Gold,3}
+            };
+            resourceManager.SpawnAllResources(MapData, weights);
+
+            //Remove all Terrain not of type t
+            /*for (var x = 0; x < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            {
+                for (var y = 0; y < MapData.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
                 {
-                    TreeManager.GenerateTree(hit.point);
+                    for (var z = 0; z < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; z++)
+                    {
+                        var chunk = MapData.Chunks[x/Chunk.ChunkSize, y/Chunk.ChunkSize, z/Chunk.ChunkSize];
+                        var mat = chunk.GetVoxelType(x%Chunk.ChunkSize, y%Chunk.ChunkSize, z%Chunk.ChunkSize);
+                        if (!new[] {MaterialRegistry.Iron, MaterialRegistry.Gold, MaterialRegistry.Copper, MaterialRegistry.Coal}.Contains(mat))
+                            chunk.SetVoxelType(x%Chunk.ChunkSize, y%Chunk.ChunkSize, z%Chunk.ChunkSize,MaterialRegistry.Air);
+                    }
                 }
-            }
+            }*/
         }
 
         public void InitializeMap(MapData data)

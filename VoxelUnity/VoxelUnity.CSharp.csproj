@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Data\Map\ChunkData.cs" />
     <Compile Include="Assets\Scripts\Data\Map\Map.cs" />
     <Compile Include="Assets\Scripts\Data\Map\MapData.cs" />
+    <Compile Include="Assets\Scripts\Data\Map\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Data\Map\VoxelData.cs" />
     <Compile Include="Assets\Scripts\Data\Material\MaterialRegistry.cs" />
     <Compile Include="Assets\Scripts\Data\Material\VoxelMaterial.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Birch.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Oak.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
-    <Compile Include="Assets\Scripts\Data\Multiblock\Trees\TreeManager.cs" />
+    <Compile Include="Assets\Scripts\Data\Map\TreeManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

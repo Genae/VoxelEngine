@@ -44,7 +44,7 @@ namespace Assets.Scripts.Data.Map
                         var isActive = y < (int) lheight && y > bot && cut[x/scaleMultiplier, z/scaleMultiplier] > 0.5f;
                         if (!isActive)
                             continue;
-                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : (y == (int)lheight - 10 ? MaterialRegistry.Gold : (isActive ? MaterialRegistry.Stone : MaterialRegistry.Air)));
+                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : (isActive ? MaterialRegistry.Stone : MaterialRegistry.Air));
                         map.SetVoxel(x, y, z, true, blockType);
                     }
                 }
