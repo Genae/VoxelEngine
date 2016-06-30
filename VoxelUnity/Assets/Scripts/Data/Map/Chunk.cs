@@ -8,6 +8,7 @@ namespace Assets.Scripts.Data.Map
     public class Chunk : VoxelContainer
     {
         public const int ChunkSize = 16;
+        public AStarNetwork AStar = new AStarNetwork();
         
         public static GameObject CreateChunk(int x, int y, int z, Map map)
         {
@@ -17,6 +18,20 @@ namespace Assets.Scripts.Data.Map
             chunkC.tag = "Chunk";
             chunk.transform.parent = map.transform;
             return chunk;
+        }
+
+        protected override void Update()
+        {
+            if (MeshNeedsUpdate)
+            {
+                UpdateAStar();
+            }
+            base.Update();
+        }
+
+        private void UpdateAStar()
+        {
+            AStar.RefreshNetwork(ContainerData as ChunkData);
         }
     }
 
@@ -37,7 +52,7 @@ namespace Assets.Scripts.Data.Map
             return container;
         }
 
-        void Update()
+        protected virtual void Update()
         {
             if (MeshNeedsUpdate)
             {

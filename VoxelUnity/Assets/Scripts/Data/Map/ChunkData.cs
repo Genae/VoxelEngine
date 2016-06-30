@@ -10,10 +10,10 @@ namespace Assets.Scripts.Data.Map
     {
         public bool[][,] NeighbourBorders;
         public bool[] NeighbourSolidBorders;
-        private ChunkData[] _neighbourData;
+        public ChunkData[] NeighbourData;
 
 
-        public ChunkData() : base(Chunk.ChunkSize)
+        public ChunkData(Vector3 position) : base(Chunk.ChunkSize, position)
         {
         }
 
@@ -47,17 +47,17 @@ namespace Assets.Scripts.Data.Map
 
         private void UpdateNeighbour(int side)
         {
-            if (_neighbourData[side] == null)
+            if (NeighbourData[side] == null)
                 return;
             bool[,] border;
             var solid = HasSolidBorder(side, out border);
-            _neighbourData[side].UpdateBorder(border, solid, side%2==0?side+1:side-1);
+            NeighbourData[side].UpdateBorder(border, solid, side%2==0?side+1:side-1);
         }
 
 
         public void UpdateBorder(bool[][,] border, bool[] solid, ChunkData[] neighbourData, bool runUpdate = true)
         {
-            _neighbourData = neighbourData;
+            NeighbourData = neighbourData;
             NeighbourBorders = border;
             NeighbourSolidBorders = solid;
             for (var i = 0; i < 6; i++)
@@ -145,12 +145,14 @@ namespace Assets.Scripts.Data.Map
         protected readonly List<Vector3> DirtyVoxels = new List<Vector3>();
         protected VoxelData[,,] Voxels;
         public int Size;
+        public Vector3 Position;
 
         public Action ContainerUpdated;
 
-        public ContainerData(int size)
+        public ContainerData(int size, Vector3 position)
         {
             Size = size;
+            Position = position;
             Voxels = new VoxelData[size, size, size];
         }
 

@@ -89,8 +89,10 @@
     <Compile Include="Assets\Scripts\Algorithms\MapGeneration\HeightmapGenerator.cs" />
     <Compile Include="Assets\Scripts\Algorithms\MapGeneration\SpanningTree.cs" />
     <Compile Include="Assets\Scripts\Algorithms\MapGeneration\Voronoi.cs" />
+    <Compile Include="Assets\Scripts\Algorithms\Pathfinding\NodeBuilder.cs" />
     <Compile Include="Assets\Scripts\Control\CameraController.cs" />
     <Compile Include="Assets\Scripts\Control\PlayerUtility.cs" />
+    <Compile Include="Assets\Scripts\Data\Map\AStarNetwork.cs" />
     <Compile Include="Assets\Scripts\Data\Map\Chunk.cs" />
     <Compile Include="Assets\Scripts\Data\Map\ChunkData.cs" />
     <Compile Include="Assets\Scripts\Data\Map\Map.cs" />
@@ -105,5 +107,6 @@
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Oak.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

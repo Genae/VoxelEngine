@@ -23,7 +23,7 @@ namespace Assets.Scripts.Data.Multiblock
         {
             Vector3 zeroVec;
             var size = GetSize(out zeroVec);
-            var data = new ContainerData(size);
+            var data = new ContainerData(size, position);
             foreach (var type in _voxels.Keys)
             {
                 foreach (var v in _voxels[type])

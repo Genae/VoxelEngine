@@ -29,7 +29,7 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var z = 0; z < size / Chunk.ChunkSize; z++)
                     {
-                        map.Chunks[x, y, z] = new ChunkData();
+                        map.Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z)*Chunk.ChunkSize);
                     }
                 }
             }
