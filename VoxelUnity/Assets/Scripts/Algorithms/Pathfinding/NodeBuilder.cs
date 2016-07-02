@@ -11,6 +11,8 @@ namespace Assets.Scripts.Algorithms.Pathfinding
         public static List<Node> BuildAStarNetwork(ChunkData data, List<Vector3> upVoxels)
         {
             var dictionary = CreateNodePositions(data, upVoxels);
+            if(dictionary.Sum(d => d.Value.Sum(l => l.Value.Count)) > 0)
+                Debug.Log(dictionary.Sum(d => d.Value.Sum(l => l.Value.Count)) + " Nodes at chunk " + data.Position / Chunk.ChunkSize);
             return ConnectNodes(dictionary);
         }
 
@@ -164,11 +166,11 @@ namespace Assets.Scripts.Algorithms.Pathfinding
             }
             if (z < 0)
             {
-                return GetChunkRelative(start.NeighbourData[2], x, y, z + 1);
+                return GetChunkRelative(start.NeighbourData[4], x, y, z + 1);
             }
             if (z > 0)
             {
-                return GetChunkRelative(start.NeighbourData[3], x, y, z - 1);
+                return GetChunkRelative(start.NeighbourData[5], x, y, z - 1);
             }
             return start;
         }
