@@ -8,7 +8,6 @@ namespace Assets.Scripts.Data.Map
     public class Chunk : VoxelContainer
     {
         public const int ChunkSize = 16;
-        public AStarNetwork AStar = new AStarNetwork();
         
         public static GameObject CreateChunk(int x, int y, int z, Map map)
         {
@@ -20,18 +19,11 @@ namespace Assets.Scripts.Data.Map
             return chunk;
         }
 
-        protected override void Update()
+        protected override List<Vector3> UpdateMesh()
         {
-            if (MeshNeedsUpdate)
-            {
-                UpdateAStar();
-            }
-            base.Update();
-        }
-
-        private void UpdateAStar()
-        {
-            AStar.RefreshNetwork(ContainerData as ChunkData);
+            var up = base.UpdateMesh();
+            ((ChunkData)ContainerData).AStar.RefreshNetwork(ContainerData as ChunkData, up);
+            return up;
         }
     }
 
@@ -52,7 +44,7 @@ namespace Assets.Scripts.Data.Map
             return container;
         }
 
-        protected virtual void Update()
+        void Update()
         {
             if (MeshNeedsUpdate)
             {
@@ -83,13 +75,14 @@ namespace Assets.Scripts.Data.Map
             Update();
         }
 
-        private void UpdateMesh()
+        protected virtual List<Vector3> UpdateMesh()
         {
             Dictionary<int, int[]> triangles;
             Vector3[] vertices;
             Vector3[] normals;
             Vector2[] uvs;
-            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, ContainerData, ContainerData.Size);
+            List<Vector3> upVoxels;
+            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, out upVoxels, ContainerData, ContainerData.Size);
 
             Mesh.Clear();
             Mesh.vertices = vertices;
@@ -108,6 +101,7 @@ namespace Assets.Scripts.Data.Map
             GetComponent<MeshFilter>().mesh = Mesh;
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
             mCollider.sharedMesh = Mesh;
+            return upVoxels;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Assets.Scripts.Data.Map
         public bool[][,] NeighbourBorders;
         public bool[] NeighbourSolidBorders;
         public ChunkData[] NeighbourData;
+        public AStarNetwork AStar = new AStarNetwork();
 
 
         public ChunkData(Vector3 position) : base(Chunk.ChunkSize, position)

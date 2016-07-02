@@ -8,67 +8,81 @@ namespace Assets.Scripts.Algorithms.Pathfinding
 {
     public class NodeBuilder
     {
-        public static List<Node> BuildAStarNetwork(ChunkData data)
+        public static List<Node> BuildAStarNetwork(ChunkData data, List<Vector3> upVoxels)
         {
-            var dictionary = new Dictionary<int, Dictionary<int, Dictionary<int, Node>>>();
-            for (int x = 0; x < Chunk.ChunkSize; x++)
+            var dictionary = CreateNodePositions(data, upVoxels);
+            return ConnectNodes(dictionary);
+        }
+
+        private static Dictionary<int, Dictionary<int, List<Node>>> CreateNodePositions(ChunkData data, List<Vector3> upVoxels)
+        {
+            var dictionary = new Dictionary<int, Dictionary<int, List<Node>>>();
+            foreach (var upVoxel in upVoxels)
             {
-                dictionary[x] = new Dictionary<int, Dictionary<int, Node>>();
-                for (int y = 0; y < Chunk.ChunkSize; y++)
+                var x = (int) upVoxel.x;
+                var y = (int)upVoxel.y;
+                var z = (int)upVoxel.z;
+                if (!dictionary.ContainsKey(x))
                 {
-                    for (int z = 0; z < Chunk.ChunkSize; z++)
-                    {
-                        if (!dictionary[x].ContainsKey(z))
-                            dictionary[x][z] = new Dictionary<int, Node>();
-                        if (CheckPosition(data, x, y, z))
-                        {
-                            dictionary[x][z][dictionary[x][z].Count] = new Node(x, y, z);
-                        }
-                    }
+                    dictionary[x] = new Dictionary<int, List<Node>>();
+                }
+                if (!dictionary[x].ContainsKey(z))
+                {
+                    dictionary[x].Add(z, new List<Node>());
+                }
+                if (CheckPosition(data, x, y, z))
+                {
+                    dictionary[x][z].Add(new Node(x + (int)data.Position.x, y + (int)data.Position.y, z + (int)data.Position.z));
                 }
             }
+            return dictionary;
+        }
+
+        public static List<Node> ConnectNodes(Dictionary<int, Dictionary<int, List<Node>>> dictionary)
+        {
             var nodes = new List<Node>();
             for (int x = 0; x < Chunk.ChunkSize; x++)
             {
+                if (!dictionary.ContainsKey(x))
+                    continue;
                 for (int z = 0; z < Chunk.ChunkSize; z++)
                 {
-                    foreach (var node in dictionary[x][z].Values)
+                    if (!dictionary[x].ContainsKey(z))
+                        continue;
+                    foreach (var node in dictionary[x][z])
                     {
                         var nodefrom = node;
-                        if (x > 0 && z < Chunk.ChunkSize - 1)
+                        if (x > 0 && dictionary.ContainsKey(x - 1) && z < dictionary[x - 1].Count - 1 && dictionary[x-1].ContainsKey(z + 1))
                         {
-                            foreach(var nodeto in dictionary[x - 1][z + 1].Values.Where(n => Mathf.Abs(n.Position.y - nodefrom.Position.y) < 1))
+                            foreach (var nodeto in dictionary[x - 1][z + 1].Where(n => Mathf.Abs(n.Position.y - nodefrom.Position.y) < 1))
                             {
                                 Connect(node, nodeto);
                             }
                         }
-                        if (x < Chunk.ChunkSize - 1 && z < Chunk.ChunkSize - 1)
+                        if (x < dictionary.Count - 1 && dictionary.ContainsKey(x + 1) && z < dictionary[x + 1].Count - 1 && dictionary[x+1].ContainsKey(z + 1))
                         {
-                            foreach (var nodeto in dictionary[x + 1][z + 1].Values.Where(n => Mathf.Abs(n.Position.y - nodefrom.Position.y) < 1))
+                            foreach (var nodeto in dictionary[x + 1][z + 1].Where(n => Mathf.Abs(n.Position.y - nodefrom.Position.y) < 1))
                             {
                                 Connect(node, nodeto);
                             }
                         }
-                        if (x < Chunk.ChunkSize - 1)
+                        if (x < dictionary.Count - 1 && dictionary.ContainsKey(x+1) && dictionary[x + 1].ContainsKey(z))
                         {
                             foreach (var nodeTo in dictionary[x + 1][z])
                             {
-                                CheckNodeConnection(node, nodeTo.Value);
+                                CheckNodeConnection(node, nodeTo);
                             }
                         }
-                        if (z < Chunk.ChunkSize - 1)
+                        if (z < dictionary[x].Count - 1 && dictionary[x].ContainsKey(z + 1))
                         {
                             foreach (var nodeTo in dictionary[x][z + 1])
                             {
-                                CheckNodeConnection(node, nodeTo.Value);
+                                CheckNodeConnection(node, nodeTo);
                             }
                         }
-                        if (node.Neighbours.Count > 0)
-                        {
-                            nodes.Add(node);
-                        }
+                        nodes.Add(node);
                     }
-                    
+
                 }
             }
             return nodes;
@@ -95,8 +109,23 @@ namespace Assets.Scripts.Algorithms.Pathfinding
 
         private static bool CheckPosition(ChunkData data, int x, int y, int z)
         {
-            if (GetVoxelTyp(data, x, y, z).Equals(MaterialRegistry.Air) && !GetVoxelTyp(data, x, y-1, z).Equals(MaterialRegistry.Air))
+            if (!GetVoxelTyp(data, x, y-1, z).Equals(MaterialRegistry.Air))
             {
+                for (var dX = -1; dX <= 1; dX++)
+                {
+                    for (var dY = 0; dY <= 4; dY++)
+                    {
+                        for (var dZ = -1; dZ <= 1; dZ++)
+                        {
+                            if (Mathf.Abs(dX) > dY || Mathf.Abs(dZ) > dY)
+                                continue;
+                            if (!GetVoxelTyp(data, x + dX, y + dY, z + dZ).Equals(MaterialRegistry.Air))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
                 return true;
             }
             return false;

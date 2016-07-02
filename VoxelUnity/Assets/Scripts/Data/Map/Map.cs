@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Control;
 using Assets.Scripts.Data.Material;
-using Assets.Scripts.Data.Multiblock.Trees;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Data.Map
 {
@@ -19,7 +16,10 @@ namespace Assets.Scripts.Data.Map
         public void Start()
         {
             var hmg = new HeightmapGenerator(129, 129, 1337);
-            InitializeMap(MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 2));
+            var mapData = MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1);
+            InitializeMap(mapData);
+
+
             var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
             var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
             CameraController.RightLimit = mapSize*1.1f;
@@ -71,6 +71,17 @@ namespace Assets.Scripts.Data.Map
                     for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
                         Chunk.CreateChunk(x, y, z, this);
+                    }
+                }
+            }
+            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
+            {
+                for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
+                {
+                    for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
+                    {
+                        MapData.Chunks[x, y, z].AStar.ConnectNetworkToNeighbours(MapData.Chunks[x, y, z]);
+                        MapData.Chunks[x, y, z].AStar.Visualize();
                     }
                 }
             }

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Algorithms
 {
     public static class GreedyMeshing
     {
-        public static void CreateMesh(out Vector3[] vertices, out Dictionary<int, int[]> triangles, out Vector3[] normals, out Vector2[] uvs, ContainerData container, int containerSize)
+        public static void CreateMesh(out Vector3[] vertices, out Dictionary<int, int[]> triangles, out Vector3[] normals, out Vector2[] uvs, out List<Vector3> upVoxels, ContainerData container, int containerSize)
         {
             //Voxels to Planes
             var chunk = container as ChunkData;
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Algorithms
                     neighbourBorders[i] = new bool[containerSize, containerSize];
                 }
             }
-            var planes = InitializePlanes(container, neighbourBorders, containerSize);
+            var planes = InitializePlanes(container, neighbourBorders, containerSize, out upVoxels);
 
             //Planes to Rects
             var rects = new Rect[6][][];
@@ -57,8 +57,9 @@ namespace Assets.Scripts.Algorithms
             uvs = uvsL.ToArray();
         }
 
-        public static VoxelMaterial[][][,] InitializePlanes(ContainerData chunk, bool[][,] borders, int containerSize)
+        public static VoxelMaterial[][][,] InitializePlanes(ContainerData chunk, bool[][,] borders, int containerSize, out List<Vector3> upVoxels)
         {
+            upVoxels = new List<Vector3>();
             var planes = new VoxelMaterial[6][][,];
             for (var side = 0; side < 6; side++)
             {
@@ -92,6 +93,8 @@ namespace Assets.Scripts.Algorithms
                             if ((y == containerSize - 1 && !borders[3][x, z]) ||
                                 (y != containerSize - 1 && !chunk.GetVoxelActive(x, y + 1, z))) //-y top
                             {
+                                if (y < containerSize - 1)
+                                    upVoxels.Add(new Vector3(x, y+1, z));
                                 planes[3][y][x, z] = chunk.GetVoxelType(x, y, z);
                             }
                             if ((z == 0 && !borders[4][x, y]) || (z != 0 && !chunk.GetVoxelActive(x, y, z - 1))) //+z back
@@ -102,6 +105,13 @@ namespace Assets.Scripts.Algorithms
                                 (z != containerSize - 1 && !chunk.GetVoxelActive(x, y, z + 1))) //-z front
                             {
                                 planes[5][z][x, y] = chunk.GetVoxelType(x, y, z);
+                            }
+                        }
+                        else
+                        {
+                            if (y == 0)
+                            {
+                                upVoxels.Add(new Vector3(x, y, z));
                             }
                         }
                     }
