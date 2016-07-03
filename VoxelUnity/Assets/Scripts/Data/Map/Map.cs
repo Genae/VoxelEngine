@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Algorithms.MapGeneration;
+using Assets.Scripts.Algorithms.Pathfinding;
 using Assets.Scripts.Control;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
@@ -31,7 +33,7 @@ namespace Assets.Scripts.Data.Map
 
             //Trees
             var treeManager = new TreeManager();
-            treeManager.GenerateTrees(100, MapData);
+            treeManager.GenerateTrees(0, MapData);
 
             //Ressources
             var resourceManager = new ResourceManager();
@@ -74,6 +76,11 @@ namespace Assets.Scripts.Data.Map
                     }
                 }
             }
+            var startIndex = 50;
+            var endIndex = 890;
+            var ind = 0;
+            Node start = null;
+            Node end = null;
             for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
             {
                 for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
@@ -81,9 +88,22 @@ namespace Assets.Scripts.Data.Map
                     for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
                         MapData.Chunks[x, y, z].AStar.ConnectNetworkToNeighbours(MapData.Chunks[x, y, z]);
-                        MapData.Chunks[x, y, z].AStar.Visualize();
+                        if (MapData.Chunks[x, y, z].AStar.Nodes.Count > 0)
+                        {
+                            if (ind <= startIndex && ind + MapData.Chunks[x, y, z].AStar.Nodes.Count >=startIndex)
+                                start = MapData.Chunks[x, y, z].AStar.Nodes[startIndex -ind];
+                            if(ind <= endIndex && ind + MapData.Chunks[x, y, z].AStar.Nodes.Count >= endIndex)
+                            end = MapData.Chunks[x, y, z].AStar.Nodes[endIndex-ind];
+                        }
+                        ind += MapData.Chunks[x, y, z].AStar.Nodes.Count;
                     }
                 }
+            }
+            //test ASTar
+            var path = AStar.GetPath(MapData, start.Position, end.Position);
+            for (int i = 0; i < path.Nodes.Count-1; i++)
+            {
+                Debug.DrawLine(path.Nodes[i].Position, path.Nodes[i+1].Position, Color.blue, 60000, true);
             }
         }
 

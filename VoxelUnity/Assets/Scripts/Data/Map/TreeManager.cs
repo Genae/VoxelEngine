@@ -32,7 +32,7 @@ namespace Assets.Scripts.Data.Map
         public void GenerateTrees(int amount, MapData map)
         {
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < amount; i++)
             {
                 var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize));
                 RaycastHit hit;

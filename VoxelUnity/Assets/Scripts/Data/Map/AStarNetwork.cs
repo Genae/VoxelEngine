@@ -123,5 +123,23 @@ namespace Assets.Scripts.Data.Map
                 neighbour.Key.Neighbours.Remove(this);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType())
+                return false;
+            var n = (Node) obj;
+            return n.Position.Equals(Position);
+        }
+
+        protected bool Equals(Node other)
+        {
+            return Position.Equals(other.Position);
+        }
+
+        public override int GetHashCode()
+        {
+            return Position.GetHashCode();
+        }
     }
 }

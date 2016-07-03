@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using UnityEngine;
 using Assets.Scripts.Data.Material;
 
 namespace Assets.Scripts.Data.Map
