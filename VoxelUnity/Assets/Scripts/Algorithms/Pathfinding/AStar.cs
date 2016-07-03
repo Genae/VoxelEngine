@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
     {
         public static Path GetPath(MapData map, Vector3 from, Vector3 to)
         {
+            var start = DateTime.Now;
             var closeSet = new HashSet<Vector3>();
             var openSet = new PriorityQueue<PathNode>();
             var nodeFrom = GetNode(from, map);
@@ -25,7 +27,9 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 var curNode = openSet.Dequeue();
                 if (curNode.Equals(nodeTo))
                 {
-                    return ReconstructPath(curNode);
+                    var path = ReconstructPath(curNode);
+                    Debug.Log("Found path between " + from + " and " + to + " of length: " + path.Length + " in " + (DateTime.Now-start).TotalMilliseconds + "ms.");
+                    return path;
                 }
                 closeSet.Add(curNode.GridNode.Position);
                 foreach (var neighbour in curNode.GridNode.Neighbours)
@@ -39,11 +43,13 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                     }
                 }
             }
+            Debug.Log("Couldn't find path between " + from + " and " + to + " in " + (DateTime.Now - start).TotalMilliseconds + "ms.");
             return null;
         }
 
         private static Path ReconstructPath(PathNode node)
         {
+            var length = node.GScore;
             var nodes = new List<Node>();
             while (node != null)
             {
@@ -51,7 +57,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 node = node.Prev;
             }
             nodes.Reverse();
-            return new Path(nodes);
+            return new Path(nodes, length);
         }
 
         private static PathNode GetNode(Vector3 position, MapData map)

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
         public List<Node> Nodes;
         public float Length;
 
-        public Path(List<Node> nodes)
+        public Path(List<Node> nodes, float length)
         {
             Nodes = nodes;
         }

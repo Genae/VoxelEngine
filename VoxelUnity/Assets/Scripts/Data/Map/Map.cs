@@ -76,11 +76,7 @@ namespace Assets.Scripts.Data.Map
                     }
                 }
             }
-            var startIndex = 50;
-            var endIndex = 890;
-            var ind = 0;
-            Node start = null;
-            Node end = null;
+            var allNodes = new List<Node>();
             for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
             {
                 for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
@@ -90,21 +86,27 @@ namespace Assets.Scripts.Data.Map
                         MapData.Chunks[x, y, z].AStar.ConnectNetworkToNeighbours(MapData.Chunks[x, y, z]);
                         if (MapData.Chunks[x, y, z].AStar.Nodes.Count > 0)
                         {
-                            if (ind <= startIndex && ind + MapData.Chunks[x, y, z].AStar.Nodes.Count >=startIndex)
-                                start = MapData.Chunks[x, y, z].AStar.Nodes[startIndex -ind];
-                            if(ind <= endIndex && ind + MapData.Chunks[x, y, z].AStar.Nodes.Count >= endIndex)
-                            end = MapData.Chunks[x, y, z].AStar.Nodes[endIndex-ind];
+                            allNodes.AddRange(MapData.Chunks[x,y,z].AStar.Nodes);
                         }
-                        ind += MapData.Chunks[x, y, z].AStar.Nodes.Count;
                     }
                 }
             }
             //test ASTar
-            var path = AStar.GetPath(MapData, start.Position, end.Position);
-            for (int i = 0; i < path.Nodes.Count-1; i++)
+            var amount = 0;
+            while (amount < 5)
             {
-                Debug.DrawLine(path.Nodes[i].Position, path.Nodes[i+1].Position, Color.blue, 60000, true);
+                var start = allNodes[Random.Range(0, allNodes.Count)];
+                var end = allNodes[Random.Range(0, allNodes.Count)];
+                var path = AStar.GetPath(MapData, start.Position, end.Position);
+                if (path == null)
+                    continue;
+                for (int i = 0; i < path.Nodes.Count - 1; i++)
+                {
+                    Debug.DrawLine(path.Nodes[i].Position, path.Nodes[i + 1].Position, new[] {Color.green, Color.blue, Color.black, Color.magenta, Color.yellow}[amount], 60000, true);
+                }
+                amount++;
             }
+            
         }
 
         void Update()
