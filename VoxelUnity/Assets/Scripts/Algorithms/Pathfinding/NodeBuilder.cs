@@ -111,7 +111,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
 
         private static bool CheckPosition(ChunkData data, int x, int y, int z)
         {
-            if (!GetVoxelTyp(data, x, y-1, z).Equals(MaterialRegistry.Air))
+            if (IsWorldPosBlocked(data, x, y-1, z))
             {
                 for (var dX = -1; dX <= 1; dX++)
                 {
@@ -121,7 +121,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                         {
                             if (Mathf.Abs(dX) > dY || Mathf.Abs(dZ) > dY)
                                 continue;
-                            if (!GetVoxelTyp(data, x + dX, y + dY, z + dZ).Equals(MaterialRegistry.Air))
+                            if (IsWorldPosBlocked(data, x + dX, y + dY, z + dZ))
                             {
                                 return false;
                             }
@@ -133,15 +133,15 @@ namespace Assets.Scripts.Algorithms.Pathfinding
             return false;
         }
 
-        private static VoxelMaterial GetVoxelTyp(ChunkData cd, int x, int y, int z)
+        private static bool IsWorldPosBlocked(ChunkData cd, int x, int y, int z)
         {
             var c = new Vector3((x + Chunk.ChunkSize * 10)/Chunk.ChunkSize - 10, (y + Chunk.ChunkSize * 10) /Chunk.ChunkSize - 10, (z + Chunk.ChunkSize * 10) /Chunk.ChunkSize - 10);
             var chunk = GetChunkRelative(cd, (int)c.x, (int)c.y, (int)c.z);
             if (chunk == null)
             {
-                return MaterialRegistry.Air;
+                return false;
             }
-            return chunk.GetVoxelType((int) (x - c.x*Chunk.ChunkSize), (int) (y - c.y*Chunk.ChunkSize), (int) (z - c.z*Chunk.ChunkSize));
+            return chunk.IsWorldPosBlocked((int) (x - c.x*Chunk.ChunkSize), (int) (y - c.y*Chunk.ChunkSize), (int) (z - c.z*Chunk.ChunkSize));
         }
 
         private static ChunkData GetChunkRelative(ChunkData start, int x, int y, int z)

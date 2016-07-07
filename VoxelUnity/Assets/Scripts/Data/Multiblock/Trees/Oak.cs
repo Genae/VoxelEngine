@@ -6,10 +6,6 @@ namespace Assets.Scripts.Data.Multiblock.Trees
 {
     public class Oak : Tree
     {
-        public Oak(Vector3 position) : base(position)
-        {
-        }
-
         protected override TreeData GetRandomizedTreeValues()
         {
             var stainDiaMod = (int)Random.Range(-2f, 2f);
@@ -33,6 +29,10 @@ namespace Assets.Scripts.Data.Multiblock.Trees
         protected override VoxelMaterial GetLeafMaterial()
         {
             return MaterialRegistry.OakLeaves;
+        }
+
+        public Oak(Vector3 position) : base(position)
+        {
         }
     }
 }

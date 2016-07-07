@@ -6,11 +6,6 @@ namespace Assets.Scripts.Data.Multiblock.Trees
 {
     public class Birch : Tree
     {
-        public Birch(Vector3 position):base(position)
-        {
-            
-        }
-
         protected override TreeData GetRandomizedTreeValues()
         {
             var stainDiaMod = (int)Random.Range(-1f, 1f);
@@ -34,6 +29,10 @@ namespace Assets.Scripts.Data.Multiblock.Trees
         protected override VoxelMaterial GetLeafMaterial()
         {
             return MaterialRegistry.BirchLeaves;
+        }
+
+        public Birch(Vector3 position) : base(position)
+        {
         }
     }
 }

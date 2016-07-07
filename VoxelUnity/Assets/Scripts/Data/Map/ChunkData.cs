@@ -12,6 +12,7 @@ namespace Assets.Scripts.Data.Map
         public bool[] NeighbourSolidBorders;
         public ChunkData[] NeighbourData;
         public AStarNetwork AStar = new AStarNetwork();
+        private readonly List<Multiblock.Multiblock> _multiblocks = new List<Multiblock.Multiblock>(); 
 
 
         public ChunkData(Vector3 position) : base(Chunk.ChunkSize, position)
@@ -68,6 +69,11 @@ namespace Assets.Scripts.Data.Map
             }
             if (runUpdate)
                 OnContainerUpdated();
+        }
+
+        public override bool IsWorldPosBlocked(int x, int y, int z)
+        {
+            return base.IsWorldPosBlocked((int)Position.x + x, (int)Position.y + y, (int)Position.z + z) || _multiblocks.Any(m => m.ContainerData.IsWorldPosBlocked((int)Position.x + x, (int)Position.y + y, (int)Position.z + z));
         }
 
         public bool HasSolidBorder(int dir, out bool[,] border)
@@ -139,6 +145,15 @@ namespace Assets.Scripts.Data.Map
             }
             return false;
         }
+
+        public void AttachMultiblock(Multiblock.Multiblock m)
+        {
+            if (!_multiblocks.Contains(m))
+            {
+                _multiblocks.Add(m);
+                OnContainerUpdated();
+            }
+        }
     }
 
     public class ContainerData
@@ -146,13 +161,15 @@ namespace Assets.Scripts.Data.Map
         protected readonly List<Vector3> DirtyVoxels = new List<Vector3>();
         protected VoxelData[,,] Voxels;
         public int Size;
+        public float Scale;
         public Vector3 Position;
 
         public Action ContainerUpdated;
 
-        public ContainerData(int size, Vector3 position)
+        public ContainerData(int size, Vector3 position, float scale = 1f)
         {
             Size = size;
+            Scale = scale;
             Position = position;
             Voxels = new VoxelData[size, size, size];
         }
@@ -200,6 +217,24 @@ namespace Assets.Scripts.Data.Map
                 return;
             Voxels[x, y, z].IsActive = active;
             DirtyVoxels.Add(new Vector3(x, y, z));
+        }
+
+        public virtual bool IsWorldPosBlocked(int x, int y, int z)
+        {
+            var posFrom = (new Vector3(x, y, z) - Position) / Scale;
+            var posTo = Scale < 1 ? posFrom + new Vector3((1/Scale)-1, (1 / Scale) - 1, (1/Scale)-1) : posFrom;
+            for (var dx = Mathf.Max(0, (int)posTo.x); dx <= Mathf.Min((int)(posFrom.x), Size-1); dx++)
+            {
+                for (var dy = Mathf.Max(0, (int)posTo.y); dy <= Mathf.Min((int)(posFrom.y), Size-1); dy++)
+                {
+                    for (var dz = Mathf.Max(0, (int)posTo.z); dz <= Mathf.Min((int)(posFrom.z), Size-1); dz++)
+                    {
+                        if (!GetVoxelType(dx, dy, dz).Equals(MaterialRegistry.Air))
+                            return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public VoxelMaterial GetVoxelType(int x, int y, int z)

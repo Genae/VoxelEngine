@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock.Trees
 {
-    public abstract class Tree : Multiblock
+    public abstract class Tree
     {
         public Vector3 Position;
+        public Multiblock Multiblock;
 
         protected Tree(Vector3 position)
         {
@@ -16,16 +17,17 @@ namespace Assets.Scripts.Data.Multiblock.Trees
 
         private void Initialize(Vector3 position)
         {
+            var voxels = new Dictionary<VoxelMaterial, List<Vector3>>();
             var data = GetRandomizedTreeValues();
             Position = position;
             var strainVoxels = GenerateStrain(data);
-            AddVoxelListToMultiblock(strainVoxels, GetStainMaterial());
+            voxels.Add(GetStainMaterial(), strainVoxels);
 
             var topOfStain = new Vector3(-data.TreeTopDia / 2f + (data.TreeStainDia) / 2f, data.TreeStainHeight, -data.TreeTopDia / 2f + (data.TreeStainDia) / 2f);
             var treeTopVoxels = GenerateTreeTop(topOfStain, data);
-            AddVoxelListToMultiblock(treeTopVoxels, GetLeafMaterial());
+            voxels.Add(GetLeafMaterial(), treeTopVoxels);
 
-            InstantiateVoxels(position);
+            Multiblock = Multiblock.InstantiateVoxels(position, voxels);
         }
 
         private List<Vector3> GenerateStrain(TreeData treeData)

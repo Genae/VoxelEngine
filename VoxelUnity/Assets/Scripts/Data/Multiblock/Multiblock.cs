@@ -8,39 +8,40 @@ namespace Assets.Scripts.Data.Multiblock
 {
     public class Multiblock : VoxelContainer
     {
-        private readonly Dictionary<VoxelMaterial, List<Vector3>> _voxels = new Dictionary<VoxelMaterial, List<Vector3>>();
-        
-        public void AddVoxelListToMultiblock(List<Vector3> list, VoxelMaterial type)
+        public static Multiblock InstantiateVoxels(Vector3 position, Dictionary<VoxelMaterial, List<Vector3>> voxels)
         {
-            if (!_voxels.ContainsKey(type))
-            {
-                _voxels[type] = new List<Vector3>();
-            }
-            _voxels[type].AddRange(list);
-        }
-        
-        public void InstantiateVoxels(Vector3 position)
-        {
+            var map = GameObject.Find("Map").GetComponent<Map.Map>();
             Vector3 zeroVec;
-            var size = GetSize(out zeroVec);
-            var data = new ContainerData(size, position);
-            foreach (var type in _voxels.Keys)
+            var size = GetSize(out zeroVec, voxels);
+            var data = new ContainerData(size, position + zeroVec);
+            foreach (var type in voxels.Keys)
             {
-                foreach (var v in _voxels[type])
+                foreach (var v in voxels[type])
                 {
                     data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), true, type);
                 }
             }
-            CreateContainer(position+zeroVec, data, GameObject.Find("Map").GetComponent<Map.Map>(), "Tree");
+            var container = CreateContainer<Multiblock>(position+zeroVec, data, map, "Tree");
+            for (var x = Mathf.Max(0, (int)((position.x) / Chunk.ChunkSize)); x < Mathf.Min(map.MapData.Chunks.GetLength(0), (position.x + size) / Chunk.ChunkSize); x++)
+            {
+                for (var y = Mathf.Max(0, (int)((position.y) / Chunk.ChunkSize)); y < Mathf.Min(map.MapData.Chunks.GetLength(1), (position.y + size) / Chunk.ChunkSize); y++)
+                {
+                    for (var z = Mathf.Max(0, (int)((position.z) / Chunk.ChunkSize)); z < Mathf.Min(map.MapData.Chunks.GetLength(2), (position.z + size) / Chunk.ChunkSize); z++)
+                    {
+                        map.MapData.Chunks[x, y, z].AttachMultiblock((Multiblock)container);
+                    }
+                }
+            }
+            return (Multiblock)container;
         }
 
-        private int GetSize(out Vector3 zeroVec)
+        private static int GetSize(out Vector3 zeroVec, Dictionary<VoxelMaterial, List<Vector3>> voxels)
         {
-            var first = _voxels.First().Value.First();
+            var first = voxels.First().Value.First();
             float minX = first.x, minY = first.y, minZ = first.z, maxX = first.x, maxY = first.y, maxZ = first.z;
-            foreach (var type in _voxels.Keys)
+            foreach (var type in voxels.Keys)
             {
-                foreach (var v in _voxels[type])
+                foreach (var v in voxels[type])
                 {
                     if (minX > v.x)
                         minX = v.x;

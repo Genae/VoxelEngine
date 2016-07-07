@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Algorithms.Pathfinding;
 using Assets.Scripts.Control;
@@ -33,7 +32,7 @@ namespace Assets.Scripts.Data.Map
 
             //Trees
             var treeManager = new TreeManager();
-            treeManager.GenerateTrees(0, MapData);
+            treeManager.GenerateTrees(100, MapData);
 
             //Ressources
             var resourceManager = new ResourceManager();
@@ -45,7 +44,6 @@ namespace Assets.Scripts.Data.Map
                 {MaterialRegistry.Gold,3}
             };
             resourceManager.SpawnAllResources(MapData, weights);
-
             //Remove all Terrain not of type t
             /*for (var x = 0; x < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
             {
@@ -60,8 +58,44 @@ namespace Assets.Scripts.Data.Map
                     }
                 }
             }*/
-        }
 
+            //test ASTar
+            foreach (var chunk in gameObject.GetComponentsInChildren<Chunk>())
+            {
+                chunk.Update();
+            }
+            var allNodes = new List<Node>();
+            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
+            {
+                for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
+                {
+                    for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
+                    {
+                        
+                        MapData.Chunks[x, y, z].AStar.Visualize();
+                        if (MapData.Chunks[x, y, z].AStar.Nodes.Count > 0)
+                        {
+                            allNodes.AddRange(MapData.Chunks[x, y, z].AStar.Nodes);
+                        }
+                    }
+                }
+            }
+            var amount = 0;
+            while (amount < 5)
+            {
+                var start = allNodes[Random.Range(0, allNodes.Count)];
+                var end = allNodes[Random.Range(0, allNodes.Count)];
+                var path = AStar.GetPath(MapData, start.Position, end.Position);
+                if (path == null)
+                    continue;
+                for (int i = 0; i < path.Nodes.Count - 1; i++)
+                {
+                    Debug.DrawLine(path.Nodes[i].Position, path.Nodes[i + 1].Position, new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount], 60000, true);
+                }
+                amount++;
+            }
+        }
+        
         public void InitializeMap(MapData data)
         {
             MapData = data;
@@ -76,7 +110,6 @@ namespace Assets.Scripts.Data.Map
                     }
                 }
             }
-            var allNodes = new List<Node>();
             for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
             {
                 for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
@@ -84,29 +117,9 @@ namespace Assets.Scripts.Data.Map
                     for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
                         MapData.Chunks[x, y, z].AStar.ConnectNetworkToNeighbours(MapData.Chunks[x, y, z]);
-                        if (MapData.Chunks[x, y, z].AStar.Nodes.Count > 0)
-                        {
-                            allNodes.AddRange(MapData.Chunks[x,y,z].AStar.Nodes);
-                        }
                     }
                 }
             }
-            //test ASTar
-            var amount = 0;
-            while (amount < 5)
-            {
-                var start = allNodes[Random.Range(0, allNodes.Count)];
-                var end = allNodes[Random.Range(0, allNodes.Count)];
-                var path = AStar.GetPath(MapData, start.Position, end.Position);
-                if (path == null)
-                    continue;
-                for (int i = 0; i < path.Nodes.Count - 1; i++)
-                {
-                    Debug.DrawLine(path.Nodes[i].Position, path.Nodes[i + 1].Position, new[] {Color.green, Color.blue, Color.black, Color.magenta, Color.yellow}[amount], 60000, true);
-                }
-                amount++;
-            }
-            
         }
 
         void Update()

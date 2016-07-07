@@ -18,7 +18,7 @@ namespace Assets.Scripts.Data.Map
             chunk.transform.parent = map.transform;
             return chunk;
         }
-
+        
         protected override List<Vector3> UpdateMesh()
         {
             var up = base.UpdateMesh();
@@ -34,17 +34,17 @@ namespace Assets.Scripts.Data.Map
         protected bool MeshNeedsUpdate;
         public ContainerData ContainerData;
 
-        public static GameObject CreateContainer(Vector3 pos, ContainerData data, Map map, string name = null)
+        public static VoxelContainer CreateContainer<T>(Vector3 pos, ContainerData data, Map map, string name = null) where T : VoxelContainer
         {
             var container = new GameObject(string.Format(name!=null?name:"Container" + "[{0}, {1}, {2}]", pos.x, pos.y, pos.z));
-            var containerC = container.gameObject.AddComponent<VoxelContainer>();
+            var containerC = container.gameObject.AddComponent<T>();
             containerC.InitializeContainer(pos, data, map.MaterialRegistry.Materials);
             containerC.tag = "Container";
             container.transform.parent = map.transform;
-            return container;
+            return containerC;
         }
 
-        void Update()
+        public void Update()
         {
             if (MeshNeedsUpdate)
             {

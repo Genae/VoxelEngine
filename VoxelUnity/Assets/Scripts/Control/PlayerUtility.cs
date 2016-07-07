@@ -228,7 +228,6 @@ namespace Assets.Scripts.Control
         //only use if hit already contains raycast information
         private Vector3 GetVoxelOnHit(RaycastHit hit)
         {
-
             Vector3 vec1;
             Vector3 vec2;
             switch (GetAxis(hit.point.x, hit.point.y, hit.point.z))
