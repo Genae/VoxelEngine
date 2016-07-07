@@ -103,7 +103,7 @@ namespace Assets.Scripts.Data.Map
 
         public Node(int x, int y, int z)
         {
-            Position = new Vector3(x, y, z);
+            Position = new Vector3(x, y-0.5f, z);
             Neighbours = new Dictionary<Node, float>();
         }
 

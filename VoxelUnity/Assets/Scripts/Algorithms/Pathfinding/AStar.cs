@@ -28,7 +28,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 if (curNode.Equals(nodeTo))
                 {
                     var path = ReconstructPath(curNode);
-                    Debug.Log("Found path between " + from + " and " + to + " of length: " + path.Length + " in " + (DateTime.Now-start).TotalMilliseconds + "ms.");
+                    Debug.Log("Found path between " + nodeFrom.GridNode.Position + " and " + nodeTo.GridNode.Position + " of length: " + path.Length + " in " + (DateTime.Now-start).TotalMilliseconds + "ms.");
                     return path;
                 }
                 closeSet.Add(curNode.GridNode.Position);
@@ -43,7 +43,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                     }
                 }
             }
-            Debug.Log("Couldn't find path between " + from + " and " + to + " in " + (DateTime.Now - start).TotalMilliseconds + "ms.");
+            Debug.Log("Couldn't find path between " + nodeFrom.GridNode.Position + " and " + nodeTo.GridNode.Position + " in " + (DateTime.Now - start).TotalMilliseconds + "ms.");
             return null;
         }
 

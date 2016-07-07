@@ -11,6 +11,16 @@ namespace Assets.Scripts.Algorithms.Pathfinding
         public Path(List<Node> nodes, float length)
         {
             Nodes = nodes;
+            Length = length;
+        }
+
+        public Node GetNode(int i)
+        {
+            if (i > Nodes.Count - 1)
+            {
+                return null;
+            }
+            return Nodes[i];
         }
     }
 

@@ -22,7 +22,9 @@ namespace Assets.Scripts.Data.Map
         protected override List<Vector3> UpdateMesh()
         {
             var up = base.UpdateMesh();
-            ((ChunkData)ContainerData).AStar.RefreshNetwork(ContainerData as ChunkData, up);
+            var cd = (ChunkData) ContainerData;
+            cd.AStar.RefreshNetwork(cd, up);
+            //cd.AStar.ConnectNetworkToNeighbours(cd);
             return up;
         }
     }

@@ -14,7 +14,7 @@ namespace Assets.Scripts.Data.Map
         public CameraController CameraController;
         
 
-        public void Start()
+        public void Awake()
         {
             var hmg = new HeightmapGenerator(129, 129, 1337);
             var mapData = MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1);
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Data.Map
 
             //Trees
             var treeManager = new TreeManager();
-            treeManager.GenerateTrees(100, MapData);
+            treeManager.GenerateTrees(0, MapData);
 
             //Ressources
             var resourceManager = new ResourceManager();
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Data.Map
                     for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
                         
-                        MapData.Chunks[x, y, z].AStar.Visualize();
+                        //MapData.Chunks[x, y, z].AStar.Visualize();
                         if (MapData.Chunks[x, y, z].AStar.Nodes.Count > 0)
                         {
                             allNodes.AddRange(MapData.Chunks[x, y, z].AStar.Nodes);
