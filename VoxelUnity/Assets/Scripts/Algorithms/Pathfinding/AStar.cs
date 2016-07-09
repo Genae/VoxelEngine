@@ -65,7 +65,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
             var cx = (int)position.x / Chunk.ChunkSize;
             var cy = (int)position.y / Chunk.ChunkSize;
             var cz = (int)position.z / Chunk.ChunkSize;
-            return GetPathNode(map.Chunks[cx, cy, cz].AStar.Nodes.OrderBy(n => (n.Position - position).magnitude).FirstOrDefault(), null, 0);
+            return GetPathNode(map.Chunks[cx, cy, cz].LocalAStar.Nodes.OrderBy(n => (n.Position - position).magnitude).FirstOrDefault(), null, 0);
         }
 
         private static PathNode GetPathNode(Node node, PathNode prev, float cost)

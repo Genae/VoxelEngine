@@ -22,6 +22,7 @@ namespace Assets.Scripts.Logic
                 _currentNode = PathToTarget.GetNode(0);
                 _pathIndex = 0;
             }
+            PathToTarget.Visualize(Color.red, _pathIndex);
             var moveDist = MoveSpeed*Time.deltaTime;
             while (moveDist > 0)
             {

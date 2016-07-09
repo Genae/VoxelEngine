@@ -1,145 +1,82 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using Assets.Scripts.Algorithms.Pathfinding;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
 {
     public class AStarNetwork
     {
-        public List<Node> Nodes = new List<Node>();
-        public AStarNetwork[] NeighbourNetworks = new AStarNetwork[4];
+        public readonly Node[,,] NodeGrid;
 
-        public void RefreshNetwork(ChunkData chunk, List<Vector3> upVoxels)
+        public AStarNetwork(int width, int height, int depth)
         {
-            foreach (var node in Nodes)
-            {
-                node.Disconnect();
-            }
-            
-            Nodes = NodeBuilder.BuildAStarNetwork(chunk, upVoxels);
+            NodeGrid = new Node[width, height, depth];
         }
 
-        public void Visualize()
+        public void RemoveNode(Node node)
         {
-            foreach (var node in Nodes)
-            {
-                node.Visualize();
-            }
+            node.Disconnect();
+            NodeGrid[(int) node.Position.x, (int) node.Position.y, (int) node.Position.z] = null;
         }
 
-        public void ConnectNetworkToNeighbours(ChunkData chunk)
+        public void AddNode(Node node)
         {
-            if (Nodes.Count == 0)
-                return;
-            var x = 0;
-            for (int i = 0; i < 6; i++)
+            NodeGrid[(int) node.Position.x, (int) node.Position.y, (int) node.Position.z] = node;
+            ConnectNode(node);
+        }
+
+        private void ConnectNode(Node node)
+        {
+            for (var dx = -1; dx <= 1; dx++)
             {
-                if (i == 3 || i == 4)
-                    continue;
-                if (NeighbourNetworks[x] == null && chunk.NeighbourData[i] != null)
+                for (var dy = -1; dy <= 1; dy++)
                 {
-                    NeighbourNetworks[x] = chunk.NeighbourData[i].AStar;
-                    NeighbourNetworks[x].ConnectToNeighbour(this, GetBorder(x), x % 2==0? x + 1: x - 1);
+                    for (var dz = -1; dz <= 1; dz++)
+                    {
+                        var nodeTo = GetNode((int) node.Position.x + dx, (int) node.Position.y + dy, (int) node.Position.z + dz);
+                        if (nodeTo != null)
+                        {
+                            ConnectNodes(node, nodeTo);
+                        }
+                    }
                 }
-                x++;
             }
         }
 
-        private void ConnectToNeighbour(AStarNetwork neighbour, Dictionary<int, List<Node>> border1, int index)
+        private void ConnectNodes(Node node, Node target)
         {
-            NeighbourNetworks[index] = neighbour;
-            var border2 = GetBorder(index);
-            var dic = new Dictionary<int, Dictionary<int, List<Node>>>();
-            dic[0] = border1;
-            dic[1] = border2;
-            NodeBuilder.ConnectNodes(dic);
+            var cost = (int)(node.Position.y - target.Position.y) == 0
+                   ? (node.Position - target.Position).magnitude
+                   : (int)Mathf.Abs(node.Position.y - target.Position.y - 1) <= 0.01f
+                       ? 1.5f
+                       : 5 * Mathf.Abs(node.Position.y - target.Position.y);
+            node.Neighbours[target] = cost;
+            target.Neighbours[node] = cost;
         }
 
-        private Dictionary<int, List<Node>> GetBorder(int side)
+        private Node GetNode(int x, int y, int z)
         {
-            var dic = new Dictionary<int, List<Node>>();
-            List<Node> nodes;
-            switch (side)
+            if (x > 0 && x < NodeGrid.GetLength(0) &&
+                y > 0 && y < NodeGrid.GetLength(1) &&
+                z > 0 && z < NodeGrid.GetLength(2))
+                return NodeGrid[x, y, z];
+            return null;
+        }
+
+        public List<Node> UpdateChunkNodes(List<Node> oldNodes, List<Node> newNodes)
+        {
+            if(newNodes.Count > 0) Debug.Log("Updating Chunk. Node Count (" + newNodes.Count + "/" + oldNodes.Count +")");
+            foreach (var node in oldNodes.Where(o => !newNodes.Contains(o)).ToList())
             {
-                case 0:
-                    nodes = Nodes.Where(n => (int)n.Position.x%Chunk.ChunkSize == 0).ToList();
-                    for (var z = 0; z < Chunk.ChunkSize; z++)
-                    {
-                        dic[z] = nodes.Where(n => (int)n.Position.z % Chunk.ChunkSize == z).ToList();
-                    }
-                    return dic;
-                case 1:
-                    nodes = Nodes.Where(n => (int)n.Position.x % Chunk.ChunkSize == Chunk.ChunkSize-1).ToList();
-                    for (var z = 0; z < Chunk.ChunkSize; z++)
-                    {
-                        dic[z] = nodes.Where(n => (int)n.Position.z % Chunk.ChunkSize == z).ToList();
-                    }
-                    return dic;
-                case 2:
-                    nodes = Nodes.Where(n => (int)n.Position.z % Chunk.ChunkSize == 0).ToList();
-                    for (var x = 0; x < Chunk.ChunkSize; x++)
-                    {
-                        dic[x] = nodes.Where(n => (int)n.Position.x % Chunk.ChunkSize == x).ToList();
-                    }
-                    return dic;
-                case 3:
-                    nodes = Nodes.Where(n => (int)n.Position.z % Chunk.ChunkSize == Chunk.ChunkSize - 1).ToList();
-                    for (var x = 0; x < Chunk.ChunkSize; x++)
-                    {
-                        dic[x] = nodes.Where(n => (int)n.Position.x % Chunk.ChunkSize == x).ToList();
-                    }
-                    return dic;
+                RemoveNode(node);
+                oldNodes.Remove(node);
             }
-            return dic;
-        }
-    }
-
-    public class Node
-    {
-        public Dictionary<Node, float> Neighbours;
-        public Vector3 Position;
-
-        public Node(int x, int y, int z)
-        {
-            Position = new Vector3(x, y-0.5f, z);
-            Neighbours = new Dictionary<Node, float>();
-        }
-
-        public void Visualize()
-        {
-            foreach (var neighbour in Neighbours.Keys)
+            foreach (var node in newNodes.Where(n => !oldNodes.Contains(n)))
             {
-                //if(Neighbours[neighbour] <= 1f)
-                    Debug.DrawLine(Position, neighbour.Position, Neighbours[neighbour] <= 1f ? Color.blue : Neighbours[neighbour] < 1.5f ? Color.yellow : Neighbours[neighbour] <= 1.5f ? Color.red : Color.magenta, 6000, true);
+                AddNode(node);
+                oldNodes.Add(node);
             }
-        }
-
-        public void Disconnect()
-        {
-            foreach (var neighbour in Neighbours)
-            {
-                neighbour.Key.Neighbours.Remove(this);
-            }
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != GetType())
-                return false;
-            var n = (Node) obj;
-            return n.Position.Equals(Position);
-        }
-
-        protected bool Equals(Node other)
-        {
-            return Position.Equals(other.Position);
-        }
-
-        public override int GetHashCode()
-        {
-            return Position.GetHashCode();
+            return oldNodes;
         }
     }
 }

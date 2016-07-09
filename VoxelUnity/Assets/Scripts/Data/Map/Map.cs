@@ -12,14 +12,15 @@ namespace Assets.Scripts.Data.Map
         public MapData MapData;
         public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
+        public AStarNetwork AStarNetwork;
         
 
         public void Awake()
         {
             var hmg = new HeightmapGenerator(129, 129, 1337);
-            var mapData = MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1);
-            InitializeMap(mapData);
-
+            MapData = MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1);
+            AStarNetwork = new AStarNetwork(MapData.Chunks.GetLength(0) * Chunk.ChunkSize, MapData.Chunks.GetLength(1) * Chunk.ChunkSize, MapData.Chunks.GetLength(2) * Chunk.ChunkSize);
+            InitializeMap(MapData);
 
             var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
             var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.Data.Map
 
             //Trees
             var treeManager = new TreeManager();
-            treeManager.GenerateTrees(0, MapData);
+            treeManager.GenerateTrees(10, MapData);
 
             //Ressources
             var resourceManager = new ResourceManager();
@@ -71,11 +72,11 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
-                        
-                        //MapData.Chunks[x, y, z].AStar.Visualize();
-                        if (MapData.Chunks[x, y, z].AStar.Nodes.Count > 0)
+                        allNodes.AddRange(MapData.Chunks[x, y, z].LocalAStar.Nodes);
+                        //MapData.Chunks[x, y, z].LocalAStar.Visualize();
+                        if (MapData.Chunks[x, y, z].LocalAStar.Nodes.Count > 0)
                         {
-                            allNodes.AddRange(MapData.Chunks[x, y, z].AStar.Nodes);
+                            
                         }
                     }
                 }
@@ -88,10 +89,7 @@ namespace Assets.Scripts.Data.Map
                 var path = AStar.GetPath(MapData, start.Position, end.Position);
                 if (path == null)
                     continue;
-                for (int i = 0; i < path.Nodes.Count - 1; i++)
-                {
-                    Debug.DrawLine(path.Nodes[i].Position, path.Nodes[i + 1].Position, new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount], 60000, true);
-                }
+                path.Visualize(new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount]);
                 amount++;
             }
         }
@@ -107,16 +105,6 @@ namespace Assets.Scripts.Data.Map
                     for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                     {
                         Chunk.CreateChunk(x, y, z, this);
-                    }
-                }
-            }
-            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
-            {
-                for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
-                {
-                    for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
-                    {
-                        MapData.Chunks[x, y, z].AStar.ConnectNetworkToNeighbours(MapData.Chunks[x, y, z]);
                     }
                 }
             }

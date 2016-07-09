@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
+using UnityEngine;
 
 namespace Assets.Scripts.Algorithms.Pathfinding
 {
@@ -21,6 +22,18 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 return null;
             }
             return Nodes[i];
+        }
+
+        public void Visualize(Color color, int fromNode = -1)
+        {
+            for (int i = fromNode + 1; i < Nodes.Count - 1; i++)
+            {
+                if(fromNode == -1)
+                    Debug.DrawLine(Nodes[i].Position, Nodes[i + 1].Position, color, 60000, true);
+                else
+                    Debug.DrawLine(Nodes[i].Position, Nodes[i + 1].Position, color);
+                
+            }
         }
     }
 

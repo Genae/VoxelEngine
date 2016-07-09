@@ -11,7 +11,7 @@ namespace Assets.Scripts.Data.Map
         public bool[][,] NeighbourBorders;
         public bool[] NeighbourSolidBorders;
         public ChunkData[] NeighbourData;
-        public AStarNetwork AStar = new AStarNetwork();
+        public LocalAStarNetwork LocalAStar = new LocalAStarNetwork();
         private readonly List<Multiblock.Multiblock> _multiblocks = new List<Multiblock.Multiblock>(); 
 
 
@@ -73,7 +73,11 @@ namespace Assets.Scripts.Data.Map
 
         public override bool IsWorldPosBlocked(int x, int y, int z)
         {
-            return base.IsWorldPosBlocked((int)Position.x + x, (int)Position.y + y, (int)Position.z + z) || _multiblocks.Any(m => m.ContainerData.IsWorldPosBlocked((int)Position.x + x, (int)Position.y + y, (int)Position.z + z));
+            var posX = (int)Position.x + x % Chunk.ChunkSize;
+            var posY = (int)Position.y + y % Chunk.ChunkSize;
+            var posZ = (int)Position.z + z % Chunk.ChunkSize;
+
+            return base.IsWorldPosBlocked(posX, posY, posZ) || _multiblocks.Any(m => m.ContainerData.IsWorldPosBlocked(posX, posY, posZ));
         }
 
         public bool HasSolidBorder(int dir, out bool[,] border)

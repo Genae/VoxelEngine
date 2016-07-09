@@ -23,8 +23,7 @@ namespace Assets.Scripts.Data.Map
         {
             var up = base.UpdateMesh();
             var cd = (ChunkData) ContainerData;
-            cd.AStar.RefreshNetwork(cd, up);
-            //cd.AStar.ConnectNetworkToNeighbours(cd);
+            cd.LocalAStar.RefreshNetwork(cd, up);
             return up;
         }
     }
