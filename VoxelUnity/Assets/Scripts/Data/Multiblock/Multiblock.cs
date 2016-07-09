@@ -21,7 +21,8 @@ namespace Assets.Scripts.Data.Multiblock
                     data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), true, type);
                 }
             }
-            var container = CreateContainer<Multiblock>(position+zeroVec, data, map, "Tree");
+            var container = CreateContainer<Multiblock>(position+zeroVec, data, map.MaterialRegistry.Materials, "Tree");
+            container.transform.parent = map.transform;
             for (var x = Mathf.Max(0, (int)((position.x) / Chunk.ChunkSize)); x < Mathf.Min(map.MapData.Chunks.GetLength(0), (position.x + size) / Chunk.ChunkSize); x++)
             {
                 for (var y = Mathf.Max(0, (int)((position.y) / Chunk.ChunkSize)); y < Mathf.Min(map.MapData.Chunks.GetLength(1), (position.y + size) / Chunk.ChunkSize); y++)

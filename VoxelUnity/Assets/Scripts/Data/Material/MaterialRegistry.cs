@@ -8,7 +8,13 @@ namespace Assets.Scripts.Data.Material
     public class MaterialRegistry : MonoBehaviour
     {
         private static readonly Dictionary<int, VoxelMaterial> VoxelMaterials = new Dictionary<int, VoxelMaterial>();
+        private static readonly Dictionary<Color, VoxelMaterial> EntityMaterialsIndices = new Dictionary<Color, VoxelMaterial>();
         public UnityEngine.Material[] Materials;
+        private Texture2D tex;
+        public UnityEngine.Material EntityMaterial
+        {
+            get { return Materials[(int)MaterialTyp.Entity]; }
+        }
         public static int AtlasSize = 16;
         
         public static VoxelMaterial MaterialFromId(int typeId)
@@ -26,11 +32,21 @@ namespace Assets.Scripts.Data.Material
             CreateColorAtlas();
         }
 
+        public VoxelMaterial GetColorIndex(Color color)
+        {
+            if (!EntityMaterialsIndices.ContainsKey(color))
+            {
+                AddColorToAtlas(color);
+            }
+            return EntityMaterialsIndices[color];
+        }
+
         #region helper
         private void CreateColorAtlas()
         {
             foreach (MaterialTyp matTyp in Enum.GetValues(typeof(MaterialTyp)))
             {
+                if (matTyp.Equals(MaterialTyp.Entity)) continue;
                 var tex = new Texture2D(AtlasSize, AtlasSize, TextureFormat.ARGB32, false);
                 var typ = matTyp;
                 foreach (var material in VoxelMaterials.Values.Where(vm => vm.MaterialId.Equals(typ)))
@@ -42,6 +58,21 @@ namespace Assets.Scripts.Data.Material
                 tex.Apply();
                 Materials[(int)typ].mainTexture = tex;
             }
+        }
+
+        private void AddColorToAtlas(Color color)
+        {
+            if (tex == null)
+            {
+                tex = new Texture2D(AtlasSize, AtlasSize, TextureFormat.ARGB32, false);
+                tex.wrapMode = TextureWrapMode.Clamp;
+                tex.filterMode = FilterMode.Point;
+            }
+            var pos = EntityMaterialsIndices.Count+1;
+            EntityMaterialsIndices[color]= Create(MaterialTyp.Entity, color);
+            tex.SetPixel(pos / AtlasSize, pos % AtlasSize, color);
+            tex.Apply();
+            EntityMaterial.mainTexture = tex;
         }
 
         // ReSharper disable once InconsistentNaming

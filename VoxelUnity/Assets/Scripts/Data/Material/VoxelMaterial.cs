@@ -44,6 +44,7 @@ namespace Assets.Scripts.Data.Material
     public enum MaterialTyp
     {
         Default = 0,
-        Metallic = 1
+        Metallic = 1,
+        Entity = 2
     }
 }

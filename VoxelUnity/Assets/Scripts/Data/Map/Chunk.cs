@@ -36,13 +36,12 @@ namespace Assets.Scripts.Data.Map
         protected bool MeshNeedsUpdate;
         public ContainerData ContainerData;
 
-        public static VoxelContainer CreateContainer<T>(Vector3 pos, ContainerData data, Map map, string name = null) where T : VoxelContainer
+        public static VoxelContainer CreateContainer<T>(Vector3 pos, ContainerData data, UnityEngine.Material[] materials, string name = null) where T : VoxelContainer
         {
             var container = new GameObject(string.Format(name!=null?name:"Container" + "[{0}, {1}, {2}]", pos.x, pos.y, pos.z));
             var containerC = container.gameObject.AddComponent<T>();
-            containerC.InitializeContainer(pos, data, map.MaterialRegistry.Materials);
+            containerC.InitializeContainer(pos, data, materials);
             containerC.tag = "Container";
-            container.transform.parent = map.transform;
             return containerC;
         }
 
@@ -100,7 +99,7 @@ namespace Assets.Scripts.Data.Map
                 myMats[i] = _materials[keyArray[i]];
             }
             gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
-            GetComponent<MeshFilter>().mesh = Mesh;
+            GetComponent<MeshFilter>().sharedMesh = Mesh;
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
             mCollider.sharedMesh = Mesh;
             return upVoxels;

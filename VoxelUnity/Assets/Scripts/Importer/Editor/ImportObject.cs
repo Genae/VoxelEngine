@@ -4,6 +4,7 @@ using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data.VoxelEntity;
 
 public class ImportObject : EditorWindow {
 
@@ -25,7 +26,7 @@ public class ImportObject : EditorWindow {
             if(line.StartsWith("v "))
             {
                 var split = line.Split(' ');
-                var vertice = new Vector3((float)Convert.ToDouble(split[1]), (float)Convert.ToDouble(split[2]), (float)Convert.ToDouble(split[3]));
+                var vertice = new Vector3((float)Convert.ToDouble(split[1])+0.1f, (float)Convert.ToDouble(split[2]) + 0.1f, (float)Convert.ToDouble(split[3]) + 0.1f);
                 vertices.Add(vertice);
                 Debug.Log(vertice);
             }
@@ -57,7 +58,29 @@ public class ImportObject : EditorWindow {
                 Debug.Log(face);
             }
         }
+        CreateEntity(faces);
     }
+
+    private static void CreateEntity(List<Face> faces)
+    {
+        var voxels = new Dictionary<Color, List<Vector3>>();
+
+        foreach(var face in faces)
+        {
+            if (!voxels.ContainsKey(face.Color))
+            {
+                voxels[face.Color] = new List<Vector3>();
+            }
+            var pos = face.GetVoxelCenter();
+            if (!voxels[face.Color].Contains(pos))
+            {
+                voxels[face.Color].Add(pos);
+            }
+
+        }
+        VoxelEntity.InstantiateVoxels(Vector3.zero, voxels);
+    }
+
     private static Color GetColor(int index, List<Vector2> texCoords)
     {
         return Color.black;
@@ -102,4 +125,5 @@ public class Face
             return Vert2 + (Vert3 - Vert2) / 2 + Norm * (voxSize / 2);
         }
     }
+
 }

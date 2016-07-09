@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Birch.cs" />
      <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Oak.cs" />
      <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
+     <Compile Include="Assets\Scripts\Data\VoxelEntity\VoxelEntity.cs" />
      <Compile Include="Assets\Scripts\Logic\GameController.cs" />
      <Compile Include="Assets\Scripts\Logic\WalkingController.cs" />
  <Reference Include="UnityEngine.UI">

@@ -251,5 +251,10 @@ namespace Assets.Scripts.Data.Map
         {
             return Voxels[x, y, z] = new VoxelData(active, MaterialRegistry.GetMaterialId(material));
         }
+
+        public VoxelData SetEntityVoxel(int x, int y, int z, bool active, int colorTyp)
+        {
+            return Voxels[x, y, z] = new VoxelData(active, colorTyp);
+        }
     }
 }
