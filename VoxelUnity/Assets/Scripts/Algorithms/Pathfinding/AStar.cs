@@ -8,7 +8,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
 {
     public class AStar
     {
-        public static Path GetPath(MapData map, Vector3 from, Vector3 to)
+        public static Path GetPath(MapData map, Vector3 from, Vector3 to, Path path)
         {
             var start = DateTime.Now;
             var closeSet = new HashSet<Vector3>();
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 var curNode = openSet.Dequeue();
                 if (curNode.Equals(nodeTo))
                 {
-                    var path = ReconstructPath(curNode);
+                    path = ReconstructPath(curNode, path);
                     Debug.Log("Found path between " + nodeFrom.GridNode.Position + " and " + nodeTo.GridNode.Position + " of length: " + path.Length + " in " + (DateTime.Now-start).TotalMilliseconds + "ms.");
                     return path;
                 }
@@ -44,10 +44,10 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 }
             }
             Debug.Log("Couldn't find path between " + nodeFrom.GridNode.Position + " and " + nodeTo.GridNode.Position + " in " + (DateTime.Now - start).TotalMilliseconds + "ms.");
-            return null;
+            return path;
         }
 
-        private static Path ReconstructPath(PathNode node)
+        private static Path ReconstructPath(PathNode node, Path path)
         {
             var length = node.GScore;
             var nodes = new List<Node>();
@@ -57,7 +57,9 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 node = node.Prev;
             }
             nodes.Reverse();
-            return new Path(nodes, length);
+            path.Nodes = nodes;
+            path.Length = length;
+            return path;
         }
 
         private static PathNode GetNode(Vector3 position, MapData map)

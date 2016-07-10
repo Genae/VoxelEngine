@@ -41,7 +41,7 @@ namespace Assets.Scripts.Logic
                     break;
                 }
             }
-            var path = AStar.GetPath(Map.MapData, start, target);
+            var path = Path.Calculate(Map.MapData, start, target);
             if (path == null)
             {
                 SpawnCharacter();

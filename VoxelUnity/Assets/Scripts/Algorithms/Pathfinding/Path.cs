@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
 
 namespace Assets.Scripts.Algorithms.Pathfinding
 {
-    public class Path
+    public class Path : Promise
     {
         public List<Node> Nodes;
         public float Length;
 
-        public Path(List<Node> nodes, float length)
+        protected Path(List<Node> nodes, float length)
         {
             Nodes = nodes;
             Length = length;
@@ -26,6 +27,10 @@ namespace Assets.Scripts.Algorithms.Pathfinding
 
         public void Visualize(Color color, int fromNode = -1)
         {
+            if (Nodes == null)
+            {
+                return;
+            }
             for (int i = fromNode + 1; i < Nodes.Count - 1; i++)
             {
                 if(fromNode == -1)
@@ -34,6 +39,18 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                     Debug.DrawLine(Nodes[i].Position, Nodes[i + 1].Position, color);
                 
             }
+        }
+
+        public static Path Calculate(MapData map, Vector3 from, Vector3 to)
+        {
+            var path = new Path(null, 0);
+            path.Thread = new Thread(() =>
+            {
+                path = AStar.GetPath(map, from, to, path);
+                path.Finished = true;
+            });
+            path.Thread.Start();
+            return path;
         }
     }
 

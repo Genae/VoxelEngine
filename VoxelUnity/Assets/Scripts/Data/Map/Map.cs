@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Algorithms;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Algorithms.Pathfinding;
 using Assets.Scripts.Control;
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Data.Map
 
         public void Awake()
         {
+            MainThread.Instantiate();
             var hmg = new HeightmapGenerator(129, 129, 1337);
             MapData = MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1);
             AStarNetwork = new AStarNetwork(MapData.Chunks.GetLength(0) * Chunk.ChunkSize, MapData.Chunks.GetLength(1) * Chunk.ChunkSize, MapData.Chunks.GetLength(2) * Chunk.ChunkSize);
@@ -86,10 +88,9 @@ namespace Assets.Scripts.Data.Map
             {
                 var start = allNodes[Random.Range(0, allNodes.Count)];
                 var end = allNodes[Random.Range(0, allNodes.Count)];
-                var path = AStar.GetPath(MapData, start.Position, end.Position);
-                if (path == null)
-                    continue;
-                path.Visualize(new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount]);
+                var path = Path.Calculate(MapData, start.Position, end.Position);
+                var amount1 = amount;
+                path.OnFinish += () => path.Visualize(new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount1]);
                 amount++;
             }
         }

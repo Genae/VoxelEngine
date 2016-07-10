@@ -13,7 +13,7 @@ namespace Assets.Scripts.Logic
 
         void Update ()
         {
-            if (PathToTarget == null || PathToTarget.Length <= 0)
+            if (PathToTarget == null || !PathToTarget.Finished || PathToTarget.Nodes == null)
             {
                 return;
             }
