@@ -44,8 +44,7 @@ namespace Assets.Scripts.Algorithms
 
         public static void Instantiate()
         {
-            var mtObj = Instantiate(new GameObject());
-            mtObj.name = "MainThread";
+            var mtObj = new GameObject {name = "MainThread"};
             _mt = mtObj.AddComponent<MainThread>();
         }
     }

@@ -92,6 +92,11 @@ namespace Assets.Scripts.Control
             //if (!IsDesiredPositionOverBoundaries(dTrans))
                 transform.Translate(dTrans);
         }
+
+        public void RotateTo(int degree)
+        {
+            _desiredYRotation = degree;
+        }
         
         private void RotateCamera()
         {

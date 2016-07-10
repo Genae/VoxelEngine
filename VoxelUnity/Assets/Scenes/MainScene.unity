@@ -471,6 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaterialRegistry: {fileID: 1694001580}
   CameraController: {fileID: 1435053539}
+  IsDoneGenerating: 0
 --- !u!4 &1694001579
 Transform:
   m_ObjectHideFlags: 0

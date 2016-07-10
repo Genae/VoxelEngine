@@ -9,10 +9,15 @@ namespace Assets.Scripts.Logic
         public GameObject CharacterPreset;
         public GameObject BunnyPreset;
         public Map Map;
+        private bool _runOnce;
 
-        void Start()
+        void Update()
         {
-            SpawnCharacter();
+            if (!_runOnce && Map.IsDoneGenerating)
+            {
+                _runOnce = true;
+                SpawnCharacter();
+            }
         }
 
         private void SpawnCharacter()

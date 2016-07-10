@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -8,14 +9,14 @@ namespace Assets.Scripts.Algorithms.MapGeneration
 {
     class HeightmapGenerator
     {
-        public readonly float[,] Values;
-        public readonly float[,] BottomValues;
-        public readonly float[,] CutPattern;
-        public readonly List<Vector2> Border;
+        public float[,] Values;
+        public float[,] BottomValues;
+        public float[,] CutPattern;
+        public List<Vector2> Border;
         public const float DiamondSquareDelta = 0.5f;
         protected internal static Random Rand;
 
-        public HeightmapGenerator(int width, int height, int seed)
+        public IEnumerator CreateHeightMap(int width, int height, int seed)
         {
             Rand = new Random(seed);
             var watch = new Stopwatch();
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Algorithms.MapGeneration
             var valuesDs = (new DiamondSquare(DiamondSquareDelta, width, height)).Generate(Rand);
             watch.Stop();
             Console.WriteLine("" + watch.Elapsed);
+            yield return null;
 
             //Voronoi
             watch.Start();
@@ -31,12 +33,14 @@ namespace Assets.Scripts.Algorithms.MapGeneration
             var valuesV = voronoi.GenerateVoronoi(false);
             watch.Stop();
             Console.WriteLine("" + watch.Elapsed);
+            yield return null;
 
             //Domain Map
             watch.Start();
             var valuesDm = voronoi.GenerateVoronoi(true);
             watch.Stop();
             Console.WriteLine("" + watch.Elapsed);
+            yield return null;
 
             //Combining Them
             watch.Start();
@@ -45,6 +49,7 @@ namespace Assets.Scripts.Algorithms.MapGeneration
             Values = MulArrays(valuesV, valuesDs);
             watch.Stop();
             Console.WriteLine("" + watch.Elapsed);
+            yield return null;
 
             //CutPattern
             watch.Start();
@@ -56,6 +61,7 @@ namespace Assets.Scripts.Algorithms.MapGeneration
             CutPattern = dcp.GenerateCutPattern();
             watch.Stop();
             Console.WriteLine("" + watch.Elapsed);
+            yield return null;
 
 
             //Borders 
@@ -63,6 +69,7 @@ namespace Assets.Scripts.Algorithms.MapGeneration
             Border = GetBorders(CutPattern);
             watch.Stop();
             Console.WriteLine("" + watch.Elapsed);
+            yield return null;
 
 
             //Bottom
@@ -79,7 +86,7 @@ namespace Assets.Scripts.Algorithms.MapGeneration
             }
             watch.Stop();
             Console.WriteLine("" + watch.Elapsed);
-
+            yield return null;
         }
 
         private float[,] GenerateBottomValues(float[,] values, float[,] voronoi)

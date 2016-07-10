@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Data.Multiblock.Trees;
 using UnityEngine;
 using Tree = Assets.Scripts.Data.Multiblock.Trees.Tree;
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Data.Map
             TreeList.Add(tree);
         }
 
-        public void GenerateTrees(int amount, MapData map)
+        public IEnumerator GenerateTrees(int amount, MapData map)
         {
 
             for (int i = 0; i < amount; i++)
@@ -40,6 +41,7 @@ namespace Assets.Scripts.Data.Map
                 if (hit.collider.tag.Equals("Chunk"))
                 {
                     GenerateTree(hit.point);
+                    yield return null;
                 }
             }
         }

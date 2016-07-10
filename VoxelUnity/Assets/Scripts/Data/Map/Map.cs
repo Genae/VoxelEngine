@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 using Assets.Scripts.Algorithms;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Algorithms.Pathfinding;
@@ -14,28 +16,41 @@ namespace Assets.Scripts.Data.Map
         public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
         public AStarNetwork AStarNetwork;
+        public bool IsDoneGenerating;
         
 
         public void Awake()
         {
             MainThread.Instantiate();
-            var hmg = new HeightmapGenerator(129, 129, 1337);
-            MapData = MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100, 100, 1);
+            StartCoroutine("CreateMap");
+        }
+        
+        // ReSharper disable once UnusedMember.Local
+        void Update()
+        {
+            if (!IsDoneGenerating)
+                return;
+            foreach (var chunkData in MapData.Chunks)
+            {
+                chunkData.CheckDirtyVoxels();
+            }
+        }
+
+        // ReSharper disable once UnusedMember.Local
+        IEnumerator CreateMap()
+        {
+            var hmg = new HeightmapGenerator();
+            yield return hmg.CreateHeightMap(129, 129, 1337);
+            MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
+            SetCameraValues();
+            yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
             AStarNetwork = new AStarNetwork(MapData.Chunks.GetLength(0) * Chunk.ChunkSize, MapData.Chunks.GetLength(1) * Chunk.ChunkSize, MapData.Chunks.GetLength(2) * Chunk.ChunkSize);
-            InitializeMap(MapData);
-
-            var mapSize = MapData.Chunks.GetLength(0)*Chunk.ChunkSize;
-            var mapHeight = MapData.Chunks.GetLength(1)*Chunk.ChunkSize;
-            CameraController.RightLimit = mapSize*1.1f;
-            CameraController.TopLimit = mapSize*1.1f;
-            CameraController.CameraMinHeight = mapHeight*0.5f;
-            CameraController.CameraMaxHeight = mapHeight * 1.5f;
-
-            CameraController.gameObject.transform.position = new Vector3(0, mapHeight, 0);
+            yield return null;
+            yield return InitializeMap();
 
             //Trees
             var treeManager = new TreeManager();
-            treeManager.GenerateTrees(10, MapData);
+            yield return treeManager.GenerateTrees(30, MapData);
 
             //Ressources
             var resourceManager = new ResourceManager();
@@ -47,22 +62,44 @@ namespace Assets.Scripts.Data.Map
                 {MaterialRegistry.Gold,3}
             };
             resourceManager.SpawnAllResources(MapData, weights);
-            //Remove all Terrain not of type t
-            /*for (var x = 0; x < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            
+            //RemoveTerrainNotOfType(new[] { MaterialRegistry.Iron, MaterialRegistry.Gold, MaterialRegistry.Copper, MaterialRegistry.Coal });
+            //TestAStar();
+            IsDoneGenerating = true;
+        }
+
+        private void SetCameraValues()
+        {
+            var mapSize = MapData.Chunks.GetLength(0) * Chunk.ChunkSize;
+            var mapHeight = MapData.Chunks.GetLength(1) * Chunk.ChunkSize;
+            CameraController.RightLimit = mapSize * 1.1f;
+            CameraController.TopLimit = mapSize * 1.1f;
+            CameraController.CameraMinHeight = mapHeight * 0.5f;
+            CameraController.CameraMaxHeight = mapHeight * 1.5f;
+
+            CameraController.gameObject.transform.position = new Vector3(0, mapHeight, 0);
+            CameraController.RotateTo(55);
+            CameraController.Eye.gameObject.transform.position = new Vector3(0, CameraController.CameraMaxHeight, 0);
+        }
+
+        private IEnumerator InitializeMap()
+        {
+            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
             {
-                for (var y = 0; y < MapData.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
+                for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
                 {
-                    for (var z = 0; z < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; z++)
+                    for (var y = MapData.Chunks.GetLength(1)-1; y >= 0 ; y--)
                     {
-                        var chunk = MapData.Chunks[x/Chunk.ChunkSize, y/Chunk.ChunkSize, z/Chunk.ChunkSize];
-                        var mat = chunk.GetVoxelType(x%Chunk.ChunkSize, y%Chunk.ChunkSize, z%Chunk.ChunkSize);
-                        if (!new[] {MaterialRegistry.Iron, MaterialRegistry.Gold, MaterialRegistry.Copper, MaterialRegistry.Coal}.Contains(mat))
-                            chunk.SetVoxelType(x%Chunk.ChunkSize, y%Chunk.ChunkSize, z%Chunk.ChunkSize,MaterialRegistry.Air);
+                        Chunk.CreateChunk(x, y, z, this);
+                        yield return null;
                     }
                 }
-            }*/
+            }
+        }
 
-            //test ASTar
+        #region Tests
+        private void TestAStar()
+        {
             foreach (var chunk in gameObject.GetComponentsInChildren<Chunk>())
             {
                 chunk.Update();
@@ -78,7 +115,7 @@ namespace Assets.Scripts.Data.Map
                         //MapData.Chunks[x, y, z].LocalAStar.Visualize();
                         if (MapData.Chunks[x, y, z].LocalAStar.Nodes.Count > 0)
                         {
-                            
+
                         }
                     }
                 }
@@ -89,34 +126,28 @@ namespace Assets.Scripts.Data.Map
                 var start = allNodes[Random.Range(0, allNodes.Count)];
                 var end = allNodes[Random.Range(0, allNodes.Count)];
                 var path = Path.Calculate(MapData, start.Position, end.Position);
-                var amount1 = amount;
-                path.OnFinish += () => path.Visualize(new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount1]);
+                var color = new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount];
+                path.OnFinish += () => path.Visualize(color);
                 amount++;
             }
         }
-        
-        public void InitializeMap(MapData data)
+        private void RemoveTerrainNotOfType(VoxelMaterial[] types)
         {
-            MapData = data;
-
-            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
+            for (var x = 0; x < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
             {
-                for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
+                for (var y = 0; y < MapData.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
                 {
-                    for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
+                    for (var z = 0; z < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; z++)
                     {
-                        Chunk.CreateChunk(x, y, z, this);
+                        var chunk = MapData.Chunks[x / Chunk.ChunkSize, y / Chunk.ChunkSize, z / Chunk.ChunkSize];
+                        var mat = chunk.GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
+                        if (!types.Contains(mat))
+                            chunk.SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, MaterialRegistry.Air);
                     }
                 }
             }
         }
+        #endregion
 
-        void Update()
-        {
-            foreach (var chunkData in MapData.Chunks)
-            {
-                chunkData.CheckDirtyVoxels();
-            }
-        }
     }
 }

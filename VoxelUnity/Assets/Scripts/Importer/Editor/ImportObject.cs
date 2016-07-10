@@ -26,23 +26,20 @@ public class ImportObject : EditorWindow {
             if(line.StartsWith("v "))
             {
                 var split = line.Split(' ');
-                var vertice = new Vector3((float)Convert.ToDouble(split[1])+0.1f, (float)Convert.ToDouble(split[2]) + 0.1f, (float)Convert.ToDouble(split[3]) + 0.1f);
+                var vertice = new Vector3((float)Convert.ToDouble(split[1]), (float)Convert.ToDouble(split[2]), (float)Convert.ToDouble(split[3]));
                 vertices.Add(vertice);
-                Debug.Log(vertice);
             }
             if (line.StartsWith("vt "))
             {
                 var split = line.Split(' ');
                 var texCoord = new Vector2((float)Convert.ToDouble(split[1]), (float)Convert.ToDouble(split[2]));
                 texCoords.Add(texCoord);
-                Debug.Log(texCoord);
             }
             if (line.StartsWith("vn "))
             {
                 var split = line.Split(' ');
                 var normal = new Vector3((int)Convert.ToDouble(split[1]), (int)Convert.ToDouble(split[2]), (int)Convert.ToDouble(split[3]));
                 normals.Add(normal);
-                Debug.Log(normal);
             }
             if (line.StartsWith("f "))
             {
@@ -55,7 +52,6 @@ public class ImportObject : EditorWindow {
                 
 
                 faces.Add(face);
-                Debug.Log(face);
             }
         }
         CreateEntity(faces);
@@ -114,15 +110,15 @@ public class Face
 
         if(length1 == sideC)
         {
-            return Vert1 + (Vert2 - Vert1) / 2 + Norm * (voxSize / 2);
+            return Vert1 + (Vert2 - Vert1) / 2 + Norm * (voxSize / -2);
         }
         else if (length2 == sideC)
         {
-            return Vert1 + (Vert3 - Vert1) / 2 + Norm * (voxSize / 2);
+            return Vert1 + (Vert3 - Vert1) / 2 + Norm * (voxSize / -2);
         }
         else
         {
-            return Vert2 + (Vert3 - Vert2) / 2 + Norm * (voxSize / 2);
+            return Vert2 + (Vert3 - Vert2) / 2 + Norm * (voxSize / -2);
         }
     }
 

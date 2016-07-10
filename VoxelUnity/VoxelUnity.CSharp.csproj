@@ -89,12 +89,13 @@
     <Compile Include="Assets\Scripts\Algorithms\Pathfinding\NodeBuilder.cs" />
     <Compile Include="Assets\Scripts\Algorithms\Pathfinding\Path.cs" />
     <Compile Include="Assets\Scripts\Algorithms\Pathfinding\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\Algorithms\Promise.cs" />
     <Compile Include="Assets\Scripts\Control\CameraController.cs" />
     <Compile Include="Assets\Scripts\Control\PlayerUtility.cs" />
     <Compile Include="Assets\Scripts\Data\Map\AStarNetwork.cs" />
-    <Compile Include="Assets\Scripts\Data\Map\LocalAStarNetwork.cs" />
     <Compile Include="Assets\Scripts\Data\Map\Chunk.cs" />
     <Compile Include="Assets\Scripts\Data\Map\ChunkData.cs" />
+    <Compile Include="Assets\Scripts\Data\Map\LocalAStarNetwork.cs" />
     <Compile Include="Assets\Scripts\Data\Map\Map.cs" />
     <Compile Include="Assets\Scripts\Data\Map\MapData.cs" />
     <Compile Include="Assets\Scripts\Data\Map\ResourceManager.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Birch.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Oak.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
+    <Compile Include="Assets\Scripts\Data\VoxelEntity\VoxelEntity.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Logic\WalkingController.cs" />
   </ItemGroup>

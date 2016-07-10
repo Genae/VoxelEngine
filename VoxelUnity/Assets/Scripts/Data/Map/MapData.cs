@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Assets.Scripts.Data.Material;
 
 namespace Assets.Scripts.Data.Map
@@ -7,57 +8,58 @@ namespace Assets.Scripts.Data.Map
     {
         public ChunkData[,,] Chunks { get; private set; }
         public int Size, Height;
+        public float Scale;
         
-        protected MapData(int size, int height)
+        public MapData(int size, int height, float scaleMultiplier)
         {
-            Chunks = new ChunkData[size, height, size];
+            Chunks = new ChunkData[(int)(size * scaleMultiplier), (int)(height * scaleMultiplier), (int)(size * scaleMultiplier)];
             Size = Chunks.GetLength(0);
             Height = Chunks.GetLength(1);
+            Scale = scaleMultiplier;
         }
 
-        public static MapData LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, int height, float heightmapHeight, int scaleMultiplier)
+        public IEnumerator LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, float heightmapHeight)
         {
             var v = 0;
-            var size = heightmap.GetLength(0)*scaleMultiplier;
-            height *= scaleMultiplier;
-            var map = new MapData(size / Chunk.ChunkSize, height / Chunk.ChunkSize);
-            for (var x = 0; x < size / Chunk.ChunkSize; x++)
+            for (var x = 0; x < Chunks.GetLength(0); x++)
             {
-                for (var y = 0; y < height / Chunk.ChunkSize; y++)
+                for (var y = 0; y < Chunks.GetLength(1); y++)
                 {
-                    for (var z = 0; z < size / Chunk.ChunkSize; z++)
+                    for (var z = 0; z < Chunks.GetLength(2); z++)
                     {
-                        map.Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z)*Chunk.ChunkSize);
+                        Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z)*Chunk.ChunkSize);
                     }
                 }
+                yield return null;
             }
-            for (var x = 0; x < map.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
+            for (var x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
             {
-                for (var z = 0; z < map.Chunks.GetLength(2) * Chunk.ChunkSize; z++)
+                for (var z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
                 {
-                    var bot = (short)((bottom[x/scaleMultiplier, z/scaleMultiplier] + 2) / 3 * heightmapHeight);
-                    var lheight = (heightmap[x/scaleMultiplier, z/scaleMultiplier] + 2) / 3 * heightmapHeight;
-                    for (var y = 0; y < map.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
+                    var bot = (short)((bottom[(int)(x /Scale), (int)(z /Scale)] + 2) / 3 * heightmapHeight);
+                    var lheight = (heightmap[(int)(x /Scale), (int)(z /Scale)] + 2) / 3 * heightmapHeight;
+                    for (var y = 0; y < Chunks.GetLength(1) * Chunk.ChunkSize; y++)
                     {
-                        var isActive = y < (int) lheight && y > bot && cut[x/scaleMultiplier, z/scaleMultiplier] > 0.5f;
+                        var isActive = y < (int) lheight && y > bot && cut[(int)(x /Scale), (int)(z /Scale)] > 0.5f;
                         if (!isActive)
                             continue;
                         var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : (isActive ? MaterialRegistry.Stone : MaterialRegistry.Air));
-                        map.SetVoxel(x, y, z, true, blockType);
+                        SetVoxel(x, y, z, true, blockType);
                     }
                 }
+                yield return null;
             }
-            for (var x = 0; x < map.Chunks.GetLength(0); x++)
+            for (var x = 0; x < Chunks.GetLength(0); x++)
             {
-                for (var y = 0; y < map.Chunks.GetLength(1); y++)
+                for (var y = 0; y < Chunks.GetLength(1); y++)
                 {
-                    for (var z = 0; z < map.Chunks.GetLength(2); z++)
+                    for (var z = 0; z < Chunks.GetLength(2); z++)
                     {
-                        map.SetIntoNeighbourContext(x, y, z);
+                        SetIntoNeighbourContext(x, y, z);
                     }
                 }
+                yield return null;
             }
-            return map;
         }
         
         public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material, Multiblock.Multiblock mb = null)
