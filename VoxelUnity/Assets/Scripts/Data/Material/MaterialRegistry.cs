@@ -15,6 +15,12 @@ namespace Assets.Scripts.Data.Material
         {
             get { return Materials[(int)MaterialTyp.Entity]; }
         }
+
+        public UnityEngine.Material HighlightMaterial
+        {
+            get { return Materials[(int)MaterialTyp.Highlight]; }
+        }
+
         public static int AtlasSize = 16;
         
         public static VoxelMaterial MaterialFromId(int typeId)

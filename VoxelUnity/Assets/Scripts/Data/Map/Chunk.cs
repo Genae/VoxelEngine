@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Algorithms;
+using Assets.Scripts.Data.Material;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Data.Map
         {
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
+            chunkC.CanBeHighlighted = false;
             chunkC.InitializeContainer(new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize), map.MapData.Chunks[x, y, z], map.MaterialRegistry.Materials);
             chunkC.tag = "Chunk";
             chunk.transform.parent = map.transform;
@@ -34,6 +36,45 @@ namespace Assets.Scripts.Data.Map
         private UnityEngine.Material[] _materials;
         protected bool MeshNeedsUpdate;
         public ContainerData ContainerData;
+        public bool CanBeHighlighted = true;
+        private Color? _highlightColor;
+        public Color? HighlightColor
+        {
+            get { return _highlightColor; }
+            set
+            {
+                if (value != _highlightColor)
+                {
+                    SetHighlightMaterial(value);
+                }
+            }
+        }
+
+        private void SetHighlightMaterial(Color? value)
+        {
+            if (!CanBeHighlighted)
+                return;
+            var matReg = GameObject.Find("Map").GetComponent<MaterialRegistry>();
+            if (value != null && !gameObject.GetComponent<MeshRenderer>().sharedMaterials.Any(m => m.shader.name.Equals(matReg.HighlightMaterial.shader.name)))
+            {
+                var mats = gameObject.GetComponent<MeshRenderer>().sharedMaterials.ToList();
+                mats.Add(Instantiate(matReg.HighlightMaterial));
+                gameObject.GetComponent<MeshRenderer>().sharedMaterials = mats.ToArray();
+            }
+            if (value == null)
+            {
+                var mats = gameObject.GetComponent<MeshRenderer>().sharedMaterials.ToList();
+                gameObject.GetComponent<MeshRenderer>().sharedMaterials =
+                    mats.Where(m => !m.shader.name.Equals(matReg.HighlightMaterial.shader.name)).ToArray();
+            }
+            else
+            {
+                var mats = gameObject.GetComponent<MeshRenderer>().sharedMaterials.ToList();
+                mats.First(m => m.shader.name.Equals(matReg.HighlightMaterial.shader.name)).color = value.Value;
+                gameObject.GetComponent<MeshRenderer>().sharedMaterials = mats.ToArray();
+            }
+            _highlightColor = value;
+        }
 
         public static VoxelContainer CreateContainer<T>(Vector3 pos, ContainerData data, UnityEngine.Material[] materials, string name = null) where T : VoxelContainer
         {
@@ -51,6 +92,16 @@ namespace Assets.Scripts.Data.Map
                 UpdateMesh();
                 MeshNeedsUpdate = false;
             }
+        }
+
+        public void OnMouseOver()
+        {
+            HighlightColor = Color.white;
+        }
+
+        public void OnMouseExit()
+        {
+            HighlightColor = null;
         }
 
         public void OnContainerUpdated()
@@ -101,6 +152,7 @@ namespace Assets.Scripts.Data.Map
             GetComponent<MeshFilter>().sharedMesh = Mesh;
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
             mCollider.sharedMesh = Mesh;
+            SetHighlightMaterial(_highlightColor);
             return upVoxels;
         }
     }

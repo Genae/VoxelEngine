@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 427384, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -1.8149999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 433498, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -500,6 +500,8 @@ MonoBehaviour:
   Materials:
   - {fileID: 2100000, guid: 834d7fd2c0ab58f4f91798feeeacc86c, type: 2}
   - {fileID: 2100000, guid: c836bbdcfae613f468fe18c760987b1a, type: 2}
+  - {fileID: 2100000, guid: c836bbdcfae613f468fe18c760987b1a, type: 2}
+  - {fileID: 2100000, guid: a72d214e0313a52448ac81ca9c7fe5fa, type: 2}
 --- !u!1 &1747315386
 GameObject:
   m_ObjectHideFlags: 0

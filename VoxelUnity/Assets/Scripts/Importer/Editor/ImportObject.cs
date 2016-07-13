@@ -3,11 +3,11 @@ using System;
 using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Data.VoxelEntity;
 
-public class ImportObject : EditorWindow {
-
+public class ImportObject : EditorWindow
+{
+    public const float Scale = 1f;
     [MenuItem("Importer/loadFile")]
     static void LoadFile()
     {
@@ -48,7 +48,7 @@ public class ImportObject : EditorWindow {
                 var vert2 = split[2].Split('/');
                 var vert3 = split[3].Split('/');
                 var color = GetColor(Convert.ToInt32(vert1[1]), texCoords);
-                var face = new Face(color, vertices[Convert.ToInt32(vert1[0])-1], vertices[Convert.ToInt32(vert2[0]) - 1], vertices[Convert.ToInt32(vert3[0]) - 1], vertices[Convert.ToInt32(vert1[2]) - 1]);
+                var face = new Face(color, vertices[Convert.ToInt32(vert1[0])-1], vertices[Convert.ToInt32(vert2[0]) - 1], vertices[Convert.ToInt32(vert3[0]) - 1], normals[Convert.ToInt32(vert1[2]) - 1]);
                 
 
                 faces.Add(face);
@@ -68,11 +68,13 @@ public class ImportObject : EditorWindow {
                 voxels[face.Color] = new List<Vector3>();
             }
             var pos = face.GetVoxelCenter();
-            if (!voxels[face.Color].Contains(pos))
+            foreach (var vector3 in pos)
             {
-                voxels[face.Color].Add(pos);
+                if (!voxels[face.Color].Contains(vector3))
+                {
+                    voxels[face.Color].Add(vector3);
+                }
             }
-
         }
         VoxelEntity.InstantiateVoxels(Vector3.zero, voxels);
     }
@@ -100,26 +102,46 @@ public class Face
         Norm = norm;
     }
 
-    public Vector3 GetVoxelCenter()
+    public List<Vector3> GetVoxelCenter()
     {
-        var length1 = (Vert1 - Vert2).magnitude;
-        var length2 = (Vert1 - Vert3).magnitude;
-        var length3 = (Vert2 - Vert3).magnitude;
-        var voxSize = Mathf.Min(length1, length2, length3);
-        var sideC = Mathf.Max(length1, length2, length3);
+        var vectors = new List<Vector3>();
+        var minX = Mathf.Min(Vert1.x, Vert2.x, Vert3.x);
+        var minY = Mathf.Min(Vert1.y, Vert2.y, Vert3.y);
+        var minZ = Mathf.Min(Vert1.z, Vert2.z, Vert3.z);
+        var maxX = Mathf.Max(Vert1.x, Vert2.x, Vert3.x);
+        var maxY = Mathf.Max(Vert1.y, Vert2.y, Vert3.y);
+        var maxZ = Mathf.Max(Vert1.z, Vert2.z, Vert3.z);
 
-        if(length1 == sideC)
+        if (Math.Abs(minX - maxX) < 0.1f*ImportObject.Scale)
         {
-            return Vert1 + (Vert2 - Vert1) / 2 + Norm * (voxSize / -2);
+            for (var z = minZ; z < maxZ; z++)
+            {
+                for (var y = minY; y < maxY; y++)
+                {
+                    vectors.Add(new Vector3(minX + Norm.x * ImportObject.Scale + ImportObject.Scale / -2f, y + ImportObject.Scale / 2f, z + ImportObject.Scale / 2f));
+                }
+            }
         }
-        else if (length2 == sideC)
+        else if (Math.Abs(minY - maxY) < 0.1f * ImportObject.Scale)
         {
-            return Vert1 + (Vert3 - Vert1) / 2 + Norm * (voxSize / -2);
+            for (var x = minX; x < maxX; x++)
+            {
+                for (var z = minZ; z < maxZ; z++)
+                {
+                    vectors.Add(new Vector3(x + ImportObject.Scale / 2f, minY + Norm.y * ImportObject.Scale + ImportObject.Scale / 2f, z + ImportObject.Scale / 2f));
+                }
+            }
         }
         else
         {
-            return Vert2 + (Vert3 - Vert2) / 2 + Norm * (voxSize / -2);
+            for (var x = minX; x < maxX; x++)
+            {
+                for (var y = minY; y < maxY; y++)
+                {
+                    vectors.Add(new Vector3(x + ImportObject.Scale / 2f, y + ImportObject.Scale / 2f, minZ + Norm.z * ImportObject.Scale + ImportObject.Scale / -2f));
+                }
+            }
         }
+        return vectors;
     }
-
 }

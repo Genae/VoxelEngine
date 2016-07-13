@@ -45,6 +45,7 @@ namespace Assets.Scripts.Data.Material
     {
         Default = 0,
         Metallic = 1,
-        Entity = 2
+        Entity = 2,
+        Highlight = 3
     }
 }
