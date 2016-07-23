@@ -107,6 +107,7 @@
     <Compile Include="Assets\Scripts\Data\VoxelEntity\VoxelEntity.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Logic\MouseController.cs" />
+    <Compile Include="Assets\Scripts\Logic\Tools\AddBlocksTool.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\DeleteTool.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\Tool.cs" />
