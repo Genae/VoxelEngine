@@ -153,6 +153,8 @@ namespace Assets.Scripts.Data.Map
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
             mCollider.sharedMesh = Mesh;
             SetHighlightMaterial(_highlightColor);
+            gameObject.GetComponent<MeshCollider>().enabled = vertices.Length != 0;
+            gameObject.GetComponent<MeshRenderer>().enabled = vertices.Length != 0;
             return upVoxels;
         }
     }

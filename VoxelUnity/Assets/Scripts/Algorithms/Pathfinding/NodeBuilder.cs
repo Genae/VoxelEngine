@@ -10,7 +10,6 @@ namespace Assets.Scripts.Algorithms.Pathfinding
         {
             var map = GameObject.Find("Map").GetComponent<Map>();
             var nodes = CreateNodePositions(data, upVoxels, map.MapData);
-            if(nodes.Count > 0) Debug.Log(nodes.Count + " Nodes at chunk " + data.Position / Chunk.ChunkSize);
             return nodes;
         }
 
@@ -22,7 +21,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 var x = (int)upVoxel.x + (int)data.Position.x;
                 var y = (int)upVoxel.y + (int)data.Position.y;
                 var z = (int)upVoxel.z + (int)data.Position.z;
-                if (CheckPosition(map, x, y, z))
+                if (CheckPosition(map, x, y, z, 1, 2, 1))
                 {
                     nodes.Add(new Node(x, y, z));
                 }
@@ -31,15 +30,15 @@ namespace Assets.Scripts.Algorithms.Pathfinding
         }
         
 
-        private static bool CheckPosition(MapData map, int x, int y, int z)
+        private static bool CheckPosition(MapData map, int x, int y, int z, int width, int height, int depth)
         {
             if (IsWorldPosBlocked(map,  x, y-1, z))
             {
-                for (var dX = -1; dX <= 1; dX++)
+                for (var dX = -width/2; dX <= width/2; dX++)
                 {
-                    for (var dY = 0; dY <= 4; dY++)
+                    for (var dY = 0; dY <= height; dY++)
                     {
-                        for (var dZ = -1; dZ <= 1; dZ++)
+                        for (var dZ = -depth/2; dZ <= depth/2; dZ++)
                         {
                             if (Mathf.Abs(dX) > dY || Mathf.Abs(dZ) > dY)
                                 continue;

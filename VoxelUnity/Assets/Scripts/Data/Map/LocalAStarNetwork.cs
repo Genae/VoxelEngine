@@ -15,8 +15,6 @@ namespace Assets.Scripts.Data.Map
             var oldNodes = Nodes;
             var newNodes = NodeBuilder.BuildAStarNetwork(chunk, upVoxels);
             Nodes = map.AStarNetwork.UpdateChunkNodes(oldNodes, newNodes);
-            if (Nodes.Count > 0) Debug.Log("Finish Updating Chunk " + chunk.Position);
-            if (Nodes.Count > 0) Debug.Log("+++++++++++++++++++++++++++");
         }
 
         public void Visualize()

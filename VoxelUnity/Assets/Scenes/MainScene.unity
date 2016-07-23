@@ -207,6 +207,77 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &285151983
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 285151984}
+  - 114: {fileID: 285151985}
+  m_Layer: 0
+  m_Name: MouseoverTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &285151984
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 285151983}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 397517632}
+  m_RootOrder: 1
+--- !u!114 &285151985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 285151983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f092274fae120f47a9267afdde77177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewMaterial: {fileID: 2100000, guid: 2faeaf20730a6064cb9c992ddba40f30, type: 2}
+--- !u!1 &397517631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 397517632}
+  m_Layer: 0
+  m_Name: Tools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &397517632
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 397517631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1122046624}
+  - {fileID: 285151984}
+  m_Father: {fileID: 1747315387}
+  m_RootOrder: 3
 --- !u!1 &708627396
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +368,47 @@ Transform:
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1435053538}
+  m_RootOrder: 0
+--- !u!1 &1122046622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1122046624}
+  - 114: {fileID: 1122046623}
+  m_Layer: 0
+  m_Name: DeleteTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1122046623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1122046622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123ee573471a7c747a6c5555be56c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewMaterial: {fileID: 2100000, guid: 2faeaf20730a6064cb9c992ddba40f30, type: 2}
+--- !u!4 &1122046624
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1122046622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 397517632}
   m_RootOrder: 0
 --- !u!1 &1385738580
 GameObject:
@@ -511,6 +623,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1747315387}
   - 114: {fileID: 1747315388}
+  - 114: {fileID: 1747315389}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -532,6 +645,7 @@ Transform:
   - {fileID: 1435053538}
   - {fileID: 1694001579}
   - {fileID: 1840244810}
+  - {fileID: 397517632}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!114 &1747315388
@@ -548,6 +662,19 @@ MonoBehaviour:
   CharacterPreset: {fileID: 181862, guid: aa16458caf0f2b54ea653f7c0ae0b83e, type: 2}
   BunnyPreset: {fileID: 130348, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
   Map: {fileID: 1694001577}
+--- !u!114 &1747315389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1747315386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5009b76f068e40644809e1a9e61a102c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tools:
+  - {fileID: 1122046623}
 --- !u!1 &1840244808
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +710,7 @@ Light:
     m_Resolution: -1
     m_Strength: 1
     m_Bias: 0.05
-    m_NormalBias: 0.4
+    m_NormalBias: 0
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0

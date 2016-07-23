@@ -65,18 +65,15 @@ namespace Assets.Scripts.Data.Map
 
         public List<Node> UpdateChunkNodes(List<Node> oldNodes, List<Node> newNodes)
         {
-            if(newNodes.Count > 0) Debug.Log("Updating Chunk. Node Count (" + newNodes.Count + "/" + oldNodes.Count +")");
-            foreach (var node in oldNodes.Where(o => !newNodes.Contains(o)).ToList())
+            foreach (var node in oldNodes)
             {
                 RemoveNode(node);
-                oldNodes.Remove(node);
             }
-            foreach (var node in newNodes.Where(n => !oldNodes.Contains(n)))
+            foreach (var node in newNodes)
             {
                 AddNode(node);
-                oldNodes.Add(node);
             }
-            return oldNodes;
+            return newNodes;
         }
     }
 }

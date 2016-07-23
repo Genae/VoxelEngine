@@ -9,66 +9,14 @@ namespace Assets.Scripts.Control
 {
     public class PlayerUtility : MonoBehaviour
     {
-
-        private Camera _mainCamera;
-        private MapData _mapData;
-        private Chunk _clickedChunk;
-        private Ray ray;
-        private int _mouseScrollDelta;
-        //hardcoded mapheight since I dont know where it is set
-        private int _maxMapHeight;
-
-        private List<Vector3> _voxelPosList = new List<Vector3>();
-
-        void Start()
-        {
-            _mainCamera = transform.gameObject.GetComponentInChildren<Camera>();
-        }
-
-        void Update()
+       /* void Update()
         {
             RemoveVoxels();
             
             //Debug.DrawRay(ray.origin, ray.direction * 10000, Color.yellow);
         }
 
-        private void RemoveVoxels()
-        {
-            _mouseScrollDelta += (int)Input.mouseScrollDelta.y;
-            if (Input.GetMouseButtonDown(0))
-            {
-                _mouseScrollDelta = 0;
-                var hit = GetRaycastHitOnMousePosition();
-                if (hit.collider != null)
-                {
-                    _clickedChunk = hit.transform.gameObject.GetComponent<Chunk>();
-                    if (hit.transform.gameObject.tag == "Chunk")
-                    {
-                        _voxelPosList.Add(GetVoxelOnHit(hit));
-                    }
-                }
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                var hit = GetRaycastHitOnMousePosition();
-                if (hit.collider != null)
-                {
-                    _clickedChunk = hit.transform.gameObject.GetComponent<Chunk>();
-                    if (hit.transform.gameObject.tag == "Chunk")
-                    {
-                        _voxelPosList.Add(GetVoxelOnHit(hit));
-
-                        GetVoxelsInbetween();
-
-                        foreach (Vector3 voxPos in _voxelPosList)
-                        {
-                            ClearVoxelAtPosition(voxPos);
-                        }
-                        _voxelPosList.Clear();
-                    }
-                }
-            }
-        }
+        
 
         private void GetVoxelsInbetween()
         {
@@ -204,85 +152,11 @@ namespace Assets.Scripts.Control
             }
         }
 
-        private void ClearVoxelAtPosition(Vector3 pos)
-        {
-            if(_mapData == null)
-            {
-                //will not work in Start() since Map is not active at the start 
-                _mapData = GameObject.Find("Map").GetComponent<Map>().MapData;
-                _maxMapHeight = _mapData.Chunks.GetLength(0) * Chunk.ChunkSize;
-            }
-            //for performance reasons this could be used to replace the meshcolliders TODO?
-            var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
-            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.Air);
-        }
-
-        private RaycastHit GetRaycastHitOnMousePosition()
-        {
-            RaycastHit hit;
-            ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hit, float.PositiveInfinity);
-            return hit;
-        }
 
         //only use if hit already contains raycast information
-        private Vector3 GetVoxelOnHit(RaycastHit hit)
-        {
-            Vector3 vec1;
-            Vector3 vec2;
-            switch (GetAxis(hit.point.x, hit.point.y, hit.point.z))
-            {
-                case "x":
-                    vec1 = new Vector3((int)hit.point.x, (int)(hit.point.y + 0.5f), (int)(hit.point.z + 0.5f));
-                    vec2 = new Vector3(vec1.x + 1, vec1.y, vec1.z);
-                    break;
-                case "y":
-                    vec1 = new Vector3((int)(hit.point.x + 0.5f), (int)hit.point.y, (int)(hit.point.z + 0.5f));
-                    vec2 = new Vector3(vec1.x, vec1.y + 1, vec1.z);
-                    break;
-                case "z":
-                    vec1 = new Vector3((int)(hit.point.x + 0.5f), (int)(hit.point.y + 0.5f), (int)hit.point.z);
-                    vec2 = new Vector3(vec1.x, vec1.y, vec1.z + 1);
-                    break;
-                default:
-                    Debug.Log("GetVoxelOnHit() error");
-                    return new Vector3(0,0,0);
-            }
-            var vox1 = _clickedChunk.ContainerData.GetVoxelActive((int)vec1.x % Chunk.ChunkSize, (int)vec1.y % Chunk.ChunkSize, (int)vec1.z % Chunk.ChunkSize);
+        */
 
-            if (IsInChunk(vec1, _clickedChunk.transform.position) && vox1)
-            {
-                return vec1;
-            }
-            else
-            {
-                return vec2;
-            }
-        }
-
-        private bool IsInChunk(Vector3 vec, Vector3 position)
-        {
-            return ((int) vec.x/Chunk.ChunkSize)*Chunk.ChunkSize == (int) position.x &&
-                   ((int) vec.y/Chunk.ChunkSize)*Chunk.ChunkSize == (int) position.y &&
-                   ((int) vec.z/Chunk.ChunkSize)*Chunk.ChunkSize == (int) position.z;
-        }
-
-        private string GetAxis(float x, float y, float z)
-        {
-            if(Math.Abs((int)x - x + 0.5f) < 0.001f)
-            {
-                return "x";
-            }
-            if (Math.Abs((int)y - y + 0.5f) < 0.001f)
-            {
-                return "y";
-            }
-            if (Math.Abs((int)z - z +  0.5f) < 0.001f)
-            {
-                return "z";
-            }
-            return "";
-        }
+        
     }
 }
 

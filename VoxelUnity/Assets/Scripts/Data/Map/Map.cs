@@ -50,7 +50,7 @@ namespace Assets.Scripts.Data.Map
 
             //Trees
             var treeManager = new TreeManager();
-            yield return treeManager.GenerateTrees(30, MapData);
+            yield return treeManager.GenerateTrees((int)(MapData.Chunks.GetLength(0)* MapData.Chunks.GetLength(0) * 0.3f), MapData);
 
             //Ressources
             var resourceManager = new ResourceManager();
