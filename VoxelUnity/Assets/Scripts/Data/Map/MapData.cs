@@ -20,7 +20,6 @@ namespace Assets.Scripts.Data.Map
 
         public IEnumerator LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, float heightmapHeight)
         {
-            var v = 0;
             for (var x = 0; x < Chunks.GetLength(0); x++)
             {
                 for (var y = 0; y < Chunks.GetLength(1); y++)
@@ -43,7 +42,7 @@ namespace Assets.Scripts.Data.Map
                         var isActive = y < (int) lheight && y > bot && cut[(int)(x /Scale), (int)(z /Scale)] > 0.5f;
                         if (!isActive)
                             continue;
-                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : (isActive ? MaterialRegistry.Stone : MaterialRegistry.Air));
+                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Grass : (y >= (int) lheight - 4 ? MaterialRegistry.Dirt : MaterialRegistry.Stone);
                         SetVoxel(x, y, z, true, blockType);
                     }
                 }

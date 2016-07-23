@@ -151,6 +151,7 @@ namespace Assets.Scripts.Data.Map
             gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
             GetComponent<MeshFilter>().sharedMesh = Mesh;
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
+            mCollider.sharedMesh = null;
             mCollider.sharedMesh = Mesh;
             SetHighlightMaterial(_highlightColor);
             gameObject.GetComponent<MeshCollider>().enabled = vertices.Length != 0;

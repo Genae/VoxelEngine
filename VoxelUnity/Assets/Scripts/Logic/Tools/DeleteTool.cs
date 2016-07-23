@@ -11,35 +11,15 @@ namespace Assets.Scripts.Logic.Tools
         private Vector3 _startPos;
         private GameObject _plane;
         private GameObject _previewBox;
-
-        private Vector3 _lastCur;
-
         public Material PreviewMaterial;
         private int _ySize;
         private bool _yAxisPressed;
 
-
-        // Update is called once per frame
+        
+        // ReSharper disable once UnusedMember.Local
         void Update () {
-            if (!_yAxisPressed)
-            {
-                if (Input.GetAxis("EnlargeSelectionY") < 0)
-                {
-                    _ySize -= 1;
-                    _yAxisPressed = true;
-                }
-                else if (Input.GetAxis("EnlargeSelectionY") > 0)
-                {
-                    _ySize += 1;
-                    _yAxisPressed = true;
 
-                }
-            }
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (_yAxisPressed && Input.GetAxis("EnlargeSelectionY") == 0)
-            {
-                _yAxisPressed = false;
-            }
+            CheckYAxis();
 
             var hit = GetRaycastHitOnMousePosition();
             if (hit.Length == 0)
@@ -65,8 +45,7 @@ namespace Assets.Scripts.Logic.Tools
                 {
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
                     var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
-                    _lastCur = curPos;
-                    DrawPreview(_startPos, curPos);
+                    _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, _previewBox);
                     if (Input.GetMouseButtonUp(0))
                     {
                         var voxels = GetVoxelsInbetween(_startPos, curPos);
@@ -77,6 +56,28 @@ namespace Assets.Scripts.Logic.Tools
                         }
                     }
                 }
+            }
+        }
+
+        private void CheckYAxis()
+        {
+            if (!_yAxisPressed)
+            {
+                if (Input.GetAxis("EnlargeSelectionY") < 0)
+                {
+                    _ySize -= 1;
+                    _yAxisPressed = true;
+                }
+                else if (Input.GetAxis("EnlargeSelectionY") > 0)
+                {
+                    _ySize += 1;
+                    _yAxisPressed = true;
+                }
+            }
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
+            if (_yAxisPressed && Input.GetAxis("EnlargeSelectionY") == 0)
+            {
+                _yAxisPressed = false;
             }
         }
 
@@ -92,18 +93,6 @@ namespace Assets.Scripts.Logic.Tools
                 DestroyImmediate(_previewBox);
                 _previewBox = null;
             }
-        }
-
-        private void DrawPreview(Vector3 startPos, Vector3 curPos)
-        {
-            if (_previewBox == null)
-            {
-                _previewBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                _previewBox.GetComponent<MeshRenderer>().material = PreviewMaterial;
-            }
-            _previewBox.transform.position = (curPos - startPos) / 2 + startPos;
-            _previewBox.transform.position = new Vector3(((curPos - startPos) / 2 + startPos).x, ((curPos - startPos) / 2 + startPos).y, ((curPos - startPos) / 2 + startPos).z);
-            _previewBox.transform.localScale = new Vector3(Mathf.Abs(startPos.x - curPos.x) + 1.1f, Mathf.Abs(_ySize) + 1.1f, Mathf.Abs(startPos.z - curPos.z) + 1.1f);
         }
 
         private void CreatePlane()

@@ -89,7 +89,6 @@
     <Compile Include="Assets\Scripts\Algorithms\Pathfinding\PriorityQueue.cs" />
     <Compile Include="Assets\Scripts\Algorithms\Promise.cs" />
     <Compile Include="Assets\Scripts\Control\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Control\PlayerUtility.cs" />
     <Compile Include="Assets\Scripts\Data\Map\AStarNetwork.cs" />
     <Compile Include="Assets\Scripts\Data\Map\Chunk.cs" />
     <Compile Include="Assets\Scripts\Data\Map\ChunkData.cs" />

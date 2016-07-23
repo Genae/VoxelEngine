@@ -102,6 +102,19 @@ namespace Assets.Scripts.Logic.Tools
                 }
             }
             return inbetween;
-        } 
+        }
+
+        protected GameObject DrawPreview(Vector3 startPos, Vector3 curPos, Material mat, GameObject previewBox = null)
+        {
+            if (previewBox == null)
+            {
+                previewBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                previewBox.GetComponent<MeshRenderer>().material = mat;
+            }
+            previewBox.transform.position = (curPos - startPos) / 2 + startPos;
+            previewBox.transform.position = new Vector3(((curPos - startPos) / 2 + startPos).x, ((curPos - startPos) / 2 + startPos).y, ((curPos - startPos) / 2 + startPos).z);
+            previewBox.transform.localScale = new Vector3(Mathf.Abs(startPos.x - curPos.x) + 1.1f, Mathf.Abs(startPos.y - curPos.y) + 1.1f, Mathf.Abs(startPos.z - curPos.z) + 1.1f);
+            return previewBox;
+        }
     }
 }
