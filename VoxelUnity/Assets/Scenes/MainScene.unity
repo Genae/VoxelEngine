@@ -380,6 +380,7 @@ Transform:
   m_Children:
   - {fileID: 1122046624}
   - {fileID: 285151984}
+  - {fileID: 824220329}
   m_Father: {fileID: 1747315387}
   m_RootOrder: 3
 --- !u!1 &588906631
@@ -414,9 +415,9 @@ RectTransform:
   - {fileID: 1844567752}
   m_Father: {fileID: 1976372078}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -563.5, y: -869.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 83, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588906633
@@ -595,6 +596,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1435053538}
   m_RootOrder: 0
+--- !u!1 &824220327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 824220329}
+  - 114: {fileID: 824220328}
+  m_Layer: 0
+  m_Name: AddMaterialTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &824220328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824220327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce79809bbec85f4bb04fa3eb4f10c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewMaterial: {fileID: 2100000, guid: 77d6f1aa607f0714f8507cc9755348d9, type: 2}
+  BlockMaterialId: 1
+--- !u!4 &824220329
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824220327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 397517632}
+  m_RootOrder: 2
 --- !u!1 &874886992
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,9 +928,9 @@ RectTransform:
   - {fileID: 874886993}
   m_Father: {fileID: 1976372078}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -653, y: -869.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -100, y: 50}
   m_SizeDelta: {x: 83, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1623918555
@@ -1097,6 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tools:
   - {fileID: 1122046623}
+  - {fileID: 824220328}
 --- !u!1 &1840244808
 GameObject:
   m_ObjectHideFlags: 0

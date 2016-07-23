@@ -83,6 +83,7 @@ namespace Assets.Scripts.Logic.Tools
 
         private void StopDelete()
         {
+            _ySize = 0;
             if (_plane != null)
             {
                 DestroyImmediate(_plane);
