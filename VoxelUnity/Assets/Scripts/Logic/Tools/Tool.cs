@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Logic.Tools
 {
@@ -28,6 +29,8 @@ namespace Assets.Scripts.Logic.Tools
         
         protected RaycastHit[] GetRaycastHitOnMousePosition()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return new RaycastHit[0];
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             return Physics.RaycastAll(ray, float.PositiveInfinity); ;
         }

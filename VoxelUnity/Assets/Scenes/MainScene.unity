@@ -204,6 +204,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11450350, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
+      propertyPath: MoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
   m_IsPrefabParent: 0
@@ -383,6 +387,21 @@ Transform:
   - {fileID: 824220329}
   m_Father: {fileID: 1747315387}
   m_RootOrder: 3
+--- !u!1 &559443357 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 130348, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
+  m_PrefabInternal: {fileID: 181155700}
+--- !u!114 &559443358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 559443357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95be8711e672074aa1a40edceb65be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &588906631
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +413,7 @@ GameObject:
   - 222: {fileID: 588906635}
   - 114: {fileID: 588906634}
   - 114: {fileID: 588906633}
+  - 225: {fileID: 588906636}
   m_Layer: 5
   m_Name: ButtonMine
   m_TagString: Untagged
@@ -505,6 +525,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 588906631}
+--- !u!225 &588906636
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 588906631}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &708627396
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,6 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PreviewMaterial: {fileID: 2100000, guid: 2faeaf20730a6064cb9c992ddba40f30, type: 2}
+  MiningJobMaterial: {fileID: 2100000, guid: 2faeaf20730a6064cb9c992ddba40f30, type: 2}
 --- !u!4 &1122046624
 Transform:
   m_ObjectHideFlags: 0
@@ -1089,6 +1121,7 @@ GameObject:
   - 4: {fileID: 1747315387}
   - 114: {fileID: 1747315388}
   - 114: {fileID: 1747315389}
+  - 114: {fileID: 1747315390}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -1141,6 +1174,17 @@ MonoBehaviour:
   Tools:
   - {fileID: 1122046623}
   - {fileID: 824220328}
+--- !u!114 &1747315390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1747315386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10dd86e54c2cf7b4699982bd470a1d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1840244808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,7 +1351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  m_BlockingObjects: 3
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295

@@ -1,17 +1,20 @@
 ﻿using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Tools
 {
     public class DeleteTool : Tool {
 
+        private JobController _jobController;
         private MapData _mapData;
         private Vector3 _startPos;
         private GameObject _plane;
         private GameObject _previewBox;
         public Material PreviewMaterial;
+        public Material MiningJobMaterial;
         private int _ySize;
         private bool _yAxisPressed;
 
@@ -57,6 +60,11 @@ namespace Assets.Scripts.Logic.Tools
                     }
                 }
             }
+        }
+        
+        void OnDisable()
+        {
+            StopDelete();
         }
 
         private void CheckYAxis()
@@ -113,7 +121,24 @@ namespace Assets.Scripts.Logic.Tools
             }
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
-            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.Air);
+            var type = chunk.GetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize);
+            if(type.Equals(MaterialRegistry.Air))
+                return;
+
+            if (_jobController == null)
+            {
+                _jobController = GameObject.Find("World").GetComponent<JobController>();
+            }
+            if (_jobController.HasJob(pos, JobType.Mining))
+                return;
+
+            var job = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            job.name = "MiningJob " + pos;
+            job.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            job.GetComponent<MeshRenderer>().material = MiningJobMaterial;
+            job.transform.position = pos;
+            var mj = job.AddComponent<MiningJob>();
+            _jobController.AddJob(mj);
         }
     }
 }

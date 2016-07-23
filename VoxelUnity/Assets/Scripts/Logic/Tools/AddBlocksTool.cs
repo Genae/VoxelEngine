@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Tools
@@ -27,7 +28,7 @@ namespace Assets.Scripts.Logic.Tools
                 return;
             if (Input.GetMouseButtonDown(1))
             {
-                StopDelete();
+                StopAdd();
             }
             else if (Input.GetMouseButtonDown(0))
             {
@@ -46,6 +47,7 @@ namespace Assets.Scripts.Logic.Tools
                 {
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
                     var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
+                    PreviewMaterial.color = MaterialRegistry.MaterialFromId(BlockMaterialId).Color;
                     _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, _previewBox);
                     if (Input.GetMouseButtonUp(0))
                     {
@@ -53,11 +55,16 @@ namespace Assets.Scripts.Logic.Tools
                         foreach (var vox in voxels)
                         {
                             AddVoxelAtPosition(vox);
-                            StopDelete();
+                            StopAdd();
                         }
                     }
                 }
             }
+        }
+
+        void OnDisable()
+        {
+            StopAdd();
         }
 
         private void CheckYAxis()
@@ -82,7 +89,7 @@ namespace Assets.Scripts.Logic.Tools
             }
         }
 
-        private void StopDelete()
+        private void StopAdd()
         {
             if (_plane != null)
             {

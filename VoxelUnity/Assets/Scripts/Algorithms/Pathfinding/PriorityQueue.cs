@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets.Scripts.Algorithms.Pathfinding
 {
-    public class PriorityQueue<T>
+    public class PriorityQueue<T> : IEnumerable<T>
     {
         private int _totalSize;
         private readonly SortedDictionary<int, Queue<T>> _storage;
@@ -18,12 +19,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
         {
             return (_totalSize == 0);
         }
-
-        public bool Contains(T obj)
-        {
-            return _storage.Any(q => q.Value.Contains(obj));
-        }
-
+        
         public T Dequeue()
         {
             if (IsEmpty())
@@ -66,6 +62,29 @@ namespace Assets.Scripts.Algorithms.Pathfinding
             _storage[prio].Enqueue(item);
             _totalSize++;
 
+        }
+
+        public PriorityQueue<T> Copy()
+        {
+            var pq = new PriorityQueue<T>();
+            foreach (var key in _storage.Keys)
+            {
+                foreach (var item in _storage[key])
+                {
+                    pq.Enqueue(item, key);
+                }
+            }
+            return pq;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _storage.Values.SelectMany(v => v).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
