@@ -47,10 +47,22 @@ namespace Assets.Scripts.Algorithms.Pathfinding
             return default(T); // not supposed to reach here.
         }
 
-        public object Dequeue(int prio)
+        public T Dequeue(int prio)
         {
             _totalSize--;
             return _storage[prio].Dequeue();
+        }
+
+        public T Dequeue(T item)
+        {
+            _totalSize--;
+            var queue = _storage.Values.First(q => q.Contains(item));
+            T cur;
+            while (!(cur = queue.Dequeue()).Equals(item))
+            {
+                queue.Enqueue(cur);
+            }
+            return item;
         }
 
         public void Enqueue(T item, int prio)

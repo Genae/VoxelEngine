@@ -163,7 +163,7 @@ namespace Assets.Scripts.Data.Map
 
         private bool IsInBounds(MapData mapData, int x, int y, int z)
         {
-            return x > 0 && y > 0 && z > 0 && x < mapData.Size * Chunk.ChunkSize && y < mapData.Height * Chunk.ChunkSize && z < mapData.Size * Chunk.ChunkSize;
+            return x >= 0 && y >= 0 && z >= 0 && x < mapData.Size * Chunk.ChunkSize && y < mapData.Height * Chunk.ChunkSize && z < mapData.Size * Chunk.ChunkSize;
         }
     }
 

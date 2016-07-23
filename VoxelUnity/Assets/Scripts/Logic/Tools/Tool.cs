@@ -32,7 +32,11 @@ namespace Assets.Scripts.Logic.Tools
             if (EventSystem.current.IsPointerOverGameObject())
                 return new RaycastHit[0];
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            return Physics.RaycastAll(ray, float.PositiveInfinity); ;
+            var hits = Physics.RaycastAll(ray, float.PositiveInfinity);
+            if (hits == null || hits.Length == 0)
+                return hits;
+            hits = hits.OrderBy(h => h.distance).ToArray();
+            return hits;
         }
 
         protected Vector3 GetVoxelOnHit(RaycastHit hit, Chunk chunk)

@@ -11,6 +11,21 @@ namespace Assets.Scripts.Logic
         private int _pathIndex;
         private Node _currentNode;
 
+        private Map _map;
+
+        public bool IsIdle
+        {
+            get { return PathToTarget == null; }
+        }
+
+        void Start()
+        {
+            if (_map == null)
+            {
+                _map = GameObject.Find("Map").GetComponent<Map>();
+            }
+        }
+
         void Update ()
         {
             if (PathToTarget == null || !PathToTarget.Finished || PathToTarget.Nodes == null)
@@ -44,6 +59,11 @@ namespace Assets.Scripts.Logic
                     }
                 }
             }
+        }
+
+        public void MoveTo(Vector3 target)
+        {
+            PathToTarget = Path.Calculate(_map.MapData, transform.position, target);
         }
     }
 }

@@ -53,9 +53,7 @@ namespace Assets.Scripts.Logic
             }
             else
             {
-                var bunny = (GameObject)Instantiate(BunnyPreset, start, Quaternion.identity);
-                var wc = bunny.GetComponent<WalkingController>();
-                wc.PathToTarget = path;
+                Instantiate(BunnyPreset, start, Quaternion.identity);
             }
         }
     }

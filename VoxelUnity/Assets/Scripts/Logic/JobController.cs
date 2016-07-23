@@ -16,11 +16,20 @@ namespace Assets.Scripts.Logic
             foreach (var freeSolver in FreeSolvers.ToArray())
             {
                 var possibleJobs = freeSolver.GetPossibleJobs();
-                var job = possibleJobs.Dequeue();
-                if (OpenJobs.ContainsKey(job) && !OpenJobs[job].IsEmpty())
+                var jobType = possibleJobs.Dequeue();
+                if (OpenJobs.ContainsKey(jobType) && !OpenJobs[jobType].IsEmpty())
                 {
-                    freeSolver.Solve(OpenJobs[job].Dequeue());
-                    FreeSolvers.Remove(freeSolver);
+                    foreach (var job in OpenJobs[jobType])
+                    {
+                        if (!job.GetPossibleWorkLocations().Any())
+                        {
+                            continue;
+                        }
+
+                        freeSolver.Solve(OpenJobs[jobType].Dequeue(job));
+                        FreeSolvers.Remove(freeSolver);
+                        break;
+                    }
                 }
             }
         }

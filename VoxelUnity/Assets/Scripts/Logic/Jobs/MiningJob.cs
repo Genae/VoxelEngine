@@ -17,7 +17,7 @@ namespace Assets.Scripts.Logic.Jobs
             _remainingTime -= deltaTime;
             if (_remainingTime > 0)
                 return false;
-            GameObject.Find("Map").GetComponent<Map>().MapData.Chunks[(int)transform.position.x/16, (int)transform.position.y/16, (int)transform.position.z/16]
+            Map.MapData.Chunks[(int)transform.position.x/16, (int)transform.position.y/16, (int)transform.position.z/16]
                 .SetVoxelType((int)transform.position.x%16, (int)transform.position.y%16, (int)transform.position.z%16, MaterialRegistry.Air);
             DestroyImmediate(gameObject);
             return true;

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Algorithms.Pathfinding;
+﻿using System.Linq;
+using Assets.Scripts.Algorithms.Pathfinding;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Jobs
@@ -8,12 +9,17 @@ namespace Assets.Scripts.Logic.Jobs
         public PriorityQueue<JobType> PossibleTypes = new PriorityQueue<JobType>();
         private Job _currentJob;
         private JobController _jobController;
+        private WalkingController _walkingController;
 
         void Update()
         {
             if (_currentJob != null)
             {
-                if (_currentJob.Solve(Time.deltaTime))
+                if ((_currentJob.transform.position - transform.position).magnitude >= 2 && _walkingController.IsIdle)
+                {
+                    _walkingController.MoveTo(_currentJob.GetPossibleWorkLocations().First());
+                }
+                if (_walkingController.IsIdle && _currentJob.Solve(Time.deltaTime))
                 {
                     _currentJob = null;
                     _jobController.AddIdleSolver(this);
@@ -28,6 +34,10 @@ namespace Assets.Scripts.Logic.Jobs
                 _jobController = GameObject.Find("World").GetComponent<JobController>();
             }
             _jobController.AddIdleSolver(this);
+            if (_walkingController == null)
+            {
+                _walkingController = gameObject.GetComponent<WalkingController>();
+            }
         }
 
         public PriorityQueue<JobType> GetPossibleJobs()
@@ -42,6 +52,7 @@ namespace Assets.Scripts.Logic.Jobs
 
         public void Solve(Job job)
         {
+            Debug.Log("job assigned");
             _currentJob = job;
         }
     }
