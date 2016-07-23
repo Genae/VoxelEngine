@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Tools
@@ -15,15 +12,35 @@ namespace Assets.Scripts.Logic.Tools
         private GameObject _plane;
         private GameObject _previewBox;
 
-        private Vector3 lastCur;
+        private Vector3 _lastCur;
 
         public Material PreviewMaterial;
-        private int _mouseScrollDelta;
+        private int _ySize;
+        private bool _yAxisPressed;
 
 
         // Update is called once per frame
         void Update () {
-	        //_mouseScrollDelta += (int)Input.mouseScrollDelta.y;
+            if (!_yAxisPressed)
+            {
+                if (Input.GetAxis("EnlargeSelectionY") < 0)
+                {
+                    _ySize -= 1;
+                    _yAxisPressed = true;
+                }
+                else if (Input.GetAxis("EnlargeSelectionY") > 0)
+                {
+                    _ySize += 1;
+                    _yAxisPressed = true;
+
+                }
+            }
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
+            if (_yAxisPressed && Input.GetAxis("EnlargeSelectionY") == 0)
+            {
+                _yAxisPressed = false;
+            }
+
             var hit = GetRaycastHitOnMousePosition();
             if (hit.Length == 0)
                 return;
@@ -33,7 +50,7 @@ namespace Assets.Scripts.Logic.Tools
             }
             else if (Input.GetMouseButtonDown(0))
             {
-                _mouseScrollDelta = 0;
+                _ySize = 0;
                 Chunk chunkHit;
                 var pos = GetMouseOveredVoxelPos(out chunkHit);
                 if (chunkHit != null)
@@ -47,12 +64,8 @@ namespace Assets.Scripts.Logic.Tools
                 if(hit.Any(h => h.collider.gameObject.tag.Equals("Plane")))
                 {
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
-                    var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y, (int)(myHit.point.z + 0.5f));
-                    if (lastCur != curPos)
-                    {
-                        Debug.Log(curPos);
-                    }
-                    lastCur = curPos;
+                    var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
+                    _lastCur = curPos;
                     DrawPreview(_startPos, curPos);
                     if (Input.GetMouseButtonUp(0))
                     {
@@ -65,7 +78,6 @@ namespace Assets.Scripts.Logic.Tools
                     }
                 }
             }
-            
         }
 
         private void StopDelete()
@@ -91,7 +103,7 @@ namespace Assets.Scripts.Logic.Tools
             }
             _previewBox.transform.position = (curPos - startPos) / 2 + startPos;
             _previewBox.transform.position = new Vector3(((curPos - startPos) / 2 + startPos).x, ((curPos - startPos) / 2 + startPos).y, ((curPos - startPos) / 2 + startPos).z);
-            _previewBox.transform.localScale = new Vector3(Mathf.Abs(startPos.x - curPos.x) + 1.1f, _mouseScrollDelta + 1.1f, Mathf.Abs(startPos.z - curPos.z) + 1.1f);
+            _previewBox.transform.localScale = new Vector3(Mathf.Abs(startPos.x - curPos.x) + 1.1f, Mathf.Abs(_ySize) + 1.1f, Mathf.Abs(startPos.z - curPos.z) + 1.1f);
         }
 
         private void CreatePlane()
