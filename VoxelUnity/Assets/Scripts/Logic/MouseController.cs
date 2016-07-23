@@ -13,7 +13,8 @@ namespace Assets.Scripts.Logic
             get { return _selectedTool; }
             set
             {
-				_selectedTool.gameObject.SetActive(false);
+				if(_selectedTool != null)
+					_selectedTool.gameObject.SetActive(false);
                 _selectedTool = value;
                 _selectedTool.gameObject.SetActive(true);
             }
