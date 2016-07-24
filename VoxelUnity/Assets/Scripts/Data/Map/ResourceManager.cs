@@ -125,7 +125,7 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (int z = minz; z < maxz; z++)
                     {
-                        if (IsInBounds(map, x, y, z) && Vector3.Cross(ray.direction, new Vector3(x, y, z) - ray.origin).magnitude <= veinRadius)
+                        if (Map.Instance.IsInBounds(x, y, z) && Vector3.Cross(ray.direction, new Vector3(x, y, z) - ray.origin).magnitude <= veinRadius)
                         {
                             map.SetVoxel(x, y, z, true, material);
                         }
@@ -156,14 +156,9 @@ namespace Assets.Scripts.Data.Map
 
         private bool IsStone(Vector3 pos, MapData map)
         {
-            return IsInBounds(map, (int)pos.x, (int)pos.y, (int)pos.z) && 
+            return Map.Instance.IsInBounds((int)pos.x, (int)pos.y, (int)pos.z) && 
                    map.Chunks[(int) (pos.x/Chunk.ChunkSize), (int) (pos.y/Chunk.ChunkSize), (int) (pos.z/Chunk.ChunkSize)]
                 .GetVoxelType((int) (pos.x%Chunk.ChunkSize), (int) (pos.y%Chunk.ChunkSize),(int) (pos.z%Chunk.ChunkSize)).Equals(MaterialRegistry.Stone);
-        }
-
-        private bool IsInBounds(MapData mapData, int x, int y, int z)
-        {
-            return x >= 0 && y >= 0 && z >= 0 && x < mapData.Size * Chunk.ChunkSize && y < mapData.Height * Chunk.ChunkSize && z < mapData.Size * Chunk.ChunkSize;
         }
     }
 

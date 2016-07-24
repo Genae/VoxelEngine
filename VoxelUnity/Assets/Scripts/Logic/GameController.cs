@@ -16,14 +16,15 @@ namespace Assets.Scripts.Logic
             if (!_runOnce && Map.IsDoneGenerating)
             {
                 _runOnce = true;
-                SpawnCharacter();
+                for (int i = 0; i < 10; i++)
+                {
+                    SpawnCharacter();
+                }
             }
         }
 
         private void SpawnCharacter()
         {
-            Vector3 start;
-            Vector3 target;
             while (true)
             {
                 var pos = new Vector3(Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
@@ -31,29 +32,10 @@ namespace Assets.Scripts.Logic
                 Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
                 if (hit.collider.tag.Equals("Chunk"))
                 {
-                    start = hit.point;
+                    var start = hit.point;
+                    Instantiate(BunnyPreset, start, Quaternion.identity);
                     break;
                 }
-            }
-            while (true)
-            {
-                var pos = new Vector3(Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
-                RaycastHit hit;
-                Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
-                if (hit.collider.tag.Equals("Chunk"))
-                {
-                    target = hit.point;
-                    break;
-                }
-            }
-            var path = Path.Calculate(Map.MapData, start, target);
-            if (path == null)
-            {
-                SpawnCharacter();
-            }
-            else
-            {
-                Instantiate(BunnyPreset, start, Quaternion.identity);
             }
         }
     }

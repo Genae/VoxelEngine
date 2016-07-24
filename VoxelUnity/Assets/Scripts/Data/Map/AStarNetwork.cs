@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
@@ -56,9 +55,9 @@ namespace Assets.Scripts.Data.Map
 
         private Node GetNode(int x, int y, int z)
         {
-            if (x > 0 && x < NodeGrid.GetLength(0) &&
-                y > 0 && y < NodeGrid.GetLength(1) &&
-                z > 0 && z < NodeGrid.GetLength(2))
+            if (x >= 0 && x < NodeGrid.GetLength(0) &&
+                y >= 0 && y < NodeGrid.GetLength(1) &&
+                z >= 0 && z < NodeGrid.GetLength(2))
                 return NodeGrid[x, y, z];
             return null;
         }

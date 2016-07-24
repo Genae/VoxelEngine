@@ -151,5 +151,9 @@ namespace Assets.Scripts.Data.Map
         }
         #endregion
 
+        public bool IsInBounds(int x, int y, int z)
+        {
+            return x >= 0 && y >= 0 && z >= 0 && x < MapData.Size * Chunk.ChunkSize && y < MapData.Height * Chunk.ChunkSize && z < MapData.Size * Chunk.ChunkSize;
+        }
     }
 }

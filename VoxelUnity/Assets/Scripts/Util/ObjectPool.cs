@@ -8,17 +8,23 @@ namespace Assets.Scripts.Util
     {
 
         public static ObjectPool Instance;
-        [SerializeField] private GameObject[] _objectPrefabs;
-        [SerializeField] private List<GameObject>[] _pooledObjects;
-        [SerializeField] private int[] _minAmountToBuffer;
-        [SerializeField] private int[] _maxAmountToBuffer;
-        [SerializeField] private int _defaultBufferAmount = 300;
-        [SerializeField] private int FillObjectsPerFrame = 100;
+        [SerializeField]
+        protected GameObject[] ObjectPrefabs;
+        [SerializeField]
+        protected List<GameObject>[] PooledObjects;
+        [SerializeField]
+        protected int[] MinAmountToBuffer;
+        [SerializeField]
+        protected int[] MaxAmountToBuffer;
+        [SerializeField]
+        protected int DefaultBufferAmount;
+        [SerializeField]
+        protected int FillObjectsPerFrame;
         protected GameObject ContainerObject;
 
         public ObjectPool(GameObject[] objectPrefabs)
         {
-            _objectPrefabs = objectPrefabs;
+            ObjectPrefabs = objectPrefabs;
         }
 
         void Awake()
@@ -29,27 +35,27 @@ namespace Assets.Scripts.Util
         void Start()
         {
             ContainerObject = gameObject;
-            _pooledObjects = new List<GameObject>[_objectPrefabs.Length];
-            var minLength = _minAmountToBuffer.Length;
-            if (_minAmountToBuffer.Length < _objectPrefabs.Length)
+            PooledObjects = new List<GameObject>[ObjectPrefabs.Length];
+            var minLength = MinAmountToBuffer.Length;
+            if (MinAmountToBuffer.Length < ObjectPrefabs.Length)
             {
-                Array.Resize(ref _minAmountToBuffer, _objectPrefabs.Length);
+                Array.Resize(ref MinAmountToBuffer, ObjectPrefabs.Length);
             }
-            var maxLength = _maxAmountToBuffer.Length;
-            if (_maxAmountToBuffer.Length < _objectPrefabs.Length)
+            var maxLength = MaxAmountToBuffer.Length;
+            if (MaxAmountToBuffer.Length < ObjectPrefabs.Length)
             {
-                Array.Resize(ref _maxAmountToBuffer, _objectPrefabs.Length);
+                Array.Resize(ref MaxAmountToBuffer, ObjectPrefabs.Length);
             }
-            for (var i = 0; i < _objectPrefabs.Length; i++)
+            for (var i = 0; i < ObjectPrefabs.Length; i++)
             {
-                _pooledObjects[i] = new List<GameObject>();
+                PooledObjects[i] = new List<GameObject>();
                 if (i >= minLength)
                 {
-                    _minAmountToBuffer[i] = _defaultBufferAmount;
+                    MinAmountToBuffer[i] = DefaultBufferAmount;
                 }
                 if (i > maxLength)
                 {
-                    _maxAmountToBuffer[i] = _maxAmountToBuffer[i] > _minAmountToBuffer[i] ? _maxAmountToBuffer[i] : _minAmountToBuffer[i] * 10;
+                    MaxAmountToBuffer[i] = MaxAmountToBuffer[i] > MinAmountToBuffer[i] ? MaxAmountToBuffer[i] : MinAmountToBuffer[i] * 10;
                 }
             }
         }
@@ -58,11 +64,11 @@ namespace Assets.Scripts.Util
         {
             var count = 0;
             var i = 0;
-            foreach (var objectPrefab in _objectPrefabs)
+            foreach (var objectPrefab in ObjectPrefabs)
             {
-                var bufferAmount = i < _minAmountToBuffer.Length ? _minAmountToBuffer[i] : _defaultBufferAmount;
+                var bufferAmount = i < MinAmountToBuffer.Length ? MinAmountToBuffer[i] : DefaultBufferAmount;
 
-                for (var n = _pooledObjects[i].Count; n < bufferAmount; n++)
+                for (var n = PooledObjects[i].Count; n < bufferAmount; n++)
                 {
                     var newObj = Instantiate(objectPrefab);
                     newObj.name = objectPrefab.name;
@@ -77,15 +83,15 @@ namespace Assets.Scripts.Util
 
         public GameObject GetObjectForType(string objectType, Transform parent = null, bool onlyPooled = false)
         {
-            for (var i = 0; i < _objectPrefabs.Length; i++)
+            for (var i = 0; i < ObjectPrefabs.Length; i++)
             {
-                var prefab = _objectPrefabs[i];
+                var prefab = ObjectPrefabs[i];
                 if (prefab.name != objectType)
                     continue;
-                if (_pooledObjects[i].Count > 0)
+                if (PooledObjects[i].Count > 0)
                 {
-                    var pooledObject = _pooledObjects[i][0];
-                    _pooledObjects[i].RemoveAt(0);
+                    var pooledObject = PooledObjects[i][0];
+                    PooledObjects[i].RemoveAt(0);
                     pooledObject.transform.parent = parent;
                     pooledObject.SetActive(true);
 
@@ -94,9 +100,10 @@ namespace Assets.Scripts.Util
                 }
                 if (!onlyPooled)
                 {
-                    var newObj = Instantiate(_objectPrefabs[i]);
-                    newObj.name = _objectPrefabs[i].name;
+                    var newObj = Instantiate(ObjectPrefabs[i]);
+                    newObj.name = ObjectPrefabs[i].name;
                     newObj.transform.parent = parent;
+                    Debug.Log("missing");
                     return newObj;
                 }
 
@@ -114,15 +121,15 @@ namespace Assets.Scripts.Util
 
         public void PoolObject(GameObject obj)
         {
-            for (var i = 0; i < _objectPrefabs.Length; i++)
+            for (var i = 0; i < ObjectPrefabs.Length; i++)
             {
-                if (_objectPrefabs[i].name != obj.name)
+                if (ObjectPrefabs[i].name != obj.name)
                     continue;
                 obj.SetActive(false);
                 obj.transform.parent = ContainerObject.transform;
-                if (_pooledObjects[i].Count < _maxAmountToBuffer[i])
+                if (PooledObjects[i].Count < MaxAmountToBuffer[i])
                 {
-                    _pooledObjects[i].Add(obj);
+                    PooledObjects[i].Add(obj);
                 }
                 else
                 {

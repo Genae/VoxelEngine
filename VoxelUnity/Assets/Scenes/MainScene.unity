@@ -554,12 +554,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fe093ca3eb8b6479e7ea854bc9eb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectPrefabs:
+  ObjectPrefabs:
   - {fileID: 150140, guid: 6167030d317105f43b41cbb97e2849a2, type: 2}
-  _minAmountToBuffer: 88130000
-  _maxAmountToBuffer: a8610000
-  _defaultBufferAmount: 0
-  FillObjectsPerFrame: 0
+  MinAmountToBuffer: 10270000
+  MaxAmountToBuffer: a0860100
+  DefaultBufferAmount: 10
+  FillObjectsPerFrame: 100
 --- !u!1 &824220327
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PreviewMaterial: {fileID: 2100000, guid: 2faeaf20730a6064cb9c992ddba40f30, type: 2}
   MiningJobMaterial: {fileID: 2100000, guid: 2faeaf20730a6064cb9c992ddba40f30, type: 2}
+  MaxLength: 20
 --- !u!4 &1122046624
 Transform:
   m_ObjectHideFlags: 0
