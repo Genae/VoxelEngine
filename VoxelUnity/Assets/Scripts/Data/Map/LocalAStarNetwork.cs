@@ -11,7 +11,7 @@ namespace Assets.Scripts.Data.Map
 
         public void RefreshNetwork(ChunkData chunk, List<Vector3> upVoxels)
         {
-            var map = GameObject.Find("Map").GetComponent<Map>();
+            var map = Map.Instance;
             var oldNodes = Nodes;
             var newNodes = NodeBuilder.BuildAStarNetwork(chunk, upVoxels);
             Nodes = map.AStarNetwork.UpdateChunkNodes(oldNodes, newNodes);

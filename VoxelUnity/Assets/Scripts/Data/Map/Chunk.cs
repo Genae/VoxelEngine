@@ -54,7 +54,7 @@ namespace Assets.Scripts.Data.Map
         {
             if (!CanBeHighlighted)
                 return;
-            var matReg = GameObject.Find("Map").GetComponent<MaterialRegistry>();
+            var matReg = Map.Instance.GetComponent<MaterialRegistry>();
             if (value != null && !gameObject.GetComponent<MeshRenderer>().sharedMaterials.Any(m => m.shader.name.Equals(matReg.HighlightMaterial.shader.name)))
             {
                 var mats = gameObject.GetComponent<MeshRenderer>().sharedMaterials.ToList();

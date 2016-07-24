@@ -13,6 +13,7 @@ namespace Assets.Scripts.Data.Map
     public class Map : MonoBehaviour
     {
         public MapData MapData;
+        public static Map Instance;
         public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
         public AStarNetwork AStarNetwork;
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Data.Map
         public void Awake()
         {
             MainThread.Instantiate();
+            Instance = this;
             StartCoroutine("CreateMap");
         }
         

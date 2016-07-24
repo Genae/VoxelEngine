@@ -22,7 +22,7 @@ namespace Assets.Scripts.Logic
         {
             if (_map == null)
             {
-                _map = GameObject.Find("Map").GetComponent<Map>();
+                _map = Map.Instance;
             }
         }
 

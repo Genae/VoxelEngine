@@ -116,7 +116,7 @@ namespace Assets.Scripts.Logic.Tools
         {
             if (_mapData == null)
             {
-                _mapData = GameObject.Find("Map").GetComponent<Map>().MapData;
+                _mapData = Map.Instance.MapData;
             }
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];

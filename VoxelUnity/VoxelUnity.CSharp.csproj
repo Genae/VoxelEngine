@@ -111,6 +111,7 @@
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Logic\JobController.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\Job.cs" />
+    <Compile Include="Assets\Scripts\Logic\Jobs\JobMarker.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\JobSolver.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\MiningJob.cs" />
     <Compile Include="Assets\Scripts\Logic\MouseController.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\Scripts\Logic\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\Tool.cs" />
     <Compile Include="Assets\Scripts\Logic\WalkingController.cs" />
+    <Compile Include="Assets\Scripts\Util\ObjectPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />

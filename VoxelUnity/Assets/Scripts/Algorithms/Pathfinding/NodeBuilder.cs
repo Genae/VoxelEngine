@@ -8,7 +8,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
     {
         public static List<Node> BuildAStarNetwork(ChunkData data, List<Vector3> upVoxels)
         {
-            var map = GameObject.Find("Map").GetComponent<Map>();
+            var map = Map.Instance;
             var nodes = CreateNodePositions(data, upVoxels, map.MapData);
             return nodes;
         }

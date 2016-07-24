@@ -10,7 +10,7 @@ namespace Assets.Scripts.Data.Multiblock
     {
         public static Multiblock InstantiateVoxels(Vector3 position, Dictionary<VoxelMaterial, List<Vector3>> voxels)
         {
-            var map = GameObject.Find("Map").GetComponent<Map.Map>();
+            var map = Map.Map.Instance;
             Vector3 zeroVec;
             var size = GetSize(out zeroVec, voxels);
             var data = new ContainerData(size, position + zeroVec);

@@ -15,7 +15,7 @@ namespace Assets.Scripts.Logic.Jobs
         {
             if (_currentJob != null)
             {
-                if ((_currentJob.transform.position - transform.position).magnitude >= 2 && _walkingController.IsIdle)
+                if (_walkingController.IsIdle && !_currentJob.GetPossibleWorkLocations().Any(wl => (wl-transform.position).magnitude < 0.6f))
                 {
                     _walkingController.MoveTo(_currentJob.GetPossibleWorkLocations().First());
                 }

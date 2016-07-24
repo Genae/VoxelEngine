@@ -117,7 +117,7 @@ namespace Assets.Scripts.Logic.Tools
         {
             if (_mapData == null)
             {
-                _mapData = GameObject.Find("Map").GetComponent<Map>().MapData;
+                _mapData = Map.Instance.MapData;
             }
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
@@ -131,14 +131,8 @@ namespace Assets.Scripts.Logic.Tools
             }
             if (_jobController.HasJob(pos, JobType.Mining))
                 return;
-
-            var job = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            job.name = "MiningJob " + pos;
-            job.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            job.GetComponent<MeshRenderer>().material = MiningJobMaterial;
-            job.transform.position = pos;
-            var mj = job.AddComponent<MiningJob>();
-            _jobController.AddJob(mj);
+            
+            _jobController.AddJob(new MiningJob(pos));
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Logic
 
         public bool HasJob(Vector3 pos, JobType jobType)
         {
-            return OpenJobs.ContainsKey(jobType) && OpenJobs[jobType].Any(j => j.GetJobType().Equals(jobType) && j.transform.position.Equals(pos));
+            return OpenJobs.ContainsKey(jobType) && OpenJobs[jobType].Any(j => j.GetJobType().Equals(jobType) && j.Position.Equals(pos));
         }
 
         public void AddIdleSolver(JobSolver solver)
