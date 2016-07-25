@@ -138,6 +138,8 @@ namespace Assets.Scripts.Logic.Tools
 
         private void ClearVoxelAtPosition(Vector3 pos)
         {
+            if (!Map.Instance.IsInBounds((int) pos.x, (int) pos.y, (int) pos.z))
+                return;
             if (_jobController == null)
             {
                 _jobController = GameObject.Find("World").GetComponent<JobController>();

@@ -159,8 +159,9 @@ namespace Assets.Scripts.Data.Map
             mCollider.sharedMesh = null;
             mCollider.sharedMesh = Mesh;
             SetHighlightMaterial(_highlightColor);
-            gameObject.GetComponent<MeshCollider>().enabled = vertices.Length != 0;
-            gameObject.GetComponent<MeshRenderer>().enabled = vertices.Length != 0;
+            gameObject.SetActive(vertices.Length != 0);
+            //gameObject.GetComponent<MeshCollider>().enabled = vertices.Length != 0;
+            //gameObject.GetComponent<MeshRenderer>().enabled = vertices.Length != 0;
             return upVoxels;
         }
 

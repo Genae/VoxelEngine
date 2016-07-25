@@ -233,7 +233,7 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var dz = Mathf.Max(0, (int)posTo.z); dz <= Mathf.Min((int)(posFrom.z), Size-1); dz++)
                     {
-                        if (!GetVoxelType(dx, dy, dz).Equals(MaterialRegistry.Air))
+                        if (Map.Instance.IsInBounds(x, y, z) && !GetVoxelType(dx, dy, dz).Equals(MaterialRegistry.Air))
                             return true;
                     }
                 }
