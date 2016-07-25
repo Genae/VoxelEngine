@@ -52,7 +52,6 @@ namespace Assets.Scripts.Logic.Jobs
 
         public void Solve(Job job)
         {
-            Debug.Log("job assigned");
             _currentJob = job;
         }
     }

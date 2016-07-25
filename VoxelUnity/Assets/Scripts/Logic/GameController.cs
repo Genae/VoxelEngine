@@ -16,7 +16,7 @@ namespace Assets.Scripts.Logic
             if (!_runOnce && Map.IsDoneGenerating)
             {
                 _runOnce = true;
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     SpawnCharacter();
                 }

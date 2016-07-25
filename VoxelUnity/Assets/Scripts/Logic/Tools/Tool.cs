@@ -98,9 +98,9 @@ namespace Assets.Scripts.Logic.Tools
         protected IEnumerable<Vector3> GetVoxelsInbetween(Vector3 startPos, Vector3 endPos)
         {
             var inbetween = new List<Vector3>();
-            for (var x = (int)Mathf.Min(startPos.x, endPos.x); x <= (int)Mathf.Max(startPos.x, endPos.x); x++)
+            for (var y = (int)Mathf.Max(startPos.y, endPos.y); y >= (int)Mathf.Min(startPos.y, endPos.y); y--)
             {
-                for (var y = (int)Mathf.Min(startPos.y, endPos.y); y <= (int)Mathf.Max(startPos.y, endPos.y); y++)
+                for (var x = (int)Mathf.Min(startPos.x, endPos.x); x <= (int)Mathf.Max(startPos.x, endPos.x); x++)
                 {
                     for (var z = (int)Mathf.Min(startPos.z, endPos.z); z <= (int)Mathf.Max(startPos.z, endPos.z); z++)
                     {

@@ -28,7 +28,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 if (curNode.Equals(nodeTo))
                 {
                     path = ReconstructPath(curNode, path);
-                    Debug.Log("Found path between " + nodeFrom.GridNode.Position + " and " + nodeTo.GridNode.Position + " of length: " + path.Length + " in " + (DateTime.Now-start).TotalMilliseconds + "ms.");
+                    //Debug.Log("Found path between " + nodeFrom.GridNode.Position + " and " + nodeTo.GridNode.Position + " of length: " + path.Length + " in " + (DateTime.Now-start).TotalMilliseconds + "ms.");
                     return path;
                 }
                 closeSet.Add(curNode.GridNode.Position);
