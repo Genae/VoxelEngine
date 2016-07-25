@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Algorithms;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
@@ -97,8 +98,12 @@ namespace Assets.Scripts.Data.Map
         public void OnMouseOver()
         {
             HighlightColor = Color.white;
+            if (this is Multiblock.Multiblock)
+            {
+                Exploder.Explode(this as Multiblock.Multiblock);
+            }
         }
-
+        
         public void OnMouseExit()
         {
             HighlightColor = null;
@@ -157,6 +162,11 @@ namespace Assets.Scripts.Data.Map
             gameObject.GetComponent<MeshCollider>().enabled = vertices.Length != 0;
             gameObject.GetComponent<MeshRenderer>().enabled = vertices.Length != 0;
             return upVoxels;
+        }
+
+        public Vector3 GetCenter()
+        {
+            return transform.GetComponent<MeshRenderer>().bounds.center;
         }
     }
 }

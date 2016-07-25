@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Data\Multiblock\Fraction.cs" />
     <Compile Include="Assets\Scripts\Algorithms\GreedyMeshing.cs" />
     <Compile Include="Assets\Scripts\Algorithms\MapGeneration\DiamondCutPattern.cs" />
     <Compile Include="Assets\Scripts\Algorithms\MapGeneration\DiamondSquare.cs" />
@@ -120,11 +121,11 @@
     <Compile Include="Assets\Scripts\Logic\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\Tool.cs" />
     <Compile Include="Assets\Scripts\Logic\WalkingController.cs" />
+    <Compile Include="Assets\Scripts\Util\Exploder.cs" />
     <Compile Include="Assets\Scripts\Util\ObjectPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
