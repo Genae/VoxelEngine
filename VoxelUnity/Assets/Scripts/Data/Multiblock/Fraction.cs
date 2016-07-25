@@ -11,7 +11,7 @@ namespace Assets.Scripts.Data.Multiblock
             transform.localScale = Vector3.one * scale;
             transform.GetComponent<MeshRenderer>().material.color = color;
             transform.GetComponent<Rigidbody>().AddExplosionForce(force, middle, 20f);
-            Invoke("Destroy", Random.Range(3f, 5f));
+            Invoke("Destroy", Random.Range(3f, 4f));
         }
 
         public void Destroy()
