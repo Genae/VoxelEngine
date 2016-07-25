@@ -163,7 +163,7 @@ namespace Assets.Scripts.Data.Map
     public class ContainerData
     {
         protected readonly List<Vector3> DirtyVoxels = new List<Vector3>();
-        protected VoxelData[,,] Voxels;
+        public VoxelData[,,] Voxels;
         public int Size;
         public float Scale;
         public Vector3 Position;

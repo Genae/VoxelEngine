@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock.Trees
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Data.Multiblock.Trees
             voxels.Add(GetLeafMaterial(), treeTopVoxels);
 
             Multiblock = Multiblock.InstantiateVoxels(position, voxels);
+			//Exploder.Explode (Multiblock);
         }
 
         private List<Vector3> GenerateStrain(TreeData treeData)
