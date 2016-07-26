@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Data.Multiblock.Trees;
 using UnityEngine;
+using Assets.Scripts.Data.Importer;
 using Tree = Assets.Scripts.Data.Multiblock.Trees.Tree;
 
 namespace Assets.Scripts.Data.Map
@@ -9,25 +10,18 @@ namespace Assets.Scripts.Data.Map
     public class TreeManager
     {
         public List<Tree> TreeList;
+        public List<TreeConfig> TreeConfigList;
         
         public TreeManager()
         {
             TreeList = new List<Tree>();
+            TreeConfigList = ConfigImporter.GetConfig<TreeConfig>("Assets/Config/Trees");
         }
 
         public void GenerateTree(Vector3 position)
         {
-            Tree tree = null;
-            switch (Random.Range(0, 2))
-            {
-                case 0:
-                    tree = new Oak(position);
-                    break;
-                case 1:
-                    tree = new Birch(position);
-                    break;
-            }
-            TreeList.Add(tree);
+            var treeType = Random.Range(0, TreeConfigList.Count);
+            TreeList.Add(new Tree(TreeConfigList[treeType], position));
         }
 
         public IEnumerator GenerateTrees(int amount, MapData map)
@@ -54,5 +48,17 @@ namespace Assets.Scripts.Data.Map
         public int TreeStainDia;
         public int TreeStainHeight;
     }
-}
 
+    public class TreeConfig
+    {
+        public int TreeTopDia;
+        public int TreeTopHeight;
+        public int TreeStainDia;
+        public int TreeStainHeight;
+        public float[] StainDiaMod;
+        public float[] StainHeightMod;
+        public float[] TreeTopMod;
+        public string LeafMaterial;
+        public string StainMaterial;
+    }
+}

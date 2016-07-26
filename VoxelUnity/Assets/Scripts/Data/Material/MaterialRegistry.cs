@@ -9,6 +9,7 @@ namespace Assets.Scripts.Data.Material
     {
         private static readonly Dictionary<int, VoxelMaterial> VoxelMaterials = new Dictionary<int, VoxelMaterial>();
         private static readonly Dictionary<Color, VoxelMaterial> EntityMaterialsIndices = new Dictionary<Color, VoxelMaterial>();
+        private static readonly Dictionary<string, VoxelMaterial> VoxelMaterialByName = new Dictionary<string, VoxelMaterial>();
         public UnityEngine.Material[] Materials;
         private Texture2D tex;
         public UnityEngine.Material EntityMaterial
@@ -31,6 +32,11 @@ namespace Assets.Scripts.Data.Material
         public static int GetMaterialId(VoxelMaterial material)
         {
             return material.Id;
+        }
+
+        public static VoxelMaterial GetMaterialFromName(string name)
+        {
+            return VoxelMaterialByName[name];
         }
 
         void Start ()
@@ -75,7 +81,7 @@ namespace Assets.Scripts.Data.Material
                 tex.filterMode = FilterMode.Point;
             }
             var pos = EntityMaterialsIndices.Count+1;
-            EntityMaterialsIndices[color]= Create(MaterialTyp.Entity, color);
+            EntityMaterialsIndices[color]= Create("EntityMaterial", MaterialTyp.Entity, color);
             tex.SetPixel(pos / AtlasSize, pos % AtlasSize, color);
             tex.Apply();
             EntityMaterial.mainTexture = tex;
@@ -88,7 +94,7 @@ namespace Assets.Scripts.Data.Material
         }
 
         private static readonly Dictionary<MaterialTyp, int> _counterTyp = new Dictionary<MaterialTyp, int>();
-        private static VoxelMaterial Create(MaterialTyp typ, Color c)
+        private static VoxelMaterial Create(string name, MaterialTyp typ, Color c)
         {
             if (!_counterTyp.ContainsKey(typ))
             {
@@ -96,24 +102,25 @@ namespace Assets.Scripts.Data.Material
             }
             var vm = new VoxelMaterial(_counterTyp[typ]++, typ, c, VoxelMaterials.Values.Count);
             VoxelMaterials[vm.Id] = vm;
+            VoxelMaterialByName[name] = vm;
             return vm;
         }
         #endregion
         
         #region MaterialDefinition
 
-        public static readonly VoxelMaterial Air = Create(MaterialTyp.Default, Color.white);
-        public static readonly VoxelMaterial Stone = Create(MaterialTyp.Default, rgb(120, 120, 120));
-        public static readonly VoxelMaterial Dirt = Create(MaterialTyp.Default, rgb(160, 82, 45));
-        public static readonly VoxelMaterial Grass = Create(MaterialTyp.Default, rgb(50, 205, 50));
-        public static readonly VoxelMaterial OakWood = Create(MaterialTyp.Default, rgb(60, 30, 17));
-        public static readonly VoxelMaterial OakLeaves = Create(MaterialTyp.Default, rgb(35, 144, 35));
-        public static readonly VoxelMaterial BirchWood = Create(MaterialTyp.Default, rgb(234, 231, 214));
-        public static readonly VoxelMaterial BirchLeaves = Create(MaterialTyp.Default, rgb(160, 185, 125));
-        public static readonly VoxelMaterial Copper = Create(MaterialTyp.Metallic, rgb(184, 115, 51));
-        public static readonly VoxelMaterial Iron = Create(MaterialTyp.Metallic, rgb(123, 123, 123));
-        public static readonly VoxelMaterial Gold = Create(MaterialTyp.Metallic, rgb(255, 215, 0));
-        public static readonly VoxelMaterial Coal = Create(MaterialTyp.Default, rgb(0, 0, 0));
+        public static readonly VoxelMaterial Air = Create("Air", MaterialTyp.Default, Color.white);
+        public static readonly VoxelMaterial Stone = Create("Stone", MaterialTyp.Default, rgb(120, 120, 120));
+        public static readonly VoxelMaterial Dirt = Create("Dirt", MaterialTyp.Default, rgb(160, 82, 45));
+        public static readonly VoxelMaterial Grass = Create("Grass", MaterialTyp.Default, rgb(50, 205, 50));
+        public static readonly VoxelMaterial OakWood = Create("OakWood", MaterialTyp.Default, rgb(60, 30, 17));
+        public static readonly VoxelMaterial OakLeaves = Create("OakLeaves", MaterialTyp.Default, rgb(35, 144, 35));
+        public static readonly VoxelMaterial BirchWood = Create("BirchWood", MaterialTyp.Default, rgb(234, 231, 214));
+        public static readonly VoxelMaterial BirchLeaves = Create("BirchLeaves", MaterialTyp.Default, rgb(160, 185, 125));
+        public static readonly VoxelMaterial Copper = Create("Copper", MaterialTyp.Metallic, rgb(184, 115, 51));
+        public static readonly VoxelMaterial Iron = Create("Iron", MaterialTyp.Metallic, rgb(123, 123, 123));
+        public static readonly VoxelMaterial Gold = Create("Gold", MaterialTyp.Metallic, rgb(255, 215, 0));
+        public static readonly VoxelMaterial Coal = Create("Coal", MaterialTyp.Default, rgb(0, 0, 0));
 
         #endregion
 

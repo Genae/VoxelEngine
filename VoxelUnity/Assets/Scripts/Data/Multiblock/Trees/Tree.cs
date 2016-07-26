@@ -5,29 +5,44 @@ using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock.Trees
 {
-    public abstract class Tree
+    public class Tree
     {
         public Vector3 Position;
         public Multiblock Multiblock;
 
-        protected Tree(Vector3 position)
+        public Tree(TreeConfig config, Vector3 position)
         {
-            Initialize(position);
+            Initialize(config, position);
         }
 
-        private void Initialize(Vector3 position)
+        private void Initialize(TreeConfig config, Vector3 position)
         {
             var voxels = new Dictionary<VoxelMaterial, List<Vector3>>();
-            var data = GetRandomizedTreeValues();
+            var data = GetRandomizedTreeValues(config);
             Position = position;
             var strainVoxels = GenerateStrain(data);
-            voxels.Add(GetStainMaterial(), strainVoxels);
+            voxels.Add(MaterialRegistry.GetMaterialFromName(config.StainMaterial), strainVoxels);
 
             var topOfStain = new Vector3(-data.TreeTopDia / 2f + (data.TreeStainDia) / 2f, data.TreeStainHeight, -data.TreeTopDia / 2f + (data.TreeStainDia) / 2f);
             var treeTopVoxels = GenerateTreeTop(topOfStain, data);
-            voxels.Add(GetLeafMaterial(), treeTopVoxels);
+            voxels.Add(MaterialRegistry.GetMaterialFromName(config.LeafMaterial), treeTopVoxels);
 
             Multiblock = Multiblock.InstantiateVoxels(position, voxels);
+        }
+
+        protected TreeData GetRandomizedTreeValues(TreeConfig config)
+        {
+            var stainDiaMod = (int)Random.Range(config.StainDiaMod[0], config.StainDiaMod[1]);
+            var stainHeightMod = (int)Random.Range(config.StainHeightMod[0], config.StainHeightMod[1]);
+            var topMod = (int)Random.Range(config.TreeTopMod[0], config.TreeTopMod[1]);
+
+            return new TreeData
+            {
+                TreeTopDia = config.TreeTopDia + topMod,
+                TreeTopHeight = config.TreeTopHeight + topMod,
+                TreeStainDia = config.TreeStainDia + stainDiaMod,
+                TreeStainHeight = config.TreeStainHeight + stainHeightMod,
+            };
         }
 
         private List<Vector3> GenerateStrain(TreeData treeData)
@@ -67,9 +82,5 @@ namespace Assets.Scripts.Data.Multiblock.Trees
             }
             return list;
         }
-        
-        protected abstract TreeData GetRandomizedTreeValues();
-        protected abstract VoxelMaterial GetStainMaterial();
-        protected abstract VoxelMaterial GetLeafMaterial();
     }
 }

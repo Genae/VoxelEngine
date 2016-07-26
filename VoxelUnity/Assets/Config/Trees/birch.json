@@ -1,0 +1,11 @@
+{
+"TreeTopDia": 8,
+"TreeTopHeight": 8,
+"TreeStainDia": 2,
+"TreeStainHeight": 9,
+"StainDiaMod": [-1,1],
+"StainHeightMod": [-2,5],
+"TreeTopMod": [-2,5],
+"LeafMaterial": "BirchLeaves",
+"StainMaterial": "BirchWood"
+}

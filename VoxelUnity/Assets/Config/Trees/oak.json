@@ -1,0 +1,11 @@
+{
+"TreeTopDia": 11,
+"TreeTopHeight": 8,
+"TreeStainDia": 3,
+"TreeStainHeight": 7,
+"StainDiaMod": [-2,2],
+"StainHeightMod": [-2,5],
+"TreeTopMod": [-2,5],
+"LeafMaterial": "OakLeaves",
+"StainMaterial": "OakWood"
+}

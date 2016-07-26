@@ -83,6 +83,7 @@
      <Compile Include="Assets\Scripts\Data\Map\VoxelData.cs" />
      <Compile Include="Assets\Scripts\Data\Material\MaterialRegistry.cs" />
      <Compile Include="Assets\Scripts\Data\Material\VoxelMaterial.cs" />
+     <Compile Include="Assets\Scripts\Data\Multiblock\Fraction.cs" />
      <Compile Include="Assets\Scripts\Data\Multiblock\Multiblock.cs" />
      <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Birch.cs" />
      <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Oak.cs" />
