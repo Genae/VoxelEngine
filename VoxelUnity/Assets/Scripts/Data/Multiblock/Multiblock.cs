@@ -29,7 +29,8 @@ namespace Assets.Scripts.Data.Multiblock
                 {
                     for (var z = Mathf.Max(0, (int)((position.z) / Chunk.ChunkSize)); z < Mathf.Min(map.MapData.Chunks.GetLength(2), (position.z + size) / Chunk.ChunkSize); z++)
                     {
-                        map.MapData.Chunks[x, y, z].AttachMultiblock((Multiblock)container);
+                        if(map.MapData.Chunks[x, y, z] != null)
+                            map.MapData.Chunks[x, y, z].AttachMultiblock((Multiblock)container);
                     }
                 }
             }

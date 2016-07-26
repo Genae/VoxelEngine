@@ -34,6 +34,8 @@ namespace Assets.Scripts.Data.Map
                 return;
             foreach (var chunkData in MapData.Chunks)
             {
+                if (chunkData == null)
+                    continue;
                 chunkData.CheckDirtyVoxels();
             }
         }
@@ -92,6 +94,8 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var y = MapData.Chunks.GetLength(1)-1; y >= 0 ; y--)
                     {
+                        if (MapData.Chunks[x, y, z] == null)
+                            continue;
                         Chunk.CreateChunk(x, y, z, this);
                         yield return null;
                     }

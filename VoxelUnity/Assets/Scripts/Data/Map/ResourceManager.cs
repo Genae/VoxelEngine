@@ -156,7 +156,8 @@ namespace Assets.Scripts.Data.Map
 
         private bool IsStone(Vector3 pos, MapData map)
         {
-            return Map.Instance.IsInBounds((int)pos.x, (int)pos.y, (int)pos.z) && 
+            return Map.Instance.IsInBounds((int)pos.x, (int)pos.y, (int)pos.z) &&
+                map.Chunks[(int)(pos.x / Chunk.ChunkSize), (int)(pos.y / Chunk.ChunkSize), (int)(pos.z / Chunk.ChunkSize)] != null &&
                    map.Chunks[(int) (pos.x/Chunk.ChunkSize), (int) (pos.y/Chunk.ChunkSize), (int) (pos.z/Chunk.ChunkSize)]
                 .GetVoxelType((int) (pos.x%Chunk.ChunkSize), (int) (pos.y%Chunk.ChunkSize),(int) (pos.z%Chunk.ChunkSize)).Equals(MaterialRegistry.Stone);
         }
