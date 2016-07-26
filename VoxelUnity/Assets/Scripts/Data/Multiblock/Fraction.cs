@@ -5,7 +5,7 @@ namespace Assets.Scripts.Data.Multiblock
 {
     public class Fraction : MonoBehaviour {
 
-        public void Init(Vector3 position, float scale, Color color, Vector3 middle, float force = 100f)
+        public void Init(Vector3 position, float scale, Color color, Vector3 middle, float force = 500f)
         {
             transform.position = position;
             transform.localScale = Vector3.one * scale;
