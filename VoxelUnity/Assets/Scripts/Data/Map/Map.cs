@@ -18,7 +18,6 @@ namespace Assets.Scripts.Data.Map
         public CameraController CameraController;
         public AStarNetwork AStarNetwork;
         public bool IsDoneGenerating;
-        
 
         public void Awake()
         {
