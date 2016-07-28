@@ -1114,7 +1114,7 @@ MonoBehaviour:
   BunnyPreset: {fileID: 130348, guid: 1673e44838976db45b003d5a5418ed52, type: 2}
   Map: {fileID: 1694001577}
   flower1: {fileID: 141658, guid: 069e69a6d688d664c998f9d2de23c4e1, type: 2}
-  flower2: {fileID: 139692, guid: f2da2389e6599cc4da44ab2d63f068ce, type: 2}
+  flower2: {fileID: 108254, guid: f2da2389e6599cc4da44ab2d63f068ce, type: 2}
   shroom1: {fileID: 194440, guid: ffe71c841155ce14f948b36421d66939, type: 2}
   shroom2: {fileID: 158174, guid: d9400686a52748142bfa922859671ba0, type: 2}
 --- !u!114 &1747315389
