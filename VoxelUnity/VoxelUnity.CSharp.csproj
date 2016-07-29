@@ -115,6 +115,7 @@
     <Compile Include="Assets\Scripts\Data\Multiblock\Multiblock.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
     <Compile Include="Assets\Scripts\Data\VoxelEntity\VoxelEntity.cs" />
+    <Compile Include="Assets\Scripts\Importer\Importer.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Logic\JobController.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\Job.cs" />
