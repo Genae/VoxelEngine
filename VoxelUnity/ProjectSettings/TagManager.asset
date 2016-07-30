@@ -8,6 +8,7 @@ TagManager:
   - Chunk
   - Container
   - Plane
+  - Import
   layers:
   - Default
   - TransparentFX

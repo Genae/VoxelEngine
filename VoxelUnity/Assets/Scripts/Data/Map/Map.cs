@@ -18,6 +18,7 @@ namespace Assets.Scripts.Data.Map
         public CameraController CameraController;
         public AStarNetwork AStarNetwork;
         public bool IsDoneGenerating;
+        public bool GenerateMap; 
 
         public void Awake()
         {
@@ -42,37 +43,44 @@ namespace Assets.Scripts.Data.Map
         // ReSharper disable once UnusedMember.Local
         IEnumerator CreateMap()
         {
-            var hmg = new HeightmapGenerator();
-            yield return hmg.CreateHeightMap(129, 129, 1337);
-            MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
-            SetCameraValues();
-            yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
-            AStarNetwork = new AStarNetwork(MapData.Chunks.GetLength(0) * Chunk.ChunkSize, MapData.Chunks.GetLength(1) * Chunk.ChunkSize, MapData.Chunks.GetLength(2) * Chunk.ChunkSize);
-            yield return null;
-            yield return InitializeMap();
+            if (GenerateMap)
+            {
+                var hmg = new HeightmapGenerator();
+                yield return hmg.CreateHeightMap(129, 129, 1337);
+                MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
+                SetCameraValues();
+                yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
+                AStarNetwork = new AStarNetwork(MapData.Chunks.GetLength(0) * Chunk.ChunkSize, MapData.Chunks.GetLength(1) * Chunk.ChunkSize, MapData.Chunks.GetLength(2) * Chunk.ChunkSize);
+                yield return null;
+                yield return InitializeMap();
 
-            //Trees
-            var treeManager = new TreeManager();
-            yield return treeManager.GenerateTrees((int)(MapData.Chunks.GetLength(0)* MapData.Chunks.GetLength(0) * 0.3f), MapData);
+                //Trees
+                var treeManager = new TreeManager();
+                yield return treeManager.GenerateTrees((int)(MapData.Chunks.GetLength(0) * MapData.Chunks.GetLength(0) * 0.3f), MapData);
 
-            //Ressources
-            var resourceManager = new ResourceManager();
-            var weights = new Dictionary<VoxelMaterial, int>
+                //Ressources
+                var resourceManager = new ResourceManager();
+                var weights = new Dictionary<VoxelMaterial, int>
             {
                 {MaterialRegistry.Copper,7},
                 {MaterialRegistry.Coal,7},
                 {MaterialRegistry.Iron,5},
                 {MaterialRegistry.Gold,3}
             };
-            resourceManager.SpawnAllResources(MapData, weights);
-            
-            //RemoveTerrainNotOfType(new[] { MaterialRegistry.Iron, MaterialRegistry.Gold, MaterialRegistry.Copper, MaterialRegistry.Coal });
-            //TestAStar();
+                resourceManager.SpawnAllResources(MapData, weights);
+
+                //RemoveTerrainNotOfType(new[] { MaterialRegistry.Iron, MaterialRegistry.Gold, MaterialRegistry.Copper, MaterialRegistry.Coal });
+                //TestAStar();
+            } else
+            {
+                MapData = new MapData(129 / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
+            }
             IsDoneGenerating = true;
         }
 
         private void SetCameraValues()
         {
+            if (CameraController == null) return;
             var mapSize = MapData.Chunks.GetLength(0) * Chunk.ChunkSize;
             var mapHeight = MapData.Chunks.GetLength(1) * Chunk.ChunkSize;
             CameraController.RightLimit = mapSize * 1.1f;

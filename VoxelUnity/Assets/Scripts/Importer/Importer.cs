@@ -1,44 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Assets.Scripts.Data.Multiblock;
+using Assets.Scripts.Data.Material;
+using Assets.Scripts.Data.Map;
+using System.Linq;
 
 namespace Assets.Scripts.Importer
 {
     public class Importer : MonoBehaviour
     {
         public int FractionValue = 10;
-        
+        private bool _once = false;
 
-        void Start()
+        void Update()
         {
-            Import(transform.FindChild("Zone"));
+            if (GameObject.Find("Map").GetComponent<Map>().IsDoneGenerating && !_once)
+            {
+                _once = true;
+                Import(transform.GetChild(0));
+            }
         }
 
         private void Import(Transform zone)
         {
+            zone.tag = "Import";
+            if(zone.GetComponent<MeshCollider>() == null)
+            {
+                zone.gameObject.AddComponent<MeshCollider>();
+            }
             var list = getVoxelPositions(zone);
+            if (list.Count == 0) return;
+            var m = Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), new Dictionary<VoxelMaterial, List<Vector3>>() { { MaterialRegistry.Stone, list } });
+            m.transform.localScale = Vector3.one / FractionValue;
+            m.transform.position = new Vector3(0, 0, 0);
         }
 
         private List<Vector3> getVoxelPositions(Transform zone)
         {
-            var offset = FractionValue / 2;
+            var offset = 0.5f;
             var voxelPosList = new List<Vector3>();
-            var dirList = new List<Vector3>();
-            dirList.Add(new Vector3(1, 0, 0));
-            dirList.Add(new Vector3(-1, 0, 0));
-            dirList.Add(new Vector3(0, 1, 0));
-            dirList.Add(new Vector3(0, -1, 0));
-            dirList.Add(new Vector3(0, 0, 1));
-            dirList.Add(new Vector3(0, 0, -1));
-            
-            for (var x = zone.position.x; x < (int)zone.transform.localScale.x * FractionValue; x++)
+            var dirList = new List<Vector3>()
             {
-                for (var y = zone.position.y; y < (int)zone.transform.localScale.y * FractionValue; y++)
+                Vector3.left,
+                Vector3.right,
+                Vector3.up,
+                Vector3.down,
+                Vector3.forward,
+                Vector3.back
+            };
+            var bounds = zone.GetComponent<MeshFilter>().mesh.bounds;
+            Debug.Log(bounds.size.z);
+            for (var x = 0; x < Mathf.Round(zone.transform.localScale.x * FractionValue * bounds.size.x + 0.5f); x++)
+            {
+                for (var y = 0; y < Mathf.Round(zone.transform.localScale.y * FractionValue * bounds.size.y + 0.5f); y++)
                 {
-                    for (var z = zone.position.z; z < (int)zone.transform.localScale.z * FractionValue; z++)
+                    for (var z = 0; z < Mathf.Round(zone.transform.localScale.z * FractionValue * bounds.size.z + 0.5f); z++)
                     {
-                        var pos = new Vector3((x + offset) / FractionValue, (y + offset) / FractionValue, (z + offset) / FractionValue);
-                        if (isVoxelInModel(pos, dirList)) voxelPosList.Add(new Vector3(x / FractionValue, y / FractionValue, z / FractionValue));
+                        var pos = new Vector3((x + offset) / FractionValue, (y + offset) / FractionValue, (z + offset) / FractionValue) + bounds.center - bounds.size/2;
+                        if (isVoxelInModel(pos, dirList)) voxelPosList.Add(new Vector3(x, y, z));
                     }
                 }
             }
@@ -47,29 +66,14 @@ namespace Assets.Scripts.Importer
 
         private bool isVoxelInModel(Vector3 pos, List<Vector3> dirList)
         {
-            var dirHitCount = 0;
             foreach (var dir in dirList)
             {
-                var planeHitCount = 0;
                 var hits = Physics.RaycastAll(pos, dir, Mathf.Infinity);
-                Debug.DrawRay(pos, dir, Color.red, 100f);
-                Debug.Log(hits.Length);
-                if (hits.Length == 0) return false;
-                for(int i = 0; i < hits.Length; i++)
-                {
-                    if(hits[0].collider != null)
-                    {
-                        planeHitCount++;
-                    }
-                    Debug.Log(planeHitCount);
-                    if (planeHitCount % 2 == 0) return false;
-                }
-                dirHitCount++;
+                var hitsrev = Physics.RaycastAll(pos + dir * 100, -dir, 100f);
+                if (hits.Where(h => h.collider.tag == "Import").Count() + hitsrev.Where(h => h.collider.tag == "Import").Count() % 2 == 0) return false;
             }
-            if (dirHitCount == 6) return true;
-            return false;
+            return true;
         }
-        
     }
 }
 
