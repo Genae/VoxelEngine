@@ -19,6 +19,7 @@ namespace Assets.Scripts.Logic
 
         void Start()
         {
+            Debug.Log("GameController.Start() works.");
             _ambientPlants = new List<GameObject>();
             _ambientPlants.Add(flower1);
             _ambientPlants.Add(flower2);
@@ -35,7 +36,7 @@ namespace Assets.Scripts.Logic
                 {
                     SpawnCharacter();
                 }
-                SpawnAmbientPlants(1000);
+                //SpawnAmbientPlants(1000);
             }
         }
 
