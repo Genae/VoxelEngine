@@ -19,6 +19,7 @@ namespace Assets.Scripts.Logic
 
         void Start()
         {
+            Map.GenerateMap = true;
             Debug.Log("GameController.Start() works.");
             _ambientPlants = new List<GameObject>();
             _ambientPlants.Add(flower1);

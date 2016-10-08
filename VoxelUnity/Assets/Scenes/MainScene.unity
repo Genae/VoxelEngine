@@ -190,6 +190,10 @@ Prefab:
       propertyPath: CameraController
       value: 
       objectReference: {fileID: 1435053539}
+    - target: {fileID: 11421216, guid: 172a99653b0e56249a3b93f02afa48d9, type: 2}
+      propertyPath: GenerateMap
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 172a99653b0e56249a3b93f02afa48d9, type: 2}
   m_IsPrefabParent: 0
