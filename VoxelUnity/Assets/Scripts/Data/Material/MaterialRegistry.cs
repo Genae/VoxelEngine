@@ -80,7 +80,7 @@ namespace Assets.Scripts.Data.Material
                 tex.wrapMode = TextureWrapMode.Clamp;
                 tex.filterMode = FilterMode.Point;
             }
-            var pos = EntityMaterialsIndices.Count+1;
+            var pos = EntityMaterialsIndices.Count;
             EntityMaterialsIndices[color]= Create("EntityMaterial", MaterialTyp.Entity, color);
             tex.SetPixel(pos / AtlasSize, pos % AtlasSize, color);
             tex.Apply();

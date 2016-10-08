@@ -28,17 +28,32 @@ namespace Assets.Scripts.Importer
             {
                 zone.gameObject.AddComponent<MeshCollider>();
             }
-            var list = getVoxelPositions(zone);
+            var list = getVoxelData(zone);
             if (list.Count == 0) return;
-            var m = Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), new Dictionary<VoxelMaterial, List<Vector3>>() { { MaterialRegistry.Stone, list } });
+            var m = CreateMultiblock(list);
             m.transform.localScale = Vector3.one / FractionValue;
             m.transform.position = new Vector3(0, 0, 0);
         }
 
-        private List<Vector3> getVoxelPositions(Transform zone)
+        private Multiblock CreateMultiblock(List<VData> list)
+        {
+            var dict = new Dictionary<VoxelMaterial, List<Vector3>>();
+            
+            foreach (var data in list)
+            {
+                var color = Map.Instance.MaterialRegistry.GetColorIndex(data.Color);
+                if (!dict.ContainsKey(color))
+                dict.Add(color, new List<Vector3>());
+                dict[color].Add(data.VPos);
+            }
+
+            return Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), dict);
+        }
+
+        private List<VData> getVoxelData(Transform zone)
         {
             var offset = 0.5f;
-            var voxelPosList = new List<Vector3>();
+            var voxelPosList = new List<VData>();
             var dirList = new List<Vector3>()
             {
                 Vector3.left,
@@ -57,15 +72,31 @@ namespace Assets.Scripts.Importer
                     for (var z = 0; z < Mathf.Round(zone.transform.localScale.z * FractionValue * bounds.size.z + 0.5f); z++)
                     {
                         var pos = new Vector3((x + offset) / FractionValue, (y + offset) / FractionValue, (z + offset) / FractionValue) + bounds.center - bounds.size/2;
-                        if (isVoxelInModel(pos, dirList)) voxelPosList.Add(new Vector3(x, y, z));
+                        Color color;
+                        if (isVoxelInModel(pos, dirList, out color))
+                        {
+                            voxelPosList.Add(new VData(new Vector3(x, y, z), color));
+                        }
                     }
                 }
             }
             return voxelPosList;
         }
 
-        private bool isVoxelInModel(Vector3 pos, List<Vector3> dirList)
+        private bool isVoxelInModel(Vector3 pos, List<Vector3> dirList, out Color color)
         {
+            color = Color.magenta;
+            foreach (var dir in dirList)
+            {
+                var hitsrev = Physics.RaycastAll(pos + dir/FractionValue, -dir, 1f / FractionValue);
+                if(hitsrev.Count() > 0)
+                {
+                    var texCoord = hitsrev.First().textureCoord;
+                    var mat = hitsrev.First().collider.gameObject.GetComponent<MeshRenderer>().material;
+                    color = ((Texture2D)mat.mainTexture).GetPixelBilinear(texCoord.x, texCoord.y);
+                    break;
+                }
+            }
             foreach (var dir in dirList)
             {
                 var hits = Physics.RaycastAll(pos, dir, Mathf.Infinity);
@@ -74,6 +105,18 @@ namespace Assets.Scripts.Importer
             }
             return true;
         }
+    }
+
+
+    public struct VData
+    {
+        public VData(Vector3 vp, Color c)
+        {
+            VPos = vp;
+            Color = c;
+        }
+        public Vector3 VPos;
+        public Color Color;
     }
 }
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Importer;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock
@@ -36,6 +37,8 @@ namespace Assets.Scripts.Data.Multiblock
             }
             return (Multiblock)container;
         }
+
+       
 
         private static int GetSize(out Vector3 zeroVec, Dictionary<VoxelMaterial, List<Vector3>> voxels)
         {
