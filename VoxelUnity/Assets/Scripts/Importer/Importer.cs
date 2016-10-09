@@ -11,6 +11,7 @@ namespace Assets.Scripts.Importer
     {
         public int FractionValue = 10;
         private bool _once = false;
+        public static List<VData> Imported;
 
         void Update()
         {
@@ -28,9 +29,9 @@ namespace Assets.Scripts.Importer
             {
                 zone.gameObject.AddComponent<MeshCollider>();
             }
-            var list = getVoxelData(zone);
-            if (list.Count == 0) return;
-            var m = CreateMultiblock(list);
+            Imported = getVoxelData(zone);
+            if (Imported.Count == 0) return;
+            var m = CreateMultiblock(Imported);
             m.transform.localScale = Vector3.one / FractionValue;
             m.transform.position = new Vector3(0, 0, 0);
         }
