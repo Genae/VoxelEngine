@@ -10,7 +10,7 @@ public class ImportObject : EditorWindow
 {
     public const float Scale = 1f;
     [MenuItem("Importer/Save File")]
-    static void LoadFile()
+    static void SaveFile()
     {
         if (Importer.Imported == null)
         {
@@ -29,5 +29,25 @@ public class ImportObject : EditorWindow
         {
             File.AppendAllText(path, JsonUtility.ToJson(thing) + "\n");
         }
+    }
+
+    [MenuItem("Importer/Load File")]
+    static void LoadFile()
+    {
+        Debug.Log("Loading File");
+
+        var path = EditorUtility.OpenFilePanel("", "", "vox");
+
+
+        var objLineStrings = File.ReadAllLines(path);
+
+        List<VData> loadedObjList = new List<VData>();
+
+        foreach (var line in objLineStrings)
+        {
+            loadedObjList.Add(JsonUtility.FromJson<VData>(line));
+        }
+
+        Importer.CreateMultiblock(loadedObjList);
     }
 }

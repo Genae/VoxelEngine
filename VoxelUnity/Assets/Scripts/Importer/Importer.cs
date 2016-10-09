@@ -36,7 +36,7 @@ namespace Assets.Scripts.Importer
             m.transform.position = new Vector3(0, 0, 0);
         }
 
-        private Multiblock CreateMultiblock(List<VData> list)
+        public static Multiblock CreateMultiblock(List<VData> list)
         {
             var dict = new Dictionary<VoxelMaterial, List<Vector3>>();
             
