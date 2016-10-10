@@ -121,6 +121,8 @@
     <Compile Include="Assets\Scripts\Logic\Tools\DeleteTool.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\Tool.cs" />
+    <Compile Include="Assets\Scripts\Logic\Unit\Unit.cs" />
+    <Compile Include="Assets\Scripts\Logic\Unit\UnitCreator.cs" />
     <Compile Include="Assets\Scripts\Logic\WalkingController.cs" />
     <Compile Include="Assets\Scripts\Util\Exploder.cs" />
     <Compile Include="Assets\Scripts\Util\ObjectPool.cs" />

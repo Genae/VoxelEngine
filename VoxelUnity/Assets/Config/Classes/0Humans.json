@@ -1,6 +1,7 @@
 {
+"ClassNumber": 0,
 "HitpointMod": 0.8,
-"KonditionMod": 1.2,
+"ConditionMod": 1.2,
 "StrengthMod": 1,
 "DexterityMod": 1,
 "IntelligenceMod": 1,
