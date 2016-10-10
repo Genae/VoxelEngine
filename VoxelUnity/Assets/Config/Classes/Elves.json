@@ -1,0 +1,15 @@
+{
+"HitpointMod": 1,
+"KonditionMod": 0.8,
+"StrengthMod": 0.8,
+"DexterityMod": 1.2,
+"IntelligenceMod": 1.2,
+"WisdomMod": 1.4,
+"pFighting": 0.8,
+"mFighting": 1.2,
+"rFighting": 1.2,
+"Mining": 0.8,
+"Carrying": 0.8,
+"WoodChopping": 0.8,
+"Building": 1
+}
