@@ -65,7 +65,7 @@ namespace Assets.Scripts.Importer
                 Vector3.back
             };
             var bounds = zone.GetComponent<MeshFilter>().mesh.bounds;
-            Debug.Log(bounds.size.z);
+            //Debug.Log(bounds.size.z);
             for (var x = 0; x < Mathf.Round(zone.transform.localScale.x * FractionValue * bounds.size.x + 0.5f); x++)
             {
                 for (var y = 0; y < Mathf.Round(zone.transform.localScale.y * FractionValue * bounds.size.y + 0.5f); y++)
