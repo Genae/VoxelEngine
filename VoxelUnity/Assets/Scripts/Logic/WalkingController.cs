@@ -44,7 +44,7 @@ namespace Assets.Scripts.Logic
                 if ((transform.position - _currentNode.Position).magnitude > moveDist)
                 {
                     transform.Translate((_currentNode.Position - transform.position).normalized * moveDist, Space.Self);
-                    transform.FindChild("Scale").LookAt(_currentNode.Position);
+                    transform.Find("Scale").LookAt(_currentNode.Position);
                     return;
                 }
                 else

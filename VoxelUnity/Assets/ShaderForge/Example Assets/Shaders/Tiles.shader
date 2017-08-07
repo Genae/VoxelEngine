@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
 // Shader created with Shader Forge v1.26 
@@ -62,7 +64,7 @@ Shader "Shader Forge/Examples/Tiles" {
                 float3 node_173 = (_Thing*v.normal);
                 v.vertex.xyz += node_173;
                 o.posWorld = mul(unity_ObjectToWorld, v.vertex);
-                o.pos = mul(UNITY_MATRIX_MVP, v.vertex );
+                o.pos = UnityObjectToClipPos(v.vertex );
                 UNITY_TRANSFER_FOG(o,o.pos);
                 return o;
             }
@@ -185,7 +187,7 @@ Shader "Shader Forge/Examples/Tiles" {
                 o.normalDir = UnityObjectToWorldNormal(v.normal);
                 float3 node_173 = (_Thing*v.normal);
                 v.vertex.xyz += node_173;
-                o.pos = mul(UNITY_MATRIX_MVP, v.vertex );
+                o.pos = UnityObjectToClipPos(v.vertex );
                 TRANSFER_SHADOW_CASTER(o)
                 return o;
             }

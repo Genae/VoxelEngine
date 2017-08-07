@@ -58,7 +58,7 @@ namespace Assets.Scripts.Logic
 
         private void SpawnAmbientPlants(int count)
         {
-            var parent = transform.FindChild("Map").FindChild("AmbientFlowers");
+            var parent = transform.Find("Map").Find("AmbientFlowers");
             for(int i = 0; i < count; i++)
             {
                 var pos = new Vector3(Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
