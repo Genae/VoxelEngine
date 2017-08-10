@@ -16,9 +16,14 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
 
         public void AddNode(int xPos, int yPos, int zPos)
         {
-            var node = new T0Node(new Vector3I(xPos, yPos, zPos));
-            _grid[xPos, yPos, zPos] = node;
-            ConnectNeighbours(xPos, yPos, zPos);
+            AddNode(new Vector3I(xPos, yPos, zPos));
+        }
+
+        public void AddNode(Vector3I pos)
+        {
+            var node = new T0Node(pos);
+            _grid[pos.x, pos.y, pos.z] = node;
+            ConnectNeighbours(pos.x, pos.y, pos.z);
             if (_gridSize > 0)
             {
                 node.ConnectToSupernodes();

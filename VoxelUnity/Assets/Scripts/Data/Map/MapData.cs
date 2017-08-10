@@ -56,7 +56,7 @@ namespace Assets.Scripts.Data.Map
             var cy = y / Chunk.ChunkSize;
             var cz = z / Chunk.ChunkSize;
             if(Chunks[cx, cy, cz] == null)
-                Chunks[cx, cy, cz] = new ChunkData(new Vector3(x, y, z) * Chunk.ChunkSize);
+                Chunks[cx, cy, cz] = new ChunkData(new Vector3(cx, cy, cz) * Chunk.ChunkSize);
             return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, active, material);
         }
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Algorithms.Pathfinding;
-using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using UnityEngine;
 
@@ -8,34 +7,36 @@ namespace Assets.Scripts.Data.Map
 {
     public class LocalAStarNetwork
     {
-        public Grid3D<Vector3I> Nodes = new Grid3D<Vector3I>();
+        public Vector3I[] Nodes = new Vector3I[0];
 
         public void RefreshNetwork(ChunkData chunk, List<Vector3> upVoxels)
         {
             var map = Map.Instance;
             var oldNodes = Nodes;
-            var newNodes = NodeBuilder.BuildAStarNetwork(chunk, upVoxels);
+            var newNodes = NodeBuilder.BuildAStarNetwork(chunk, upVoxels).ToArray();
 
-            var maxX = Mathf.Max(oldNodes.GetSize().x, newNodes.GetSize().x);
-            var maxY = Mathf.Max(oldNodes.GetSize().y, newNodes.GetSize().y);
-            var maxZ = Mathf.Max(oldNodes.GetSize().z, newNodes.GetSize().z);
-
-            var minX = Mathf.Min(oldNodes.GetSize().x, newNodes.GetSize().x);
-            var minY = Mathf.Min(oldNodes.GetSize().y, newNodes.GetSize().y);
-            var minZ = Mathf.Min(oldNodes.GetSize().z, newNodes.GetSize().z);
-
-            for (int x = minX; x < maxX; x++)
+            var o = 0;
+            var i = 0;
+            while (true)
             {
-                for (int y = minY; y < maxY; y++)
+                if (o < oldNodes.Length && i < newNodes.Length && oldNodes[o] == newNodes[i])
                 {
-                    for (int z = minZ; z < maxZ; z++)
-                    {
-                        if(oldNodes[x, y, z] != null && newNodes[x, y, z] == null) 
-                            map.AStarNetwork.RemoveNode(new Vector3I(x, y, z));
-
-                        if (newNodes[x, y, z] != null && oldNodes[x, y, z] == null)
-                            map.AStarNetwork.AddNode(x, y, z);
-                    }
+                    o++;
+                    i++;
+                }
+                else if(o < oldNodes.Length && (i >= newNodes.Length || oldNodes[o].CompareTo(newNodes[i]) < 0))
+                {
+                    map.AStarNetwork.RemoveNode(oldNodes[o]);
+                    o++;
+                }
+                else if(i < newNodes.Length && (o >= oldNodes.Length || oldNodes[o].CompareTo(newNodes[i]) > 0))
+                {
+                    map.AStarNetwork.AddNode(newNodes[i]);
+                    i++;
+                }
+                else
+                {
+                    break;
                 }
             }
         }

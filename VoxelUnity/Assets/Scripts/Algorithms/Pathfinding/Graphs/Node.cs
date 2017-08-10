@@ -97,7 +97,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
                 SuperNodes.Remove(superNode);
             }
             var neighbours = GetNeighbours().Where(n => n.To.SuperNodes.ContainsKey(superNode)).ToList();
-            var queue = new global::Assets.Scripts.Algorithms.Pathfinding.Utils.PriorityQueue<Edge>();
+            var queue = new PriorityQueue<Edge>();
             foreach (var neighbour in neighbours)
             {
                 queue.Enqueue(neighbour, neighbour.To.SuperNodes[superNode].Length + neighbour.Length);
@@ -179,7 +179,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
         public void RecalculateSuperNodePathAfterAdd(SuperNode superNode)
         {
             var neighbours = GetNeighbours().Where(n => n.To.SuperNodes.ContainsKey(superNode)).ToList();
-            var queue = new global::Assets.Scripts.Algorithms.Pathfinding.Utils.PriorityQueue<Edge>();
+            var queue = new PriorityQueue<Edge>();
             foreach (var neighbour in neighbours)
             {
                 queue.Enqueue(neighbour, neighbour.To.SuperNodes[superNode].Length + neighbour.Length);

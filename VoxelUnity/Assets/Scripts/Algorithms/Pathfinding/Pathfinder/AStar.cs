@@ -5,14 +5,14 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
 {
     public class AStar
     {
-        public static global::Assets.Scripts.Algorithms.Pathfinding.Pathfinder.Path GetPath(Node from, Node to, global::Assets.Scripts.Algorithms.Pathfinding.Pathfinder.Path path)
+        public static Path GetPath(Node from, Node to, Path path)
         {
             return GetPath(new Dictionary<Node, float> {{from, 0f}}, to, path);
         }
 
-        public static global::Assets.Scripts.Algorithms.Pathfinding.Pathfinder.Path GetPath(Dictionary<Node, float> from, Node to, global::Assets.Scripts.Algorithms.Pathfinding.Pathfinder.Path path)
+        public static Path GetPath(Dictionary<Node, float> from, Node to, Path path)
         {
-            var openSet = new global::Assets.Scripts.Algorithms.Pathfinding.Utils.PriorityQueue<VisitedNode>();
+            var openSet = new Utils.PriorityQueue<VisitedNode>();
             var pathNodeMap = new Dictionary<Node, VisitedNode>();
             var nodeTo = new VisitedNode(to, null, 0);
             foreach (var f in from)
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
             return path;
         }
         
-        private static global::Assets.Scripts.Algorithms.Pathfinding.Pathfinder.Path ReconstructPath(VisitedNode node, global::Assets.Scripts.Algorithms.Pathfinding.Pathfinder.Path path)
+        private static Path ReconstructPath(VisitedNode node, Path path)
         {
             var length = node.GScore;
             var nodes = new List<Node>();

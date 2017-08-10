@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Algorithms.Pathfinding.Utils
 {
-    public class Vector3I
+    public class Vector3I : IComparable<Vector3I>
     {
         public int x;
         public int y;
@@ -85,6 +85,17 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Utils
         public static implicit operator Vector3I(Vector3 v)
         {
             return new Vector3I((int)v.x, (int)v.y, (int)v.z);
+        }
+
+        public int CompareTo(Vector3I other)
+        {
+            if (ReferenceEquals(this, other)) return 0;
+            if (ReferenceEquals(null, other)) return 1;
+            var xComparison = x.CompareTo(other.x);
+            if (xComparison != 0) return xComparison;
+            var yComparison = y.CompareTo(other.y);
+            if (yComparison != 0) return yComparison;
+            return z.CompareTo(other.z);
         }
     }
 }

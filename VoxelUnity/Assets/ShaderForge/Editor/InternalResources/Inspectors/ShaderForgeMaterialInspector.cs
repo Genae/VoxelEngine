@@ -70,7 +70,7 @@ public class ShaderForgeMaterialInspector : MaterialEditor {
 
 	public override void OnInspectorGUI()
 	{
-		base.serializedObject.Update();
+		serializedObject.Update();
 		var theShader = serializedObject.FindProperty ("m_Shader");
 
 
@@ -108,8 +108,8 @@ public class ShaderForgeMaterialInspector : MaterialEditor {
 
 
 
-			if(this.PropertiesGUI())
-				this.PropertiesChanged();
+			if(PropertiesGUI())
+				PropertiesChanged();
 		}
 	}
 

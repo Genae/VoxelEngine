@@ -65,7 +65,7 @@ namespace Assets.Scripts.Logic
         public void MoveTo(Vector3 target)
         {
             Debug.Log("Calculating path");
-            PathToTarget = Path.Calculate(_map.AStarNetwork, transform.position, target);
+            PathToTarget = Path.Calculate(_map.AStarNetwork, transform.position, target, true);
         }
     }
 }

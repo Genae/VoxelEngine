@@ -46,9 +46,9 @@ namespace UnityEditor {
 		private static string GetPropertyType( Shader s, int index ) {
 			ShaderUtil.ShaderPropertyType propertyType = ShaderUtil.GetPropertyType( s, index );
 			if( propertyType == ShaderUtil.ShaderPropertyType.TexEnv ) {
-				return ShaderForgeInspector.kTextureTypes[(int)ShaderUtil.GetTexDim( s, index )];
+				return kTextureTypes[(int)ShaderUtil.GetTexDim( s, index )];
 			}
-			return ShaderForgeInspector.kPropertyTypes[(int)propertyType];
+			return kPropertyTypes[(int)propertyType];
 		}
 
 
@@ -149,13 +149,13 @@ namespace UnityEditor {
 		public bool hasShaderForgeData = false;
 
 		public void AnalyzeShader() {
-			hasShaderForgeData = SF_Parser.ContainsShaderForgeData(base.target as Shader);
+			hasShaderForgeData = SF_Parser.ContainsShaderForgeData(target as Shader);
 		}
 
 
 		public override void OnInspectorGUI() {
 			GUI.enabled = true;
-			Shader shader = base.target as Shader;
+			Shader shader = target as Shader;
 			
 			
 			if(!SF_Tools.CanRunShaderForge()){
@@ -201,7 +201,7 @@ namespace UnityEditor {
 				{
 					GUIStyle btnStyle = hasShaderForgeData ? "MiniButton" : "Button";
 					if( GUILayout.Button( "Open shader code", btnStyle ) ) {
-						UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal( AssetDatabase.GetAssetPath( shader ), 1 );
+						InternalEditorUtility.OpenFileAtLineExternal( AssetDatabase.GetAssetPath( shader ), 1 );
 					}
 					//if( GUILayout.Button( "Open compiled", btnStyle ) ) {
 					//	OpenCompiledShader( shader );
@@ -254,14 +254,14 @@ namespace UnityEditor {
 				InitStyles();
 			}
 
-			Shader shader = this.target as Shader;
+			Shader shader = target as Shader;
             if (shader == null)
             {
                     return;
             }
             GUI.enabled = true;
             EditorGUI.indentLevel = 0;
-            this.ShowShaderCodeArea(shader);
+            ShowShaderCodeArea(shader);
             if (shader.isSupported)
             {
                     EditorGUILayout.LabelField("Cast shadows", (!(bool)sutilHasShadowCasterPass.Invoke(null, new object[]{shader})) ? "no" : "yes", new GUILayoutOption[0]);
@@ -291,8 +291,8 @@ namespace UnityEditor {
         private void ShowShaderCodeArea(Shader s)
         {
                 ShowSurfaceShaderButton(s);
-                this.ShowCompiledCodeButton(s);
-                this.ShowShaderErrors(s);
+                ShowCompiledCodeButton(s);
+                ShowShaderErrors(s);
         }
 		private void ShowShaderErrors( Shader s ) {
 			int shaderErrorCount = (int)sutilGetShaderErrorCount.Invoke(null, new object[]{s} );
@@ -300,10 +300,10 @@ namespace UnityEditor {
 				return;
 			}
 
-			object[] args = new object[] { s, sutilGetShaderErrors.Invoke( null, new object[] { s } ), this.m_ScrollPosition };
+			object[] args = new object[] { s, sutilGetShaderErrors.Invoke( null, new object[] { s } ), m_ScrollPosition };
 			shinspGetErrorListUI.Invoke(null, args );
 			// ShaderInspector.ShaderErrorListUI( s, ShaderUtil.GetShaderErrors( s ), ref this.m_ScrollPosition );
-			this.m_ScrollPosition  = (Vector2)args[2];
+			m_ScrollPosition  = (Vector2)args[2];
 		}
         private void ShowShaderProperties(Shader s)
         {

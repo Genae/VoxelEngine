@@ -8,7 +8,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
     {
         public static void Fill(Node position, int range, SuperNode supernode)
         {
-            var openQueue = new global::Assets.Scripts.Algorithms.Pathfinding.Utils.PriorityQueue<VisitedNode>();
+            var openQueue = new Utils.PriorityQueue<VisitedNode>();
             var pathNodeMap = new Dictionary<Node, VisitedNode>();
             pathNodeMap[position] = new VisitedNode(position, null, 0);
             openQueue.Enqueue(pathNodeMap[position], 0);
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
         public static void FillNeigbours(SuperNode superNode, int gridSize)
         {
             var nodesToFill = superNode.GetNeighbours().Select(n => n.To).ToArray();
-            var openQueue = new global::Assets.Scripts.Algorithms.Pathfinding.Utils.PriorityQueue<VisitedNode>();
+            var openQueue = new Utils.PriorityQueue<VisitedNode>();
             var pathNodeMap = new Dictionary<Node, VisitedNode>();
             foreach (var childNode in superNode.ChildNodes)
             {
