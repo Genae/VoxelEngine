@@ -76,6 +76,8 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
         public void RemoveNode(Vector3I pos)
         {
             var node = _grid.Get(pos.x, pos.y, pos.z);
+            if (node == null)
+                return;
             node.Delete(this);
             _grid.Remove(pos);
             ProcessDirtyNodes();
