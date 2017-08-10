@@ -18,7 +18,7 @@ namespace Assets.Scripts.Data.Map
         public ChunkData(Vector3 position) : base(Chunk.ChunkSize, position)
         {
         }
-
+        
         public void UpdateBorder(bool[,] border, bool solid, int side, bool runUpdate = true)
         {
             NeighbourBorders[side] = border;

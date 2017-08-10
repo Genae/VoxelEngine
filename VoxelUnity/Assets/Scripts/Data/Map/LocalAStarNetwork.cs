@@ -1,76 +1,44 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Algorithms.Pathfinding;
+using Assets.Scripts.Algorithms.Pathfinding.Graphs;
+using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Map
 {
     public class LocalAStarNetwork
     {
-        public List<Node> Nodes = new List<Node>();
+        public Grid3D<Vector3I> Nodes = new Grid3D<Vector3I>();
 
         public void RefreshNetwork(ChunkData chunk, List<Vector3> upVoxels)
         {
             var map = Map.Instance;
             var oldNodes = Nodes;
             var newNodes = NodeBuilder.BuildAStarNetwork(chunk, upVoxels);
-            Nodes = map.AStarNetwork.UpdateChunkNodes(oldNodes, newNodes);
-        }
 
-        public void Visualize()
-        {
-            foreach (var node in Nodes)
+            var maxX = Mathf.Max(oldNodes.GetSize().x, newNodes.GetSize().x);
+            var maxY = Mathf.Max(oldNodes.GetSize().y, newNodes.GetSize().y);
+            var maxZ = Mathf.Max(oldNodes.GetSize().z, newNodes.GetSize().z);
+
+            var minX = Mathf.Min(oldNodes.GetSize().x, newNodes.GetSize().x);
+            var minY = Mathf.Min(oldNodes.GetSize().y, newNodes.GetSize().y);
+            var minZ = Mathf.Min(oldNodes.GetSize().z, newNodes.GetSize().z);
+
+            for (int x = minX; x < maxX; x++)
             {
-                node.Visualize();
+                for (int y = minY; y < maxY; y++)
+                {
+                    for (int z = minZ; z < maxZ; z++)
+                    {
+                        if(oldNodes[x, y, z] != null && newNodes[x, y, z] == null) 
+                            map.AStarNetwork.RemoveNode(new Vector3I(x, y, z));
+
+                        if (newNodes[x, y, z] != null && oldNodes[x, y, z] == null)
+                            map.AStarNetwork.AddNode(x, y, z);
+                    }
+                }
             }
         }
     }
-
-    public class Node
-    {
-        public Dictionary<Node, float> Neighbours;
-        public Vector3 Position;
-
-        public Node(int x, int y, int z)
-        {
-            Position = new Vector3(x, y-0.5f, z);
-            Neighbours = new Dictionary<Node, float>();
-        }
-
-        public void Visualize()
-        {
-            foreach (var neighbour in Neighbours.Keys)
-            {
-                //if(Neighbours[neighbour] <= 1f)
-                    Debug.DrawLine(Position, neighbour.Position, Neighbours[neighbour] <= 1f ? Color.blue : Neighbours[neighbour] < 1.5f ? Color.yellow : Neighbours[neighbour] <= 1.5f ? Color.red : Color.magenta, 6000, true);
-            }
-        }
-
-        public void Disconnect()
-        {
-            foreach (var neighbour in Neighbours.Keys.ToArray())
-            {
-                neighbour.Neighbours.Remove(this);
-            }
-            Neighbours.Clear();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() != GetType())
-                return false;
-            var n = (Node) obj;
-            return n.Position.Equals(Position);
-        }
-
-        protected bool Equals(Node other)
-        {
-            return Position.Equals(other.Position);
-        }
-
-        public override int GetHashCode()
-        {
-            return Position.GetHashCode();
-        }
-    }
+    
 }

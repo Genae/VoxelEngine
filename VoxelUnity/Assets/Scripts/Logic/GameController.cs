@@ -36,7 +36,7 @@ namespace Assets.Scripts.Logic
                 {
                     SpawnCharacter();
                 }
-                //SpawnAmbientPlants(1000);
+                SpawnAmbientPlants(1000);
             }
         }
 

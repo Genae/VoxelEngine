@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Util;
 using UnityEngine;
@@ -46,7 +47,7 @@ namespace Assets.Scripts.Logic.Jobs
                             continue; //never dig straight down
                         if (!Map.Instance.IsInBounds((int) Position.x + dx, (int) Position.y + dy,(int) Position.z + dz))
                             continue;
-                        if (Map.AStarNetwork.NodeGrid[(int) Position.x + dx, (int) Position.y + dy,(int) Position.z + dz] != null)
+                        if (Map.AStarNetwork.GetNode(new Vector3(Position.x + dx, (int) Position.y + dy,(int) Position.z + dz)) != null)
                         {
                             locs.Add(new Vector3((int)Position.x + dx, (int)Position.y + dy, (int)Position.z + dz));
                         }

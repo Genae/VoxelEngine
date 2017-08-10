@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Assets.Scripts.Algorithms;
 using Assets.Scripts.Algorithms.MapGeneration;
-using Assets.Scripts.Algorithms.Pathfinding;
+using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Control;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Data.Map
         public static Map Instance;
         public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
-        public AStarNetwork AStarNetwork;
+        public VoxelGraph AStarNetwork;
         public bool IsDoneGenerating;
         public bool GenerateMap; 
 
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Data.Map
                 MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
                 SetCameraValues();
                 yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
-                AStarNetwork = new AStarNetwork(MapData.Chunks.GetLength(0) * Chunk.ChunkSize, MapData.Chunks.GetLength(1) * Chunk.ChunkSize, MapData.Chunks.GetLength(2) * Chunk.ChunkSize);
+                AStarNetwork = new VoxelGraph();
                 yield return null;
                 yield return InitializeMap();
 
@@ -111,39 +111,6 @@ namespace Assets.Scripts.Data.Map
         }
 
         #region Tests
-        private void TestAStar()
-        {
-            foreach (var chunk in gameObject.GetComponentsInChildren<Chunk>())
-            {
-                chunk.Update();
-            }
-            var allNodes = new List<Node>();
-            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
-            {
-                for (var y = 0; y < MapData.Chunks.GetLength(1); y++)
-                {
-                    for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
-                    {
-                        allNodes.AddRange(MapData.Chunks[x, y, z].LocalAStar.Nodes);
-                        //MapData.Chunks[x, y, z].LocalAStar.Visualize();
-                        if (MapData.Chunks[x, y, z].LocalAStar.Nodes.Count > 0)
-                        {
-
-                        }
-                    }
-                }
-            }
-            var amount = 0;
-            while (amount < 5)
-            {
-                var start = allNodes[Random.Range(0, allNodes.Count)];
-                var end = allNodes[Random.Range(0, allNodes.Count)];
-                var path = Path.Calculate(MapData, start.Position, end.Position);
-                var color = new[] { Color.green, Color.blue, Color.black, Color.magenta, Color.yellow }[amount];
-                path.OnFinish += () => path.Visualize(color);
-                amount++;
-            }
-        }
         private void RemoveTerrainNotOfType(VoxelMaterial[] types)
         {
             for (var x = 0; x < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; x++)

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Algorithms.Pathfinding;
+﻿using Assets.Scripts.Algorithms.Pathfinding.Graphs;
+using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
 
@@ -63,7 +64,8 @@ namespace Assets.Scripts.Logic
 
         public void MoveTo(Vector3 target)
         {
-            PathToTarget = Path.Calculate(_map.MapData, transform.position, target);
+            Debug.Log("Calculating path");
+            PathToTarget = Path.Calculate(_map.AStarNetwork, transform.position, target);
         }
     }
 }

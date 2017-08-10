@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Scripts.Algorithms.Pathfinding.Graphs;
+using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
 
@@ -6,16 +9,16 @@ namespace Assets.Scripts.Algorithms.Pathfinding
 {
     public class NodeBuilder
     {
-        public static List<Node> BuildAStarNetwork(ChunkData data, List<Vector3> upVoxels)
+        public static Grid3D<object> BuildAStarNetwork(ChunkData data, List<Vector3> upVoxels)
         {
             var map = Map.Instance;
             var nodes = CreateNodePositions(data, upVoxels, map.MapData);
             return nodes;
         }
 
-        private static List<Node> CreateNodePositions(ChunkData data, List<Vector3> upVoxels, MapData map)
+        private static Grid3D<object> CreateNodePositions(ChunkData data, List<Vector3> upVoxels, MapData map)
         {
-            var nodes = new List<Node>();
+            var nodes = new Grid3D<object>();
             foreach (var upVoxel in upVoxels)
             {
                 var x = (int)upVoxel.x + (int)data.Position.x;
@@ -23,7 +26,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding
                 var z = (int)upVoxel.z + (int)data.Position.z;
                 if (CheckPosition(map, x, y, z, 1, 2, 1))
                 {
-                    nodes.Add(new Node(x, y, z));
+                    nodes[x, y, z] = new object();
                 }
             }
             return nodes;

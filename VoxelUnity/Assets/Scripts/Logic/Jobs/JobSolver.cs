@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Assets.Scripts.Algorithms.Pathfinding;
+using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Jobs

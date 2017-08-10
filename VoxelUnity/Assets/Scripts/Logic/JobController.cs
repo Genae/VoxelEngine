@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding;
+using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Logic.Jobs;
 using UnityEngine;

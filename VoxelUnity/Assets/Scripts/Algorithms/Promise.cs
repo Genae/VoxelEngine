@@ -7,7 +7,7 @@ namespace Assets.Scripts.Algorithms
 {
     public abstract class Promise
     {
-        protected Thread Thread;
+        public Thread Thread;
         private bool _finished;
         public bool Finished
         {
