@@ -129,7 +129,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Importer\Editor\ImportObject.cs" />
+    <Compile Include="Assets\Scripts\MultiblockHandling\Editor\ImportObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Imported\flower.txt" />

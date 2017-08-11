@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Assets.Scripts.Data.Multiblock;
-using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Map;
 using System.Linq;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Assets.Scripts.Importer
+namespace Assets.Scripts.MultiblockImporter
 {
-    public class Importer : MonoBehaviour
+    public class MultiblockImporter : MonoBehaviour
     {
         public int FractionValue = 10;
         private bool _once = false;
@@ -22,7 +20,7 @@ namespace Assets.Scripts.Importer
                 _once = true;
                 //hook
                 Import(transform.GetChild(0), "flower.txt");
-                Load("flower.txt");
+                MultiblockLoader.LoadMultiblock("flower.txt");
             }
         }
 
@@ -44,17 +42,6 @@ namespace Assets.Scripts.Importer
             SaveVDataListToFile(@Application.dataPath + "/Imported/", filename, Imported);
         }
 
-        //maybe move out of here!
-        private void Load(string filename)
-        {
-            //load vdata list from text file
-            var list = LoadVDataListFromFile(@Application.dataPath + "/Imported/", filename);
-
-            //creating multiblock with vdata list
-            var m = CreateMultiblock(list);
-            m.transform.localScale = Vector3.one / FractionValue;
-            m.transform.position = new Vector3(0, 0, 0);
-        }
 
         public void SaveVDataListToFile(string path, string filename, List<VData> list)
         {
@@ -62,29 +49,6 @@ namespace Assets.Scripts.Importer
             StreamWriter writer = new StreamWriter(path + filename);
             serializer.Serialize(writer, list);
             writer.Close(); //not sure if necessary
-        }
-
-        public List<VData> LoadVDataListFromFile(string path, string filename)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<VData>));
-            StreamReader reader = new StreamReader(path + filename);
-            return (List<VData>)serializer.Deserialize(reader);
-        }
-
-
-        public static Multiblock CreateMultiblock(List<VData> list)
-        {
-            var dict = new Dictionary<VoxelMaterial, List<Vector3>>();
-            
-            foreach (var data in list)
-            {
-                var color = Map.Instance.MaterialRegistry.GetColorIndex(data.Color);
-                if (!dict.ContainsKey(color))
-                dict.Add(color, new List<Vector3>());
-                dict[color].Add(data.VPos);
-            }
-
-            return Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), dict);
         }
 
         private List<VData> getVoxelData(Transform zone)
@@ -154,14 +118,6 @@ namespace Assets.Scripts.Importer
         }
         public Vector3 VPos;
         public Color Color;
-
-        //ehe ich kann sowas auch
-        public override string ToString()
-        {
-            string res = "";
-            res += VPos.ToString() + Color.ToString();
-            return res;
-        }
     }
 }
 

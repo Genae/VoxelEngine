@@ -13,14 +13,12 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
-    <LangVersion>4</LangVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -136,7 +134,6 @@
     <Compile Include="Assets\Scripts\Data\Multiblock\Multiblock.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
     <Compile Include="Assets\Scripts\Data\VoxelEntity\VoxelEntity.cs" />
-    <Compile Include="Assets\Scripts\Importer\Importer.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Logic\JobController.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\Job.cs" />
@@ -151,6 +148,8 @@
     <Compile Include="Assets\Scripts\Logic\Unit\Unit.cs" />
     <Compile Include="Assets\Scripts\Logic\Unit\UnitCreator.cs" />
     <Compile Include="Assets\Scripts\Logic\WalkingController.cs" />
+    <Compile Include="Assets\Scripts\MultiblockHandling\MultiblockImporter.cs" />
+    <Compile Include="Assets\Scripts\MultiblockHandling\MultiblockLoader.cs" />
     <Compile Include="Assets\Scripts\Util\Exploder.cs" />
     <Compile Include="Assets\Scripts\Util\ObjectPool.cs" />
   </ItemGroup>

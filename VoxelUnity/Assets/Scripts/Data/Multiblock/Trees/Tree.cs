@@ -27,7 +27,7 @@ namespace Assets.Scripts.Data.Multiblock.Trees
             var treeTopVoxels = GenerateTreeTop(topOfStain, data);
             voxels.Add(MaterialRegistry.GetMaterialFromName(config.LeafMaterial), treeTopVoxels);
 
-            Multiblock = Multiblock.InstantiateVoxels(position, voxels);
+            Multiblock = Multiblock.InstantiateVoxels(position, voxels, "Tree");
         }
 
         protected TreeData GetRandomizedTreeValues(TreeConfig config)

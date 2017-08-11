@@ -4,11 +4,11 @@ using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 using Assets.Scripts.Data.VoxelEntity;
-using Assets.Scripts.Importer;
+using Assets.Scripts.MultiblockImporter;
 
 public class ImportObject : EditorWindow
 {
-    public const float Scale = 1f;
+    /*public const float Scale = 1f;
     [MenuItem("Importer/Save File")]
     static void SaveFile()
     {
@@ -49,5 +49,5 @@ public class ImportObject : EditorWindow
         }
 
         Importer.CreateMultiblock(loadedObjList);
-    }
+    }*/
 }

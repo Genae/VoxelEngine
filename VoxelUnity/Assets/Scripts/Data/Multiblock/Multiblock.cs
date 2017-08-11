@@ -2,14 +2,14 @@
 using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
-using Assets.Scripts.Importer;
+using Assets.Scripts.MultiblockImporter;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock
 {
     public class Multiblock : VoxelContainer
     {
-        public static Multiblock InstantiateVoxels(Vector3 position, Dictionary<VoxelMaterial, List<Vector3>> voxels)
+        public static Multiblock InstantiateVoxels(Vector3 position, Dictionary<VoxelMaterial, List<Vector3>> voxels, string name)
         {
             var map = Map.Map.Instance;
             Vector3 zeroVec;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Data.Multiblock
                     data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), true, type);
                 }
             }
-            var container = CreateContainer<Multiblock>(position+zeroVec, data, map.MaterialRegistry.Materials, "Tree");
+            var container = CreateContainer<Multiblock>(position+zeroVec, data, map.MaterialRegistry.Materials, name);
             container.transform.parent = map.transform;
             for (var x = Mathf.Max(0, (int)((position.x) / Chunk.ChunkSize)); x < Mathf.Min(map.MapData.Chunks.GetLength(0), (position.x + size) / Chunk.ChunkSize); x++)
             {
