@@ -12,6 +12,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
         private readonly Grid3D<Node> _grid = new Grid3D<Node>();
         private readonly Grid3D<SuperNode> _gridT1 = new Grid3D<SuperNode>();
         private readonly HashSet<Node> _dirtyNodes = new HashSet<Node>();
+        private readonly PathRegistry _pathRegistry = new PathRegistry();
         private int _gridSize;
 
         public void AddNode(int xPos, int yPos, int zPos)
@@ -43,6 +44,16 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
         public Node GetNode(Vector3I from)
         {
             return _grid[from.x, from.y, from.z];
+        }
+        
+        public Node GetClosestNode(Vector3I pos, int range)
+        {
+            return _grid.GetNearestItem(pos, range);
+        }
+
+        public PathRegistry GetPathRegistry()
+        {
+            return _pathRegistry;
         }
 
         public IEnumerable<Node> GetT1Nodes()
@@ -81,6 +92,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
             node.Delete(this);
             _grid.Remove(pos);
             ProcessDirtyNodes();
+            _pathRegistry.RemovedNode(node, this);
         }
 
         private void ProcessDirtyNodes()

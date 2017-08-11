@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Algorithms.Pathfinding.Utils
@@ -96,6 +97,20 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Utils
             var yComparison = y.CompareTo(other.y);
             if (yComparison != 0) return yComparison;
             return z.CompareTo(other.z);
+        }
+        
+        public override bool Equals(object obj)
+        {
+            return CompareTo(obj as Vector3I) == 0;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+            hash = hash * 23 + x.GetHashCode();
+            hash = hash * 23 + y.GetHashCode();
+            hash = hash * 23 + z.GetHashCode();
+            return hash;
         }
     }
 }

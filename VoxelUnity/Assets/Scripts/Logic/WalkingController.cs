@@ -29,8 +29,13 @@ namespace Assets.Scripts.Logic
 
         void Update ()
         {
-            if (PathToTarget == null || !PathToTarget.Finished || PathToTarget.Nodes == null)
+            if (PathToTarget == null || !PathToTarget.Finished || PathToTarget.Nodes == null || PathToTarget.State != PathState.Ready)
             {
+                if (PathToTarget != null && PathToTarget.State == PathState.Invalid)
+                {
+                    PathToTarget.Dispose();
+                    PathToTarget = null;
+                }
                 return;
             }
             if (_currentNode == null)

@@ -40,11 +40,12 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Agents
             var finalPath = Path.Calculate(graph, curNode.Position, path.Target.Position);
             finalPath.Thread.Join();
             visited.AddRange(finalPath.Nodes);
-            var walkedPath = new Path(path.Start, path.Target)
+            var walkedPath = new Path(path.Start, path.Target, graph.GetPathRegistry())
             {
                 Nodes = visited,
                 Length = length + finalPath.Length
             };
+            finalPath.Dispose();
             return walkedPath;
         }
     }

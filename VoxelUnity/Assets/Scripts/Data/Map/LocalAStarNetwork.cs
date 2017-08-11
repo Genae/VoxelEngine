@@ -16,8 +16,8 @@ namespace Assets.Scripts.Data.Map
             var oldNodes = Nodes;
             var newNodes = NodeBuilder.BuildAStarNetwork(chunk, upVoxels).ToArray();
             
-            var addNodes = newNodes.Except(oldNodes);
-            var removeNodes = oldNodes.Except(newNodes);
+            var addNodes = newNodes.Except(oldNodes).ToList();
+            var removeNodes = oldNodes.Except(newNodes).ToList();
 
             foreach (var node in removeNodes)
             {
