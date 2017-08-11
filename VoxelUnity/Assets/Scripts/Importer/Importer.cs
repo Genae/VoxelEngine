@@ -4,6 +4,8 @@ using Assets.Scripts.Data.Multiblock;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Map;
 using System.Linq;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Assets.Scripts.Importer
 {
@@ -18,23 +20,57 @@ namespace Assets.Scripts.Importer
             if (GameObject.Find("Map").GetComponent<Map>().IsDoneGenerating && !_once)
             {
                 _once = true;
-                Import(transform.GetChild(0));
+                //hook
+                Import(transform.GetChild(0), "flower.txt");
+                Load("flower.txt");
             }
         }
 
-        private void Import(Transform zone)
+        //import wrapper function
+        private void Import(Transform zone, string filename)
         {
+            //defines imported area
             zone.tag = "Import";
             if(zone.GetComponent<MeshCollider>() == null)
             {
+                //adding meshcollider for raycasting
                 zone.gameObject.AddComponent<MeshCollider>();
             }
+            //importing mesh to voxeldata
             Imported = getVoxelData(zone);
             if (Imported.Count == 0) return;
-            var m = CreateMultiblock(Imported);
+
+            //dataPath is path to assets folder
+            SaveVDataListToFile(@Application.dataPath + "/Imported/", filename, Imported);
+        }
+
+        //maybe move out of here!
+        private void Load(string filename)
+        {
+            //load vdata list from text file
+            var list = LoadVDataListFromFile(@Application.dataPath + "/Imported/", filename);
+
+            //creating multiblock with vdata list
+            var m = CreateMultiblock(list);
             m.transform.localScale = Vector3.one / FractionValue;
             m.transform.position = new Vector3(0, 0, 0);
         }
+
+        public void SaveVDataListToFile(string path, string filename, List<VData> list)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<VData>));
+            StreamWriter writer = new StreamWriter(path + filename);
+            serializer.Serialize(writer, list);
+            writer.Close(); //not sure if necessary
+        }
+
+        public List<VData> LoadVDataListFromFile(string path, string filename)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<VData>));
+            StreamReader reader = new StreamReader(path + filename);
+            return (List<VData>)serializer.Deserialize(reader);
+        }
+
 
         public static Multiblock CreateMultiblock(List<VData> list)
         {
@@ -118,6 +154,14 @@ namespace Assets.Scripts.Importer
         }
         public Vector3 VPos;
         public Color Color;
+
+        //ehe ich kann sowas auch
+        public override string ToString()
+        {
+            string res = "";
+            res += VPos.ToString() + Color.ToString();
+            return res;
+        }
     }
 }
 
