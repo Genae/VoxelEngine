@@ -35,6 +35,8 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
         {
             if (State.Equals(PathState.Invalid) || State.Equals(PathState.Recalculation) && i > _currentNode)
                 throw new Exception("Path State is " + State);
+            if (Nodes == null)
+                return null;
             if (i > Nodes.Count - 1)
             {
                 Dispose();
@@ -108,6 +110,8 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
 
         public void Recalculate(Node removedNode, VoxelGraph graph)
         {
+            if (State.Equals(PathState.Recalculation))
+                Thread.Abort();
             if (Target.Equals(removedNode))
             {
                 State = PathState.Invalid;
@@ -115,17 +119,32 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
             else
             {
                 State = PathState.Recalculation;
-                var p2 = Calculate(graph, GetNode(_currentNode).Position, Target.Position);
-                p2.OnFinish = () =>
+                var currentNode = GetNode(_currentNode);
+                if (currentNode == null)
                 {
-                    Nodes = p2.Nodes;
-                    Start = p2.Start;
-                    Length = p2.Length;
-                    IsT0 = p2.IsT0;
-                    State = p2.State;
-                    p2.Dispose();
-                };
-
+                    State = PathState.Invalid;
+                }
+                else
+                {
+                    var p2 = Calculate(graph, currentNode.Position, Target.Position);
+                    if (p2 == null)
+                    {
+                        State = PathState.Invalid;
+                    }
+                    else
+                    {
+                        Thread = p2.Thread;
+                        p2.OnFinish = () =>
+                        {
+                            Nodes = p2.Nodes;
+                            Start = p2.Start;
+                            Length = p2.Length;
+                            IsT0 = p2.IsT0;
+                            State = p2.State;
+                            p2.Dispose();
+                        };
+                    }
+                }
             }
         }
 

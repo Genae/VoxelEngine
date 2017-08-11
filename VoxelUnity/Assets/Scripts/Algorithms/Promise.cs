@@ -38,7 +38,10 @@ namespace Assets.Scripts.Algorithms
         {
             while (_actionQueue.Count > 0)
             {
-                _actionQueue.Dequeue()();
+                var action = _actionQueue.Dequeue();
+                if (action == null)
+                    continue;
+                action();
             }
         }
 

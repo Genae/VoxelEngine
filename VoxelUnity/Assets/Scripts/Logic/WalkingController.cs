@@ -41,6 +41,11 @@ namespace Assets.Scripts.Logic
             if (_currentNode == null)
             {
                 _currentNode = PathToTarget.GetNode(0);
+                if (_currentNode == null)
+                {
+                    PathToTarget = null;
+                    return;
+                }
                 _pathIndex = 0;
             }
             PathToTarget.Visualize(Color.red, _pathIndex);
@@ -69,7 +74,6 @@ namespace Assets.Scripts.Logic
 
         public void MoveTo(Vector3 target)
         {
-            Debug.Log("Calculating path");
             PathToTarget = Path.Calculate(_map.AStarNetwork, transform.position, target, true);
         }
     }
