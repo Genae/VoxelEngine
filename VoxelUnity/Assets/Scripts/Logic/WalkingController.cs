@@ -29,7 +29,7 @@ namespace Assets.Scripts.Logic
 
         void Update ()
         {
-            if (PathToTarget == null || !PathToTarget.Finished || PathToTarget.Nodes == null || PathToTarget.State != PathState.Ready)
+            if (PathToTarget == null || !PathToTarget.Finished || PathToTarget.State != PathState.Ready)
             {
                 if (PathToTarget != null && PathToTarget.State == PathState.Invalid)
                 {

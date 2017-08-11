@@ -56,7 +56,11 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
         private static Path CalculateHighlevelPath(VoxelGraph graph, Vector3I from, Vector3I to)
         {
             var start = graph.GetNode(from) ?? graph.GetClosestNode(from, 5);
+            if (start == null)
+                return null;
             var target = graph.GetNode(to);
+            if (target == null)
+                return null;
             var path = new HighLevelPath(start, target, graph);
             path.Thread = new Thread(() =>
             {
@@ -69,8 +73,12 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
 
         private static Path CalculateLowlevelPath(VoxelGraph graph, Vector3I from, Vector3I to)
         {
-            var start = graph.GetNode(from);
+            var start = graph.GetNode(from) ?? graph.GetClosestNode(from, 5);
+            if (start == null)
+                return null;
             var target = graph.GetNode(to);
+            if (target == null)
+                return null;
             var path = new Path(start, target, graph.GetPathRegistry());
             path.Thread = new Thread(() =>
             {
