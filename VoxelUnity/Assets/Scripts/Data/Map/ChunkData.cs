@@ -194,7 +194,7 @@ namespace Assets.Scripts.Data.Map
         
         public void SetVoxelType(int x, int y, int z, VoxelMaterial material)
         {
-            var type = MaterialRegistry.GetMaterialId(material);
+            var type = MaterialRegistry.Instance.GetMaterialId(material);
             if ((Voxels[x, y, z] == null && type == 0) || (Voxels[x, y, z] != null && type == Voxels[x, y, z].BlockType))
                 return;
             if (type == 0) // set to air
@@ -233,7 +233,7 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var dz = Mathf.Max(0, (int)posTo.z); dz <= Mathf.Min((int)(posFrom.z), Size-1); dz++)
                     {
-                        if (Map.Instance.IsInBounds(x, y, z) && !GetVoxelType(dx, dy, dz).Equals(MaterialRegistry.Air))
+                        if (Map.Instance.IsInBounds(x, y, z) && !GetVoxelType(dx, dy, dz).Equals(MaterialDefinition.All.Air))
                             return true;
                     }
                 }
@@ -243,7 +243,7 @@ namespace Assets.Scripts.Data.Map
 
         public VoxelMaterial GetVoxelType(int x, int y, int z)
         {
-            return MaterialRegistry.MaterialFromId(Voxels[x, y, z] == null ? 0 : Voxels[x, y, z].BlockType);
+            return MaterialRegistry.Instance.MaterialFromId(Voxels[x, y, z] == null ? 0 : Voxels[x, y, z].BlockType);
         }
 
         public bool GetVoxelActive(int x, int y, int z)
@@ -253,7 +253,7 @@ namespace Assets.Scripts.Data.Map
         
         public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material)
         {
-            return Voxels[x, y, z] = new VoxelData(active, MaterialRegistry.GetMaterialId(material));
+            return Voxels[x, y, z] = new VoxelData(active, MaterialRegistry.Instance.GetMaterialId(material));
         }
 
         public VoxelData SetEntityVoxel(int x, int y, int z, bool active, int colorTyp)

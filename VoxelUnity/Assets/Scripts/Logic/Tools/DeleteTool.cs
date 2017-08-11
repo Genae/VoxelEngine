@@ -154,7 +154,7 @@ namespace Assets.Scripts.Logic.Tools
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
             var type = chunk.GetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize);
-            if(type.Equals(MaterialRegistry.Air))
+            if(type.Equals(MaterialDefinition.All.Air))
                 return;
             _jobController.AddJob(new MiningJob(pos));
         }

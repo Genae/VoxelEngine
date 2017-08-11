@@ -12,47 +12,47 @@ namespace Assets.Scripts.Data.Map
         private Dictionary<VoxelMaterial, ResourceVeinData> _ressourceDefinitions = new Dictionary<VoxelMaterial, ResourceVeinData>()
         {
             {
-                MaterialRegistry.Copper,
+                MaterialDefinition.All.Copper,
                 new ResourceVeinData
                 {
                     MinAmount = 5,
                     MaxAmount = 10,
                     MinVeinLength = 30,
-                    Material = MaterialRegistry.Copper,
+                    Material = MaterialDefinition.All.Copper,
                     VeinRadius = 2
                 }
             },
             {
-                MaterialRegistry.Coal,
+                MaterialDefinition.All.Coal,
                 new ResourceVeinData
                 {
                     MinAmount = 5,
                     MaxAmount = 10,
                     MinVeinLength = 20,
-                    Material = MaterialRegistry.Coal,
+                    Material = MaterialDefinition.All.Coal,
                     VeinRadius = 3
                 }
             },
 
             {
-                MaterialRegistry.Iron,
+                MaterialDefinition.All.Iron,
                 new ResourceVeinData
                 {
                     MinAmount = 3,
                     MaxAmount = 7,
                     MinVeinLength = 60,
-                    Material = MaterialRegistry.Iron,
+                    Material = MaterialDefinition.All.Iron,
                     VeinRadius = 1
                 }
             },
             {
-                MaterialRegistry.Gold,
+                MaterialDefinition.All.Gold,
                 new ResourceVeinData
                 {
                     MinAmount = 1,
                     MaxAmount = 3,
                     MinVeinLength = 60,
-                    Material = MaterialRegistry.Gold,
+                    Material = MaterialDefinition.All.Gold,
                     VeinRadius = 0.7f
                 }
             }
@@ -159,7 +159,7 @@ namespace Assets.Scripts.Data.Map
             return Map.Instance.IsInBounds((int)pos.x, (int)pos.y, (int)pos.z) &&
                 map.Chunks[(int)(pos.x / Chunk.ChunkSize), (int)(pos.y / Chunk.ChunkSize), (int)(pos.z / Chunk.ChunkSize)] != null &&
                    map.Chunks[(int) (pos.x/Chunk.ChunkSize), (int) (pos.y/Chunk.ChunkSize), (int) (pos.z/Chunk.ChunkSize)]
-                .GetVoxelType((int) (pos.x%Chunk.ChunkSize), (int) (pos.y%Chunk.ChunkSize),(int) (pos.z%Chunk.ChunkSize)).Equals(MaterialRegistry.Stone);
+                .GetVoxelType((int) (pos.x%Chunk.ChunkSize), (int) (pos.y%Chunk.ChunkSize),(int) (pos.z%Chunk.ChunkSize)).Equals(MaterialDefinition.All.Stone);
         }
     }
 

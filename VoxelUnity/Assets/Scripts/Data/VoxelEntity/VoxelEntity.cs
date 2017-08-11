@@ -12,7 +12,7 @@ namespace Assets.Scripts.Data.VoxelEntity
     {
         public static VoxelEntity InstantiateVoxels(Vector3 position, Dictionary<Color, List<Vector3>> voxels)
         {
-            var materialRegistry = Map.Map.Instance.GetComponent<MaterialRegistry>();
+            var materialRegistry = MaterialRegistry.Instance;
             Vector3 zeroVec;
             var size = GetSize(out zeroVec, voxels);
             var data = new ContainerData(size, position + zeroVec);
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Data.VoxelEntity
                 }
             }
             var container = CreateContainer<VoxelEntity>(position + zeroVec, data, materialRegistry.Materials, "Tree");
-            container.transform.parent = materialRegistry.transform;
+            //container.transform.parent = materialRegistry.transform;
             return (VoxelEntity)container;
         }
 

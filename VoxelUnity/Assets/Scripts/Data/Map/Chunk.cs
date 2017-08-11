@@ -16,7 +16,7 @@ namespace Assets.Scripts.Data.Map
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
             chunkC.CanBeHighlighted = false;
-            chunkC.InitializeContainer(new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize), map.MapData.Chunks[x, y, z], map.MaterialRegistry.Materials);
+            chunkC.InitializeContainer(new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize), map.MapData.Chunks[x, y, z], MaterialRegistry.Instance.Materials);
             chunkC.tag = "Chunk";
             chunk.transform.parent = map.transform;
             return chunk;
@@ -55,7 +55,7 @@ namespace Assets.Scripts.Data.Map
         {
             if (!CanBeHighlighted)
                 return;
-            var matReg = Map.Instance.GetComponent<MaterialRegistry>();
+            var matReg = MaterialRegistry.Instance;
             if (value != null && !gameObject.GetComponent<MeshRenderer>().sharedMaterials.Any(m => m.shader.name.Equals(matReg.HighlightMaterial.shader.name)))
             {
                 var mats = gameObject.GetComponent<MeshRenderer>().sharedMaterials.ToList();

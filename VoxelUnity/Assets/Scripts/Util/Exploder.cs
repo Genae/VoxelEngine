@@ -26,7 +26,7 @@ namespace Assets.Scripts.Util
                         {
                             var pos = new Vector3(cd.Position.x + x, cd.Position.y + y, cd.Position.z + z);
                             var go = ObjectPool.Instance.GetObjectForType<Fraction>(parent:voxelContainer.transform.parent);
-                            go.Init(pos, 2.0f, MaterialRegistry.MaterialFromId(cd.Voxels[x, y, z].BlockType).Color, voxelContainer.GetCenter());
+                            go.Init(pos, 2.0f, MaterialRegistry.Instance.MaterialFromId(cd.Voxels[x, y, z].BlockType).Color, voxelContainer.GetCenter());
                         }
                     }
                 }

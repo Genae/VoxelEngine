@@ -23,15 +23,18 @@ namespace Assets.Scripts.Data.Multiblock
                 }
             }
             var container = CreateContainer<Multiblock>(position+zeroVec, data, map.MaterialRegistry.Materials, name);
-            container.transform.parent = map.transform;
-            for (var x = Mathf.Max(0, (int)((position.x) / Chunk.ChunkSize)); x < Mathf.Min(map.MapData.Chunks.GetLength(0), (position.x + size) / Chunk.ChunkSize); x++)
+            if (map != null)
             {
-                for (var y = Mathf.Max(0, (int)((position.y) / Chunk.ChunkSize)); y < Mathf.Min(map.MapData.Chunks.GetLength(1), (position.y + size) / Chunk.ChunkSize); y++)
+                container.transform.parent = map.transform;
+                for (var x = Mathf.Max(0, (int)((position.x) / Chunk.ChunkSize)); x < Mathf.Min(map.MapData.Chunks.GetLength(0), (position.x + size) / Chunk.ChunkSize); x++)
                 {
-                    for (var z = Mathf.Max(0, (int)((position.z) / Chunk.ChunkSize)); z < Mathf.Min(map.MapData.Chunks.GetLength(2), (position.z + size) / Chunk.ChunkSize); z++)
+                    for (var y = Mathf.Max(0, (int)((position.y) / Chunk.ChunkSize)); y < Mathf.Min(map.MapData.Chunks.GetLength(1), (position.y + size) / Chunk.ChunkSize); y++)
                     {
-                        if(map.MapData.Chunks[x, y, z] != null)
-                            map.MapData.Chunks[x, y, z].AttachMultiblock((Multiblock)container);
+                        for (var z = Mathf.Max(0, (int)((position.z) / Chunk.ChunkSize)); z < Mathf.Min(map.MapData.Chunks.GetLength(2), (position.z + size) / Chunk.ChunkSize); z++)
+                        {
+                            if (map.MapData.Chunks[x, y, z] != null)
+                                map.MapData.Chunks[x, y, z].AttachMultiblock((Multiblock)container);
+                        }
                     }
                 }
             }

@@ -2,15 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Data.Material
 {
-    public class MaterialRegistry : MonoBehaviour
+    public class MaterialRegistry
     {
-        private static readonly Dictionary<int, VoxelMaterial> VoxelMaterials = new Dictionary<int, VoxelMaterial>();
-        private static readonly Dictionary<Color, VoxelMaterial> EntityMaterialsIndices = new Dictionary<Color, VoxelMaterial>();
-        private static readonly Dictionary<string, VoxelMaterial> VoxelMaterialByName = new Dictionary<string, VoxelMaterial>();
-        public UnityEngine.Material[] Materials;
+        public static MaterialRegistry Instance
+        {
+            get { return _instance ?? (_instance = new MaterialRegistry()); }
+            set { _instance = value; }
+        }
+        private static MaterialRegistry _instance;
+
+        private readonly Dictionary<int, VoxelMaterial> VoxelMaterials = new Dictionary<int, VoxelMaterial>();
+        private readonly Dictionary<Color, VoxelMaterial> EntityMaterialsIndices = new Dictionary<Color, VoxelMaterial>();
+        private readonly Dictionary<string, VoxelMaterial> VoxelMaterialByName = new Dictionary<string, VoxelMaterial>();
+
+        public UnityEngine.Material[] Materials
+        {
+            get { return _materials ?? GetMaterials(); }
+            set { _materials = value; }
+        }
+
+        private UnityEngine.Material[] GetMaterials()
+        {
+            _materials = Object.FindObjectOfType<MaterialDefinition>().Materials;
+            var allMats = MaterialDefinition.All;
+            CreateColorAtlas();
+            return _materials;
+        }
+
         private Texture2D tex;
         public UnityEngine.Material EntityMaterial
         {
@@ -24,25 +46,23 @@ namespace Assets.Scripts.Data.Material
 
         public static int AtlasSize = 16;
         
-        public static VoxelMaterial MaterialFromId(int typeId)
+        public VoxelMaterial MaterialFromId(int typeId)
         {
             return VoxelMaterials[typeId];
         }
 
-        public static int GetMaterialId(VoxelMaterial material)
+        public int GetMaterialId(VoxelMaterial material)
         {
             return material.Id;
         }
 
-        public static VoxelMaterial GetMaterialFromName(string name)
+        public VoxelMaterial GetMaterialFromName(string name)
         {
             return VoxelMaterialByName[name];
         }
 
-        void Start ()
-        {
-            CreateColorAtlas();
-        }
+        private MaterialRegistry()
+        {}
 
         public VoxelMaterial GetColorIndex(Color color)
         {
@@ -86,15 +106,11 @@ namespace Assets.Scripts.Data.Material
             tex.Apply();
             EntityMaterial.mainTexture = tex;
         }
+        
+        private readonly Dictionary<MaterialTyp, int> _counterTyp = new Dictionary<MaterialTyp, int>();
+        private UnityEngine.Material[] _materials;
 
-        // ReSharper disable once InconsistentNaming
-        private static Color rgb(int r, int g, int b)
-        {
-            return new Color(r/255f, g/255f, b/255f);
-        }
-
-        private static readonly Dictionary<MaterialTyp, int> _counterTyp = new Dictionary<MaterialTyp, int>();
-        private static VoxelMaterial Create(string name, MaterialTyp typ, Color c)
+        protected internal VoxelMaterial Create(string name, MaterialTyp typ, Color c)
         {
             if (!_counterTyp.ContainsKey(typ))
             {
@@ -106,23 +122,5 @@ namespace Assets.Scripts.Data.Material
             return vm;
         }
         #endregion
-        
-        #region MaterialDefinition
-
-        public static readonly VoxelMaterial Air = Create("Air", MaterialTyp.Default, Color.white);
-        public static readonly VoxelMaterial Stone = Create("Stone", MaterialTyp.Default, rgb(120, 120, 120));
-        public static readonly VoxelMaterial Dirt = Create("Dirt", MaterialTyp.Default, rgb(160, 82, 45));
-        public static readonly VoxelMaterial Grass = Create("Grass", MaterialTyp.Default, rgb(50, 205, 50));
-        public static readonly VoxelMaterial OakWood = Create("OakWood", MaterialTyp.Default, rgb(60, 30, 17));
-        public static readonly VoxelMaterial OakLeaves = Create("OakLeaves", MaterialTyp.Default, rgb(35, 144, 35));
-        public static readonly VoxelMaterial BirchWood = Create("BirchWood", MaterialTyp.Default, rgb(234, 231, 214));
-        public static readonly VoxelMaterial BirchLeaves = Create("BirchLeaves", MaterialTyp.Default, rgb(160, 185, 125));
-        public static readonly VoxelMaterial Copper = Create("Copper", MaterialTyp.Metallic, rgb(184, 115, 51));
-        public static readonly VoxelMaterial Iron = Create("Iron", MaterialTyp.Metallic, rgb(123, 123, 123));
-        public static readonly VoxelMaterial Gold = Create("Gold", MaterialTyp.Metallic, rgb(255, 215, 0));
-        public static readonly VoxelMaterial Coal = Create("Coal", MaterialTyp.Default, rgb(0, 0, 0));
-
-        #endregion
-
     }
 }

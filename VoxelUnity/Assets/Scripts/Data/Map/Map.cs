@@ -14,7 +14,6 @@ namespace Assets.Scripts.Data.Map
     {
         public MapData MapData;
         public static Map Instance;
-        public MaterialRegistry MaterialRegistry;
         public CameraController CameraController;
         public VoxelGraph AStarNetwork;
         public bool IsDoneGenerating;
@@ -62,10 +61,10 @@ namespace Assets.Scripts.Data.Map
                 var resourceManager = new ResourceManager();
                 var weights = new Dictionary<VoxelMaterial, int>
             {
-                {MaterialRegistry.Copper,7},
-                {MaterialRegistry.Coal,7},
-                {MaterialRegistry.Iron,5},
-                {MaterialRegistry.Gold,3}
+                {MaterialDefinition.All.Copper,7},
+                {MaterialDefinition.All.Coal,7},
+                {MaterialDefinition.All.Iron,5},
+                {MaterialDefinition.All.Gold,3}
             };
                 resourceManager.SpawnAllResources(MapData, weights);
 
@@ -122,7 +121,7 @@ namespace Assets.Scripts.Data.Map
                         var chunk = MapData.Chunks[x / Chunk.ChunkSize, y / Chunk.ChunkSize, z / Chunk.ChunkSize];
                         var mat = chunk.GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
                         if (!types.Contains(mat))
-                            chunk.SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, MaterialRegistry.Air);
+                            chunk.SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, MaterialDefinition.All.Air);
                     }
                 }
             }

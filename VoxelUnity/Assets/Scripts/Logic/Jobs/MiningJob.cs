@@ -18,7 +18,7 @@ namespace Assets.Scripts.Logic.Jobs
         protected override void SolveInternal()
         {
             Map.MapData.Chunks[(int)Position.x/16, (int)Position.y/16, (int)Position.z/16]
-                .SetVoxelType((int)Position.x%16, (int)Position.y%16, (int)Position.z%16, MaterialRegistry.Air);
+                .SetVoxelType((int)Position.x%16, (int)Position.y%16, (int)Position.z%16, MaterialDefinition.All.Air);
         }
     }
 }

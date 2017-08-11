@@ -47,7 +47,7 @@ namespace Assets.Scripts.Logic.Tools
                 {
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
                     var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
-                    PreviewMaterial.color = MaterialRegistry.MaterialFromId(BlockMaterialId).Color;
+                    PreviewMaterial.color = MaterialRegistry.Instance.MaterialFromId(BlockMaterialId).Color;
                     _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, _previewBox);
                     if (Input.GetMouseButtonUp(0))
                     {
@@ -120,7 +120,7 @@ namespace Assets.Scripts.Logic.Tools
             }
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
-            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.MaterialFromId(BlockMaterialId));
+            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.Instance.MaterialFromId(BlockMaterialId));
         }
     }
 }

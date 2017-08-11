@@ -15,7 +15,7 @@ namespace Assets.Scripts.MultiblockImporter
 
         void Update()
         {
-            if (GameObject.Find("Map").GetComponent<Map>().IsDoneGenerating && !_once)
+            if (!_once)
             {
                 _once = true;
                 //hook

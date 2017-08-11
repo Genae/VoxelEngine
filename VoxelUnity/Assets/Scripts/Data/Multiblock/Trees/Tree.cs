@@ -21,11 +21,11 @@ namespace Assets.Scripts.Data.Multiblock.Trees
             var data = GetRandomizedTreeValues(config);
             Position = position;
             var strainVoxels = GenerateStrain(data);
-            voxels.Add(MaterialRegistry.GetMaterialFromName(config.StainMaterial), strainVoxels);
+            voxels.Add(MaterialRegistry.Instance.GetMaterialFromName(config.StainMaterial), strainVoxels);
 
             var topOfStain = new Vector3(-data.TreeTopDia / 2f + (data.TreeStainDia) / 2f, data.TreeStainHeight, -data.TreeTopDia / 2f + (data.TreeStainDia) / 2f);
             var treeTopVoxels = GenerateTreeTop(topOfStain, data);
-            voxels.Add(MaterialRegistry.GetMaterialFromName(config.LeafMaterial), treeTopVoxels);
+            voxels.Add(MaterialRegistry.Instance.GetMaterialFromName(config.LeafMaterial), treeTopVoxels);
 
             Multiblock = Multiblock.InstantiateVoxels(position, voxels, "Tree");
         }
