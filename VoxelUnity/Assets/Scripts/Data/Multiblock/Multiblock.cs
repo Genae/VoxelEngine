@@ -2,7 +2,6 @@
 using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
-using Assets.Scripts.MultiblockImporter;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.Multiblock
@@ -22,7 +21,7 @@ namespace Assets.Scripts.Data.Multiblock
                     data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), true, type);
                 }
             }
-            var container = CreateContainer<Multiblock>(position+zeroVec, data, map.MaterialRegistry.Materials, name);
+            var container = CreateContainer<Multiblock>(position+zeroVec, data, MaterialRegistry.Instance.Materials, name);
             if (map != null)
             {
                 container.transform.parent = map.transform;

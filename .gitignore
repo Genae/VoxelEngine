@@ -232,3 +232,4 @@ sysinfo.txt
 *.booproj
 VoxelUnity/Voxel.exe
 VoxelUnity/Voxel_Data/*
+*.cs.orig*

@@ -4,7 +4,6 @@ using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 using Assets.Scripts.Data.VoxelEntity;
-using Assets.Scripts.MultiblockImporter;
 
 public class ImportObject : EditorWindow
 {

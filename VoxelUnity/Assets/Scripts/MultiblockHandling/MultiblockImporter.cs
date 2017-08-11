@@ -1,27 +1,20 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using Assets.Scripts.Data.Map;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
+using UnityEngine;
 
-namespace Assets.Scripts.MultiblockImporter
+namespace Assets.Scripts.MultiblockHandling
 {
     public class MultiblockImporter : MonoBehaviour
     {
         public int FractionValue = 10;
-        private bool _once = false;
         public static List<VData> Imported;
 
-        void Update()
+        void Start()
         {
-            if (!_once)
-            {
-                _once = true;
-                //hook
-                Import(transform.GetChild(0), "flower.txt");
-                MultiblockLoader.LoadMultiblock("flower.txt");
-            }
+            Import(transform.GetChild(0), "flower.txt");
+            MultiblockLoader.LoadMultiblock("flower.txt");
         }
 
         //import wrapper function
@@ -39,7 +32,7 @@ namespace Assets.Scripts.MultiblockImporter
             if (Imported.Count == 0) return;
 
             //dataPath is path to assets folder
-            SaveVDataListToFile(@Application.dataPath + "/Imported/", filename, Imported);
+            SaveVDataListToFile(Application.dataPath + "/Imported/", filename, Imported);
         }
 
 
