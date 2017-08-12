@@ -129,7 +129,7 @@ namespace Assets.Scripts.Data.Material
         void LoadMaterialCollection()
         {
             var mats = new MaterialCollection();
-            mats.Load(Path.Combine(Application.dataPath, "Config/Materials"), this);
+            mats.Load("Materials", this);
         }
         #endregion
     }

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Data.Map
         {
             if (GenerateMap)
             {
-                var biomeConfig = ConfigImporter.GetConfig<BiomeConfiguration>("Assets/Config/Biomes").First();
+                var biomeConfig = ConfigImporter.GetConfig<BiomeConfiguration>("Biomes").First();
                 var hmg = new HeightmapGenerator();
                 yield return hmg.CreateHeightMap(129, 129, 42);
                 MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);

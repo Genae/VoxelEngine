@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.IO;
 using Newtonsoft.Json;
-using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.Data.Importer
 {
@@ -10,10 +9,10 @@ namespace Assets.Scripts.Data.Importer
         public static List<T> GetConfig<T>(string path)
         {
             List<T> list = new List<T>();
-            foreach (var file in Directory.GetFiles(path).Where(f => f.EndsWith(".json")))
+            var files = Resources.LoadAll<TextAsset>(path);
+            foreach (var file in files)
             {
-                var json = File.ReadAllText(file);
-                list.Add(JsonConvert.DeserializeObject<T>(json));
+                list.Add(JsonConvert.DeserializeObject<T>(file.text));
             }
             return list;
         }

@@ -1,8 +1,9 @@
+ /*
 using UnityEditor;
 
 public class ImportObject : EditorWindow
 {
-    /*public const float Scale = 1f;
+   public const float Scale = 1f;
     [MenuItem("Importer/Save File")]
     static void SaveFile()
     {
@@ -43,5 +44,5 @@ public class ImportObject : EditorWindow
         }
 
         Importer.CreateMultiblock(loadedObjList);
-    }*/
-}
+    }
+}*/
