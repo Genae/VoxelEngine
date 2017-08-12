@@ -5,6 +5,7 @@ using Assets.Scripts.Control;
 using Assets.Scripts.Data.Importer;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Logic;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,10 +50,21 @@ namespace Assets.Scripts.Data
             yield return treeManager.GenerateTrees((int)(Map.Map.Instance.MapData.Chunks.GetLength(0) * Map.Map.Instance.MapData.Chunks.GetLength(0) * 0.3f), Map.Map.Instance.MapData, this);
 
             //Ressources
-            SetStatus("Loading Ressources", 0.99f);
+            SetStatus("Loading Ressources", 0.95f);
             var resourceManager = new ResourceManager();
             resourceManager.SpawnAllResources(Map.Map.Instance.MapData, biomeConfig.OreConfiguration);
 
+            //Characters
+            SetStatus("Loading Characters", 0.97f);
+            var gameController = FindObjectOfType<GameController>();
+            for (int i = 0; i < 5; i++)
+            {
+                gameController.SpawnCharacter();
+            }
+
+            //AmbientPlants
+            SetStatus("Loading Ambient Plants", 0.99f);
+            gameController.SpawnAmbientPlants(1000);
 
             //Start Time Again
             Time.timeScale = 1;

@@ -19,7 +19,6 @@ namespace Assets.Scripts.Logic
 
         void Start()
         {
-            Map.GenerateMap = true;
             _ambientPlants = new List<GameObject>();
             _ambientPlants.Add(flower1);
             _ambientPlants.Add(flower2);
@@ -40,7 +39,7 @@ namespace Assets.Scripts.Logic
             }
         }
 
-        private void SpawnCharacter()
+        public void SpawnCharacter()
         {
             while (true)
             {
@@ -56,7 +55,7 @@ namespace Assets.Scripts.Logic
             }
         }
 
-        private void SpawnAmbientPlants(int count)
+        public void SpawnAmbientPlants(int count)
         {
             var parent = transform.Find("Map").Find("AmbientFlowers");
             for(int i = 0; i < count; i++)
