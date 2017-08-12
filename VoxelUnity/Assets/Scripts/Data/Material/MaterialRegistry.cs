@@ -68,6 +68,11 @@ namespace Assets.Scripts.Data.Material
             LoadMaterialCollection();
         }
 
+        public void Preload()
+        {
+            GetMaterials();
+        }
+
         public VoxelMaterial GetColorIndex(Color color)
         {
             if (!EntityMaterialsIndices.ContainsKey(color))
@@ -83,16 +88,16 @@ namespace Assets.Scripts.Data.Material
             foreach (MaterialTyp matTyp in Enum.GetValues(typeof(MaterialTyp)))
             {
                 if (matTyp.Equals(MaterialTyp.Entity)) continue;
-                var tex = new Texture2D(AtlasSize, AtlasSize, TextureFormat.ARGB32, false);
+                var texture = new Texture2D(AtlasSize, AtlasSize, TextureFormat.ARGB32, false);
                 var typ = matTyp;
                 foreach (var material in VoxelMaterials.Values.Where(vm => vm.MaterialId.Equals(typ)))
                 {
-                    tex.SetPixel(material.AtlasPosition / AtlasSize, material.AtlasPosition % AtlasSize, material.Color);
+                    texture.SetPixel(material.AtlasPosition / AtlasSize, material.AtlasPosition % AtlasSize, material.Color);
                 }
-                tex.wrapMode = TextureWrapMode.Clamp;
-                tex.filterMode = FilterMode.Point;
-                tex.Apply();
-                Materials[(int)typ].mainTexture = tex;
+                texture.wrapMode = TextureWrapMode.Clamp;
+                texture.filterMode = FilterMode.Point;
+                texture.Apply();
+                Materials[(int)typ].mainTexture = texture;
             }
         }
 

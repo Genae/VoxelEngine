@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Linq;
-using System.Collections.Generic;
-using Assets.Scripts.Algorithms;
+using System.Net.Mime;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Control;
-using Assets.Scripts.Data.Importer;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Data.Map
 {
@@ -22,9 +21,7 @@ namespace Assets.Scripts.Data.Map
 
         public void Awake()
         {
-            MainThread.Instantiate();
             Instance = this;
-            StartCoroutine("CreateMap");
         }
         
         // ReSharper disable once UnusedMember.Local
@@ -39,30 +36,21 @@ namespace Assets.Scripts.Data.Map
                 chunkData.CheckDirtyVoxels();
             }
         }
-
+        
         // ReSharper disable once UnusedMember.Local
-        IEnumerator CreateMap()
+        public IEnumerator CreateMap(BiomeConfiguration biomeConfig, GameLoader loader)
         {
             if (GenerateMap)
             {
-                var biomeConfig = ConfigImporter.GetConfig<BiomeConfiguration>("Biomes").First();
+                loader.SetStatus("Calculating Heightmap", 0.03f);
                 var hmg = new HeightmapGenerator();
                 yield return hmg.CreateHeightMap(129, 129, 42);
+                loader.SetStatus("Building Map", 0.1f);
                 MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
-                SetCameraValues();
                 yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
                 AStarNetwork = new VoxelGraph();
                 yield return null;
-                yield return InitializeMap();
-
-                //Trees
-                var treeManager = new TreeManager();
-                yield return treeManager.GenerateTrees((int)(MapData.Chunks.GetLength(0) * MapData.Chunks.GetLength(0) * 0.3f), MapData);
-
-                //Ressources
-                var resourceManager = new ResourceManager();
-                resourceManager.SpawnAllResources(MapData, biomeConfig.OreConfiguration);
-
+                yield return InitializeMap(loader);
                 //RemoveTerrainNotOfType(new[] { MaterialRegistry.Instance.GetMaterialFromName("Iron"), MaterialRegistry.Instance.GetMaterialFromName("Gold"), MaterialRegistry.Instance.GetMaterialFromName("Copper"), MaterialRegistry.Instance.GetMaterialFromName("Coal") });
                 //TestAStar();
             } else
@@ -71,30 +59,19 @@ namespace Assets.Scripts.Data.Map
             }
             IsDoneGenerating = true;
         }
-
-        private void SetCameraValues()
+        
+        private IEnumerator InitializeMap(GameLoader loader)
         {
-            if (CameraController == null) return;
-            var mapSize = MapData.Chunks.GetLength(0) * Chunk.ChunkSize;
-            var mapHeight = MapData.Chunks.GetLength(1) * Chunk.ChunkSize;
-            CameraController.RightLimit = mapSize * 1.1f;
-            CameraController.TopLimit = mapSize * 1.1f;
-            CameraController.CameraMinHeight = mapHeight * 0.5f;
-            CameraController.CameraMaxHeight = mapHeight * 1.5f;
-
-            CameraController.gameObject.transform.position = new Vector3(0, mapHeight, 0);
-            CameraController.RotateTo(55);
-            CameraController.Eye.gameObject.transform.position = new Vector3(0, CameraController.CameraMaxHeight, 0);
-        }
-
-        private IEnumerator InitializeMap()
-        {
+            var all = MapData.Chunks.GetLength(0) * MapData.Chunks.GetLength(1) * MapData.Chunks.GetLength(2);
+            var current = 0f;
             for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
             {
-                for (var z = 0; z < MapData.Chunks.GetLength(0); z++)
+                for (var z = 0; z < MapData.Chunks.GetLength(2); z++)
                 {
                     for (var y = MapData.Chunks.GetLength(1)-1; y >= 0 ; y--)
                     {
+                        current++;
+                        loader.SetStatus("Building Chunks", 0.1f + (current/all)*0.7f);
                         if (MapData.Chunks[x, y, z] == null)
                             continue;
                         Chunk.CreateChunk(x, y, z, this);

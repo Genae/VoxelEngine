@@ -23,11 +23,12 @@ namespace Assets.Scripts.Data.Map
             TreeList.Add(new Tree(TreeConfigList[treeType], position));
         }
 
-        public IEnumerator GenerateTrees(int amount, MapData map)
+        public IEnumerator GenerateTrees(int amount, MapData map, GameLoader loader)
         {
 
             for (int i = 0; i < amount; i++)
             {
+                loader.SetStatus("Spawning Trees", 0.8f + i/(float)amount);
                 var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize));
                 RaycastHit hit;
                 Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
