@@ -10,7 +10,7 @@ namespace Assets.Scripts.MultiblockHandling
     public static class MultiblockLoader
     {
 
-        public static void LoadMultiblock(string filename)
+        public static Multiblock LoadMultiblock(string filename)
         {
             //load vdata list from text file
             var list = LoadVDataListFromFile(Application.dataPath + "/Imported/", filename);
@@ -19,6 +19,7 @@ namespace Assets.Scripts.MultiblockHandling
             var m = CreateMultiblock(list);
             m.transform.localScale = Vector3.one / 100; //10 is fraction value of importer, not very pretty atm
             m.transform.position = new Vector3(0, 0, 0);
+            return m;
         }
 
         public static List<VData> LoadVDataListFromFile(string path, string filename)
@@ -42,7 +43,6 @@ namespace Assets.Scripts.MultiblockHandling
 
             return Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), dict, "flowerpower");
         }
-
     }
 
 }

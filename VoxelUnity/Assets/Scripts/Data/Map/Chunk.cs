@@ -122,7 +122,7 @@ namespace Assets.Scripts.Data.Map
 
             data.ContainerUpdated += OnContainerUpdated;
 
-            Mesh = GetComponent<MeshFilter>() == null ? gameObject.AddComponent<MeshFilter>().mesh : GetComponent<MeshFilter>().mesh;
+            Mesh = GetComponent<MeshFilter>() == null ? gameObject.AddComponent<MeshFilter>().mesh : GetComponent<MeshFilter>().sharedMesh;
             if (gameObject.GetComponent<MeshRenderer>() == null)
             {
                 gameObject.AddComponent<MeshRenderer>();
