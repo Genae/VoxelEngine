@@ -157,8 +157,8 @@
     <Compile Include="Assets\Scripts\Util\ObjectPool.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Imported\flower.txt" />
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
+    <None Include="Assets\Resources\Imported\flower.txt" />
     <None Include="Assets\Shaders\test.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

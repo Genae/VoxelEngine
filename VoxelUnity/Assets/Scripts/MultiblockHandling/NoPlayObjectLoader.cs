@@ -18,7 +18,7 @@ public class NoPlayObjectLoader : MonoBehaviour
             return;
         oldFileName = TextFile.name;
 
-        var tra = MultiblockLoader.LoadMultiblock(TextFile.name + ".txt").transform;
+        var tra = MultiblockLoader.LoadMultiblock(TextFile.name).transform;
 	    tra.parent = this.transform;
 	}
 }

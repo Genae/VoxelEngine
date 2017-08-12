@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Multiblock;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Assets.Scripts.MultiblockHandling
@@ -13,7 +15,7 @@ namespace Assets.Scripts.MultiblockHandling
         public static Multiblock LoadMultiblock(string filename)
         {
             //load vdata list from text file
-            var list = LoadVDataListFromFile(Application.dataPath + "/Imported/", filename);
+            var list = LoadVDataListFromFile("Imported/", filename);
 
             //creating multiblock with vdata list
             var m = CreateMultiblock(list);
@@ -24,9 +26,9 @@ namespace Assets.Scripts.MultiblockHandling
 
         public static List<VData> LoadVDataListFromFile(string path, string filename)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<VData>));
-            StreamReader reader = new StreamReader(path + filename);
-            return (List<VData>)serializer.Deserialize(reader);
+            var files = Resources.Load<TextAsset>(path + filename);
+            string jsonstring = files.text;
+            return JsonConvert.DeserializeObject<VData[]>(jsonstring).ToList();
         }
 
         public static Multiblock CreateMultiblock(List<VData> list)
@@ -35,10 +37,10 @@ namespace Assets.Scripts.MultiblockHandling
 
             foreach (var data in list)
             {
-                var color = MaterialRegistry.Instance.GetColorIndex(data.Color);
+                var color = MaterialRegistry.Instance.GetColorIndex(new Color(data.Color.X, data.Color.Y, data.Color.Z));
                 if (!dict.ContainsKey(color))
                     dict.Add(color, new List<Vector3>());
-                dict[color].Add(data.VPos);
+                dict[color].Add(new Vector3(data.VPos.X, data.VPos.Y, data.VPos.Z));
             }
 
             return Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), dict, "flowerpower");

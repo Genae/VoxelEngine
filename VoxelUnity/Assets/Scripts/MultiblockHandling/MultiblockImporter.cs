@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Assets.Scripts.MultiblockHandling
@@ -14,7 +16,7 @@ namespace Assets.Scripts.MultiblockHandling
         void Start()
         {
             Import(transform.GetChild(0), "flower.txt");
-            MultiblockLoader.LoadMultiblock("flower.txt");
+            MultiblockLoader.LoadMultiblock("flower");
         }
 
         //import wrapper function
@@ -32,15 +34,15 @@ namespace Assets.Scripts.MultiblockHandling
             if (Imported.Count == 0) return;
 
             //dataPath is path to assets folder
-            SaveVDataListToFile(Application.dataPath + "/Imported/", filename, Imported);
+            SaveVDataListToFile(Application.dataPath + "/Resources/Imported/", filename, Imported);
         }
 
 
         public void SaveVDataListToFile(string path, string filename, List<VData> list)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<VData>));
+            var jsonstring = JsonConvert.SerializeObject(list.ToArray());
             StreamWriter writer = new StreamWriter(path + filename);
-            serializer.Serialize(writer, list);
+            writer.Write(jsonstring);
             writer.Close(); //not sure if necessary
         }
 
@@ -69,7 +71,7 @@ namespace Assets.Scripts.MultiblockHandling
                         Color color;
                         if (isVoxelInModel(pos, dirList, out color))
                         {
-                            voxelPosList.Add(new VData(new Vector3(x, y, z), color));
+                            voxelPosList.Add(new VData(new DreierWecktor(x, y, z), new DreierWecktor(color.r, color.g, color.b)));
                         }
                     }
                 }
@@ -101,16 +103,30 @@ namespace Assets.Scripts.MultiblockHandling
         }
     }
 
-
-    public struct VData
+    [Serializable]
+    public class VData
     {
-        public VData(Vector3 vp, Color c)
+        public VData(DreierWecktor vp, DreierWecktor c)
         {
             VPos = vp;
             Color = c;
         }
-        public Vector3 VPos;
-        public Color Color;
+        public DreierWecktor VPos;
+        public DreierWecktor Color;
+    }
+
+    public class DreierWecktor
+    {
+        public float X;
+        public float Y;
+        public float Z;
+
+        public DreierWecktor(float x, float y, float z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
     }
 }
 
