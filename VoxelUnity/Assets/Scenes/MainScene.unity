@@ -890,6 +890,7 @@ MonoBehaviour:
   MinCameraTiltAngle: 70
   ZoomStep: 30
   CameraMoveSpeed: 50
+  CameraMoveWithMouseSpeed: 10
   CameraRotationSpeed: 1
   CameraTiltSpeed: 1
 --- !u!1 &1623918553

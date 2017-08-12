@@ -23,6 +23,7 @@ namespace Assets.Scripts.Control
         //speed
         public float ZoomStep = 30;
         public float CameraMoveSpeed = 50f;
+        public float CameraMoveWithMouseSpeed = 200f;
         public float CameraRotationSpeed = 1;
         private const float LookSmothDamp = 0.2f;
         public float CameraTiltSpeed = 1;
@@ -64,19 +65,26 @@ namespace Assets.Scripts.Control
             var desiredZ = 0f;
             var desiredX = 0f;
 
+            if (Input.GetKey(KeyCode.W))
+                desiredZ = moveSpeed;
+            if (Input.GetKey(KeyCode.S))
+                desiredZ = moveSpeed * -1;
+            if (Input.GetKey(KeyCode.A))
+                desiredX = moveSpeed * -1;
+            if (Input.GetKey(KeyCode.D))
+                desiredX = moveSpeed;
+            if (Input.GetMouseButton(2))
+            {
+                desiredX -= Input.GetAxis("Mouse X") * CameraMoveWithMouseSpeed;
+                desiredZ -= Input.GetAxis("Mouse Y") * CameraMoveWithMouseSpeed;
+            }
+            /*
             if (AreCameraKeyoardButtonsPressed())
             {
-                if (Input.GetKey(KeyCode.W))
-                    desiredZ = moveSpeed;
-                if (Input.GetKey(KeyCode.S))
-                    desiredZ = moveSpeed * -1;
-                if (Input.GetKey(KeyCode.A))
-                    desiredX = moveSpeed * -1;
-                if (Input.GetKey(KeyCode.D))
-                    desiredX = moveSpeed;
             }
             else
             {
+                
                 if (Input.mousePosition.y > (Screen.height - MouseBoundary))
                     desiredZ = moveSpeed;
                 if (Input.mousePosition.y < MouseBoundary)
@@ -85,7 +93,8 @@ namespace Assets.Scripts.Control
                     desiredX = moveSpeed * -1;
                 if (Input.mousePosition.x > (Screen.width - MouseBoundary))
                     desiredX = moveSpeed;
-            }
+                    
+            }*/
             var dTrans = new Vector3(desiredX, 0, desiredZ);
 
             //removed cause cancer atm :D
@@ -141,7 +150,7 @@ namespace Assets.Scripts.Control
 
         public static bool AreCameraKeyoardButtonsPressed()
         {
-            return (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D));
+            return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Mouse3);
         }
     }
 }
