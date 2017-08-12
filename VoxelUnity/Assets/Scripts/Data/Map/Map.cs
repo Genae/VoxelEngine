@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using Assets.Scripts.Algorithms;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Control;
+using Assets.Scripts.Data.Importer;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
 
@@ -44,8 +45,9 @@ namespace Assets.Scripts.Data.Map
         {
             if (GenerateMap)
             {
+                var biomeConfig = ConfigImporter.GetConfig<BiomeConfiguration>("Assets/Config/Biomes").First();
                 var hmg = new HeightmapGenerator();
-                yield return hmg.CreateHeightMap(129, 129, 1337);
+                yield return hmg.CreateHeightMap(129, 129, 42);
                 MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
                 SetCameraValues();
                 yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
@@ -59,16 +61,9 @@ namespace Assets.Scripts.Data.Map
 
                 //Ressources
                 var resourceManager = new ResourceManager();
-                var weights = new Dictionary<VoxelMaterial, int>
-            {
-                {MaterialDefinition.All.Copper,7},
-                {MaterialDefinition.All.Coal,7},
-                {MaterialDefinition.All.Iron,5},
-                {MaterialDefinition.All.Gold,3}
-            };
-                resourceManager.SpawnAllResources(MapData, weights);
+                resourceManager.SpawnAllResources(MapData, biomeConfig.OreConfiguration);
 
-                //RemoveTerrainNotOfType(new[] { MaterialRegistry.Iron, MaterialRegistry.Gold, MaterialRegistry.Copper, MaterialRegistry.Coal });
+                //RemoveTerrainNotOfType(new[] { MaterialRegistry.Instance.GetMaterialFromName("Iron"), MaterialRegistry.Instance.GetMaterialFromName("Gold"), MaterialRegistry.Instance.GetMaterialFromName("Copper"), MaterialRegistry.Instance.GetMaterialFromName("Coal") });
                 //TestAStar();
             } else
             {
@@ -119,9 +114,11 @@ namespace Assets.Scripts.Data.Map
                     for (var z = 0; z < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; z++)
                     {
                         var chunk = MapData.Chunks[x / Chunk.ChunkSize, y / Chunk.ChunkSize, z / Chunk.ChunkSize];
+                        if(chunk == null)
+                            continue;
                         var mat = chunk.GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
                         if (!types.Contains(mat))
-                            chunk.SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, MaterialDefinition.All.Air);
+                            chunk.SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, MaterialRegistry.Instance.GetMaterialFromName("Air"));
                     }
                 }
             }
@@ -131,6 +128,29 @@ namespace Assets.Scripts.Data.Map
         public bool IsInBounds(int x, int y, int z)
         {
             return x >= 0 && y >= 0 && z >= 0 && x < MapData.Size * Chunk.ChunkSize && y < MapData.Height * Chunk.ChunkSize && z < MapData.Size * Chunk.ChunkSize;
+        }
+    }
+
+    public class BiomeConfiguration
+    {
+        public string Name;
+        public ResourceConfiguration[] OreConfiguration;
+    }
+
+    public class ResourceConfiguration
+    {
+        public string ResourceType;
+        public int MinAmount = 5;
+        public int MaxAmount = 10;
+        public float MinVeinLength = 30;
+        public float VeinRadius = 2;
+        public float Frequency = 7;
+        
+        private VoxelMaterial _material;
+        public VoxelMaterial Material
+        { 
+            get { return _material ?? (_material = MaterialRegistry.Instance.GetMaterialFromName(ResourceType)); }
+            set { _material = value; }
         }
     }
 }

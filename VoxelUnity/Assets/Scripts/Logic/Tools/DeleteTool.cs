@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic.Jobs;
@@ -154,7 +154,7 @@ namespace Assets.Scripts.Logic.Tools
             //for performance reasons this could be used to replace the meshcolliders TODO?
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
             var type = chunk.GetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize);
-            if(type.Equals(MaterialDefinition.All.Air))
+            if(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
                 return;
             _jobController.AddJob(new MiningJob(pos));
         }

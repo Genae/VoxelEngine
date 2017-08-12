@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 using Assets.Scripts.Logic;
 
 namespace Assets.Scripts.Control

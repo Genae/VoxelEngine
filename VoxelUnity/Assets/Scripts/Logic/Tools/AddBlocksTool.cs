@@ -1,7 +1,6 @@
-﻿using System.Linq;
+using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Tools

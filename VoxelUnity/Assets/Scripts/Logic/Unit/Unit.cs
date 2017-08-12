@@ -1,7 +1,3 @@
-﻿using UnityEngine;
-using System.Collections;
-
-
 namespace Assets.Scripts.Logic.Unit
 {
     public class Unit

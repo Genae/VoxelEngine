@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
+using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Util;
 using UnityEngine;

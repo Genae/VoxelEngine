@@ -1,0 +1,37 @@
+{
+	"Name": "Default",
+	"OreConfiguration": [
+		{
+			"ResourceType": "Copper",
+			"MinAmount": 5,
+            "MaxAmount": 10,
+            "MinVeinLength": 30,
+            "VeinRadius": 2,
+			"Frequency": 7
+		},
+		{
+			"ResourceType": "Coal",
+			"MinAmount": 5,
+            "MaxAmount": 10,
+            "MinVeinLength": 20,
+            "VeinRadius": 3,
+			"Frequency": 7
+		},
+		{
+			"ResourceType": "Iron",
+			"MinAmount": 3,
+            "MaxAmount": 7,
+            "MinVeinLength": 60,
+            "VeinRadius": 1,
+			"Frequency": 5
+		},
+		{
+			"ResourceType": "Gold",
+			"MinAmount": 1,
+            "MaxAmount": 3,
+            "MinVeinLength": 60,
+            "VeinRadius": 0.7,
+			"Frequency": 3
+		}
+	]
+}

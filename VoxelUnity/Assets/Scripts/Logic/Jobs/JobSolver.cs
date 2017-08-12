@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding;
+using System.Linq;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using UnityEngine;
 

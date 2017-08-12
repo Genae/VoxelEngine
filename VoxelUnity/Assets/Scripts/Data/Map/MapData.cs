@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using Assets.Scripts.Data.Material;
 
@@ -31,7 +31,7 @@ namespace Assets.Scripts.Data.Map
                         var isActive = y < (int) lheight && y > bot && cut[(int)(x /Scale), (int)(z /Scale)] > 0.5f;
                         if (!isActive)
                             continue;
-                        var blockType = y == (int) lheight - 1 ? MaterialDefinition.All.Grass : (y >= (int) lheight - 4 ? MaterialDefinition.All.Dirt : MaterialDefinition.All.Stone);
+                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Instance.GetMaterialFromName("Grass") : (y >= (int) lheight - 4 ? MaterialRegistry.Instance.GetMaterialFromName("Dirt") : MaterialRegistry.Instance.GetMaterialFromName("Stone"));
                         SetVoxel(x, y, z, true, blockType);
                     }
                 }

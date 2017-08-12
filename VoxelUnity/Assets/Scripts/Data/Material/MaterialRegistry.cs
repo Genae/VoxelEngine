@@ -1,6 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Assets.Scripts.Data.Importer;
+using Newtonsoft.Json;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -28,7 +31,6 @@ namespace Assets.Scripts.Data.Material
         private UnityEngine.Material[] GetMaterials()
         {
             _materials = Object.FindObjectOfType<MaterialDefinition>().Materials;
-            var allMats = MaterialDefinition.All;
             CreateColorAtlas();
             return _materials;
         }
@@ -62,7 +64,9 @@ namespace Assets.Scripts.Data.Material
         }
 
         private MaterialRegistry()
-        {}
+        {
+            LoadMaterialCollection();
+        }
 
         public VoxelMaterial GetColorIndex(Color color)
         {
@@ -121,6 +125,51 @@ namespace Assets.Scripts.Data.Material
             VoxelMaterialByName[name] = vm;
             return vm;
         }
+
+        void LoadMaterialCollection()
+        {
+            var mats = new MaterialCollection();
+            mats.Load(Path.Combine(Application.dataPath, "Config/Materials"), this);
+        }
         #endregion
+    }
+
+    public class MaterialCollection
+    {
+        public void Load(string path, MaterialRegistry registry)
+        {
+            var materials = ConfigImporter.GetConfig<MaterialJson[]>(path);
+            foreach (var material in materials)
+            {
+                foreach (var dyn in material)
+                {
+                    registry.Create(dyn.Name, dyn.MaterialTyp, dyn.TrueColor);
+                }
+            }
+        }
+    }
+
+    public class MaterialJson
+    {
+        public string Name;
+        public int[] Color;
+        public string Type;
+
+        public MaterialTyp MaterialTyp
+        {
+            get { return (MaterialTyp)Enum.Parse(typeof(MaterialTyp), Type); }
+        }
+
+        public Color TrueColor
+        {
+            get { return rgb(Color[0], Color[1], Color[2]); }
+        }
+
+        // ReSharper disable once InconsistentNaming
+
+        private static Color rgb(int r, int g, int b)
+        {
+            return new Color(r / 255f, g / 255f, b / 255f);
+        }
     }
 }

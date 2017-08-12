@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace Assets.Scripts.Data.Map
 {
     public class VoxelData

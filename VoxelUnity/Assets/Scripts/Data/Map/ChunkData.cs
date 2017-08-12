@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Material;
@@ -233,7 +233,7 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var dz = Mathf.Max(0, (int)posTo.z); dz <= Mathf.Min((int)(posFrom.z), Size-1); dz++)
                     {
-                        if (Map.Instance.IsInBounds(x, y, z) && !GetVoxelType(dx, dy, dz).Equals(MaterialDefinition.All.Air))
+                        if (Map.Instance.IsInBounds(x, y, z) && !GetVoxelType(dx, dy, dz).Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
                             return true;
                     }
                 }

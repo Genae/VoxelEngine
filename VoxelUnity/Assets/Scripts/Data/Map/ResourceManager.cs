@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
@@ -7,72 +7,20 @@ namespace Assets.Scripts.Data.Map
 {
     public class ResourceManager
     {
-        #region RessourceDefinition
-
-        private Dictionary<VoxelMaterial, ResourceVeinData> _ressourceDefinitions = new Dictionary<VoxelMaterial, ResourceVeinData>()
-        {
-            {
-                MaterialDefinition.All.Copper,
-                new ResourceVeinData
-                {
-                    MinAmount = 5,
-                    MaxAmount = 10,
-                    MinVeinLength = 30,
-                    Material = MaterialDefinition.All.Copper,
-                    VeinRadius = 2
-                }
-            },
-            {
-                MaterialDefinition.All.Coal,
-                new ResourceVeinData
-                {
-                    MinAmount = 5,
-                    MaxAmount = 10,
-                    MinVeinLength = 20,
-                    Material = MaterialDefinition.All.Coal,
-                    VeinRadius = 3
-                }
-            },
-
-            {
-                MaterialDefinition.All.Iron,
-                new ResourceVeinData
-                {
-                    MinAmount = 3,
-                    MaxAmount = 7,
-                    MinVeinLength = 60,
-                    Material = MaterialDefinition.All.Iron,
-                    VeinRadius = 1
-                }
-            },
-            {
-                MaterialDefinition.All.Gold,
-                new ResourceVeinData
-                {
-                    MinAmount = 1,
-                    MaxAmount = 3,
-                    MinVeinLength = 60,
-                    Material = MaterialDefinition.All.Gold,
-                    VeinRadius = 0.7f
-                }
-            }
-        };
-        #endregion
-
-        public void SpawnAllResources(MapData map, Dictionary<VoxelMaterial, int> weight, float density = 1f)
+        public void SpawnAllResources(MapData map, ResourceConfiguration[] resources, float density = 1f)
         {
             var veinAmount = map.Chunks.GetLength(0)*map.Chunks.GetLength(0)*Chunk.ChunkSize*Chunk.ChunkSize/5000f*density;
-            var multiplier = veinAmount/weight.Values.Sum();
-            foreach (var material in weight.Keys)
+            var multiplier = veinAmount/ resources.Sum(r => r.Frequency);
+            foreach (var material in resources)
             {
-                for (var i = 0; i < multiplier*weight[material]; i++)
+                for (var i = 0; i < multiplier* material.Frequency; i++)
                 {
-                    SpawnResources(_ressourceDefinitions[material], map);
+                    SpawnResources(material, map);
                 }
             }
         }
 
-        public void SpawnResources(ResourceVeinData data, MapData map)
+        public void SpawnResources(ResourceConfiguration data, MapData map)
         {
             var amount = Random.Range(data.MinAmount, data.MaxAmount+1);
             var width = map.Chunks.GetLength(0) * Chunk.ChunkSize;
@@ -87,7 +35,7 @@ namespace Assets.Scripts.Data.Map
             SpawnVein(data, map, start, amount);
         }
 
-        private void SpawnVein(ResourceVeinData data, MapData map, Vector3 start, int veinsLeft)
+        private void SpawnVein(ResourceConfiguration data, MapData map, Vector3 start, int veinsLeft)
         {
             veinsLeft--;
             var path = GetPath(data, map, start);
@@ -100,7 +48,7 @@ namespace Assets.Scripts.Data.Map
 
         }
 
-        private void DrawPath(ResourceVeinData data, List<Vector3> path, MapData map)
+        private void DrawPath(ResourceConfiguration data, List<Vector3> path, MapData map)
         {
             for (var i = 0; i < path.Count - 2; i++)
             {
@@ -134,7 +82,7 @@ namespace Assets.Scripts.Data.Map
             }
         }
 
-        private List<Vector3> GetPath(ResourceVeinData data, MapData map, Vector3 start)
+        private List<Vector3> GetPath(ResourceConfiguration data, MapData map, Vector3 start)
         {
             var list = new List<Vector3>();
             list.Add(start);
@@ -159,16 +107,7 @@ namespace Assets.Scripts.Data.Map
             return Map.Instance.IsInBounds((int)pos.x, (int)pos.y, (int)pos.z) &&
                 map.Chunks[(int)(pos.x / Chunk.ChunkSize), (int)(pos.y / Chunk.ChunkSize), (int)(pos.z / Chunk.ChunkSize)] != null &&
                    map.Chunks[(int) (pos.x/Chunk.ChunkSize), (int) (pos.y/Chunk.ChunkSize), (int) (pos.z/Chunk.ChunkSize)]
-                .GetVoxelType((int) (pos.x%Chunk.ChunkSize), (int) (pos.y%Chunk.ChunkSize),(int) (pos.z%Chunk.ChunkSize)).Equals(MaterialDefinition.All.Stone);
+                .GetVoxelType((int) (pos.x%Chunk.ChunkSize), (int) (pos.y%Chunk.ChunkSize),(int) (pos.z%Chunk.ChunkSize)).Equals(MaterialRegistry.Instance.GetMaterialFromName("Stone"));
         }
-    }
-
-    public struct ResourceVeinData
-    {
-        public int MinAmount;
-        public int MaxAmount;
-        public int MinVeinLength;
-        public float VeinRadius;
-        public VoxelMaterial Material;
     }
 }

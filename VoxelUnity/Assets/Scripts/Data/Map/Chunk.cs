@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Algorithms;
 using Assets.Scripts.Data.Material;
@@ -98,7 +98,7 @@ namespace Assets.Scripts.Data.Map
         public void OnMouseOver()
         {
             HighlightColor = Color.white;
-            if (this is Multiblock.Multiblock)
+            if (this is Multiblock.Multiblock && transform.name.Equals("Tree"))
             {
                 Exploder.Explode(this as Multiblock.Multiblock);
             }
