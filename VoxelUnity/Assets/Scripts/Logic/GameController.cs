@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Data.Map;
+using Assets.Scripts.MultiblockHandling;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
@@ -46,21 +48,21 @@ namespace Assets.Scripts.Logic
             }
         }
 
-        public void SpawnAmbientPlants(int count)
+        public void SpawnAmbientPlants(BiomeConfiguration biomeConfig)
         {
             var parent = transform.Find("Map").Find("AmbientFlowers");
-            for(int i = 0; i < count; i++)
+            foreach (var ambientPlantConfiguration in biomeConfig.AmbientPlants)
             {
-                var pos = new Vector3(Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
-                RaycastHit hit;
-                Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
-                if (hit.collider.tag.Equals("Chunk"))
+                for (int i = 0; i < ambientPlantConfiguration.Amount; i++)
                 {
-                    var index = Random.Range(0, 4);
-                    var start = hit.point;
-                    var go = (GameObject)Instantiate(_ambientPlants[index], new Vector3(start.x + 0.5f, start.y, start.z + 0.5f), Quaternion.identity);
-                    go.transform.parent = parent;
-                   
+                    var pos = new Vector3(Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
+                    RaycastHit hit;
+                    Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
+                    if (hit.collider.tag.Equals("Chunk"))
+                    {
+                        var start = hit.point;
+                        MultiblockLoader.LoadMultiblock(ambientPlantConfiguration.Name, new Vector3(start.x + 0.5f, start.y, start.z + 0.5f), parent);
+                    }
                 }
             }
         }

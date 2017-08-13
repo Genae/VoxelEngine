@@ -16,7 +16,8 @@ namespace Assets.Scripts.MultiblockHandling
         void Start()
         {
             Import(transform.GetChild(0), "flower.txt");
-            MultiblockLoader.LoadMultiblock("flower");
+            var mb = MultiblockLoader.LoadMultiblock("flower");
+            mb.transform.localScale = mb.transform.localScale * 10 / FractionValue;
         }
 
         //import wrapper function

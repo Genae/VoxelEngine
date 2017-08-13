@@ -33,5 +33,11 @@
             "VeinRadius": 0.7,
 			"Frequency": 3
 		}
+	],
+	"AmbientPlants": [
+		{
+			"Name": "flower",
+			"Amount": 100
+		}
 	]
 }

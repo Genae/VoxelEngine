@@ -112,6 +112,13 @@ namespace Assets.Scripts.Data.Map
     {
         public string Name;
         public ResourceConfiguration[] OreConfiguration;
+        public AmbientPlantConfiguration[] AmbientPlants;
+    }
+
+    public class AmbientPlantConfiguration
+    {
+        public string Name;
+        public int Amount;
     }
 
     public class ResourceConfiguration

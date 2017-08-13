@@ -60,7 +60,7 @@ namespace Assets.Scripts.Data
 
             //AmbientPlants
             SetStatus("Loading Ambient Plants", 0.99f);
-            gameController.SpawnAmbientPlants(1000);
+            gameController.SpawnAmbientPlants(biomeConfig);
 
             //Start Time Again
             Time.timeScale = 1;

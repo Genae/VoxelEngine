@@ -9,29 +9,52 @@ using UnityEngine;
 
 namespace Assets.Scripts.MultiblockHandling
 {
-    public static class MultiblockLoader
+    public class MultiblockLoader
     {
+        Dictionary<int, Multiblock> _loadedObjects = new Dictionary<int, Multiblock>();
+        private static MultiblockLoader _instance;
+        private Transform _loadedObjectsCache;
 
-        public static Multiblock LoadMultiblock(string filename)
+        protected static MultiblockLoader Instance
         {
-            //load vdata list from text file
-            var list = LoadVDataListFromFile("Imported/", filename);
-
-            //creating multiblock with vdata list
-            var m = CreateMultiblock(list);
-            m.transform.localScale = Vector3.one / 100; //10 is fraction value of importer, not very pretty atm
-            m.transform.position = new Vector3(0, 0, 0);
-            return m;
+            get { return _instance ?? (_instance = new MultiblockLoader()); }
+            set { _instance = value; }
         }
 
-        public static List<VData> LoadVDataListFromFile(string path, string filename)
+        public static Multiblock LoadMultiblock(string filename, Vector3 position = default(Vector3), Transform parent = null)
+        {
+            if (!Instance._loadedObjects.ContainsKey(filename.GetHashCode()))
+            {
+                //load vdata list from text file
+                var list = Instance.LoadVDataListFromFile("Imported/", filename);
+
+                //creating multiblock with vdata list
+                var m = Instance.CreateMultiblock(list, filename.Split('/').Last());
+                m.transform.localScale = Vector3.one / 10; //10 is fraction value of importer, not very pretty atm
+                m.transform.position = new Vector3(0, 0, 0);
+                m.transform.parent = Instance._loadedObjectsCache;
+                Instance._loadedObjects[filename.GetHashCode()] = m;
+            }
+            var obj = Object.Instantiate(Instance._loadedObjects[filename.GetHashCode()].gameObject).GetComponent<Multiblock>();
+            obj.transform.position = position;
+            obj.transform.parent = parent;
+            return obj;
+        }
+
+        private MultiblockLoader()
+        {
+            _loadedObjectsCache = new GameObject("LoadedObjectsCache").transform;
+            _loadedObjectsCache.gameObject.SetActive(false);
+        }
+
+        private List<VData> LoadVDataListFromFile(string path, string filename)
         {
             var files = Resources.Load<TextAsset>(path + filename);
             string jsonstring = files.text;
             return JsonConvert.DeserializeObject<VData[]>(jsonstring).ToList();
         }
 
-        public static Multiblock CreateMultiblock(List<VData> list)
+        private Multiblock CreateMultiblock(List<VData> list, string name)
         {
             var dict = new Dictionary<VoxelMaterial, List<Vector3>>();
 
@@ -43,7 +66,7 @@ namespace Assets.Scripts.MultiblockHandling
                 dict[color].Add(new Vector3(data.VPos.X, data.VPos.Y, data.VPos.Z));
             }
 
-            return Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), dict, "flowerpower");
+            return Multiblock.InstantiateVoxels(new Vector3(-1, 0, 0), dict, name);
         }
     }
 
