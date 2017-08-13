@@ -11,12 +11,13 @@ namespace Assets.Scripts.MultiblockHandling
     public class MultiblockImporter : MonoBehaviour
     {
         public int FractionValue = 10;
+        public string FileName;
         public static List<VData> Imported;
 
         void Start()
         {
-            Import(transform.GetChild(0), "flower.txt");
-            var mb = MultiblockLoader.LoadMultiblock("flower");
+            Import(transform.GetChild(0), FileName ?? "flower.txt");
+            var mb = MultiblockLoader.LoadMultiblock(FileName.Split('.')[0]);
             mb.transform.localScale = mb.transform.localScale * 10 / FractionValue;
         }
 
@@ -31,7 +32,7 @@ namespace Assets.Scripts.MultiblockHandling
                 zone.gameObject.AddComponent<MeshCollider>();
             }
             //importing mesh to voxeldata
-            Imported = getVoxelData(zone);
+            Imported = GetVoxelData(zone);
             if (Imported.Count == 0) return;
 
             //dataPath is path to assets folder
@@ -42,12 +43,10 @@ namespace Assets.Scripts.MultiblockHandling
         public void SaveVDataListToFile(string path, string filename, List<VData> list)
         {
             var jsonstring = JsonConvert.SerializeObject(list.ToArray());
-            StreamWriter writer = new StreamWriter(path + filename);
-            writer.Write(jsonstring);
-            writer.Close(); //not sure if necessary
+            File.WriteAllText(path + filename, jsonstring);
         }
 
-        private List<VData> getVoxelData(Transform zone)
+        private List<VData> GetVoxelData(Transform zone)
         {
             var offset = 0.5f;
             var voxelPosList = new List<VData>();
@@ -70,7 +69,7 @@ namespace Assets.Scripts.MultiblockHandling
                     {
                         var pos = new Vector3((x + offset) / FractionValue, (y + offset) / FractionValue, (z + offset) / FractionValue) + bounds.center - bounds.size/2;
                         Color color;
-                        if (isVoxelInModel(pos, dirList, out color))
+                        if (IsVoxelInModel(pos, dirList, out color))
                         {
                             voxelPosList.Add(new VData(new DreierWecktor(x, y, z), new DreierWecktor(color.r, color.g, color.b)));
                         }
@@ -80,7 +79,7 @@ namespace Assets.Scripts.MultiblockHandling
             return voxelPosList;
         }
 
-        private bool isVoxelInModel(Vector3 pos, List<Vector3> dirList, out Color color)
+        private bool IsVoxelInModel(Vector3 pos, List<Vector3> dirList, out Color color)
         {
             color = Color.magenta;
             foreach (var dir in dirList)

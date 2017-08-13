@@ -38,6 +38,18 @@
 		{
 			"Name": "flower",
 			"Amount": 100
+		},
+		{
+			"Name": "flower2",
+			"Amount": 1000
+		},
+		{
+			"Name": "mushroom",
+			"Amount": 100
+		},
+		{
+			"Name": "mushroom2",
+			"Amount": 100
 		}
 	]
 }

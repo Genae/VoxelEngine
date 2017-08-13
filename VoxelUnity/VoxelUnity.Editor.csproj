@@ -209,6 +209,9 @@
     <None Include="Assets\MarkLight\Views\ViewAnimation.xml" />
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Resources\Imported\flower.txt" />
+    <None Include="Assets\Resources\Imported\flower2.txt" />
+    <None Include="Assets\Resources\Imported\mushroom.txt" />
+    <None Include="Assets\Resources\Imported\mushroom2.txt" />
     <None Include="Assets\Shaders\test.shader" />
     <None Include="Assets\Views\LoadingScreen.xml" />
     <None Include="Assets\Views\ToolBelt.xml" />
