@@ -32,6 +32,7 @@ namespace Assets.Scripts.MultiblockHandling
                 m.transform.position = new Vector3(0, 0, 0);
                 m.transform.parent = Instance._loadedObjectsCache;
                 Instance._loadedObjects[filename.GetHashCode()] = m;
+                m.EnableWind(100);
             }
             var obj = Object.Instantiate(Instance._loadedObjects[filename.GetHashCode()].gameObject).GetComponent<Multiblock>();
             obj.transform.position = position;

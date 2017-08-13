@@ -28,6 +28,7 @@ namespace Assets.Scripts.Data.Multiblock.Trees
             voxels.Add(MaterialRegistry.Instance.GetMaterialFromName(config.LeafMaterial), treeTopVoxels);
 
             Multiblock = Multiblock.InstantiateVoxels(position, voxels, "Tree");
+            Multiblock.EnableWind(100);
         }
 
         protected TreeData GetRandomizedTreeValues(TreeConfig config)

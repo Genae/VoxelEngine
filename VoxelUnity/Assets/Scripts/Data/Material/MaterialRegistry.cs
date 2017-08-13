@@ -148,7 +148,7 @@ namespace Assets.Scripts.Data.Material
                 tex.filterMode = FilterMode.Point;
             }
             var pos = EntityMaterialsIndices.Count;
-            EntityMaterialsIndices[color]= Create("EntityMaterial", MaterialTyp.Entity, color);
+            EntityMaterialsIndices[color]= Create("EntityMaterial", MaterialTyp.Entity, color, true);
             tex.SetPixel(pos / AtlasSize, pos % AtlasSize, color);
             tex.Apply();
             EntityMaterial.mainTexture = tex;
@@ -157,13 +157,13 @@ namespace Assets.Scripts.Data.Material
         private readonly Dictionary<MaterialTyp, int> _counterTyp = new Dictionary<MaterialTyp, int>();
         private UnityEngine.Material[] _materials;
 
-        protected internal VoxelMaterial Create(string name, MaterialTyp typ, Color c)
+        protected internal VoxelMaterial Create(string name, MaterialTyp typ, Color c, bool fixedColor = false)
         {
             if (!_counterTyp.ContainsKey(typ))
             {
                 _counterTyp[typ] = 0;
             }
-            var vm = new VoxelMaterial(_counterTyp[typ]++, typ, c, VoxelMaterials.Values.Count);
+            var vm = new VoxelMaterial(_counterTyp[typ]++, typ, fixedColor ? c : GetSimilarColor(c), VoxelMaterials.Values.Count);
             VoxelMaterials[vm.Id] = vm;
             VoxelMaterialByName[name] = vm;
             return vm;
@@ -186,7 +186,7 @@ namespace Assets.Scripts.Data.Material
             {
                 foreach (var dyn in material)
                 {
-                    registry.Create(dyn.Name, dyn.MaterialTyp, dyn.TrueColor);
+                    registry.Create(dyn.Name, dyn.MaterialTyp, dyn.TrueColor, true);
                 }
             }
         }

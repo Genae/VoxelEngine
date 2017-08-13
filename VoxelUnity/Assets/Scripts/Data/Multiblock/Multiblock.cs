@@ -40,7 +40,22 @@ namespace Assets.Scripts.Data.Multiblock
             return (Multiblock)container;
         }
 
-       
+        public void EnableWind(float intensity)
+        {
+            var mesh = GetComponent<MeshFilter>().sharedMesh;
+            float height = 0f;
+            foreach (var meshVertex in mesh.vertices)
+            {
+                if (height < meshVertex.y)
+                    height = meshVertex.y;
+            }
+            var colors = new Color[mesh.vertexCount];
+            for (var i = 0; i < mesh.vertexCount; i++)
+            {
+                colors[i] = new Color(mesh.vertices[i].y/height*intensity, 0, 0);
+            }
+            mesh.SetColors(colors.ToList());
+        }
 
         private static int GetSize(out Vector3 zeroVec, Dictionary<VoxelMaterial, List<Vector3>> voxels)
         {

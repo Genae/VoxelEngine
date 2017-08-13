@@ -6,7 +6,6 @@ using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Control;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Data.Map
 {
