@@ -1,0 +1,7 @@
+<UIMainScene>
+    <UserInterface>
+        <ToolBelt />
+        <LoadingScreen />
+    </UserInterface>
+    <EventSystem />
+</UIMainScene>

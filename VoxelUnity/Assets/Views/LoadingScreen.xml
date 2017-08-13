@@ -1,0 +1,11 @@
+<LoadingScreen xmlns="MarkLight" StatusText="Loading..." Progress="1">
+  <Region Width="100%" Height="100%">
+    <Image BackgroundImage="Assets/Resources/Images/LoadingScreen"></Image>
+    <Group Alignment="Bottom">
+      <Label Text="{StatusText}"></Label>
+      <Image BackgroundImage="Assets/Resources/Images/barbg" Width="900px" Height="50px">
+        <Image BackgroundImage="Assets/Resources/Images/filler" Width="855px" Height="17px" FillAmount="{Progress}" BackgroundImageType="Filled" BackgroundImageFillMethod="Horizontal"></Image>
+      </Image>
+    </Group>
+  </Region>
+</LoadingScreen>

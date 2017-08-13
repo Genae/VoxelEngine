@@ -1,22 +1,21 @@
 ﻿using System.Collections;
 using System.Linq;
 using Assets.Scripts.Algorithms;
-using Assets.Scripts.Control;
 using Assets.Scripts.Data.Importer;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic;
-using Newtonsoft.Json;
+using Assets.Scripts.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Data
 {
     public class GameLoader : MonoBehaviour
     {
         public static bool GameLoaded = false;
-        Text loadingStatus;
-        Image loadingProgress;
+        private LoadingScreen _loadingScreen;
+        //Text loadingStatus;
+        //Image loadingProgress;
 
         void Awake()
         {
@@ -27,11 +26,9 @@ namespace Assets.Scripts.Data
         IEnumerator LoadGame()
         {
             Time.timeScale = 0;
-            //Init Loading Screen
-            var loadingScreen = GameObject.Find("LoadingScreenImage");
-            loadingStatus = loadingScreen.transform.Find("Status").GetComponent<Text>();
-            loadingProgress = loadingScreen.transform.Find("ProgressFG").GetComponent<Image>();
-            loadingScreen.SetActive(true);
+            yield return null;
+            _loadingScreen = FindObjectOfType<LoadingScreen>();
+            _loadingScreen.IsVisible.Value = true;
 
             //Load Materials
             SetStatus("Loading Materials", 0.01f);
@@ -42,7 +39,6 @@ namespace Assets.Scripts.Data
             SetStatus("Loading Map", 0.02f);
             var biomeConfig = ConfigImporter.GetConfig<BiomeConfiguration>("Biomes").First();
             yield return Map.Map.Instance.CreateMap(biomeConfig, this);
-            loadingProgress.fillAmount = 0.8f;
 
             //Trees
             SetStatus("Loading Trees", 0.8f);
@@ -71,14 +67,16 @@ namespace Assets.Scripts.Data
             yield return null;
             GameLoaded = true;
 
-            loadingScreen.SetActive(false);
+            _loadingScreen.IsVisible.Value = false;
             SetCameraValues();
         }
 
         public void SetStatus(string text, float progress)
         {
-            loadingStatus.text = text;
-            loadingProgress.fillAmount = progress;
+            _loadingScreen.StatusText.Value = text;
+            _loadingScreen.Progress.Value = progress;
+            //loadingStatus.text = text;
+            //loadingProgress.fillAmount = progress;
         }
 
 

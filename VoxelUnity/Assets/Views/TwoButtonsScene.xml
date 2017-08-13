@@ -1,6 +1,0 @@
-<TwoButtonsScene>
-    <UserInterface>
-        <TwoButtons />
-    </UserInterface>
-    <EventSystem />
-</TwoButtonsScene>

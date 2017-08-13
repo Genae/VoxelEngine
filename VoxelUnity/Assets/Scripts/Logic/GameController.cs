@@ -28,15 +28,6 @@ namespace Assets.Scripts.Logic
 
         void Update()
         {
-            if (!_runOnce && Map.IsDoneGenerating)
-            {
-                _runOnce = true;
-                for (int i = 0; i < 5; i++)
-                {
-                    SpawnCharacter();
-                }
-                SpawnAmbientPlants(1000);
-            }
         }
 
         public void SpawnCharacter()

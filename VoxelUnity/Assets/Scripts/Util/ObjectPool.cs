@@ -62,6 +62,8 @@ namespace Assets.Scripts.Util
 
         void Update()
         {
+            if (PooledObjects == null)
+                return;
             var count = 0;
             var i = 0;
             foreach (var objectPrefab in ObjectPrefabs)
