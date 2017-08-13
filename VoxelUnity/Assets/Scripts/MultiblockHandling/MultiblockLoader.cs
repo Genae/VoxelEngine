@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Multiblock;
 using Newtonsoft.Json;
@@ -60,7 +58,7 @@ namespace Assets.Scripts.MultiblockHandling
 
             foreach (var data in list)
             {
-                var color = MaterialRegistry.Instance.GetColorIndex(new Color(data.Color.X/255f, data.Color.Y/255f, data.Color.Z/255f));
+                var color = MaterialRegistry.Instance.GetColorIndex(new Color(data.Color.X/256f, data.Color.Y/256f, data.Color.Z/256f));
                 if (!dict.ContainsKey(color))
                     dict.Add(color, new List<Vector3>());
                 dict[color].Add(new Vector3(data.VPos.X, data.VPos.Y, data.VPos.Z));
