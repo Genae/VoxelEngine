@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
+using Assets.Scripts.Data.Material;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -50,7 +50,7 @@ namespace Assets.Scripts.MultiblockHandling
         {
             var offset = 0.5f;
             var voxelPosList = new List<VData>();
-            var dirList = new List<Vector3>()
+            var dirList = new List<Vector3>
             {
                 Vector3.left,
                 Vector3.right,
@@ -71,7 +71,8 @@ namespace Assets.Scripts.MultiblockHandling
                         Color color;
                         if (IsVoxelInModel(pos, dirList, out color))
                         {
-                            voxelPosList.Add(new VData(new DreierWecktor(x, y, z), new DreierWecktor(color.r, color.g, color.b)));
+                            color = MaterialRegistry.Instance.GetSimilarColor(color);
+                            voxelPosList.Add(new VData(new DreierWecktor(x, y, z), new DreierWecktor((int)(color.r*256), (int)(color.g * 256), (int)(color.b * 256))));
                         }
                     }
                 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Importer;
+using Assets.Scripts.Util;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -19,6 +20,7 @@ namespace Assets.Scripts.Data.Material
         private readonly Dictionary<int, VoxelMaterial> VoxelMaterials = new Dictionary<int, VoxelMaterial>();
         private readonly Dictionary<Color, VoxelMaterial> EntityMaterialsIndices = new Dictionary<Color, VoxelMaterial>();
         private readonly Dictionary<string, VoxelMaterial> VoxelMaterialByName = new Dictionary<string, VoxelMaterial>();
+        private readonly Dictionary<Color, Color> _conversionCache = new Dictionary<Color, Color>();
 
         public UnityEngine.Material[] Materials
         {
@@ -69,15 +71,53 @@ namespace Assets.Scripts.Data.Material
         public void Preload()
         {
             GetMaterials();
+            LoadColorPallete();
+        }
+
+        private void LoadColorPallete()
+        {
+            var colorPallete = Resources.Load<Texture2D>("Images/colorPalette");
+            foreach (var pixel in colorPallete.GetPixels())
+            {
+                if (!EntityMaterialsIndices.ContainsKey(pixel))
+                {
+                    AddColorToAtlas(pixel);
+                }
+            }
         }
 
         public VoxelMaterial GetColorIndex(Color color)
         {
             if (!EntityMaterialsIndices.ContainsKey(color))
             {
-                AddColorToAtlas(color);
+                color = GetSimilarColor(color);
+                //AddColorToAtlas(color);
             }
             return EntityMaterialsIndices[color];
+        }
+
+        public Color GetSimilarColor(Color color)
+        {
+            if(EntityMaterialsIndices.Count == 0)
+                LoadColorPallete();
+            if (EntityMaterialsIndices.ContainsKey(color))
+                return color;
+            if (_conversionCache.ContainsKey(color))
+                return _conversionCache[color];
+
+            var closestDist = 100000f;
+            Color closestColor = Color.white;
+            foreach (var colorP in EntityMaterialsIndices.Keys)
+            {
+                var dist = ColorUtils.ColorDistance(color, colorP);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closestColor = colorP;
+                }
+            }
+            _conversionCache[color] = closestColor;
+            return closestColor;
         }
 
         #region helper

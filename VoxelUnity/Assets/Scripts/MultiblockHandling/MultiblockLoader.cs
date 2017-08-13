@@ -60,7 +60,7 @@ namespace Assets.Scripts.MultiblockHandling
 
             foreach (var data in list)
             {
-                var color = MaterialRegistry.Instance.GetColorIndex(new Color(data.Color.X, data.Color.Y, data.Color.Z));
+                var color = MaterialRegistry.Instance.GetColorIndex(new Color(data.Color.X/255f, data.Color.Y/255f, data.Color.Z/255f));
                 if (!dict.ContainsKey(color))
                     dict.Add(color, new List<Vector3>());
                 dict[color].Add(new Vector3(data.VPos.X, data.VPos.Y, data.VPos.Z));

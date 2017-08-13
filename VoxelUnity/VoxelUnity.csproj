@@ -326,6 +326,7 @@
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBelt.cs" />
     <Compile Include="Assets\Scripts\UI\UIMainScene.cs" />
+    <Compile Include="Assets\Scripts\Util\ColorUtils.cs" />
     <Compile Include="Assets\Scripts\Util\Exploder.cs" />
     <Compile Include="Assets\Scripts\Util\ObjectPool.cs" />
   </ItemGroup>
