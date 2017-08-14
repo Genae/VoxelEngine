@@ -20,6 +20,7 @@
 
   <Image Style="ProgressBar" BackgroundImage="Sprites/ProgressBar.png"/>
   <Image Style="ProgressBarFiller" BackgroundImage="Sprites/ProgressBarFiller.png" Width="100%" Height="100%" BackgroundImageType="Filled" BackgroundImageFillMethod="Horizontal"/>
+  <Image Style="LoadingScreen" BackgroundImage="Sprites/Floating_islands.png" Width="100%" Height="100%" BackgroundImageType="Filled" BackgroundImageFillMethod="Horizontal"/>
 
   <Frame Style="Window" BackgroundColor="Gray80" />
   <Frame Style="ShowcaseGroup" BackgroundColor="#7d7d7d" ContentMargin="5px" />

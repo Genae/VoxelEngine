@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ViewPaths:
   - Assets/Views/
-  - Assets/MarkLight/Views/
-  - Assets/MarkLight/Examples/Views/
-  SchemaFile: Assets/MarkLight/Views/Schemas/MarkLight.xsd
+  - Assets/UnityPackages/MarkLight/Views/
+  - Assets/UnityPackages/MarkLight/Examples/Views/
+  - Assets/UI/Views/
+  SchemaFile: Assets/UnityPackages/MarkLight/Views/Schemas/MarkLight.xsd
