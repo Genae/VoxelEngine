@@ -42,7 +42,7 @@ namespace Assets.Scripts.Logic.Farming
 
         public void AddFarmblock(Vector3 position)
         {
-            FarmBlocks.Add(new FarmBlock(position, CropType));
+            FarmBlocks.Add(new FarmBlock(position, CropType, transform));
         }
     }
 
@@ -55,6 +55,7 @@ namespace Assets.Scripts.Logic.Farming
 
         public Multiblock Crop;
         private int _stage;
+        private Transform _parent;
 
         public int Stage
         {
@@ -73,13 +74,14 @@ namespace Assets.Scripts.Logic.Farming
                 Object.Destroy(Crop.gameObject);
             
             if(Stage != 0)
-                Crop = MultiblockLoader.LoadMultiblock(Type.GrowStages[_stage], Position + Vector3.up);
+                Crop = MultiblockLoader.LoadMultiblock(Type.GrowStages[_stage], Position + new Vector3(-0.5f, 0.5f, -0.5f), _parent);
         }
 
-        public FarmBlock(Vector3 position, CropType cropType)
+        public FarmBlock(Vector3 position, CropType cropType, Transform parent)
         {
             Position = position;
             Type = cropType;
+            _parent = parent;
         }
 
         public void Update(float dTime)

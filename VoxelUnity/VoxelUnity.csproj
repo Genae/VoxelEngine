@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -142,11 +140,11 @@
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Logic\JobController.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\CreateSoilJob.cs" />
+    <Compile Include="Assets\Scripts\Logic\Jobs\HarvestCropJob.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\Job.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\JobMarker.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\JobSolver.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\MiningJob.cs" />
-    <Compile Include="Assets\Scripts\Logic\Jobs\HarvestCropJob.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\PlantCropJob.cs" />
     <Compile Include="Assets\Scripts\Logic\MouseController.cs" />
     <Compile Include="Assets\Scripts\Logic\Tools\AddBlocksTool.cs" />
@@ -348,6 +346,9 @@
     <None Include="Assets\Resources\Imported\Plants\Ambient\mushroom2.txt" />
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\1.txt" />
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\2.txt" />
+    <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\3.txt" />
+    <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\4.txt" />
+    <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\5.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />

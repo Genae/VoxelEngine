@@ -144,6 +144,9 @@
     <None Include="Assets\Resources\Imported\Plants\Ambient\mushroom2.txt" />
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\1.txt" />
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\2.txt" />
+    <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\3.txt" />
+    <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\4.txt" />
+    <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\5.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />
