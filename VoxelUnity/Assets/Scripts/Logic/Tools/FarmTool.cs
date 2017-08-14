@@ -1,6 +1,7 @@
 using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Logic.Farming;
 using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
@@ -48,15 +49,25 @@ namespace Assets.Scripts.Logic.Tools
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
                     var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
                     curPos = Normalize(curPos);
-                    _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, _previewBox);
+                    _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, new Color(0f, 0.3f, 0.3f, 0.5f), _previewBox);
                     if (Input.GetMouseButtonUp(0))
                     {
                         var voxels = GetVoxelsInbetween(_startPos, curPos);
+                        Farm farm = null;
                         foreach (var vox in voxels)
                         {
-                            CreateFarmAtPosition(vox);
-                            StopCreateFarm();
+                            if (CreateFarmAtPosition(vox))
+                            {
+                                if (farm == null)
+                                {
+                                    farm = new GameObject("Farm").AddComponent<Farm>();
+                                    farm.transform.parent = GameObject.Find("Map").transform;
+                                    farm.CropType = CropManager.Instance.GetCropByName("Wheat");
+                                }
+                                farm.AddFarmblock(vox);
+                            }
                         }
+                        StopCreateFarm();
                     }
                 }
             }
@@ -135,16 +146,16 @@ namespace Assets.Scripts.Logic.Tools
             _plane.tag = "Plane";
         }
 
-        private void CreateFarmAtPosition(Vector3 pos)
+        private bool CreateFarmAtPosition(Vector3 pos)
         {
             if (!Map.Instance.IsInBounds((int) pos.x, (int) pos.y, (int) pos.z))
-                return;
+                return false;
             if (_jobController == null)
             {
                 _jobController = GameObject.Find("World").GetComponent<JobController>();
             }
             if (_jobController.HasJob(pos, JobType.CreateSoil))
-                return;
+                return false;
 
             if (_mapData == null)
             {
@@ -152,14 +163,15 @@ namespace Assets.Scripts.Logic.Tools
             }
             var type = Map.Instance.MapData.GetVoxelMaterial(pos);
             if(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
-                return;
+                return false;
             type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up);
             if (!type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
-                return;
+                return false;
             type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up + Vector3.up);
             if (!type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
-                return;
+                return false;
             _jobController.AddJob(new CreateSoilJob(pos));
+            return true;
         }
 
         

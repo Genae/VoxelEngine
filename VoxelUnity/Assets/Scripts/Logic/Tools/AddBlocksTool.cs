@@ -46,8 +46,9 @@ namespace Assets.Scripts.Logic.Tools
                 {
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
                     var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
-                    PreviewMaterial.color = MaterialRegistry.Instance.MaterialFromId(BlockMaterialId).Color;
-                    _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, _previewBox);
+                    var color = MaterialRegistry.Instance.MaterialFromId(BlockMaterialId).Color;
+                    color.a = 0.5f;
+                    _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, color, _previewBox);
                     if (Input.GetMouseButtonUp(0))
                     {
                         var voxels = GetVoxelsInbetween(_startPos, curPos);

@@ -66,6 +66,8 @@ namespace Assets.Scripts.Logic.Jobs
     public enum JobType
     {
         Mining,
-        CreateSoil
+        CreateSoil,
+        PlantCrop,
+        HarvestCrop
     }
 }

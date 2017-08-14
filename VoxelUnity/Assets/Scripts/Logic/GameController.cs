@@ -61,7 +61,7 @@ namespace Assets.Scripts.Logic
                     if (hit.collider.tag.Equals("Chunk"))
                     {
                         var start = hit.point;
-                        MultiblockLoader.LoadMultiblock(ambientPlantConfiguration.Name, new Vector3(start.x + 0.5f, start.y, start.z + 0.5f), parent);
+                        MultiblockLoader.LoadMultiblock("Plants/Ambient/" + ambientPlantConfiguration.Name, new Vector3(start.x + 0.5f, start.y, start.z + 0.5f), parent);
                     }
                 }
             }

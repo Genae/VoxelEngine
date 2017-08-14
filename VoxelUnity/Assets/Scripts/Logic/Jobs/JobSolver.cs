@@ -49,6 +49,8 @@ namespace Assets.Scripts.Logic.Jobs
         {
             PossibleTypes.Enqueue(JobType.Mining, 1);
             PossibleTypes.Enqueue(JobType.CreateSoil, 2);
+            PossibleTypes.Enqueue(JobType.PlantCrop, 3);
+            PossibleTypes.Enqueue(JobType.HarvestCrop, 4);
         }
 
         public void Solve(Job job)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Map;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -123,12 +124,13 @@ namespace Assets.Scripts.Logic.Tools
             return inbetween;
         }
 
-        protected GameObject DrawPreview(Vector3 startPos, Vector3 curPos, Material mat, GameObject previewBox = null)
+        protected GameObject DrawPreview(Vector3 startPos, Vector3 curPos, Material mat, Color c, GameObject previewBox = null)
         {
             if (previewBox == null)
             {
                 previewBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 previewBox.GetComponent<MeshRenderer>().material = mat;
+                previewBox.GetComponent<MeshRenderer>().material.color = c;
             }
             previewBox.transform.position = (curPos - startPos) / 2 + startPos;
             previewBox.transform.position = new Vector3(((curPos - startPos) / 2 + startPos).x, ((curPos - startPos) / 2 + startPos).y, ((curPos - startPos) / 2 + startPos).z);
