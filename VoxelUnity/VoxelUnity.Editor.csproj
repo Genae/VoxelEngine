@@ -143,8 +143,8 @@
     <None Include="Assets\Resources\Imported\mushroom.txt" />
     <None Include="Assets\Resources\Imported\mushroom2.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
+    <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />
-    <None Include="Assets\UI\Views\Themes\MainTheme.xml" />
     <None Include="Assets\UI\Views\ToolBelt.xml" />
     <None Include="Assets\UI\Views\UIMainScene.xml" />
     <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />

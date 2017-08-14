@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Configuration
   m_EditorClassIdentifier: 
   ViewPaths:
-  - Assets/Views/
+  - Assets/UI/Themes/MainTheme/Views
   - Assets/UnityPackages/MarkLight/Views/
   - Assets/UnityPackages/MarkLight/Examples/Views/
   - Assets/UI/Views/

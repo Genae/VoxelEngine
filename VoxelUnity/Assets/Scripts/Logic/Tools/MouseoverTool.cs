@@ -31,5 +31,10 @@ namespace Assets.Scripts.Logic.Tools
             _previewBox.transform.position = startPos;
             _previewBox.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
         }
+
+        public override void SwapOverlays()
+        {
+            OverlayManager.SwapOverlays(false, false, false);
+        }
     }
 }

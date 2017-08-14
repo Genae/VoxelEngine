@@ -1,4 +1,5 @@
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Logic.Tools;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Jobs
@@ -10,9 +11,9 @@ namespace Assets.Scripts.Logic.Jobs
             return JobType.Mining;
         }
 
-        public MiningJob(Vector3 position) : base(position, 1.1f, new Color(1f, 0f, 0f, 0.5f))
+        public MiningJob(Vector3 position) : base(position, 1.1f, new Color(1f, 0f, 0f, 0.5f), Overlay.Mining)
         {
-            RemainingTime = 0.1f;
+            RemainingTime = 1f;
         }
 
         protected override void SolveInternal()

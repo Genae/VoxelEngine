@@ -20,8 +20,7 @@ namespace Assets.Scripts.Logic.Tools
         private bool _yAxisPressed;
 
         
-        // ReSharper disable once UnusedMember.Local
-        void Update () {
+        protected void Update () {
 
             CheckYAxis();
 
@@ -85,9 +84,10 @@ namespace Assets.Scripts.Logic.Tools
             return curPos;
         }
 
-        void OnDisable()
+        protected override void OnDisable()
         {
             StopDelete();
+            base.OnDisable();
         }
 
         private void CheckYAxis()
@@ -157,6 +157,11 @@ namespace Assets.Scripts.Logic.Tools
             if(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
                 return;
             _jobController.AddJob(new MiningJob(pos));
+        }
+
+        public override void SwapOverlays()
+        {
+            OverlayManager.SwapOverlays(true, true, false);
         }
     }
 }

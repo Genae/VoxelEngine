@@ -7,12 +7,24 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Logic.Tools
 {
-    public class Tool : MonoBehaviour
+    public abstract class Tool : MonoBehaviour
     {
-        void Awake()
+        protected virtual void Start()
         {
             gameObject.SetActive(false);
         }
+
+        protected virtual void OnEnable()
+        {
+            SwapOverlays();
+        }
+
+        protected virtual void OnDisable()
+        {
+            OverlayManager.SwapToDefault();
+        }
+
+        public abstract void SwapOverlays();
 
         protected Vector3 GetMouseOveredVoxelPos(out Chunk chunk)
         {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
+using Assets.Scripts.Logic.Tools;
 using Assets.Scripts.Util;
 using UnityEngine;
 
@@ -17,19 +18,19 @@ namespace Assets.Scripts.Logic.Jobs
 
         public Vector3 Position;
 
-        protected static Transform JobTransform;
+        protected static Transform JobOverlay;
 
         protected float RemainingTime;
 
-        protected Job(Vector3 position, float scale, Color color)
+        protected Job(Vector3 position, float scale, Color color, Overlay jobOverlay)
         {
             Position = position;
             Map = Map.Instance;
-            if (JobTransform == null)
+            if (JobOverlay == null)
             {
-                JobTransform = GameObject.Find("Jobs").transform;
+                JobOverlay = OverlayManager.GetOverlay(jobOverlay);
             }
-            Marker = ObjectPool.Instance.GetObjectForType<JobMarker>(parent:JobTransform);
+            Marker = ObjectPool.Instance.GetObjectForType<JobMarker>(parent:JobOverlay);
             Marker.Init(position, scale, color);
         }
 
@@ -67,7 +68,7 @@ namespace Assets.Scripts.Logic.Jobs
             return true;
         }
     }
-
+    
     public enum JobType
     {
         Mining

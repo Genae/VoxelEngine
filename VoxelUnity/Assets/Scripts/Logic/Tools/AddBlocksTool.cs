@@ -121,5 +121,10 @@ namespace Assets.Scripts.Logic.Tools
             var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
             chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.Instance.MaterialFromId(BlockMaterialId));
         }
+
+        public override void SwapOverlays()
+        {
+            OverlayManager.SwapOverlays(false, true, false);
+        }
     }
 }
