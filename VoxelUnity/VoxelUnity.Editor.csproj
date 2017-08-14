@@ -213,7 +213,9 @@
     <None Include="Assets\Resources\Imported\mushroom.txt" />
     <None Include="Assets\Resources\Imported\mushroom2.txt" />
     <None Include="Assets\Shaders\test.shader" />
+    <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
     <None Include="Assets\Views\LoadingScreen.xml" />
+    <None Include="Assets\Views\MainTheme.xml" />
     <None Include="Assets\Views\ToolBelt.xml" />
     <None Include="Assets\Views\UIMainScene.xml" />
   </ItemGroup>

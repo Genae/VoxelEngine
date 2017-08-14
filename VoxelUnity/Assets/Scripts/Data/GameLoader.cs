@@ -14,8 +14,6 @@ namespace Assets.Scripts.Data
     {
         public static bool GameLoaded = false;
         private LoadingScreen _loadingScreen;
-        //Text loadingStatus;
-        //Image loadingProgress;
 
         void Awake()
         {
@@ -75,8 +73,6 @@ namespace Assets.Scripts.Data
         {
             _loadingScreen.StatusText.Value = text;
             _loadingScreen.Progress.Value = progress;
-            //loadingStatus.text = text;
-            //loadingProgress.fillAmount = progress;
         }
 
 

@@ -2,9 +2,9 @@
   <Region Width="100%" Height="100%">
     <Image BackgroundImage="Assets/Resources/Images/LoadingScreen"></Image>
     <Group Alignment="Bottom">
-      <Label Text="{StatusText}"></Label>
-      <Image BackgroundImage="Assets/Resources/Images/barbg" Width="900px" Height="50px">
-        <Image BackgroundImage="Assets/Resources/Images/filler" Width="855px" Height="17px" FillAmount="{Progress}" BackgroundImageType="Filled" BackgroundImageFillMethod="Horizontal"></Image>
+      <Label Text="{StatusText}" FontColor="white" FontSize="30"></Label>
+      <Image Style="ProgressBar" Width="75%" Height="50px">
+        <Image Style="ProgressBarFiller" FillAmount="{Progress}"></Image>
       </Image>
     </Group>
   </Region>
