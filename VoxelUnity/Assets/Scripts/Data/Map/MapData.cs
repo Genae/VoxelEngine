@@ -59,6 +59,16 @@ namespace Assets.Scripts.Data.Map
                 Chunks[cx, cy, cz] = new ChunkData(new Vector3(cx, cy, cz) * Chunk.ChunkSize);
             return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, active, material);
         }
+        public VoxelMaterial GetVoxelMaterial(int x, int y, int z)
+        {
+            var chunk = Chunks[x / Chunk.ChunkSize, y / Chunk.ChunkSize, z / Chunk.ChunkSize];
+            return chunk.GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
+        }
+
+        public VoxelMaterial GetVoxelMaterial(Vector3 pos)
+        {
+            return GetVoxelMaterial((int) pos.x, (int) pos.y, (int) pos.z);
+        }
 
         private void SetIntoNeighbourContext(int x, int y, int z)
         {
@@ -84,5 +94,6 @@ namespace Assets.Scripts.Data.Map
 
             Chunks[x, y, z].UpdateBorder(borders, solid, neighbourData, false);
         }
+
     }
 }

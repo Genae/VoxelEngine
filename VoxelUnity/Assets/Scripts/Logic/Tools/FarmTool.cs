@@ -1,24 +1,25 @@
 using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Tools
 {
-    public class AddBlocksTool : Tool {
+    public class FarmTool : Tool {
 
+        private JobController _jobController;
         private MapData _mapData;
         private Vector3 _startPos;
         private GameObject _plane;
         private GameObject _previewBox;
         public Material PreviewMaterial;
-        public int BlockMaterialId;
+        public int MaxLength = 20;
         private int _ySize;
         private bool _yAxisPressed;
 
         
-        // ReSharper disable once UnusedMember.Local
-        void Update () {
+        protected void Update () {
 
             CheckYAxis();
 
@@ -27,7 +28,7 @@ namespace Assets.Scripts.Logic.Tools
                 return;
             if (Input.GetMouseButtonDown(1))
             {
-                StopAdd();
+                StopCreateFarm();
             }
             else if (Input.GetMouseButtonDown(0))
             {
@@ -46,24 +47,45 @@ namespace Assets.Scripts.Logic.Tools
                 {
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
                     var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
-                    PreviewMaterial.color = MaterialRegistry.Instance.MaterialFromId(BlockMaterialId).Color;
+                    curPos = Normalize(curPos);
                     _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, _previewBox);
                     if (Input.GetMouseButtonUp(0))
                     {
                         var voxels = GetVoxelsInbetween(_startPos, curPos);
                         foreach (var vox in voxels)
                         {
-                            AddVoxelAtPosition(vox);
-                            StopAdd();
+                            CreateFarmAtPosition(vox);
+                            StopCreateFarm();
                         }
                     }
                 }
             }
         }
 
+        private Vector3 Normalize(Vector3 curPos)
+        {
+            var xLength = curPos.x - _startPos.x;
+            var yLength = curPos.y - _startPos.y;
+            var zLength = curPos.z - _startPos.z;
+            if (Mathf.Abs(xLength) > MaxLength)
+            {
+                curPos.x = _startPos.x + (Mathf.Abs(xLength) * MaxLength) / xLength;
+            }
+            if (Mathf.Abs(yLength) > MaxLength)
+            {
+                curPos.y = _startPos.y + (Mathf.Abs(yLength) * MaxLength) / yLength;
+            }
+            if (Mathf.Abs(zLength) > MaxLength)
+            {
+                curPos.z = _startPos.z + (Mathf.Abs(zLength) * MaxLength) / zLength;
+            }
+
+            return curPos;
+        }
+
         protected override void OnDisable()
         {
-            StopAdd();
+            StopCreateFarm();
             base.OnDisable();
         }
 
@@ -89,8 +111,9 @@ namespace Assets.Scripts.Logic.Tools
             }
         }
 
-        private void StopAdd()
+        private void StopCreateFarm()
         {
+            _ySize = 0;
             if (_plane != null)
             {
                 DestroyImmediate(_plane);
@@ -112,20 +135,38 @@ namespace Assets.Scripts.Logic.Tools
             _plane.tag = "Plane";
         }
 
-        private void AddVoxelAtPosition(Vector3 pos)
+        private void CreateFarmAtPosition(Vector3 pos)
         {
+            if (!Map.Instance.IsInBounds((int) pos.x, (int) pos.y, (int) pos.z))
+                return;
+            if (_jobController == null)
+            {
+                _jobController = GameObject.Find("World").GetComponent<JobController>();
+            }
+            if (_jobController.HasJob(pos, JobType.CreateSoil))
+                return;
+
             if (_mapData == null)
             {
                 _mapData = Map.Instance.MapData;
             }
-            //for performance reasons this could be used to replace the meshcolliders TODO?
-            var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
-            chunk.SetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize, MaterialRegistry.Instance.MaterialFromId(BlockMaterialId));
+            var type = Map.Instance.MapData.GetVoxelMaterial(pos);
+            if(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+                return;
+            type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up);
+            if (!type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+                return;
+            type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up + Vector3.up);
+            if (!type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+                return;
+            _jobController.AddJob(new CreateSoilJob(pos));
         }
+
+        
 
         public override void SwapOverlays()
         {
-            OverlayManager.SwapOverlays(true, true, false);
+            OverlayManager.SwapOverlays(true, true, true);
         }
     }
 }

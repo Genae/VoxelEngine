@@ -1,62 +1,67 @@
 [
-    {
-        "Name": "Air",
-        "Type": "Default",
-        "Color": [ 255, 255, 255 ]
-    },
-    {
-        "Name": "Stone",
-        "Type": "Default",
-        "Color": [120, 120, 120]
-    },
-    {
-        "Name": "Dirt",
-        "Type": "Default",
-        "Color": [160, 82, 45]
-    },
-    {
-        "Name": "Grass",
-        "Type": "Default",
-        "Color": [50, 205, 50]
-    },
-    {
-        "Name": "OakWood",
-        "Type": "Default",
-        "Color": [60, 30, 17]
-    },
-    {
-        "Name": "OakLeaves",
-        "Type": "Default",
-        "Color": [35, 144, 35]
-    },
-    {
-        "Name": "BirchWood",
-        "Type": "Default",
-        "Color": [234, 231, 214]
-    },
-    {
-        "Name": "BirchLeaves",
-        "Type": "Default",
-        "Color": [160, 185, 125]
-    },
-    {
-        "Name": "Copper",
-        "Type": "Metallic",
-        "Color": [184, 115, 51]
-    },
-    {
-        "Name": "Iron",
-        "Type": "Metallic",
-        "Color": [123, 123, 123]
-    },
-    {
-        "Name": "Gold",
-        "Type": "Metallic",
-        "Color": [255, 215, 0]
-    },
-    {
-        "Name": "Coal",
-        "Type": "Metallic",
-        "Color": [0, 0, 0]
-    }
+  {
+    "Name": "Air",
+    "Type": "Default",
+    "Color": [ 255, 255, 255 ]
+  },
+  {
+    "Name": "Stone",
+    "Type": "Default",
+    "Color": [ 120, 120, 120 ]
+  },
+  {
+    "Name": "Dirt",
+    "Type": "Default",
+    "Color": [ 160, 82, 45 ]
+  },
+  {
+    "Name": "Grass",
+    "Type": "Default",
+    "Color": [ 50, 205, 50 ]
+  },
+  {
+    "Name": "OakWood",
+    "Type": "Default",
+    "Color": [ 60, 30, 17 ]
+  },
+  {
+    "Name": "OakLeaves",
+    "Type": "Default",
+    "Color": [ 35, 144, 35 ]
+  },
+  {
+    "Name": "BirchWood",
+    "Type": "Default",
+    "Color": [ 234, 231, 214 ]
+  },
+  {
+    "Name": "BirchLeaves",
+    "Type": "Default",
+    "Color": [ 160, 185, 125 ]
+  },
+  {
+    "Name": "Copper",
+    "Type": "Metallic",
+    "Color": [ 184, 115, 51 ]
+  },
+  {
+    "Name": "Iron",
+    "Type": "Metallic",
+    "Color": [ 123, 123, 123 ]
+  },
+  {
+    "Name": "Gold",
+    "Type": "Metallic",
+    "Color": [ 255, 215, 0 ]
+  },
+  {
+    "Name": "Coal",
+    "Type": "Metallic",
+    "Color": [ 0, 0, 0 ]
+  },
+  {
+    "Name": "Soil",
+    "Type": "Default",
+    "Color": [ 69, 25, 4 ]
+  }
 ]

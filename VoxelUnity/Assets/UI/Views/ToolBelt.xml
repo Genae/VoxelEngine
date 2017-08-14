@@ -2,5 +2,6 @@
     <Group Spacing="10px" Alignment="Bottom" Orientation="Horizontal">
         <Button Text="Mine" Alpha="0.5" Click="ButtonMine"/>
         <Button Text="Build" Alpha="0.5" Click="ButtonBuild"/>
+        <Button Text="Farm" Alpha="0.5" Click="ButtonFarm"/>
     </Group>
 </ToolBelt>

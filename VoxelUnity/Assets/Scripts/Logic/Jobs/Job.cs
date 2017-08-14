@@ -18,19 +18,13 @@ namespace Assets.Scripts.Logic.Jobs
 
         public Vector3 Position;
 
-        protected static Transform JobOverlay;
-
         protected float RemainingTime;
 
         protected Job(Vector3 position, float scale, Color color, Overlay jobOverlay)
         {
             Position = position;
             Map = Map.Instance;
-            if (JobOverlay == null)
-            {
-                JobOverlay = OverlayManager.GetOverlay(jobOverlay);
-            }
-            Marker = ObjectPool.Instance.GetObjectForType<JobMarker>(parent:JobOverlay);
+            Marker = ObjectPool.Instance.GetObjectForType<JobMarker>(parent: OverlayManager.GetOverlay(jobOverlay));
             Marker.Init(position, scale, color);
         }
 
@@ -71,6 +65,7 @@ namespace Assets.Scripts.Logic.Jobs
     
     public enum JobType
     {
-        Mining
+        Mining,
+        CreateSoil
     }
 }

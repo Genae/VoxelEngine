@@ -16,6 +16,12 @@ namespace Assets.Scripts.UI
 		    var go = GameObject.Find ("World").GetComponent<MouseController>();
 		    go.SelectedTool = go.Tools [1];
 	    }
+
+        public void ButtonFarm()
+        {
+            var go = GameObject.Find("World").GetComponent<MouseController>();
+            go.SelectedTool = go.Tools[2];
+        }
     }
 
 }

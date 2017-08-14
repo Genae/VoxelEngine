@@ -17,7 +17,15 @@ namespace Assets.Scripts.Logic
         {
             foreach (var freeSolver in FreeSolvers.ToArray())
             {
-                var possibleJobs = freeSolver.GetPossibleJobs();
+                FindJobFor(freeSolver);
+            }
+        }
+
+        private void FindJobFor(JobSolver freeSolver)
+        {
+            var possibleJobs = freeSolver.GetPossibleJobs();
+            while (!possibleJobs.IsEmpty())
+            {
                 var jobType = possibleJobs.Dequeue();
                 if (OpenJobs.ContainsKey(jobType) && !OpenJobs[jobType].IsEmpty())
                 {
@@ -30,7 +38,7 @@ namespace Assets.Scripts.Logic
 
                         freeSolver.Solve(OpenJobs[jobType].Dequeue(job));
                         FreeSolvers.Remove(freeSolver);
-                        break;
+                        return;
                     }
                 }
             }

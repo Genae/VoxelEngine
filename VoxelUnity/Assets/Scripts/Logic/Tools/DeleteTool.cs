@@ -14,7 +14,6 @@ namespace Assets.Scripts.Logic.Tools
         private GameObject _plane;
         private GameObject _previewBox;
         public Material PreviewMaterial;
-        public Material MiningJobMaterial;
         public int MaxLength = 20;
         private int _ySize;
         private bool _yAxisPressed;
@@ -151,10 +150,8 @@ namespace Assets.Scripts.Logic.Tools
             {
                 _mapData = Map.Instance.MapData;
             }
-            //for performance reasons this could be used to replace the meshcolliders TODO?
-            var chunk = _mapData.Chunks[(int)pos.x / Chunk.ChunkSize, (int)pos.y / Chunk.ChunkSize, (int)pos.z / Chunk.ChunkSize];
-            var type = chunk.GetVoxelType((int)pos.x % Chunk.ChunkSize, (int)pos.y % Chunk.ChunkSize, (int)pos.z % Chunk.ChunkSize);
-            if(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+            var type = Map.Instance.MapData.GetVoxelMaterial(pos);
+            if (type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
                 return;
             _jobController.AddJob(new MiningJob(pos));
         }
