@@ -120,6 +120,7 @@
     <Compile Include="Assets\Scripts\Control\CameraController.cs" />
     <Compile Include="Assets\Scripts\Data\GameLoader.cs" />
     <Compile Include="Assets\Scripts\Data\Importer\ConfigImporter.cs" />
+    <Compile Include="Assets\Scripts\Data\ItemManager.cs" />
     <Compile Include="Assets\Scripts\Data\Map\Chunk.cs" />
     <Compile Include="Assets\Scripts\Data\Map\ChunkData.cs" />
     <Compile Include="Assets\Scripts\Data\Map\LocalAStarNetwork.cs" />
@@ -341,6 +342,7 @@
   <ItemGroup>
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Materials\Shader\test.shader" />
+    <None Include="Assets\Resources\Imported\Items\Dirt.txt" />
     <None Include="Assets\Resources\Imported\Plants\Ambient\flower.txt" />
     <None Include="Assets\Resources\Imported\Plants\Ambient\flower2.txt" />
     <None Include="Assets\Resources\Imported\Plants\Ambient\mushroom.txt" />

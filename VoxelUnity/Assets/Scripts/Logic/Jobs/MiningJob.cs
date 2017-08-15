@@ -19,7 +19,7 @@ namespace Assets.Scripts.Logic.Jobs
         protected override void SolveInternal()
         {
             Map.MapData.Chunks[(int)Position.x/16, (int)Position.y/16, (int)Position.z/16]
-                .SetVoxelType((int)Position.x%16, (int)Position.y%16, (int)Position.z%16, MaterialRegistry.Instance.GetMaterialFromName("Air"));
+                .MineVoxel((int)Position.x%16, (int)Position.y%16, (int)Position.z%16);
         }
     }
 }

@@ -12,26 +12,7 @@ namespace Assets.Scripts.Logic
         public GameObject CharacterPreset;
         public GameObject BunnyPreset;
         public Map Map;
-        private bool _runOnce;
-
-        public GameObject flower1;
-        public GameObject flower2;
-        public GameObject shroom1;
-        public GameObject shroom2;
-        private List<GameObject> _ambientPlants;
-
-        void Start()
-        {
-            _ambientPlants = new List<GameObject>();
-            _ambientPlants.Add(flower1);
-            _ambientPlants.Add(flower2);
-            _ambientPlants.Add(shroom1);
-            _ambientPlants.Add(shroom2);
-        }
-
-        void Update()
-        {
-        }
+        
 
         public void SpawnCharacter()
         {
@@ -65,7 +46,7 @@ namespace Assets.Scripts.Logic
                         var c = Map.Instance.MapData.Chunks[(int)start.x / Chunk.ChunkSize, (int)start.y / Chunk.ChunkSize, (int)start.z / Chunk.ChunkSize];
                         if (c == null)
                             continue;
-                        var mb = MultiblockLoader.LoadMultiblock("Plants/Ambient/" + ambientPlantConfiguration.Name, new Vector3(start.x - 0.5f, start.y, start.z - 0.5f), parent);
+                        var mb = MultiblockLoader.LoadMultiblock("Plants/Ambient/" + ambientPlantConfiguration.Name, new Vector3(start.x - 0.5f, start.y, start.z - 0.5f), parent, 100);
                         c.RegisterSmallMultiblock(mb, new Vector3((int)start.x, (int)start.y, (int)start.z) - c.Position);
                     }
                 }

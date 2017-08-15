@@ -12,12 +12,14 @@
   {
     "Name": "Dirt",
     "Type": "Default",
-    "Color": [ 160, 82, 45 ]
+    "Color": [ 160, 82, 45 ],
+    "Drop": [{"Item":"Dirt", "Amount":1}]
   },
   {
     "Name": "Grass",
     "Type": "Default",
-    "Color": [ 50, 205, 50 ]
+    "Color": [ 50, 205, 50 ],
+    "Drop": [{"Item":"Dirt", "Amount":1}]
   },
   {
     "Name": "OakWood",
@@ -62,6 +64,7 @@
   {
     "Name": "Soil",
     "Type": "Default",
-    "Color": [ 69, 25, 4 ]
+    "Color": [ 69, 25, 4 ],
+    "Drop": [{"Item":"Dirt", "Amount":1}]
   }
 ]

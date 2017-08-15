@@ -148,7 +148,7 @@ namespace Assets.Scripts.Data.Material
                 tex.filterMode = FilterMode.Point;
             }
             var pos = EntityMaterialsIndices.Count;
-            EntityMaterialsIndices[color]= Create("EntityMaterial", MaterialTyp.Entity, color, true);
+            EntityMaterialsIndices[color]= Create("EntityMaterial", MaterialTyp.Entity, color, null, true);
             tex.SetPixel(pos / AtlasSize, pos % AtlasSize, color);
             tex.Apply();
             EntityMaterial.mainTexture = tex;
@@ -157,13 +157,13 @@ namespace Assets.Scripts.Data.Material
         private readonly Dictionary<MaterialTyp, int> _counterTyp = new Dictionary<MaterialTyp, int>();
         private UnityEngine.Material[] _materials;
 
-        protected internal VoxelMaterial Create(string name, MaterialTyp typ, Color c, bool fixedColor = false)
+        protected internal VoxelMaterial Create(string name, MaterialTyp typ, Color c, Drop[] drops, bool fixedColor = false)
         {
             if (!_counterTyp.ContainsKey(typ))
             {
                 _counterTyp[typ] = 0;
             }
-            var vm = new VoxelMaterial(_counterTyp[typ]++, typ, fixedColor ? c : GetSimilarColor(c), VoxelMaterials.Values.Count);
+            var vm = new VoxelMaterial(_counterTyp[typ]++, typ, fixedColor ? c : GetSimilarColor(c), VoxelMaterials.Values.Count, drops);
             VoxelMaterials[vm.Id] = vm;
             VoxelMaterialByName[name] = vm;
             return vm;
@@ -186,7 +186,7 @@ namespace Assets.Scripts.Data.Material
             {
                 foreach (var dyn in material)
                 {
-                    registry.Create(dyn.Name, dyn.MaterialTyp, dyn.TrueColor, true);
+                    registry.Create(dyn.Name, dyn.MaterialTyp, dyn.TrueColor, dyn.Drop, true);
                 }
             }
         }
@@ -197,7 +197,8 @@ namespace Assets.Scripts.Data.Material
         public string Name;
         public int[] Color;
         public string Type;
-
+        public Drop[] Drop;
+        
         public MaterialTyp MaterialTyp
         {
             get { return (MaterialTyp)Enum.Parse(typeof(MaterialTyp), Type); }
@@ -214,5 +215,11 @@ namespace Assets.Scripts.Data.Material
         {
             return new Color(r / 255f, g / 255f, b / 255f);
         }
+    }
+
+    public class Drop
+    {
+        public string Item;
+        public int Amount;
     }
 }

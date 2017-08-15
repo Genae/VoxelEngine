@@ -193,6 +193,22 @@ namespace Assets.Scripts.Data.Map
             }
             _smallMultiblocks[pos] = mb;
         }
+
+        public void MineVoxel(int x, int y, int z)
+        {
+            var type = GetVoxelType(x, y, z);
+            if (type.Drops != null)
+            {
+                foreach (var drop in type.Drops)
+                {
+                    for (var i = 0; i < drop.Amount; i++)
+                    {
+                        ItemManager.DropItem(new Vector3(x, y, z) + Position, drop.Item);
+                    }
+                }
+            }
+            SetVoxelType(x, y, z, MaterialRegistry.Instance.GetMaterialFromName("Air"));
+        }
     }
 
     public class ContainerData

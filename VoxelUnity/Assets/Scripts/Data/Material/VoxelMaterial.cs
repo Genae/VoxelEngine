@@ -7,14 +7,16 @@ namespace Assets.Scripts.Data.Material
         public readonly int AtlasPosition;
         public readonly MaterialTyp MaterialId;
         public readonly int Id;
-        public readonly Color Color; 
+        public readonly Color Color;
+        public readonly Drop[] Drops;
 
-        public VoxelMaterial(int atlasPosition, MaterialTyp materialId, Color color, int id)
+        public VoxelMaterial(int atlasPosition, MaterialTyp materialId, Color color, int id, Drop[] drops)
         {
             AtlasPosition = atlasPosition;
             MaterialId = materialId;
             Color = color;
             Id = id;
+            Drops = drops;
         }
 
         public int GetMaterialId()

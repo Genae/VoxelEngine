@@ -88,7 +88,7 @@ namespace Assets.Scripts.Logic.Farming
                 Object.Destroy(Crop.gameObject);
             
             if(Stage != 0)
-                Crop = MultiblockLoader.LoadMultiblock(Type.GrowStages[_stage], Position + new Vector3(-0.5f, 0.5f, -0.5f), _parent);
+                Crop = MultiblockLoader.LoadMultiblock(Type.GrowStages[_stage], Position + new Vector3(-0.5f, 0.5f, -0.5f), _parent, 100);
         }
 
         public FarmBlock(Vector3 position, CropType cropType, Transform parent)

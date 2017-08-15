@@ -19,7 +19,7 @@ namespace Assets.Scripts.MultiblockHandling
             set { _instance = value; }
         }
 
-        public static Multiblock LoadMultiblock(string filename, Vector3 position = default(Vector3), Transform parent = null)
+        public static Multiblock LoadMultiblock(string filename, Vector3 position = default(Vector3), Transform parent = null, float wind = 0f)
         {
             if (!Instance._loadedObjects.ContainsKey(filename.GetHashCode()))
             {
@@ -32,7 +32,8 @@ namespace Assets.Scripts.MultiblockHandling
                 m.transform.position = new Vector3(0, 0, 0);
                 m.transform.parent = Instance._loadedObjectsCache;
                 Instance._loadedObjects[filename.GetHashCode()] = m;
-                m.EnableWind(100);
+                if(wind > 0)
+                    m.EnableWind(wind);
             }
             var obj = Object.Instantiate(Instance._loadedObjects[filename.GetHashCode()].gameObject).GetComponent<Multiblock>();
             obj.transform.position = position;
