@@ -68,7 +68,8 @@ namespace Assets.Scripts.Logic
 
         public void SolveJob(Job job)
         {
-            Jobs[(int) job.Position.x, (int) job.Position.y, (int) job.Position.z].Remove(job);
+            if(Jobs[(int)job.Position.x, (int)job.Position.y, (int)job.Position.z] != null)
+                Jobs[(int) job.Position.x, (int) job.Position.y, (int) job.Position.z].Remove(job);
         }
 
         public bool HasJob(Vector3 pos, JobType jobType)

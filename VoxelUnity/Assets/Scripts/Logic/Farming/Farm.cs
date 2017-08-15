@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
@@ -5,6 +6,7 @@ using Assets.Scripts.Data.Multiblock;
 using Assets.Scripts.Logic.Jobs;
 using Assets.Scripts.MultiblockHandling;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Logic.Farming
 {
@@ -28,25 +30,26 @@ namespace Assets.Scripts.Logic.Farming
             var jobController = GameObject.Find("World").GetComponent<JobController>();
             foreach (var farmBlock in FarmBlocks.ToArray())
             {
+                if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air) || !Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air))
+                {
+                    Map.Instance.MapData.SetVoxel((int)farmBlock.Position.x, (int)farmBlock.Position.y,
+                        (int)farmBlock.Position.z, true, MaterialRegistry.Instance.GetMaterialFromName("Dirt"));
+                    continue;
+                }
                 if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position).Equals(_soil))
                 {
                     if (!jobController.HasJob(farmBlock.Position, JobType.CreateSoil))
                     {
-                        if(farmBlock.Crop != null)
-                            Destroy(farmBlock.Crop.gameObject);
+                        farmBlock.Dispose();
                         FarmBlocks.Remove(farmBlock);
                         if (FarmBlocks.Count == 0)
                             Destroy(this);
-                        continue;
                     }
                 }
-                if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air) || !Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air))
+                else
                 {
-                    Map.Instance.MapData.SetVoxel((int) farmBlock.Position.x, (int) farmBlock.Position.y,
-                        (int) farmBlock.Position.z, true, MaterialRegistry.Instance.GetMaterialFromName("Dirt"));
-                    continue;
+                    farmBlock.Update(Time.deltaTime);
                 }
-                farmBlock.Update(Time.deltaTime);
             }
         }
 
@@ -56,7 +59,7 @@ namespace Assets.Scripts.Logic.Farming
         }
     }
 
-    public class FarmBlock
+    public class FarmBlock : IDisposable
     {
         public Vector3 Position;
         public float TimeToGrow;
@@ -64,6 +67,7 @@ namespace Assets.Scripts.Logic.Farming
         public CropType Type;
 
         public Multiblock Crop;
+        public Job _currentJob;
         private int _stage;
         private Transform _parent;
 
@@ -101,7 +105,8 @@ namespace Assets.Scripts.Logic.Farming
                 var jobController = GameObject.Find("World").GetComponent<JobController>();
                 if (!jobController.HasJob(Position + Vector3.up, JobType.PlantCrop))
                 {
-                    jobController.AddJob(new PlantCropJob(this));
+                    _currentJob = new PlantCropJob(this);
+                    jobController.AddJob(_currentJob);
                 }
             }
             else
@@ -115,11 +120,21 @@ namespace Assets.Scripts.Logic.Farming
                         var jobController = GameObject.Find("World").GetComponent<JobController>();
                         if (!jobController.HasJob(Position + Vector3.up, JobType.HarvestCrop))
                         {
-                            jobController.AddJob(new HarvestCropJob(this));
+                            _currentJob = new HarvestCropJob(this);
+                            jobController.AddJob(_currentJob);
                         }
                     }
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            if (Crop != null)
+                Object.Destroy(Crop.gameObject);
+            if(_currentJob != null)
+                GameObject.Find("World").GetComponent<JobController>().SolveJob(_currentJob);
+            _currentJob.Abort();
         }
     }
 

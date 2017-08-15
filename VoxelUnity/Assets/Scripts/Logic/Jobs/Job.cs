@@ -20,6 +20,8 @@ namespace Assets.Scripts.Logic.Jobs
 
         protected float RemainingTime;
 
+        public bool Aborted;
+
         protected Job(Vector3 position, float scale, Color color, Overlay jobOverlay)
         {
             Position = position;
@@ -60,6 +62,13 @@ namespace Assets.Scripts.Logic.Jobs
             GameObject.Find("World").GetComponent<JobController>().SolveJob(this);
             Marker.Destroy();
             return true;
+        }
+
+        public void Abort()
+        {
+            Aborted = true;
+            GameObject.Find("World").GetComponent<JobController>().SolveJob(this);
+            Marker.Destroy();
         }
     }
     
