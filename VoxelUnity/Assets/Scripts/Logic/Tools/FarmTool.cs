@@ -162,13 +162,14 @@ namespace Assets.Scripts.Logic.Tools
                 _mapData = Map.Instance.MapData;
             }
             var type = Map.Instance.MapData.GetVoxelMaterial(pos);
-            if(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+            var air = MaterialRegistry.Instance.GetMaterialFromName("Air");
+            if(type.Equals(air) || !(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Dirt")) || type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Grass"))))
                 return false;
             type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up);
-            if (!type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+            if (!type.Equals(air))
                 return false;
             type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up + Vector3.up);
-            if (!type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+            if (!type.Equals(air))
                 return false;
             _jobController.AddJob(new CreateSoilJob(pos));
             return true;
