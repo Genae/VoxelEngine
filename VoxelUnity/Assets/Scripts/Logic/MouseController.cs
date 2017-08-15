@@ -22,7 +22,7 @@ namespace Assets.Scripts.Logic
 
         public void Start()
         {
-            SelectedTool = Tools[0];
+            SelectedTool = Tools[3];
         }
     }
 }

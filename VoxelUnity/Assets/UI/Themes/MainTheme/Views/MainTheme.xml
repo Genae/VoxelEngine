@@ -15,6 +15,14 @@
                RadioButtonColor="#ffffff" RadioButtonOffset="0,1,0,0" Font="Fonts/Cyrodiil.otf" FontSize="18" FontColor="#ffffff" FontStyle="Normal" Spacing="10px"
                Disabled-FontStyle="Italic" Disabled-FontColor="Gray80" />
 
+  <RadioButton Style="Button" BackgroundColor="#7d7d7d" Checked-BackgroundColor="Gray90" Checked-FontColor="#000000" AdjustToText="None" Width="120px" Height="40px"
+               RadioButtonColor="#ffffff" RadioButtonOffset="0,0,0,0" Font="Fonts/Cyrodiil.otf" FontSize="20" FontColor="#ffffff" FontStyle="Normal" Spacing="0"
+               RadioButtonWidth="0" RadioButtonHeight="0" TextAlignment="Center" Disabled-FontStyle="Italic" Disabled-FontColor="Gray80" />
+
+  <RadioButton Style="SmallButton" BackgroundColor="#7d7d7d" Checked-BackgroundColor="Gray90" Checked-FontColor="#000000" Margin="-5,-5,-5,-5"
+               RadioButtonColor="#ffffff" RadioButtonOffset="0,0,0,0" Font="Fonts/Cyrodiil.otf" FontSize="18" FontColor="#ffffff" FontStyle="Normal" Spacing="0"
+               RadioButtonWidth="0" RadioButtonHeight="0" TextAlignment="Center" Disabled-FontStyle="Italic" Disabled-FontColor="Gray80" />
+
   <Image Style="ShowcaseButtonContent" Sprite="Sprites/RainbowSquare.psd" Width="20" Height="20" Offset="10,0,0,0" Alignment="Left" />
   <Image Style="ShowcaseImage" Sprite="Sprites/RainbowSquare.psd" Width="400" Height="400" />
 
