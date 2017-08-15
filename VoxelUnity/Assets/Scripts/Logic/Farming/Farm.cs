@@ -12,12 +12,16 @@ namespace Assets.Scripts.Logic.Farming
     {
         public List<FarmBlock> FarmBlocks = new List<FarmBlock>();
         private static VoxelMaterial _soil;
+        private static VoxelMaterial _air;
         public CropType CropType;
 
         void Start()
         {
             if (_soil == null)
+            {
                 _soil = MaterialRegistry.Instance.GetMaterialFromName("Soil");
+                _air = MaterialRegistry.Instance.GetMaterialFromName("Air");
+            }
         }
         void Update()
         {
@@ -28,16 +32,21 @@ namespace Assets.Scripts.Logic.Farming
                 {
                     if (!jobController.HasJob(farmBlock.Position, JobType.CreateSoil))
                     {
-                        Destroy(farmBlock.Crop.gameObject);
+                        if(farmBlock.Crop != null)
+                            Destroy(farmBlock.Crop.gameObject);
                         FarmBlocks.Remove(farmBlock);
                         if (FarmBlocks.Count == 0)
                             Destroy(this);
+                        continue;
                     }
                 }
-                else
+                if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air) || !Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air))
                 {
-                    farmBlock.Update(Time.deltaTime);
+                    Map.Instance.MapData.SetVoxel((int) farmBlock.Position.x, (int) farmBlock.Position.y,
+                        (int) farmBlock.Position.z, true, MaterialRegistry.Instance.GetMaterialFromName("Dirt"));
+                    continue;
                 }
+                farmBlock.Update(Time.deltaTime);
             }
         }
 

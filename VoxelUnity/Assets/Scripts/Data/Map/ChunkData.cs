@@ -24,8 +24,19 @@ namespace Assets.Scripts.Data.Map
         public override void SetVoxelType(int x, int y, int z, VoxelMaterial material)
         {
             base.SetVoxelType(x, y, z, material);
-            var pos = material.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")) ? new Vector3(x, y, z) : new Vector3(x, y - 1 , z);
+            Vector3 pos;
+            if (!material.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+            {
+                pos = new Vector3(x, y - 1, z);
+                if (_smallMultiblocks.ContainsKey(pos))
+                {
+                    var mb = _smallMultiblocks[pos];
+                    _smallMultiblocks.Remove(pos);
+                    Object.Destroy(mb.gameObject);
+                }
+            }
 
+            pos = new Vector3(x, y, z);
             if (_smallMultiblocks.ContainsKey(pos))
             {
                 var mb = _smallMultiblocks[pos];
