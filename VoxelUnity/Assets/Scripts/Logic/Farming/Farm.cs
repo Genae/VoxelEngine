@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Multiblock;
@@ -22,12 +22,13 @@ namespace Assets.Scripts.Logic.Farming
         void Update()
         {
             var jobController = GameObject.Find("World").GetComponent<JobController>();
-            foreach (var farmBlock in FarmBlocks)
+            foreach (var farmBlock in FarmBlocks.ToArray())
             {
                 if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position).Equals(_soil))
                 {
                     if (!jobController.HasJob(farmBlock.Position, JobType.CreateSoil))
                     {
+                        Destroy(farmBlock.Crop.gameObject);
                         FarmBlocks.Remove(farmBlock);
                         if (FarmBlocks.Count == 0)
                             Destroy(this);

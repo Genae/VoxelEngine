@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using System.Net.Mime;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Control;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Data.Map
 {
@@ -12,13 +13,27 @@ namespace Assets.Scripts.Data.Map
         public bool[] NeighbourSolidBorders;
         public ChunkData[] NeighbourData;
         public LocalAStarNetwork LocalAStar = new LocalAStarNetwork();
-        private readonly List<Multiblock.Multiblock> _multiblocks = new List<Multiblock.Multiblock>(); 
+        private readonly List<Multiblock.Multiblock> _multiblocks = new List<Multiblock.Multiblock>();
+        private readonly Dictionary<Vector3, Multiblock.Multiblock> _smallMultiblocks = new Dictionary<Vector3, Multiblock.Multiblock>();
 
 
         public ChunkData(Vector3 position) : base(Chunk.ChunkSize, position)
         {
         }
-        
+
+        public override void SetVoxelType(int x, int y, int z, VoxelMaterial material)
+        {
+            base.SetVoxelType(x, y, z, material);
+            var pos = material.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")) ? new Vector3(x, y, z) : new Vector3(x, y - 1 , z);
+
+            if (_smallMultiblocks.ContainsKey(pos))
+            {
+                var mb = _smallMultiblocks[pos];
+                _smallMultiblocks.Remove(pos);
+                Object.Destroy(mb.gameObject);
+            }
+        }
+
         public void UpdateBorder(bool[,] border, bool solid, int side, bool runUpdate = true)
         {
             NeighbourBorders[side] = border;
@@ -158,6 +173,15 @@ namespace Assets.Scripts.Data.Map
                 OnContainerUpdated();
             }
         }
+
+        public void RegisterSmallMultiblock(Multiblock.Multiblock mb, Vector3 pos)
+        {
+            if (_smallMultiblocks.ContainsKey(pos))
+            {
+                Object.Destroy(_smallMultiblocks[pos].gameObject);
+            }
+            _smallMultiblocks[pos] = mb;
+        }
     }
 
     public class ContainerData
@@ -192,7 +216,7 @@ namespace Assets.Scripts.Data.Map
             DirtyVoxels.Clear();
         }
         
-        public void SetVoxelType(int x, int y, int z, VoxelMaterial material)
+        public virtual void SetVoxelType(int x, int y, int z, VoxelMaterial material)
         {
             var type = MaterialRegistry.Instance.GetMaterialId(material);
             if ((Voxels[x, y, z] == null && type == 0) || (Voxels[x, y, z] != null && type == Voxels[x, y, z].BlockType))
