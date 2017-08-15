@@ -146,6 +146,7 @@
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\5.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
+    <None Include="Assets\UI\Views\GameSpeed.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />
     <None Include="Assets\UI\Views\ToolBelt.xml" />
     <None Include="Assets\UI\Views\UIMainScene.xml" />

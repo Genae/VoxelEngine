@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -161,6 +163,7 @@
     <Compile Include="Assets\Scripts\MultiblockHandling\MultiblockLoader.cs" />
     <Compile Include="Assets\Scripts\MultiblockHandling\NoPlayObjectLoader.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
+    <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBelt.cs" />
     <Compile Include="Assets\Scripts\UI\UIMainScene.cs" />
     <Compile Include="Assets\Scripts\Util\ColorUtils.cs" />
@@ -351,6 +354,7 @@
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\5.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
+    <None Include="Assets\UI\Views\GameSpeed.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />
     <None Include="Assets\UI\Views\ToolBelt.xml" />
     <None Include="Assets\UI\Views\UIMainScene.xml" />
