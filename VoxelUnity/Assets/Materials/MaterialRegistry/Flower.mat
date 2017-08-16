@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Flower
-  m_Shader: {fileID: 4800000, guid: 442c68b8b73b5914d9e64f9a6abf7713, type: 3}
+  m_Shader: {fileID: 4800000, guid: ade14c0c8b76c084b928404c087abe17, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
@@ -63,12 +63,14 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Intensity: 0.2
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: 50
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1

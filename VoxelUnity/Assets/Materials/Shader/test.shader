@@ -98,7 +98,7 @@ Shader "OwnShaders/test" {
                 float node_3336 = cos(node_1118.a);
                 float node_8010 = (0.015*((1.0 - o.uv0.g)*node_3336));
                 float node_8090 = 0.0;
-                v.vertex.xyz += (o.vertexColor.r*float3((sin((node_3336+mul(unity_ObjectToWorld, v.vertex).r))*node_8010),node_8090,node_8090));
+                v.vertex.xyz += (o.vertexColor.r*100*float3((sin((node_3336+mul(unity_ObjectToWorld, v.vertex).r))*node_8010),node_8090,node_8090));
                 o.posWorld = mul(unity_ObjectToWorld, v.vertex);
                 float3 lightColor = _LightColor0.rgb;
                 o.pos = UnityObjectToClipPos(v.vertex );
@@ -193,7 +193,7 @@ Shader "OwnShaders/test" {
 ////// Emissive:
                 float3 emissive = (4.0*(UNITY_LIGHTMODEL_AMBIENT.rgb*node_8959));
 /// Final Color:
-                float3 finalColor = diffuse + specular + emissive;
+                float3 finalColor = i.vertexColor.xyz;//diffuse + specular + emissive;
                 fixed4 finalRGBA = fixed4(finalColor,1);
                 UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
                 return finalRGBA;
@@ -318,7 +318,7 @@ Shader "OwnShaders/test" {
                 float3 directDiffuse = ((1 +(fd90 - 1)*pow((1.00001-NdotL), 5)) * (1 + (fd90 - 1)*pow((1.00001-NdotV), 5)) * NdotL) * attenColor;
                 float3 diffuse = directDiffuse * diffuseColor;
 /// Final Color:
-                float3 finalColor = diffuse + specular;
+				float3 finalColor = i.vertexColor.xyz;//diffuse + specular;
                 fixed4 finalRGBA = fixed4(finalColor * 1,0);
                 UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
                 return finalRGBA;
@@ -474,7 +474,7 @@ Shader "OwnShaders/test" {
                 float3 specColor;
                 diffColor = DiffuseAndSpecularFromMetallic( diffColor, _Metallic, specColor, specularMonochrome );
                 float roughness = 1.0 - _Gloss;
-                o.Albedo = diffColor + specColor * roughness * roughness * 0.5;
+				o.Albedo = i.vertexColor.xyz;//diffColor + specColor * roughness * roughness * 0.5;
                 
                 return UnityMetaFragment( o );
             }
