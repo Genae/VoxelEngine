@@ -49,9 +49,8 @@
 
 		void vert(inout appdata data) {
 			float4 worldPosition = mul(unity_ObjectToWorld, data.vertex);
-			float worldOffset = (worldPosition.x + worldPosition.z) / 1000;
-			float speed = _Speed * worldOffset;
-			float windvalue = sin(_Time * speed) * data.color.r  * _Intensity;
+			float worldOffset = (worldPosition.x + worldPosition.z);
+			float windvalue = sin((_Time * _Speed) + worldOffset) * data.color.r  * _Intensity;
 			data.vertex.x += windvalue * _WindDir.x;
 			data.vertex.z += windvalue * _WindDir.z;
 		}
