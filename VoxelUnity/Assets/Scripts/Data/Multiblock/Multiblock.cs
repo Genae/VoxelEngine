@@ -43,16 +43,14 @@ namespace Assets.Scripts.Data.Multiblock
         public void EnableWind(float intensity)
         {
             var mesh = GetComponent<MeshFilter>().sharedMesh;
-            float height = 0f;
-            foreach (var meshVertex in mesh.vertices)
-            {
-                if (height < meshVertex.y)
-                    height = meshVertex.y;
-            }
+            var min = mesh.vertices.Min(v => v.y);
+            var max = mesh.vertices.Max(v => v.y);
+            var height = max - min;
             var colors = new Color[mesh.vertexCount];
             for (var i = 0; i < mesh.vertexCount; i++)
             {
-                colors[i] = new Color(mesh.vertices[i].y/height*intensity, 0, 0);
+                var r = (mesh.vertices[i].y + 0.5f) / height * intensity;
+                colors[i] = new Color(r, 0, 0);
             }
             mesh.SetColors(colors.ToList());
         }

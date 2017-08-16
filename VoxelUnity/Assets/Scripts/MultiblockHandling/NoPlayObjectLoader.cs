@@ -25,7 +25,7 @@ public class NoPlayObjectLoader : MonoBehaviour
 	        path = path.Substring(path.IndexOf("Imported", StringComparison.InvariantCulture) + "Imported/".Length);
 	    if (path.Contains(".txt"))
 	        path = path.Replace(".txt", "");
-        var tra = MultiblockLoader.LoadMultiblock(path, Vector3.zero, transform, 100).transform;
+        var tra = MultiblockLoader.LoadMultiblock(path, Vector3.zero, transform, 1).transform;
 	    MultiblockLoader.CleanupCache();
 
     }
