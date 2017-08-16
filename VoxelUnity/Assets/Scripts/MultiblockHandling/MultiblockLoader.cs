@@ -24,7 +24,7 @@ namespace Assets.Scripts.MultiblockHandling
             if (!Instance._loadedObjects.ContainsKey(filename.GetHashCode()))
             {
                 //load vdata list from text file
-                var list = Instance.LoadVDataListFromFile("Imported/", filename);
+                var list = Instance.LoadVDataListFromFile("Imported/Plants/Ambient/", filename);
 
                 //creating multiblock with vdata list
                 var m = Instance.CreateMultiblock(list, filename.Split('/').Last());

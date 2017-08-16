@@ -13,9 +13,11 @@ namespace Assets.Scripts.MultiblockHandling
         public int FractionValue = 10;
         public string FileName;
         public static List<VData> Imported;
+        public bool active = false;
 
         void Start()
         {
+            if (!active) return;
             Import(transform.GetChild(0), FileName ?? "flower.txt");
             var mb = MultiblockLoader.LoadMultiblock(FileName.Split('.')[0]);
             mb.transform.localScale = mb.transform.localScale * 10 / FractionValue;

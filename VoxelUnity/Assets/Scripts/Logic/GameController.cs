@@ -46,7 +46,7 @@ namespace Assets.Scripts.Logic
                         var c = Map.Instance.MapData.Chunks[(int)start.x / Chunk.ChunkSize, (int)start.y / Chunk.ChunkSize, (int)start.z / Chunk.ChunkSize];
                         if (c == null)
                             continue;
-                        var mb = MultiblockLoader.LoadMultiblock("Plants/Ambient/" + ambientPlantConfiguration.Name, new Vector3(start.x - 0.5f, start.y, start.z - 0.5f), parent, 100);
+                        var mb = MultiblockLoader.LoadMultiblock(ambientPlantConfiguration.Name, new Vector3(start.x - 0.5f, start.y, start.z - 0.5f), parent, 100);
                         c.RegisterSmallMultiblock(mb, new Vector3((int)start.x, (int)start.y, (int)start.z) - c.Position);
                     }
                 }
