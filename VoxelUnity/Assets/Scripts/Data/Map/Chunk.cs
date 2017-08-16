@@ -123,7 +123,7 @@ namespace Assets.Scripts.Data.Map
 
             data.ContainerUpdated += OnContainerUpdated;
 
-            Mesh = GetComponent<MeshFilter>() == null ? gameObject.AddComponent<MeshFilter>().mesh : GetComponent<MeshFilter>().sharedMesh;
+            Mesh = GetComponent<MeshFilter>() == null ? gameObject.AddComponent<MeshFilter>().sharedMesh : GetComponent<MeshFilter>().sharedMesh;
             if (gameObject.GetComponent<MeshRenderer>() == null)
             {
                 gameObject.AddComponent<MeshRenderer>();
@@ -141,6 +141,8 @@ namespace Assets.Scripts.Data.Map
             List<Vector3> upVoxels;
             GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, out upVoxels, ContainerData, ContainerData.Size);
 
+            if(Mesh == null)
+                Mesh = new Mesh();
             Mesh.Clear();
             Mesh.vertices = vertices;
             Mesh.normals = normals;

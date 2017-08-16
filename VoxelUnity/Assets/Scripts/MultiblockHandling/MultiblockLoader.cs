@@ -21,10 +21,15 @@ namespace Assets.Scripts.MultiblockHandling
 
         public static Multiblock LoadMultiblock(string filename, Vector3 position = default(Vector3), Transform parent = null, float wind = 0f)
         {
+            if (Instance._loadedObjectsCache == null)
+            {
+                Instance._loadedObjectsCache = new GameObject("LoadedObjectsCache").transform;
+                Instance._loadedObjectsCache.gameObject.SetActive(false);
+            }
             if (!Instance._loadedObjects.ContainsKey(filename.GetHashCode()))
             {
                 //load vdata list from text file
-                var list = Instance.LoadVDataListFromFile("Imported/Plants/Ambient/", filename);
+                var list = Instance.LoadVDataListFromFile("Imported/", filename);
 
                 //creating multiblock with vdata list
                 var m = Instance.CreateMultiblock(list, filename.Split('/').Last());
@@ -41,12 +46,13 @@ namespace Assets.Scripts.MultiblockHandling
             return obj;
         }
 
-        private MultiblockLoader()
+        public static void CleanupCache()
         {
-            _loadedObjectsCache = new GameObject("LoadedObjectsCache").transform;
-            _loadedObjectsCache.gameObject.SetActive(false);
+            Instance._loadedObjects.Clear();
+            Object.DestroyImmediate(Instance._loadedObjectsCache.gameObject);
+            Instance._loadedObjectsCache = null;
         }
-
+        
         private List<VData> LoadVDataListFromFile(string path, string filename)
         {
             var files = Resources.Load<TextAsset>(path + filename);
