@@ -47,8 +47,8 @@ namespace Assets.Scripts.Data.Map
 
         public void UpdateBorder(bool[,] border, bool solid, int side, bool runUpdate = true)
         {
-            NeighbourBorders[side] = border;
-            NeighbourSolidBorders[side] = solid;
+            NeighbourBorders[side-1] = border;
+            NeighbourSolidBorders[side-1] = solid;
             if (runUpdate)
                 OnContainerUpdated();
         }
@@ -58,28 +58,28 @@ namespace Assets.Scripts.Data.Map
             if (DirtyVoxels.Count == 0)
                 return;
             if (DirtyVoxels.Any(v => (int)v.x == 0))
-                UpdateNeighbour(0);
-            if (DirtyVoxels.Any(v => (int)v.x == Chunk.ChunkSize - 1))
                 UpdateNeighbour(1);
-            if (DirtyVoxels.Any(v => (int)v.y == 0))
+            if (DirtyVoxels.Any(v => (int)v.x == Chunk.ChunkSize - 1))
                 UpdateNeighbour(2);
-            if (DirtyVoxels.Any(v => (int)v.y == Chunk.ChunkSize - 1))
+            if (DirtyVoxels.Any(v => (int)v.y == 0))
                 UpdateNeighbour(3);
-            if (DirtyVoxels.Any(v => (int)v.z == 0))
+            if (DirtyVoxels.Any(v => (int)v.y == Chunk.ChunkSize - 1))
                 UpdateNeighbour(4);
-            if (DirtyVoxels.Any(v => (int)v.z == Chunk.ChunkSize - 1))
+            if (DirtyVoxels.Any(v => (int)v.z == 0))
                 UpdateNeighbour(5);
+            if (DirtyVoxels.Any(v => (int)v.z == Chunk.ChunkSize - 1))
+                UpdateNeighbour(6);
             OnContainerUpdated();
             DirtyVoxels.Clear();
         }
 
         private void UpdateNeighbour(int side)
         {
-            if (NeighbourData[side] == null)
+            if (NeighbourData[side-1] == null)
                 return;
             bool[,] border;
             var solid = HasSolidBorder(side, out border);
-            NeighbourData[side].UpdateBorder(border, solid, side%2==0?side+1:side-1);
+            NeighbourData[side-1].UpdateBorder(border, solid, side%2==0?side-1:side+1);
         }
 
 

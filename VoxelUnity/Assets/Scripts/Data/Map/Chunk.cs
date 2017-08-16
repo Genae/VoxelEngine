@@ -112,6 +112,7 @@ namespace Assets.Scripts.Data.Map
         public void OnContainerUpdated()
         {
             MeshNeedsUpdate = true;
+            gameObject.SetActive(true);
         }
 
         protected void InitializeContainer(Vector3 pos, ContainerData data, UnityEngine.Material[] mats)
