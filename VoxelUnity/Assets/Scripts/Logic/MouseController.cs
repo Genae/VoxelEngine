@@ -19,7 +19,8 @@ namespace Assets.Scripts.Logic
                 if(_selectedTool != null)
 					_selectedTool.gameObject.SetActive(false);
                 _selectedTool = value;
-                _selectedTool.gameObject.SetActive(true);
+                if(value != null)
+                    _selectedTool.gameObject.SetActive(true);
             }
         }
 

@@ -133,8 +133,7 @@ namespace Assets.Scripts.Logic.Farming
             if (Crop != null)
                 Object.Destroy(Crop.gameObject);
             if(_currentJob != null)
-                GameObject.Find("World").GetComponent<JobController>().SolveJob(_currentJob);
-            _currentJob.Abort();
+                _currentJob.Abort();
         }
     }
 

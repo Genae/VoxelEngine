@@ -1,42 +1,53 @@
-﻿using Assets.Scripts.Logic;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Data.Importer;
+using Assets.Scripts.Logic;
+using MarkLight;
 using MarkLight.Views.UI;
-using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
 	public class ToolBelt : UIView
-    {
-	    public void ButtonMine(){
-		    //0 = mineTool atm
-		    var go = FindObjectOfType<MouseController>();
-	        go.SelectTool("Assets.Scripts.Logic.Tools.DeleteTool");
+	{
+	    public ObservableList<ToolConfig> MainGroup;
+	    public ObservableList<ToolConfig> SecondaryGroup = new ObservableList<ToolConfig>();
+	    public Dictionary<string, ToolConfig[]> AllSecondaryGroups = new Dictionary<string, ToolConfig[]>();
+	    public _int xOffset;
+
+	    private MouseController _controller;
+
+        void Awake()
+        {
+            _controller = FindObjectOfType<MouseController>();
+            var configs = ConfigImporter.GetAllConfigs<ToolConfig[]>("Configs/Tools");
+            MainGroup = new ObservableList<ToolConfig>();
+            foreach (var config in configs)
+            {
+                foreach (var toolConfig in config)
+                {
+                    MainGroup.Add(toolConfig);
+                    if (toolConfig.Children != null && toolConfig.Children.Length > 0)
+                    {
+                        AllSecondaryGroups[toolConfig.Name] = toolConfig.Children;
+                    }
+                }
+                
+            }
+        }
+
+	    public void SelectedMain()
+	    {
+	        var list = AllSecondaryGroups[MainGroup.SelectedItem.Name];
+
+	        xOffset.Value = (int) ((MainGroup.SelectedIndex + 0.5f - MainGroup.Count / 2f) * 100);
+
+	        SecondaryGroup.Clear();
+            SecondaryGroup.AddRange(list);
+            _controller.SelectedTool = null;
+
 	    }
-
-	    public void ButtonBuild(){
-		    var go = FindObjectOfType<MouseController>();
-	        go.SelectTool("Assets.Scripts.Logic.Tools.AddBlocksTool");
-        }
-
-        public void ButtonFarm()
-        {
-            var go = FindObjectOfType<MouseController>();
-            go.SelectTool("Assets.Scripts.Logic.Tools.FarmTool");
-        }
-
-		public void ButtonMouseOver()
-		{
-			var go = FindObjectOfType<MouseController>();
-		    go.SelectTool("Assets.Scripts.Logic.Tools.MouseoverTool");
-        }
-        public void ButtonAbort()
-        {
-            var go = FindObjectOfType<MouseController>();
-            go.SelectTool("Assets.Scripts.Logic.Tools.AbortJobsTool");
-        }
-        public void ButtonPlaceObject()
-        {
-            var go = FindObjectOfType<MouseController>();
-            go.SelectTool("Assets.Scripts.Logic.Tools.PlaceObjectTool");
+	    public void SelectedSecondary()
+	    {
+	        _controller.SelectTool(SecondaryGroup.SelectedItem.Tool);
         }
     }
 

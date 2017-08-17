@@ -32,6 +32,8 @@ namespace Assets.Scripts.Logic.Tools
                 var obj = Instantiate(_previewRotation);
                 obj.transform.position += _preview.transform.position;
                 obj.name = ObjectToPlace;
+                var c = obj.GetComponentInChildren<Renderer>().material.color;
+                obj.GetComponentInChildren<Renderer>().material.color = new Color(c.r, c.g, c.b, 1);
             }
             if (chunkHit != null && Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up).Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
             {

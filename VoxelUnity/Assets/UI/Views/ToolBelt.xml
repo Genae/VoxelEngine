@@ -1,10 +1,12 @@
 <ToolBelt>
-    <Group Spacing="10px" Alignment="Bottom" Orientation="Horizontal">
-        <RadioButton Style="Button" Text="Mine" Alpha="0.5" Click="ButtonMine"/>
-        <RadioButton Style="Button" Text="Build" Alpha="0.5" Click="ButtonBuild"/>
-        <RadioButton Style="Button" Text="Farm" Alpha="0.5" Click="ButtonFarm"/>
-        <RadioButton Style="Button" Text="MouseOver" Alpha="0.5" Click="ButtonMouseOver"/>
-        <RadioButton Style="Button" Text="PlaceObject" Alpha="0.5" Click="ButtonPlaceObject"/>
-        <RadioButton Style="Button" Text="Abort" Alpha="0.5" Click="ButtonAbort"/>
-    </Group>
+  <Group Alignment="Bottom" Orientation="Vertical" Spacing="5px">
+    <List Items="{SecondaryGroup}" Orientation="Horizontal" Alignment="Bottom" CanSelect="true" ItemSelected="SelectedSecondary" Offset="{xOffset}, 0, 0, 0">
+      <ListItem IsTemplate="True" Text="{#Item.Name}" Width="100" TextAlignment="Center">
+      </ListItem>
+    </List>
+    <List Items="{MainGroup}" Orientation="Horizontal" Alignment="Bottom" CanSelect="true" ItemSelected="SelectedMain">
+      <ListItem IsTemplate="True" Text="{#Item.Name}" Width="100" TextAlignment="Center">
+      </ListItem>
+    </List>
+  </Group>
 </ToolBelt>
