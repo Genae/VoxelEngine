@@ -11,6 +11,7 @@ namespace Assets.Scripts.Util
 
         public static float ColorDistance(Color c1, Color c2)
         {
+            //return ColorDistanceCIELab(new Vector3(c1.r, c1.g, c1.b), new Vector3(c2.r, c2.g, c2.b));
             return ColorDistanceCIELab(XYZtoCIELab(RGBToXYZ(c1)), XYZtoCIELab(RGBToXYZ(c2)));
         }
 

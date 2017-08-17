@@ -61,8 +61,12 @@ namespace Assets.Scripts.Data.Map
         }
         public VoxelMaterial GetVoxelMaterial(int x, int y, int z)
         {
-            var chunk = Chunks[x / Chunk.ChunkSize, y / Chunk.ChunkSize, z / Chunk.ChunkSize];
-            return chunk.GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
+            var cx = x / Chunk.ChunkSize;
+            var cy = y / Chunk.ChunkSize;
+            var cz = z / Chunk.ChunkSize;
+            if (Chunks[cx, cy, cz] == null)
+                Chunks[cx, cy, cz] = new ChunkData(new Vector3(cx, cy, cz) * Chunk.ChunkSize);
+            return Chunks[cx, cy, cz].GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
         }
 
         public VoxelMaterial GetVoxelMaterial(Vector3 pos)

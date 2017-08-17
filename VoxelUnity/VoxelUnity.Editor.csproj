@@ -141,6 +141,7 @@
     <None Include="Assets\Materials\Shader\test.shader" />
     <None Include="Assets\Materials\Shader\windy.shader" />
     <None Include="Assets\Resources\Imported\Items\Dirt.txt" />
+    <None Include="Assets\Resources\Imported\Objects\chest.txt" />
     <None Include="Assets\Resources\Imported\Plants\Ambient\flower.txt" />
     <None Include="Assets\Resources\Imported\Plants\Ambient\flower2.txt" />
     <None Include="Assets\Resources\Imported\Plants\Ambient\mushroom.txt" />

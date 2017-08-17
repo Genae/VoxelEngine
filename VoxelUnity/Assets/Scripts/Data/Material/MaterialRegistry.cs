@@ -71,7 +71,7 @@ namespace Assets.Scripts.Data.Material
         public void Preload()
         {
             GetMaterials();
-            LoadColorPallete();
+            //LoadColorPallete();
         }
 
         private void LoadColorPallete()
@@ -90,8 +90,8 @@ namespace Assets.Scripts.Data.Material
         {
             if (!EntityMaterialsIndices.ContainsKey(color))
             {
-                color = GetSimilarColor(color);
-                //AddColorToAtlas(color);
+                //color = GetSimilarColor(color);
+                AddColorToAtlas(color);
             }
             return EntityMaterialsIndices[color];
         }
@@ -99,7 +99,7 @@ namespace Assets.Scripts.Data.Material
         public Color GetSimilarColor(Color color)
         {
             if(EntityMaterialsIndices.Count == 0)
-                LoadColorPallete();
+                //LoadColorPallete();
             if (EntityMaterialsIndices.ContainsKey(color))
                 return color;
             if (_conversionCache.ContainsKey(color))

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Assets.Scripts.Data.Material;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -73,7 +72,6 @@ namespace Assets.Scripts.MultiblockHandling
                         Color color;
                         if (IsVoxelInModel(pos, dirList, out color))
                         {
-                            color = MaterialRegistry.Instance.GetSimilarColor(color);
                             voxelPosList.Add(new VData(new DreierWecktor(x, y, z), new DreierWecktor((int)(color.r*256), (int)(color.g * 256), (int)(color.b * 256))));
                         }
                     }
