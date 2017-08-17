@@ -20,7 +20,7 @@ namespace Assets.Scripts.Logic.Jobs
             RemainingTime = 1f;
         }
 
-        protected override void SolveInternal()
+        protected override void SolveInternal(GameObject actor)
         {
             _block.Stage = 1;
         }

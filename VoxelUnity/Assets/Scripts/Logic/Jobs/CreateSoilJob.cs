@@ -16,7 +16,7 @@ namespace Assets.Scripts.Logic.Jobs
             RemainingTime = 1f;
         }
 
-        protected override void SolveInternal()
+        protected override void SolveInternal(GameObject actor)
         {
             Map.MapData.Chunks[(int)Position.x/16, (int)Position.y/16, (int)Position.z/16]
                 .SetVoxelType((int)Position.x%16, (int)Position.y%16, (int)Position.z%16, MaterialRegistry.Instance.GetMaterialFromName("Soil"));

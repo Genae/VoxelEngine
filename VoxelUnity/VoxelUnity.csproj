@@ -141,6 +141,7 @@
     <Compile Include="Assets\Scripts\Logic\Farming\CropManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Farming\Farm.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
+    <Compile Include="Assets\Scripts\Logic\Inventory.cs" />
     <Compile Include="Assets\Scripts\Logic\JobController.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\BuildingJob.cs" />
     <Compile Include="Assets\Scripts\Logic\Jobs\CreateSoilJob.cs" />

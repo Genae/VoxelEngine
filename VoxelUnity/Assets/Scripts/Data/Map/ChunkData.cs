@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.Logic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -194,16 +195,18 @@ namespace Assets.Scripts.Data.Map
             _smallMultiblocks[pos] = mb;
         }
 
-        public void MineVoxel(int x, int y, int z)
+        public void MineVoxel(int x, int y, int z, Inventory inventory)
         {
             var type = GetVoxelType(x, y, z);
             if (type.Drops != null)
             {
                 foreach (var drop in type.Drops)
                 {
-                    for (var i = 0; i < drop.Amount; i++)
+                    var item = ItemManager.GetItemType(drop.Item);
+                    var notStored = inventory.InsertItems(item, drop.Amount);
+                    for (var i = 0; i < notStored; i++)
                     {
-                        ItemManager.DropItem(new Vector3(x, y, z) + Position, drop.Item);
+                        ItemManager.DropItem(new Vector3(x, y, z) + Position, item);
                     }
                 }
             }

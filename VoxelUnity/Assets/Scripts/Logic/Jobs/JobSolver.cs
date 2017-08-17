@@ -25,7 +25,7 @@ namespace Assets.Scripts.Logic.Jobs
                 {
                     _walkingController.MoveTo(_currentJob.GetPossibleWorkLocations().First());
                 }
-                if (_walkingController.IsIdle && _currentJob.Solve(Time.deltaTime))
+                if (_walkingController.IsIdle && _currentJob.Solve(Time.deltaTime, gameObject))
                 {
                     _currentJob = null;
                     _jobController.AddIdleSolver(this);

@@ -12,7 +12,7 @@ namespace Assets.Scripts.Logic.Jobs
 
         public abstract JobType GetJobType();
 
-        protected abstract void SolveInternal();
+        protected abstract void SolveInternal(GameObject actor);
 
         public JobMarker Marker;
 
@@ -53,12 +53,12 @@ namespace Assets.Scripts.Logic.Jobs
             return locs;
         }
 
-        public bool Solve(float deltaTime)
+        public bool Solve(float deltaTime, GameObject actor)
         {
             RemainingTime -= deltaTime;
             if (RemainingTime > 0)
                 return false;
-            SolveInternal();
+            SolveInternal(actor);
             GameObject.Find("World").GetComponent<JobController>().SolveJob(this);
             Marker.Destroy();
             return true;
