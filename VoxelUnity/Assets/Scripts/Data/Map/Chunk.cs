@@ -148,6 +148,7 @@ namespace Assets.Scripts.Data.Map
             Mesh.normals = normals;
             Mesh.subMeshCount = triangles.Keys.Count;
             Mesh.uv = uvs;
+            Mesh.colors = new Color[vertices.Length];
 
             var keyArray = triangles.Keys.ToArray();
             var myMats = new UnityEngine.Material[triangles.Keys.Count];
