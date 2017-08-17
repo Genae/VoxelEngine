@@ -19,6 +19,11 @@ namespace Assets.Scripts.Logic.Tools
                 DrawPreview(pos);
             }
         }
+        protected override void OnDisable()
+        {
+            Destroy(_previewBox);
+            base.OnDisable();
+        }
 
         private void DrawPreview(Vector3 startPos)
         {

@@ -4,5 +4,6 @@
         <RadioButton Style="Button" Text="Build" Alpha="0.5" Click="ButtonBuild"/>
         <RadioButton Style="Button" Text="Farm" Alpha="0.5" Click="ButtonFarm"/>
         <RadioButton Style="Button" Text="MouseOver" Alpha="0.5" Click="ButtonMouseOver"/>
+      <RadioButton Style="Button" Text="Abort" Alpha="0.5" Click="ButtonAbort"/>
     </Group>
 </ToolBelt>

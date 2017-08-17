@@ -7,7 +7,7 @@ namespace Assets.Scripts.Data
     {
         public static void DropItem(Vector3 pos, string itemName)
         {
-            var mb = MultiblockLoader.LoadMultiblock("Items/" + itemName, pos - Vector3.one/2);
+            MultiblockLoader.LoadMultiblock("Items/" + itemName, pos - Vector3.one/2);
         }
     }
 }

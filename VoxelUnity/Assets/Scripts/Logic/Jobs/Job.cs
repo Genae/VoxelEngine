@@ -77,6 +77,7 @@ namespace Assets.Scripts.Logic.Jobs
         Mining,
         CreateSoil,
         PlantCrop,
-        HarvestCrop
+        HarvestCrop,
+        Building
     }
 }

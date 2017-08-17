@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Map;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -117,6 +116,8 @@ namespace Assets.Scripts.Logic.Tools
                 {
                     for (var z = (int)Mathf.Min(startPos.z, endPos.z); z <= (int)Mathf.Max(startPos.z, endPos.z); z++)
                     {
+                        if (!Map.Instance.IsInBounds(x, y, z))
+                            continue;
                         inbetween.Add(new Vector3(x, y, z));
                     }
                 }

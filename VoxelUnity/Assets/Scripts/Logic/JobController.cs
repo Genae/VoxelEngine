@@ -83,5 +83,10 @@ namespace Assets.Scripts.Logic
         {
             FreeSolvers.Add(solver);
         }
+
+        public List<Job> GetJobAt(Vector3 pos)
+        {
+            return Jobs[(int) pos.x, (int) pos.y, (int) pos.z];
+        }
     }
 }
