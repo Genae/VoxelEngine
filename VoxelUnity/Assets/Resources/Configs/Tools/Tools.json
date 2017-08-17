@@ -1,0 +1,41 @@
+[
+	{
+		"Name": "Farming",
+		"Children": [
+			{
+				"Name": "CreateFarm",
+				"Tool": "Assets.Scripts.Logic.Tools.FarmTool"
+			}
+		]
+	},
+	{
+		"Name": "Actions",
+		"Children": [
+			{
+				"Name": "Build",
+				"Tool": "Assets.Scripts.Logic.Tools.AddBlocksTool"
+			},
+			{
+				"Name": "Mine",
+				"Tool": "Assets.Scripts.Logic.Tools.DeleteTool"
+			},
+			{
+				"Name": "Place Object",
+				"Tool": "Assets.Scripts.Logic.Tools.PlaceObjectTool"
+			}
+		]
+	},
+	{
+		"Name": "Others",
+		"Children": [
+			{
+				"Name": "MouseOver",
+				"Tool": "Assets.Scripts.Logic.Tools.MouseoverTool"
+			},
+			{
+				"Name": "Abort",
+				"Tool": "Assets.Scripts.Logic.Tools.AbortJobsTool"
+			}
+		]
+	}
+]

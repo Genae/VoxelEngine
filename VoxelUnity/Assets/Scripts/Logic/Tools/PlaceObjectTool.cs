@@ -10,7 +10,7 @@ namespace Assets.Scripts.Logic.Tools
         private GameObject _preview;
         private GameObject _previewRotation;
         private GameObject _previewObj;
-        public string ObjectToPlace;
+        public string ObjectToPlace = "Objects/chest";
 
         // Update is called once per frame
         void Update ()

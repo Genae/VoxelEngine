@@ -57,7 +57,7 @@ namespace Assets.Scripts.Data.Map
             }
         }
 
-        private void DrawCapsule(Vector3 start, Vector3 end, float veinRadius, VoxelMaterial material, MapData map)
+        public static void DrawCapsule(Vector3 start, Vector3 end, float veinRadius, VoxelMaterial material, MapData map)
         {
             var minx = (int)(Mathf.Min(start.x, end.x) - veinRadius);
             var miny = (int)(Mathf.Min(start.y, end.y) - veinRadius);

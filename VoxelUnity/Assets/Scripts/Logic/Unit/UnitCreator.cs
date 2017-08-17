@@ -11,9 +11,9 @@ namespace Assets.Scripts.Logic.Unit
 
         public UnitCreator(string baseValuePath, string classModPath)
         {
-            BaseValueRange = ConfigImporter.GetConfig<BaseValueRange>(baseValuePath)[0];
+            BaseValueRange = ConfigImporter.GetAllConfigs<BaseValueRange>(baseValuePath)[0];
             ClassModList = new List<ClassValueModificators>();
-            ClassModList = ConfigImporter.GetConfig<ClassValueModificators>(classModPath);
+            ClassModList = ConfigImporter.GetAllConfigs<ClassValueModificators>(classModPath);
         }
 
         public Unit GenerateUnit(int race)

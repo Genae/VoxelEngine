@@ -8,35 +8,35 @@ namespace Assets.Scripts.UI
     {
 	    public void ButtonMine(){
 		    //0 = mineTool atm
-		    var go = GameObject.Find ("World").GetComponent<MouseController>();
-		    go.SelectedTool = go.Tools [0];
+		    var go = FindObjectOfType<MouseController>();
+	        go.SelectTool("Assets.Scripts.Logic.Tools.DeleteTool");
 	    }
 
 	    public void ButtonBuild(){
-		    var go = GameObject.Find ("World").GetComponent<MouseController>();
-		    go.SelectedTool = go.Tools [1];
-	    }
+		    var go = FindObjectOfType<MouseController>();
+	        go.SelectTool("Assets.Scripts.Logic.Tools.AddBlocksTool");
+        }
 
         public void ButtonFarm()
         {
-            var go = GameObject.Find("World").GetComponent<MouseController>();
-            go.SelectedTool = go.Tools[2];
+            var go = FindObjectOfType<MouseController>();
+            go.SelectTool("Assets.Scripts.Logic.Tools.FarmTool");
         }
 
 		public void ButtonMouseOver()
 		{
-			var go = GameObject.Find("World").GetComponent<MouseController>();
-			go.SelectedTool = go.Tools[3];
+			var go = FindObjectOfType<MouseController>();
+		    go.SelectTool("Assets.Scripts.Logic.Tools.MouseoverTool");
         }
         public void ButtonAbort()
         {
-            var go = GameObject.Find("World").GetComponent<MouseController>();
-            go.SelectedTool = go.Tools[4];
+            var go = FindObjectOfType<MouseController>();
+            go.SelectTool("Assets.Scripts.Logic.Tools.AbortJobsTool");
         }
         public void ButtonPlaceObject()
         {
-            var go = GameObject.Find("World").GetComponent<MouseController>();
-            go.SelectedTool = go.Tools[5];
+            var go = FindObjectOfType<MouseController>();
+            go.SelectTool("Assets.Scripts.Logic.Tools.PlaceObjectTool");
         }
     }
 

@@ -13,7 +13,6 @@ namespace Assets.Scripts.Logic.Tools
         private int _ySize;
         private bool _yAxisPressed;
         public int MaxLength = 20;
-        public Material PreviewMaterial;
 
         protected virtual void Update()
         {
@@ -36,7 +35,7 @@ namespace Assets.Scripts.Logic.Tools
                     var myHit = hit.First(h => h.collider.gameObject.tag.Equals("Plane"));
                     var curPos = new Vector3((int)(myHit.point.x + 0.5f), _startPos.y + _ySize, (int)(myHit.point.z + 0.5f));
                     curPos = Normalize(curPos);
-                    _previewBox = DrawPreview(_startPos, curPos, PreviewMaterial, GetPreviewColor(), _previewBox);
+                    _previewBox = DrawPreview(_startPos, curPos, FindObjectOfType<MouseController>().PreviewMaterial, GetPreviewColor(), _previewBox);
                     if (Input.GetMouseButtonUp(0))
                     {
                         var voxels = GetVoxelsInbetween(_startPos, curPos);

@@ -17,7 +17,7 @@ namespace Assets.Scripts.Logic.Farming
 
         public static void LoadCrops()
         {
-            var configs = ConfigImporter.GetConfig<CropConfig>("Crops");
+            var configs = ConfigImporter.GetAllConfigs<CropConfig>("Crops");
             foreach (var cropConfig in configs)
             {
                 var cropType = new CropType(cropConfig.Name, cropConfig.StageTime);

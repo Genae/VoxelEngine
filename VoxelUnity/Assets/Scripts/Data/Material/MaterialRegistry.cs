@@ -181,7 +181,7 @@ namespace Assets.Scripts.Data.Material
     {
         public void Load(string path, MaterialRegistry registry)
         {
-            var materials = ConfigImporter.GetConfig<MaterialJson[]>(path);
+            var materials = ConfigImporter.GetAllConfigs<MaterialJson[]>(path);
             foreach (var material in materials)
             {
                 foreach (var dyn in material)

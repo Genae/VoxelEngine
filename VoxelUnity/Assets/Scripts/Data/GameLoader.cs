@@ -35,7 +35,7 @@ namespace Assets.Scripts.Data
 
             //Load Map
             SetStatus("Loading Map", 0.02f);
-            var biomeConfig = ConfigImporter.GetConfig<BiomeConfiguration>("Biomes").First();
+            var biomeConfig = ConfigImporter.GetAllConfigs<BiomeConfiguration>("Biomes").First();
             yield return Map.Map.Instance.CreateMap(biomeConfig, this);
 
             //Trees

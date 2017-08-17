@@ -14,7 +14,7 @@ namespace Assets.Scripts.Data.Map
         public TreeManager()
         {
             TreeList = new List<Tree>();
-            TreeConfigList = ConfigImporter.GetConfig<TreeConfig>("Trees");
+            TreeConfigList = ConfigImporter.GetAllConfigs<TreeConfig>("Trees");
         }
 
         public void GenerateTree(Vector3 position)

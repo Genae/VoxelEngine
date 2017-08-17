@@ -1,11 +1,14 @@
-﻿using Assets.Scripts.Logic.Tools;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Data.Importer;
+using Assets.Scripts.Logic.Tools;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
 {
-    public class MouseController : MonoBehaviour {
-
-        public Tool[] Tools = new Tool[0];
+    public class MouseController : MonoBehaviour
+    {
+        public Material PreviewMaterial;
+        public Dictionary<string, Tool> Tools;
         private Tool _selectedTool;
 
         public Tool SelectedTool
@@ -13,16 +16,57 @@ namespace Assets.Scripts.Logic
             get { return _selectedTool; }
             set
             {
-				if(_selectedTool != null)
+                if(_selectedTool != null)
 					_selectedTool.gameObject.SetActive(false);
                 _selectedTool = value;
                 _selectedTool.gameObject.SetActive(true);
             }
         }
 
-        public void Start()
+        public void SelectTool(string tool)
         {
-            SelectedTool = Tools[3];
+            SelectedTool = Tools[tool];
         }
+
+        public void Awake()
+        {
+            Tools = new Dictionary<string, Tool>();
+            var configs = ConfigImporter.GetAllConfigs<ToolConfig[]>("Configs/Tools");
+            var parent = new GameObject("Tools");
+            parent.transform.parent = transform;
+            foreach (var config in configs)
+            {
+                foreach (var toolConfig in config)
+                {
+                    AddTools(toolConfig, parent.transform);
+                }
+            }
+            SelectTool("Assets.Scripts.Logic.Tools.MouseoverTool");
+        }
+
+        private void AddTools(ToolConfig toolConfig, Transform parent)
+        {
+            if (toolConfig.Children == null || toolConfig.Children.Length == 0)
+            {
+                var go = new GameObject(toolConfig.Name);
+                go.AddComponent(System.Type.GetType(toolConfig.Tool));
+                go.transform.parent = parent;
+                Tools[toolConfig.Tool] = go.GetComponent<Tool>();
+            }
+            else
+            {
+                foreach (var toolConfigChild in toolConfig.Children)
+                {
+                    AddTools(toolConfigChild, parent);
+                }
+            }
+        }
+    }
+
+    public class ToolConfig
+    {
+        public string Name;
+        public ToolConfig[] Children;
+        public string Tool;
     }
 }

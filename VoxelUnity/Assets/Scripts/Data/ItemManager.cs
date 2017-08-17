@@ -23,7 +23,7 @@ namespace Assets.Scripts.Data
         private static Dictionary<string, ItemType> LoadItems()
         {
             _items = new Dictionary<string, ItemType>();
-            var configs = ConfigImporter.GetConfig<ItemType[]>("Items");
+            var configs = ConfigImporter.GetAllConfigs<ItemType[]>("Items");
             foreach (var config in configs)
             {
                 foreach (var itemType in config)

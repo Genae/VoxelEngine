@@ -6,7 +6,7 @@ namespace Assets.Scripts.Data.Importer
 {
     public class ConfigImporter
     {
-        public static List<T> GetConfig<T>(string path)
+        public static List<T> GetAllConfigs<T>(string path)
         {
             List<T> list = new List<T>();
             var files = Resources.LoadAll<TextAsset>(path);

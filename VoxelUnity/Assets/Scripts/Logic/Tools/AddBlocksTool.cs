@@ -8,7 +8,7 @@ namespace Assets.Scripts.Logic.Tools
 {
     public class AddBlocksTool : AreaTool {
         
-        public int BlockMaterialId;
+        public int BlockMaterialId = 1;
         private JobController _jobController;
 
         void Awake()
