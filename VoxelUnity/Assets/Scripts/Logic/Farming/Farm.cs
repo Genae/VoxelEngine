@@ -67,7 +67,7 @@ namespace Assets.Scripts.Logic.Farming
         public CropType Type;
 
         public Multiblock Crop;
-        public Job _currentJob;
+        public PositionedJob _currentJob;
         private int _stage;
         private Transform _parent;
 

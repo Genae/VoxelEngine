@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Jobs
 {
-    public class PlantCropJob : Job
+    public class PlantCropJob : PositionedJob
     {
         private readonly FarmBlock _block;
 

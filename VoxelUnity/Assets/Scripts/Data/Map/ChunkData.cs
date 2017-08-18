@@ -76,8 +76,11 @@ namespace Assets.Scripts.Data.Map
 
         private void UpdateNeighbour(int side)
         {
-            if (NeighbourData[side-1] == null)
+            if (NeighbourData == null || NeighbourData[side - 1] == null)
+            {
+                //TODO error
                 return;
+            }
             bool[,] border;
             var solid = HasSolidBorder(side, out border);
             NeighbourData[side-1].UpdateBorder(border, solid, side%2==0?side-1:side+1);

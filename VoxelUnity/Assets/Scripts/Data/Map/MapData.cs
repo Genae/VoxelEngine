@@ -50,14 +50,14 @@ namespace Assets.Scripts.Data.Map
             }
         }
         
-        public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material, Multiblock.Multiblock mb = null)
+        public void SetVoxel(int x, int y, int z, bool active, VoxelMaterial material, Multiblock.Multiblock mb = null)
         {
             var cx = x / Chunk.ChunkSize;
             var cy = y / Chunk.ChunkSize;
             var cz = z / Chunk.ChunkSize;
             if(Chunks[cx, cy, cz] == null)
                 Chunks[cx, cy, cz] = new ChunkData(new Vector3(cx, cy, cz) * Chunk.ChunkSize);
-            return Chunks[cx, cy, cz].SetVoxel(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, active, material);
+            Chunks[cx, cy, cz].SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, material);
         }
         public VoxelMaterial GetVoxelMaterial(int x, int y, int z)
         {

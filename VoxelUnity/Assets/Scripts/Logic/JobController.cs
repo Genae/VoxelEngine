@@ -9,9 +9,9 @@ namespace Assets.Scripts.Logic
 {
     public class JobController : MonoBehaviour
     {
-        protected readonly Dictionary<JobType, PriorityQueue<Job>> OpenJobs = new Dictionary<JobType, PriorityQueue<Job>>();
+        protected readonly Dictionary<JobType, PriorityQueue<PositionedJob>> OpenJobs = new Dictionary<JobType, PriorityQueue<PositionedJob>>();
         protected readonly List<JobSolver> FreeSolvers = new List<JobSolver>();
-        protected List<Job>[,,] Jobs;
+        protected List<PositionedJob>[,,] Jobs;
         
         void Update()
         {
@@ -44,29 +44,29 @@ namespace Assets.Scripts.Logic
             }
         }
 
-        public void AddJob(Job job)
+        public void AddJob(PositionedJob job)
         {
             if (Jobs == null)
             {
                 if (!Map.Instance.IsDoneGenerating)
                     return;
-                Jobs = new List<Job>[Map.Instance.MapData.Chunks.GetLength(0)*Chunk.ChunkSize, 
+                Jobs = new List<PositionedJob>[Map.Instance.MapData.Chunks.GetLength(0)*Chunk.ChunkSize, 
                                             Map.Instance.MapData.Chunks.GetLength(1) * Chunk.ChunkSize, 
                                             Map.Instance.MapData.Chunks.GetLength(2) * Chunk.ChunkSize];
             }
             if (!OpenJobs.ContainsKey(job.GetJobType()))
             {
-                OpenJobs.Add(job.GetJobType(), new PriorityQueue<Job>());
+                OpenJobs.Add(job.GetJobType(), new PriorityQueue<PositionedJob>());
             }
             OpenJobs[job.GetJobType()].Enqueue(job, 1);
             if (Jobs[(int) job.Position.x, (int) job.Position.y, (int) job.Position.z] == null)
             {
-                Jobs[(int)job.Position.x, (int)job.Position.y, (int)job.Position.z] = new List<Job>();
+                Jobs[(int)job.Position.x, (int)job.Position.y, (int)job.Position.z] = new List<PositionedJob>();
             }
             Jobs[(int)job.Position.x, (int)job.Position.y, (int)job.Position.z].Add(job);
         }
 
-        public void SolveJob(Job job)
+        public void SolveJob(PositionedJob job)
         {
             if(Jobs[(int)job.Position.x, (int)job.Position.y, (int)job.Position.z] != null)
                 Jobs[(int) job.Position.x, (int) job.Position.y, (int) job.Position.z].Remove(job);
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Logic
             FreeSolvers.Add(solver);
         }
 
-        public List<Job> GetJobAt(Vector3 pos)
+        public List<PositionedJob> GetJobAt(Vector3 pos)
         {
             return Jobs[(int) pos.x, (int) pos.y, (int) pos.z];
         }

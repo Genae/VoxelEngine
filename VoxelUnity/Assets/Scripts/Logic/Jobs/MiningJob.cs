@@ -1,10 +1,11 @@
+using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic.Tools;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic.Jobs
 {
-    public class MiningJob : Job
+    public class MiningJob : PositionedJob
     {
         public override JobType GetJobType()
         {
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Logic.Jobs
 
         protected override void SolveInternal(GameObject actor)
         {
-            Map.MapData.Chunks[(int)Position.x/16, (int)Position.y/16, (int)Position.z/16]
+            Map.Instance.MapData.Chunks[(int)Position.x/16, (int)Position.y/16, (int)Position.z/16]
                 .MineVoxel((int)Position.x%16, (int)Position.y%16, (int)Position.z%16, actor.GetComponent<Inventory>());
         }
     }

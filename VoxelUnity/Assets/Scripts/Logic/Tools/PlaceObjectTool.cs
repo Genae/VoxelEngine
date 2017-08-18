@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Data.Map;
+﻿using Assets.Scripts.Data;
+using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.MultiblockHandling;
 using UnityEngine;
@@ -10,8 +11,12 @@ namespace Assets.Scripts.Logic.Tools
         private GameObject _preview;
         private GameObject _previewRotation;
         private GameObject _previewObj;
-        public string ObjectToPlace = "Objects/chest";
+        public ItemType ItemToPlace;
 
+        void Awake()
+        {
+            ItemToPlace = ItemManager.GetItemType("Chest");
+        }
         // Update is called once per frame
         void Update ()
         {
@@ -31,9 +36,11 @@ namespace Assets.Scripts.Logic.Tools
             {
                 var obj = Instantiate(_previewRotation);
                 obj.transform.position += _preview.transform.position;
-                obj.name = ObjectToPlace;
-                var c = obj.GetComponentInChildren<Renderer>().material.color;
-                obj.GetComponentInChildren<Renderer>().material.color = new Color(c.r, c.g, c.b, 1);
+                obj.name = ItemToPlace.Name;
+                var item = obj.transform.GetChild(0).gameObject;
+                var c = item.GetComponent<Renderer>().material.color;
+                item.GetComponent<Renderer>().material.color = new Color(c.r, c.g, c.b, 1);
+                ItemManager.ActivateObject(item, ItemToPlace);
             }
             if (chunkHit != null && Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up).Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
             {
@@ -56,7 +63,7 @@ namespace Assets.Scripts.Logic.Tools
         {
             if (_previewObj == null)
             {
-                _previewObj = MultiblockLoader.LoadMultiblock(ObjectToPlace).gameObject;
+                _previewObj = ItemManager.GetModel(startPos, ItemToPlace);
                 _previewObj.transform.parent = _previewRotation.transform;
                 _previewObj.transform.localRotation = Quaternion.identity;
                 _previewObj.transform.localPosition = Vector3.zero;
