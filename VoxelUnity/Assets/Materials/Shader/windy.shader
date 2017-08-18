@@ -9,14 +9,11 @@
 		_WindDir("WindDirection", Vector) = (0,0,0)
 	}
 	SubShader {
-		Tags { "RenderQueue"="AlphaTest" "Queue" = "Transparent" "RenderingMode" = "Transparent" }
-		ZWrite Off
-		Cull Back
-		Blend DstColor Zero
+		Tags {"Queue" = "Transparent" "RenderingMode" = "Opaque" } //fixes shadow artifacts queue = transparent renders objects after geometry -> what we need
 		LOD 200
 
 		CGPROGRAM
-		#pragma surface surf Lambert alpha fullforwardshadows
+		#pragma surface surf Lambert fullforwardshadows
 		#pragma vertex vert
 		#pragma target 3.0
 
