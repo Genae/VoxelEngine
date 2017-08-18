@@ -1,0 +1,10 @@
+[
+    {
+        "Name": "Chest",
+		"StackSize": 1,
+        "Model": "Objects/chest",
+        "Inventory": {
+            "SlotAmount": 20
+        }
+    }
+]

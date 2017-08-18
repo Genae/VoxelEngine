@@ -172,7 +172,7 @@ namespace Assets.Scripts.Data.Material
         void LoadMaterialCollection()
         {
             var mats = new MaterialCollection();
-            mats.Load("Materials", this);
+            mats.Load("World/Materials", this);
         }
         #endregion
     }

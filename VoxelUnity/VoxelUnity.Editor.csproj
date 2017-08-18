@@ -141,6 +141,7 @@
     <None Include="Assets\Materials\Shader\test.shader" />
     <None Include="Assets\Materials\Shader\transparent.shader" />
     <None Include="Assets\Materials\Shader\windy.shader" />
+    <None Include="Assets\Resources\Configs\Tools\Tools.txt" />
     <None Include="Assets\Resources\Imported\Items\Dirt.txt" />
     <None Include="Assets\Resources\Imported\Objects\chest.txt" />
     <None Include="Assets\Resources\Imported\Plants\Ambient\flower.txt" />
@@ -152,6 +153,17 @@
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\3.txt" />
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\4.txt" />
     <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\5.txt" />
+    <None Include="Assets\Resources\Items\Blocks.txt" />
+    <None Include="Assets\Resources\Items\Objects.txt" />
+    <None Include="Assets\Resources\Units\BaseValues\Basevalues.txt" />
+    <None Include="Assets\Resources\Units\Classes\0Humans.txt" />
+    <None Include="Assets\Resources\Units\Classes\1Elves.txt" />
+    <None Include="Assets\Resources\Units\Classes\2Dwarfs.txt" />
+    <None Include="Assets\Resources\World\Biomes\Default.txt" />
+    <None Include="Assets\Resources\World\Crops\Wheat.txt" />
+    <None Include="Assets\Resources\World\Materials\Materials.txt" />
+    <None Include="Assets\Resources\World\Trees\birch.txt" />
+    <None Include="Assets\Resources\World\Trees\oak.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
     <None Include="Assets\UI\Views\GameSpeed.xml" />

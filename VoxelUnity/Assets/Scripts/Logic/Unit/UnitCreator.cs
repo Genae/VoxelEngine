@@ -9,11 +9,11 @@ namespace Assets.Scripts.Logic.Unit
         private BaseValueRange BaseValueRange;
         private List<ClassValueModificators> ClassModList;
 
-        public UnitCreator(string baseValuePath, string classModPath)
+        public UnitCreator()
         {
-            BaseValueRange = ConfigImporter.GetAllConfigs<BaseValueRange>(baseValuePath)[0];
+            BaseValueRange = ConfigImporter.GetAllConfigs<BaseValueRange>("Units/BaseValues")[0];
             ClassModList = new List<ClassValueModificators>();
-            ClassModList = ConfigImporter.GetAllConfigs<ClassValueModificators>(classModPath);
+            ClassModList = ConfigImporter.GetAllConfigs<ClassValueModificators>("Units/Classes");
         }
 
         public Unit GenerateUnit(int race)

@@ -1,7 +1,7 @@
+using Assets.Scripts.Data.Importer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.Data.Importer;
 using Tree = Assets.Scripts.Data.Multiblock.Trees.Tree;
 
 namespace Assets.Scripts.Data.Map
@@ -14,7 +14,7 @@ namespace Assets.Scripts.Data.Map
         public TreeManager()
         {
             TreeList = new List<Tree>();
-            TreeConfigList = ConfigImporter.GetAllConfigs<TreeConfig>("Trees");
+            TreeConfigList = ConfigImporter.GetAllConfigs<TreeConfig>("World/Trees");
         }
 
         public void GenerateTree(Vector3 position)
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Data.Map
 
             for (int i = 0; i < amount; i++)
             {
-                loader.SetStatus("Spawning Trees", 0.8f + (i/(float)amount)*0.15f);
+                loader.SetStatus("Spawning Trees", 0.8f + (i/(float)amount)*0.1f);
                 var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize));
                 RaycastHit hit;
                 Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);

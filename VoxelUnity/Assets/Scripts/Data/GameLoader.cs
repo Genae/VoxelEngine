@@ -30,26 +30,32 @@ namespace Assets.Scripts.Data
 
             //Load Materials
             SetStatus("Loading Materials", 0.01f);
+            yield return null;
             MaterialRegistry.Instance.Preload();
             yield return null;
 
             //Load Map
             SetStatus("Loading Map", 0.02f);
-            var biomeConfig = ConfigImporter.GetAllConfigs<BiomeConfiguration>("Biomes").First();
+            yield return null;
+            var biomeConfig = ConfigImporter.GetAllConfigs<BiomeConfiguration>("World/Biomes").First();
             yield return Map.Map.Instance.CreateMap(biomeConfig, this);
 
             //Trees
             SetStatus("Loading Trees", 0.8f);
+            yield return null;
             var treeManager = new TreeManager();
             yield return treeManager.GenerateTrees((int)(Map.Map.Instance.MapData.Chunks.GetLength(0) * Map.Map.Instance.MapData.Chunks.GetLength(0) * 0.3f), Map.Map.Instance.MapData, this);
 
             //Ressources
-            SetStatus("Loading Ressources", 0.95f);
+            SetStatus("Loading Ressources", 0.90f);
+            yield return null;
             var resourceManager = new ResourceManager();
             resourceManager.SpawnAllResources(Map.Map.Instance.MapData, biomeConfig.OreConfiguration);
+            yield return null;
 
             //Characters
-            SetStatus("Loading Characters", 0.97f);
+            SetStatus("Loading Characters", 0.91f);
+            yield return null;
             var gameController = FindObjectOfType<GameController>();
             for (int i = 0; i < 5; i++)
             {
@@ -57,9 +63,16 @@ namespace Assets.Scripts.Data
             }
 
             //AmbientPlants
-            SetStatus("Loading Ambient Plants", 0.99f);
+            SetStatus("Loading Ambient Plants", 0.92f);
+            yield return null;
             gameController.SpawnAmbientPlants(biomeConfig);
 
+            //AddT1Nodes
+            SetStatus("Finish Pathfinder", 0.95f);
+            yield return null;
+            Map.Map.Instance.AStarNetwork.AddTier1Nodes(20);
+
+            SetStatus("Done", 1f);
             //Start Time Again
             Time.timeScale = 1;
             yield return null;
