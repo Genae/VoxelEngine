@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 
 namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
@@ -24,14 +25,21 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
             }
         }
 
-        public float GetCost(VisitedNode nodeTo)
+        public float GetCost(HashSet<VisitedNode> nodeTo)
         {
-            var a = nodeTo.GridNode.Position;
-            var b = GridNode.Position;
-            var x = a.x - b.x;
-            var y = a.y - b.y;
-            var z = a.z - b.z;
-            return GScore + (float)Math.Sqrt(x*x+y*y+z*z);
+            var min = float.MaxValue;
+            foreach (var visitedNode in nodeTo)
+            {
+                var a = visitedNode.GridNode.Position;
+                var b = GridNode.Position;
+                var x = a.x - b.x;
+                var y = a.y - b.y;
+                var z = a.z - b.z;
+                var dist = GScore + (float)Math.Sqrt(x * x + y * y + z * z);
+                if (dist < min)
+                    min = dist;
+            }
+            return min;
         }
 
         public bool Equals(VisitedNode node)

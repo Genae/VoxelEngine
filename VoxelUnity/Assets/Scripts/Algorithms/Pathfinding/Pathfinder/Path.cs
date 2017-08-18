@@ -13,18 +13,18 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
     {
         public List<Node> Nodes;
         public Node Start;
-        public Node Target;
+        public List<Node> Targets;
         public virtual float Length { get; set; }
         public bool IsT0;
         public PathState State;
         private int _currentNode;
         private readonly PathRegistry _registry;
 
-        public Path(Node start, Node target, PathRegistry registry)
+        public Path(Node start, List<Node> targets, PathRegistry registry)
         {
             IsT0 = false;
             Start = start;
-            Target = target;
+            Targets = targets;
             State = PathState.InitialCalulation;
             _registry = registry;
             _registry.ActivePaths.Add(this);
@@ -45,46 +45,52 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
             _currentNode = i;
             return Nodes[i];
         }
-        
+
         public static Path Calculate(VoxelGraph graph, Vector3I from, Vector3I to, bool forceOptimal = false)
         {
-            if ((from - (Vector3)to).magnitude < 200 || forceOptimal)
+            return Calculate(graph, from, new List<Vector3I> {to}, forceOptimal);
+        }
+
+
+        public static Path Calculate(VoxelGraph graph, Vector3I from, List<Vector3I> to, bool forceOptimal = false)
+        {
+            if (to.Any(t => (from - (Vector3)t).magnitude < 200 || forceOptimal))
             {
                 return CalculateLowlevelPath(graph, from, to);
             }
             return CalculateHighlevelPath(graph, from, to);
         }
 
-        private static Path CalculateHighlevelPath(VoxelGraph graph, Vector3I from, Vector3I to)
+        private static Path CalculateHighlevelPath(VoxelGraph graph, Vector3I from, List<Vector3I> to)
         {
             var start = graph.GetNode(from) ?? graph.GetClosestNode(from, 5);
             if (start == null)
                 return null;
-            var target = graph.GetNode(to);
-            if (target == null)
+            var targets = to.Select(graph.GetNode).Where(t => t != null).ToList();
+            if (targets.Count == 0)
                 return null;
-            var path = new HighLevelPath(start, target, graph);
+            var path = new HighLevelPath(start, targets, graph);
             path.Thread = new Thread(() =>
             {
-                path = (HighLevelPath)AStar.GetPath(start.SuperNodes.ToDictionary(n => n.Key as Node, n => n.Value.Length), target.GetClosestSuperNode(), path);
+                path = (HighLevelPath)AStar.GetPath(start.SuperNodes.ToDictionary(n => n.Key as Node, n => n.Value.Length), targets.Select(t => t.GetClosestSuperNode()).ToList(), path);
                 path.Finished = true;
             });
             path.Thread.Start();
             return path;
         }
 
-        private static Path CalculateLowlevelPath(VoxelGraph graph, Vector3I from, Vector3I to)
+        private static Path CalculateLowlevelPath(VoxelGraph graph, Vector3I from, List<Vector3I> to)
         {
             var start = graph.GetNode(from) ?? graph.GetClosestNode(from, 5);
             if (start == null)
                 return null;
-            var target = graph.GetNode(to);
-            if (target == null)
+            var targets = to.Select(graph.GetNode).Where(t => t != null).ToList();
+            if (targets.Count == 0)
                 return null;
-            var path = new Path(start, target, graph.GetPathRegistry());
+            var path = new Path(start, targets, graph.GetPathRegistry());
             path.Thread = new Thread(() =>
             {
-                path = AStar.GetPath(start, target, path);
+                path = AStar.GetPath(start, targets, path);
                 path.Finished = true;
                 path.State = PathState.Ready;
             });
@@ -112,7 +118,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
         {
             if (State.Equals(PathState.Recalculation))
                 Thread.Abort();
-            if (Target.Equals(removedNode))
+            if (Nodes[Nodes.Count-1].Equals(removedNode))
             {
                 State = PathState.Invalid;
             }
@@ -126,7 +132,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
                 }
                 else
                 {
-                    var p2 = Calculate(graph, currentNode.Position, Target.Position);
+                    var p2 = Calculate(graph, currentNode.Position, Targets.Select(t => t.Position).ToList());
                     if (p2 == null)
                     {
                         State = PathState.Invalid;
@@ -189,7 +195,7 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
 
 
 
-        public HighLevelPath(Node start, Node target, VoxelGraph graph) : base(start, target, graph.GetPathRegistry())
+        public HighLevelPath(Node start, List<Node> target, VoxelGraph graph) : base(start, target, graph.GetPathRegistry())
         {
             _graph = graph;
         }

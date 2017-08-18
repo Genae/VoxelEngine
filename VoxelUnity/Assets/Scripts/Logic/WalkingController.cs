@@ -1,5 +1,8 @@
-﻿using Assets.Scripts.Algorithms.Pathfinding.Graphs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
+using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using Assets.Scripts.Data.Map;
 using UnityEngine;
 
@@ -75,6 +78,11 @@ namespace Assets.Scripts.Logic
         public void MoveTo(Vector3 target)
         {
             PathToTarget = Path.Calculate(_map.AStarNetwork, transform.position, target, true);
+        }
+
+        public void MoveToAny(List<Vector3> targets)
+        {
+            PathToTarget = Path.Calculate(_map.AStarNetwork, transform.position, targets.Select(t => new Vector3I(t)).ToList(), true);
         }
     }
 }

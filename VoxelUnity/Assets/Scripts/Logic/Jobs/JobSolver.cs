@@ -23,7 +23,7 @@ namespace Assets.Scripts.Logic.Jobs
                 }
                 if (_walkingController.IsIdle && !_currentJob.GetPossibleWorkLocations().Any(wl => (wl-transform.position).magnitude < 0.6f))
                 {
-                    _walkingController.MoveTo(_currentJob.GetPossibleWorkLocations().First());
+                    _walkingController.MoveToAny(_currentJob.GetPossibleWorkLocations());
                 }
                 if (_walkingController.IsIdle && _currentJob.Solve(Time.deltaTime, gameObject))
                 {

@@ -20,6 +20,12 @@ namespace Assets.Scripts.Algorithms.Pathfinding.Utils
             y = yPos;
             z = zPos;
         }
+        public Vector3I(Vector3 v)
+        {
+            x = (int)v.x;
+            y = (int)v.y;
+            z = (int)v.z;
+        }
 
         public int this[int index]
         {
