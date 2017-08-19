@@ -6,6 +6,8 @@ using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic;
 using Assets.Scripts.UI;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 namespace Assets.Scripts.Data
@@ -23,6 +25,13 @@ namespace Assets.Scripts.Data
         
         IEnumerator LoadGame()
         {
+            JsonConvert.DefaultSettings = (() =>
+            {
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                return settings;
+            });
+
             Time.timeScale = 0;
             yield return null;
             _loadingScreen = FindObjectOfType<LoadingScreen>();

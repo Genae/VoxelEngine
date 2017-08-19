@@ -5,6 +5,14 @@
         "Model": "Objects/chest",
         "Inventory": {
             "SlotAmount": 20
-        }
+        } ,
+		"Ingredients" : {
+			"Oakwood" : 1
+		} ,
+		"JobRequirements" : {
+			"Carpenter" : 1
+		} ,
+		"Type" : "Wood",
+		"Experience" : 1
     }
 ]
