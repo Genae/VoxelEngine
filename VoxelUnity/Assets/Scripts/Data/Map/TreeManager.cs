@@ -39,6 +39,22 @@ namespace Assets.Scripts.Data.Map
                 }
             }
         }
+
+        public void BuildTreeOfLife()
+        {
+            var mapCenter = new Vector3(Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize / 2f, 1000, Map.Instance.MapData.Chunks.GetLength(2) * Chunk.ChunkSize / 2f);
+            RaycastHit hit;
+            Physics.Raycast(new Ray(mapCenter, Vector3.down), out hit, float.PositiveInfinity);
+            if (hit.collider.tag.Equals("Chunk"))
+            {
+                var tree = new GameObject("TreeOfLife");
+                var theRealTree = new GameObject("theRealTree");
+                var comp = theRealTree.AddComponent<TreeOfLife>();
+                theRealTree.transform.parent = tree.transform;
+                tree.transform.position = hit.point;
+                comp.GenerateTree();
+            }
+        }
     }
 
     public struct TreeData

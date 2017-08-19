@@ -53,7 +53,7 @@ namespace Assets.Scripts.Data.Map
                 //TestAStar();
             } else
             {
-                MapData = new MapData(129 / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
+                MapData = new MapData(129 / Chunk.ChunkSize, 300 / Chunk.ChunkSize, 2f);
             }
             IsDoneGenerating = true;
         }

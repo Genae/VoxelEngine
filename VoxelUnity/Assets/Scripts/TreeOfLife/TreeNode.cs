@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TreeNode {
 	public Vector3 position;
-	public int thickness;
+	public float thickness;
 	TreeNode prev;
 	List<TreeNode> next;
 

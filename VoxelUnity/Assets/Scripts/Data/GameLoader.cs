@@ -44,6 +44,7 @@ namespace Assets.Scripts.Data
             SetStatus("Loading Trees", 0.8f);
             yield return null;
             var treeManager = new TreeManager();
+            treeManager.BuildTreeOfLife();
             yield return treeManager.GenerateTrees((int)(Map.Map.Instance.MapData.Chunks.GetLength(0) * Map.Map.Instance.MapData.Chunks.GetLength(0) * 0.3f), Map.Map.Instance.MapData, this);
 
             //Ressources

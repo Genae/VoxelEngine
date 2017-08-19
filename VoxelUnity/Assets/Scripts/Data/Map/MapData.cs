@@ -20,6 +20,17 @@ namespace Assets.Scripts.Data.Map
 
         public IEnumerator LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, float heightmapHeight)
         {
+            for (var x = 0; x < Chunks.GetLength(0); x++)
+            {
+                for (var y = 0; y < Chunks.GetLength(1); y++)
+                {
+                    for (var z = 0; z < Chunks.GetLength(2); z++)
+                    {
+                        Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z) * Chunk.ChunkSize);
+                    }
+                }
+                yield return null;
+            }
             for (var x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
             {
                 for (var z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
@@ -55,8 +66,11 @@ namespace Assets.Scripts.Data.Map
             var cx = x / Chunk.ChunkSize;
             var cy = y / Chunk.ChunkSize;
             var cz = z / Chunk.ChunkSize;
-            if(Chunks[cx, cy, cz] == null)
+            if (Chunks[cx, cy, cz] == null)
+            {
                 Chunks[cx, cy, cz] = new ChunkData(new Vector3(cx, cy, cz) * Chunk.ChunkSize);
+                Chunk.CreateChunk(cx, cy, cz, Map.Instance);
+            }
             Chunks[cx, cy, cz].SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, material);
         }
         public VoxelMaterial GetVoxelMaterial(int x, int y, int z)

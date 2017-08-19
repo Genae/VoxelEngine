@@ -39,7 +39,7 @@ namespace Assets.Scripts.Data.Map
         {
             veinsLeft--;
             var path = GetPath(data, map, start);
-            DrawPath(data, path, map);
+            DrawPath(data, path);
             if (veinsLeft > 0)
             {
                 SpawnVein(data, map, path[Random.Range(0, 4) % path.Count], veinsLeft / 2);
@@ -48,16 +48,16 @@ namespace Assets.Scripts.Data.Map
 
         }
 
-        private void DrawPath(ResourceConfiguration data, List<Vector3> path, MapData map)
+        private void DrawPath(ResourceConfiguration data, List<Vector3> path)
         {
             for (var i = 0; i < path.Count - 2; i++)
             {
                 //Debug.DrawLine(path[i], path[i+1], data.Material.Color, 6000, false);
-                DrawCapsule(path[i], path[i + 1], data.VeinRadius, data.Material, map);
+                DrawCapsule(path[i], path[i + 1], data.VeinRadius, data.Material);
             }
         }
 
-        public static void DrawCapsule(Vector3 start, Vector3 end, float veinRadius, VoxelMaterial material, MapData map)
+        public static void DrawCapsule(Vector3 start, Vector3 end, float veinRadius, VoxelMaterial material)
         {
             var minx = (int)(Mathf.Min(start.x, end.x) - veinRadius);
             var miny = (int)(Mathf.Min(start.y, end.y) - veinRadius);
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Data.Map
                     {
                         if (Map.Instance.IsInBounds(x, y, z) && Vector3.Cross(ray.direction, new Vector3(x, y, z) - ray.origin).magnitude <= veinRadius)
                         {
-                            map.SetVoxel(x, y, z, true, material);
+                            Map.Instance.MapData.SetVoxel(x, y, z, true, material);
                         }
                     }
                 }

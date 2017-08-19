@@ -44,6 +44,7 @@ namespace Assets.Scripts.Data.Map
                 _smallMultiblocks.Remove(pos);
                 Object.Destroy(mb.gameObject);
             }
+            OnContainerUpdated();
         }
 
         public void UpdateBorder(bool[,] border, bool solid, int side, bool runUpdate = true)

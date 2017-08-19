@@ -165,6 +165,9 @@
     <Compile Include="Assets\Scripts\MultiblockHandling\ImportObject.cs" />
     <Compile Include="Assets\Scripts\MultiblockHandling\MultiblockImporter.cs" />
     <Compile Include="Assets\Scripts\MultiblockHandling\MultiblockLoader.cs" />
+    <Compile Include="Assets\Scripts\TreeOfLife\Stem.cs" />
+    <Compile Include="Assets\Scripts\TreeOfLife\TreeNode.cs" />
+    <Compile Include="Assets\Scripts\TreeOfLife\TreeOfLife.cs" />
     <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBelt.cs" />
