@@ -5,18 +5,19 @@
         "Model": "Objects/chest",
         "Inventory": {
             "SlotAmount": 20
-        } ,
+        },
+
 		/* RECIPESTART */
 		"Recipe" : {
 			"Ingredients" : {
 			"Oakwood" : 1
-			} ,
+			},
 			"JobRequirements" : {
 				"Carpenter" : 1
-			} ,
-			"Type" : "Wood",
+			},
+			"CraftingType" : "Wood",
 			"Experience" : 1
-		} ,
+		},
 		/* RECIPEEND */
 
 		

@@ -44,6 +44,27 @@ namespace Assets.Scripts.Logic
             }
         }
 
+        public PositionedJob AskForJob(JobType jobType)
+        {
+            if (OpenJobs.ContainsKey(jobType) && !OpenJobs[jobType].IsEmpty())
+            {
+                foreach (var job in OpenJobs[jobType])
+                {
+                    if (!job.GetPossibleWorkLocations().Any())
+                    {
+                        continue;
+                    }
+                    return job;
+                }
+            }
+            return null;
+        }
+
+        public void AcceptJob(PositionedJob job)
+        {
+            OpenJobs[job.GetJobType()].Dequeue(job);
+        }
+
         public void AddJob(PositionedJob job)
         {
             if (Jobs == null)

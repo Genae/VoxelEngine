@@ -8,7 +8,6 @@ namespace Assets.Scripts.Logic.Jobs
 {
     public abstract class PositionedJob : Job
     {
-        public abstract JobType GetJobType();
 
         public JobMarker Marker;
         public Vector3 Position;
@@ -44,6 +43,7 @@ namespace Assets.Scripts.Logic.Jobs
 
     public abstract class Job
     {
+        public abstract JobType GetJobType();
         public bool Aborted;
         protected float RemainingTime;
 

@@ -76,7 +76,7 @@ namespace Assets.Scripts.Logic.Jobs
             PossibleTypes.Enqueue(JobType.Building, 5);
         }
 
-        public void Solve(PositionedJob job)
+        public void Solve(Job job)
         {
             _currentJob = job;
         }
@@ -102,6 +102,11 @@ namespace Assets.Scripts.Logic.Jobs
                 Debug.Log(string.Format("No Inventories for {0} found", _item.Name));
             else
                 _positions = inventories.ToDictionary(i => (Vector3) i.gameObject.GetComponent<Item>().GetPosition(), i => i);
+        }
+
+        public override JobType GetJobType()
+        {
+            return JobType.PlantCrop;
         }
 
         protected override void SolveInternal(GameObject actor)

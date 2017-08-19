@@ -88,7 +88,7 @@ namespace MarkLight
               
                 var bindingObserver = observerRef.Target as BindingValueObserver;
 
-                //Debug.Log("Notifying target view field: " + bindingObserver.Target.ViewFieldPath);
+                //Debug.Log("Notifying target view field: " + bindingObserver.Targets.ViewFieldPath);
                 bindingObserver.Notify(new HashSet<ViewFieldData>());
             }
             

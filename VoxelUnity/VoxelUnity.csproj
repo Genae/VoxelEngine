@@ -144,6 +144,9 @@
     <Compile Include="Assets\Scripts\Data\Multiblock\Multiblock.cs" />
     <Compile Include="Assets\Scripts\Data\Multiblock\Trees\Tree.cs" />
     <Compile Include="Assets\Scripts\Data\VoxelEntity\VoxelEntity.cs" />
+    <Compile Include="Assets\Scripts\Logic\Actions\MiningAction.cs" />
+    <Compile Include="Assets\Scripts\Logic\Class.cs" />
+    <Compile Include="Assets\Scripts\Logic\Classes\Miner.cs" />
     <Compile Include="Assets\Scripts\Logic\Farming\CropManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Farming\Farm.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />

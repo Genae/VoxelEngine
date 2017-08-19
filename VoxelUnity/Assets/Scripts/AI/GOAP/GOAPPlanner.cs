@@ -1,20 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP
 {
     public class GOAPPlanner
     {
-
-        /**
-         * Plan what sequence of actions can fulfill the goal.
-         * Returns null if a plan could not be found, or a list of the actions
-         * that must be performed, in order, to fulfill the goal.
-         */
-        public Queue<GOAPAction> Plan(GameObject agent,
-            HashSet<GOAPAction> availableActions,
-            HashSet<KeyValuePair<string, object>> worldState,
-            HashSet<KeyValuePair<string, object>> goal)
+        public Queue<GOAPAction> Plan(GameObject agent, HashSet<GOAPAction> availableActions, HashSet<KeyValuePair<string, object>> worldState, HashSet<KeyValuePair<string, object>> goal)
         {
             // reset the actions so we can start fresh with them
             foreach (var a in availableActions)
@@ -29,7 +21,6 @@ namespace Assets.Scripts.AI.GOAP
                 if (a.CheckProceduralPrecondition(agent))
                     usableActions.Add(a);
             }
-
             // we now have all actions that can run, stored in usableActions
 
             // build up the tree and record the leaf nodes that provide a solution to the goal.
@@ -40,24 +31,10 @@ namespace Assets.Scripts.AI.GOAP
             var success = BuildGraph(start, leaves, usableActions, goal);
 
             if (!success)
-            {
-                // oh no, we didn't get a plan
-                //Debug.Log("NO PLAN");
                 return null;
-            }
 
             // get the cheapest leaf
-            Node cheapest = null;
-            foreach (var leaf in leaves)
-            {
-                if (cheapest == null)
-                    cheapest = leaf;
-                else
-                {
-                    if (leaf.RunningCost < cheapest.RunningCost)
-                        cheapest = leaf;
-                }
-            }
+            var cheapest = leaves.OrderBy(l => l.RunningCost).First();
 
             // get its node and work back through the parents
             var result = new List<GOAPAction>();

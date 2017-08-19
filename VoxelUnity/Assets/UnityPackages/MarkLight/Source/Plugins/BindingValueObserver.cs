@@ -56,7 +56,7 @@ namespace MarkLight
                     return false; 
                 }
 
-                //Debug.Log(String.Format("Source(s) updated. Updating target field: {0}", Target.ViewFieldPath));
+                //Debug.Log(String.Format("Source(s) updated. Updating target field: {0}", Targets.ViewFieldPath));
                 switch (BindingType)
                 {
                     default:
@@ -66,7 +66,7 @@ namespace MarkLight
                         {
                             // use to debug
                             //Debug.Log(String.Format("Propagating Value \"{4}\": {0}.{1} -> {2}.{3}", Sources[0].ViewFieldData.TargetView.ViewTypeName, Sources[0].ViewFieldData.TargetViewFieldPath,
-                            //    Target.TargetView.ViewTypeName, Target.TargetViewFieldPath, value.ToString()));
+                            //    Targets.TargetView.ViewTypeName, Targets.TargetViewFieldPath, value.ToString()));
 
                             // set value
                             Target.SetValue(value, callstack); 

@@ -62,7 +62,7 @@ namespace Assets.Scripts.Data
             SetStatus("Loading Characters", 0.96f);
             yield return null;
             var gameController = FindObjectOfType<GameController>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 gameController.SpawnCharacter();
             }

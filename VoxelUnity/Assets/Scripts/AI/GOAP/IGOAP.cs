@@ -4,7 +4,6 @@ namespace Assets.Scripts.AI.GOAP
 {
     public interface IGOAP
     {
-
         HashSet<KeyValuePair<string, object>> GetWorldState();
 
         HashSet<KeyValuePair<string, object>> CreateGoalState();

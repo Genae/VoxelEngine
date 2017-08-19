@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP
 {
-    public abstract class GOAPAction : MonoBehaviour
+    public abstract class GOAPAction
     {
 
         private readonly HashSet<KeyValuePair<string, object>> _preconditions;
@@ -13,7 +13,7 @@ namespace Assets.Scripts.AI.GOAP
 
         public float Cost = 1f;
 
-        public GameObject Target;
+        public List<Vector3> Targets = new List<Vector3>();
 
         public GOAPAction()
         {
@@ -24,7 +24,7 @@ namespace Assets.Scripts.AI.GOAP
         public void DoReset()
         {
             _inRange = false;
-            Target = null;
+            Targets.Clear();
             Reset();
         }
 
@@ -34,7 +34,7 @@ namespace Assets.Scripts.AI.GOAP
 
         public abstract bool CheckProceduralPrecondition(GameObject agent);
 
-        public abstract bool Perform(GameObject agent);
+        public abstract bool Perform(float deltaTime, GameObject agent);
 
         public abstract bool RequiresInRange();
 

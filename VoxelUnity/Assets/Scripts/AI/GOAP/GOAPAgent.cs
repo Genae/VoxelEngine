@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Logic.Actions;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP
@@ -22,7 +23,6 @@ namespace Assets.Scripts.AI.GOAP
         void Start()
         {
             _stateMachine = new FSM();
-            _availableActions = new HashSet<GOAPAction>();
             _currentActions = new Queue<GOAPAction>();
             _planner = new GOAPPlanner();
             FindDataProvider();
@@ -89,7 +89,7 @@ namespace Assets.Scripts.AI.GOAP
             _moveToState = (fsm, go) => {
 
                 var action = _currentActions.Peek();
-                if (action.RequiresInRange() && action.Target == null)
+                if (action.RequiresInRange() && action.Targets.Count == 0)
                 {
                     fsm.PopState();
                     fsm.PopState();
@@ -127,11 +127,10 @@ namespace Assets.Scripts.AI.GOAP
                 if (HasActionPlan())
                 {
                     action = _currentActions.Peek();
-                    var inRange = action.RequiresInRange() ? action.IsInRange() : true;
 
-                    if (inRange)
+                    if (!action.RequiresInRange() || action.IsInRange())
                     {
-                        var success = action.Perform(obj);
+                        var success = action.Perform(Time.deltaTime, obj);
                         if (!success)
                         {
                             fsm.PopState();
@@ -158,9 +157,10 @@ namespace Assets.Scripts.AI.GOAP
         {
             foreach (var comp in gameObject.GetComponents(typeof(Component)))
             {
-                if (typeof(IGOAP).IsAssignableFrom(comp.GetType()))
+                var goap = comp as IGOAP;
+                if (goap != null)
                 {
-                    _dataProvider = (IGOAP)comp;
+                    _dataProvider = goap;
                     return;
                 }
             }
@@ -168,11 +168,10 @@ namespace Assets.Scripts.AI.GOAP
 
         private void LoadActions()
         {
-            var actions = gameObject.GetComponents<GOAPAction>();
-            foreach (var a in actions)
+            _availableActions = new HashSet<GOAPAction>
             {
-                _availableActions.Add(a);
-            }
+                new MiningAction()
+            };
         }
     }
 }
