@@ -19,6 +19,8 @@ namespace Assets.Scripts.AI.GOAP
         private IGOAP _dataProvider;
         private GOAPPlanner _planner;
 
+        private bool _isIdle = false;
+        private float _timer = 1;
 
         // Use this for initialization
         void Start()
@@ -37,7 +39,13 @@ namespace Assets.Scripts.AI.GOAP
         // Update is called once per frame
         void Update()
         {
-            _stateMachine.Update(gameObject);
+            if (_isIdle && _timer > 0)
+                _timer -= Time.deltaTime;
+            else
+            {
+                _isIdle = false;
+                _stateMachine.Update(gameObject);
+            }
         }
 
         public void AddAction(GOAPAction action)
@@ -81,6 +89,8 @@ namespace Assets.Scripts.AI.GOAP
                     _dataProvider.PlanFailed(goal);
                     fsm.PopState();
                     fsm.PushState(_idleState);
+                    _isIdle = true;
+                    _timer = 1 + UnityEngine.Random.Range(0f, 0.1f);
                 }
             };
         }
