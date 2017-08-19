@@ -81,17 +81,17 @@ namespace Assets.Scripts.Data.Map
 
         public void SetIntoNeighbourContext(int x, int y, int z)
         {
-            if (Map.Instance.IsInBounds(x*Chunk.ChunkSize, y*Chunk.ChunkSize, z*Chunk.ChunkSize) && Chunks[x, y, z] == null)
+            if (!Map.Instance.IsInBounds(x*Chunk.ChunkSize, y*Chunk.ChunkSize, z*Chunk.ChunkSize) || Chunks[x, y, z] == null)
                 return;
             var borders = new bool[6][,];
             var solid = new[]
             {
-                x == 0 || Chunks[x - 1, y, z] != null && !Chunks[x - 1, y, z].HasSolidBorder(1, out borders[0]),
-                x == Chunks.GetLength(0) - 1 || Chunks[x + 1, y, z] != null && !Chunks[x + 1, y, z].HasSolidBorder(2, out borders[1]),
-                y == 0 || Chunks[x, y - 1, z] != null && !Chunks[x, y - 1, z].HasSolidBorder(3, out borders[2]),
-                y == Chunks.GetLength(1) - 1 || Chunks[x, y + 1, z] != null && !Chunks[x, y + 1, z].HasSolidBorder(4, out borders[3]),
-                z == 0 || Chunks[x, y, z - 1] != null && !Chunks[x, y, z - 1].HasSolidBorder(5, out borders[4]),
-                z == Chunks.GetLength(2) - 1 || Chunks[x, y, z + 1] != null && !Chunks[x, y, z + 1].HasSolidBorder(6, out borders[5])
+                x == 0 || Chunks[x - 1, y, z] != null && !Chunks[x - 1, y, z].HasSolidBorder(0, out borders[0]),
+                x == Chunks.GetLength(0) - 1 || Chunks[x + 1, y, z] != null && !Chunks[x + 1, y, z].HasSolidBorder(1, out borders[1]),
+                y == 0 || Chunks[x, y - 1, z] != null && !Chunks[x, y - 1, z].HasSolidBorder(2, out borders[2]),
+                y == Chunks.GetLength(1) - 1 || Chunks[x, y + 1, z] != null && !Chunks[x, y + 1, z].HasSolidBorder(3, out borders[3]),
+                z == 0 || Chunks[x, y, z - 1] != null && !Chunks[x, y, z - 1].HasSolidBorder(4, out borders[4]),
+                z == Chunks.GetLength(2) - 1 || Chunks[x, y, z + 1] != null && !Chunks[x, y, z + 1].HasSolidBorder(5, out borders[5])
             };
             var neighbourData = new ChunkData[6];
             if (x != 0) neighbourData[0] = Chunks[x - 1, y, z];

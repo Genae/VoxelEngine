@@ -49,8 +49,8 @@ namespace Assets.Scripts.Data.Map
 
         public void UpdateBorder(bool[,] border, bool solid, int side, bool runUpdate = true)
         {
-            NeighbourBorders[side-1] = border;
-            NeighbourSolidBorders[side-1] = solid;
+            NeighbourBorders[side] = border;
+            NeighbourSolidBorders[side] = solid;
             if (runUpdate)
                 OnContainerUpdated();
         }
@@ -60,31 +60,31 @@ namespace Assets.Scripts.Data.Map
             if (DirtyVoxels.Count == 0)
                 return;
             if (DirtyVoxels.Any(v => (int)v.x == 0))
-                UpdateNeighbour(1);
+                UpdateNeighbour(0);
             if (DirtyVoxels.Any(v => (int)v.x == Chunk.ChunkSize - 1))
-                UpdateNeighbour(2);
+                UpdateNeighbour(1);
             if (DirtyVoxels.Any(v => (int)v.y == 0))
-                UpdateNeighbour(3);
+                UpdateNeighbour(2);
             if (DirtyVoxels.Any(v => (int)v.y == Chunk.ChunkSize - 1))
-                UpdateNeighbour(4);
+                UpdateNeighbour(3);
             if (DirtyVoxels.Any(v => (int)v.z == 0))
-                UpdateNeighbour(5);
+                UpdateNeighbour(4);
             if (DirtyVoxels.Any(v => (int)v.z == Chunk.ChunkSize - 1))
-                UpdateNeighbour(6);
+                UpdateNeighbour(5);
             OnContainerUpdated();
             DirtyVoxels.Clear();
         }
 
         private void UpdateNeighbour(int side)
         {
-            if (NeighbourData == null || NeighbourData[side - 1] == null)
+            if (NeighbourData == null || NeighbourData[side] == null)
             {
                 //TODO error
                 return;
             }
             bool[,] border;
             var solid = HasSolidBorder(side, out border);
-            NeighbourData[side-1].UpdateBorder(border, solid, side%2==0?side-1:side+1);
+            NeighbourData[side].UpdateBorder(border, solid, side%2==0?side+1:side-1);
         }
 
 
@@ -117,7 +117,7 @@ namespace Assets.Scripts.Data.Map
             var solid = true;
             switch (dir)
             {
-                case 1: //+x
+                case 0: //+x
                     for (var y = 0; y < Chunk.ChunkSize; y++)
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
@@ -127,7 +127,7 @@ namespace Assets.Scripts.Data.Map
                         }
                     }
                     return solid;
-                case 2: //-x
+                case 1: //-x
                     for (var y = 0; y < Chunk.ChunkSize; y++)
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
@@ -137,7 +137,7 @@ namespace Assets.Scripts.Data.Map
                         }
                     }
                     return solid;
-                case 3: //+y
+                case 2: //+y
                     for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
@@ -147,7 +147,7 @@ namespace Assets.Scripts.Data.Map
                         }
                     }
                     return solid;
-                case 4: //-y
+                case 3: //-y
                     for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
                         for (var z = 0; z < Chunk.ChunkSize; z++)
@@ -157,7 +157,7 @@ namespace Assets.Scripts.Data.Map
                         }
                     }
                     return true;
-                case 5: //+z
+                case 4: //+z
                     for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
                         for (var y = 0; y < Chunk.ChunkSize; y++)
@@ -167,7 +167,7 @@ namespace Assets.Scripts.Data.Map
                         }
                     }
                     return solid;
-                case 6: //-z
+                case 5: //-z
                     for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
                         for (var y = 0; y < Chunk.ChunkSize; y++)
@@ -272,15 +272,7 @@ namespace Assets.Scripts.Data.Map
             }
             DirtyVoxels.Add(new Vector3(x, y, z));
         }
-
-        public void SetVoxelActive(int x, int y, int z, bool active)
-        {
-            if ((Voxels[x, y, z] == null) || (Voxels[x, y, z] != null && active == Voxels[x, y, z].IsActive))
-                return;
-            Voxels[x, y, z].IsActive = active;
-            DirtyVoxels.Add(new Vector3(x, y, z));
-        }
-
+        
         public virtual bool IsWorldPosBlocked(int x, int y, int z)
         {
             var posFrom = (new Vector3(x, y, z) - Position) / Scale;
@@ -312,11 +304,6 @@ namespace Assets.Scripts.Data.Map
         public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material)
         {
             return Voxels[x, y, z] = new VoxelData(active, MaterialRegistry.Instance.GetMaterialId(material));
-        }
-
-        public VoxelData SetEntityVoxel(int x, int y, int z, bool active, int colorTyp)
-        {
-            return Voxels[x, y, z] = new VoxelData(active, colorTyp);
         }
     }
 }
