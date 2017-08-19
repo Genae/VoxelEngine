@@ -19,8 +19,29 @@
 		} ,
 		/* RECIPEEND */
 
+		
+    },
+
+	{
+		"Name": "Workbench",
+		"StackSize": 1, 
+
+		/* RECIPESTART */
+		"Recipe" : {
+			"Ingredients" : {
+			"Oakwood" : 4
+			} ,
+			"JobRequirements" : {
+				"Carpenter" : 1
+			} ,
+			"Type" : "None",
+			"Experience" : 0
+		} ,
+		/* RECIPEEND */
+
+		
 		"CraftingStationConfig" : {
 			"CraftingTypes" : ["Wood"]
 		}
-    }
+	}
 ]
