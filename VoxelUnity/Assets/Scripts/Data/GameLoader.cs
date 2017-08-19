@@ -25,13 +25,6 @@ namespace Assets.Scripts.Data
         
         IEnumerator LoadGame()
         {
-            JsonConvert.DefaultSettings = (() =>
-            {
-                var settings = new JsonSerializerSettings();
-                settings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-                return settings;
-            });
-
             Time.timeScale = 0;
             yield return null;
             _loadingScreen = FindObjectOfType<LoadingScreen>();

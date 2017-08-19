@@ -74,25 +74,24 @@ namespace Assets.Scripts.Data
         public string Model;
         public InventoryConfig Inventory;
         public Recipe Recipe;
+        public CraftingStationConfig CraftingStationConfig;
+    }
+
+    public class CraftingStationConfig
+    {
+        public string[] CraftingTypes;
     }
 
     public class Recipe
     {
         public Dictionary<string, int> Ingredients;
         public Dictionary<string, int> JobRequirements;
-        public CraftingType Type;
+        public string CraftingType;
         public int Experience;
     }
 
     public class InventoryConfig
     {
         public int SlotAmount;
-    }
-
-    public enum CraftingType
-    {
-        Metal,
-        Wood,
-        Stone
     }
 }

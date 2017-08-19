@@ -6,13 +6,21 @@
         "Inventory": {
             "SlotAmount": 20
         } ,
-		"Ingredients" : {
+		/* RECIPESTART */
+		"Recipe" : {
+			"Ingredients" : {
 			"Oakwood" : 1
+			} ,
+			"JobRequirements" : {
+				"Carpenter" : 1
+			} ,
+			"Type" : "Wood",
+			"Experience" : 1
 		} ,
-		"JobRequirements" : {
-			"Carpenter" : 1
-		} ,
-		"Type" : "Wood",
-		"Experience" : 1
+		/* RECIPEEND */
+
+		"CraftingStationConfig" : {
+			"CraftingTypes" : ["Wood"]
+		}
     }
 ]
