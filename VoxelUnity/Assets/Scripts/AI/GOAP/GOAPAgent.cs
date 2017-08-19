@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Logic.Actions;
+using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP
@@ -170,7 +171,11 @@ namespace Assets.Scripts.AI.GOAP
         {
             _availableActions = new HashSet<GOAPAction>
             {
-                new MiningAction()
+                new SolveJobAction("hasMined", JobType.Mining),
+                new SolveJobAction("hasBuilt", JobType.Building),
+                new SolveJobAction("hasPlanted", JobType.PlantCrop),
+                new SolveJobAction("hasHoed", JobType.CreateSoil),
+                new SolveJobAction("hasHarvested", JobType.HarvestCrop)
             };
         }
     }

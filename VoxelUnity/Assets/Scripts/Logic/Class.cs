@@ -29,7 +29,10 @@ namespace Assets.Scripts.Logic
             var worldData = new HashSet<KeyValuePair<string, object>>
             {
                 new KeyValuePair<string, object>("hasMined", false),
-                new KeyValuePair<string, object>("hasBuilt", false)
+                new KeyValuePair<string, object>("hasBuilt", false),
+                new KeyValuePair<string, object>("hasPlanted", false),
+                new KeyValuePair<string, object>("hasHoed", false),
+                new KeyValuePair<string, object>("hasHarvested", false)
             };
             return worldData;
         }

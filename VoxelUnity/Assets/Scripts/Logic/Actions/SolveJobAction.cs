@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Actions
 {
-    public class MiningAction: GOAPAction
+    public class SolveJobAction: GOAPAction
     {
+        private readonly JobType _type;
         public bool IsJobDone;
         public PositionedJob MyJob;
-        public MiningAction()
+        public SolveJobAction(string effect, JobType type)
         {
-            AddEffect("hasMined", true);
+            _type = type;
+            AddEffect(effect, true);
             Cost = 100;
         }
 
@@ -27,7 +29,7 @@ namespace Assets.Scripts.Logic.Actions
 
         public override bool CheckProceduralPrecondition(GameObject agent)
         {
-            MyJob = Object.FindObjectOfType<JobController>().AskForJob(JobType.Mining);
+            MyJob = Object.FindObjectOfType<JobController>().AskForJob(_type);
             if (MyJob == null)
                 return false;
             Targets = MyJob.GetPossibleWorkLocations();
