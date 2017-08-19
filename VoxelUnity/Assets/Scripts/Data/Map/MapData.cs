@@ -20,6 +20,17 @@ namespace Assets.Scripts.Data.Map
 
         public IEnumerator LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, float heightmapHeight)
         {
+            for (var x = 0; x < Chunks.GetLength(0); x++)
+            {
+                for (var y = 0; y < Chunks.GetLength(1); y++)
+                {
+                    for (var z = 0; z < Chunks.GetLength(2); z++)
+                    {
+                        Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z) * Chunk.ChunkSize);
+                    }
+                }
+                yield return null;
+            }
             for (var x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
             {
                 for (var z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)

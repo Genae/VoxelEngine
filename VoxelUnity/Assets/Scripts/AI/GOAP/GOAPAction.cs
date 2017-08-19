@@ -105,5 +105,7 @@ namespace Assets.Scripts.AI.GOAP
                 return _effects;
             }
         }
+
+        public abstract void HasBeenChoosen();
     }
 }

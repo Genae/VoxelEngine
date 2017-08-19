@@ -36,14 +36,18 @@ namespace Assets.Scripts.Logic.Actions
 
         public override bool Perform(float deltaTime, GameObject agent)
         {
-            MyJob.Solve(deltaTime, agent);
-            IsJobDone = true;
-            return IsJobDone;
+            IsJobDone = MyJob.Solve(deltaTime, agent);
+            return true;
         }
 
         public override bool RequiresInRange()
         {
             return true;
+        }
+
+        public override void HasBeenChoosen()
+        {
+            Object.FindObjectOfType<JobController>().AcceptJob(MyJob);
         }
     }
 }

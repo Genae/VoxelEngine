@@ -43,6 +43,10 @@ namespace Assets.Scripts.Logic
 
         public void PlanFound(HashSet<KeyValuePair<string, object>> goal, Queue<GOAPAction> actions)
         {
+            foreach (var goapAction in actions)
+            {
+                goapAction.HasBeenChoosen();
+            }
         }
 
         public void ActionsFinished()
@@ -81,6 +85,13 @@ namespace Assets.Scripts.Logic
                 }
                 return false;
             }
+
+            if (PathToTarget.Targets.Any(t => (t.Position - transform.position).magnitude < 0.6f))
+            {
+                nextAction.SetInRange(true);
+                return true;
+            }
+
             if (_currentNode == null)
             {
                 _currentNode = PathToTarget.GetNode(0);
