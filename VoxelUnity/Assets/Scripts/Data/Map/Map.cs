@@ -57,6 +57,19 @@ namespace Assets.Scripts.Data.Map
             }
             IsDoneGenerating = true;
         }
+
+        public void CreateChunk(int x, int y, int z)
+        {
+            MapData.Chunks[x, y, z] = new ChunkData(new Vector3(x, z, z) * Chunk.ChunkSize);
+            MapData.SetIntoNeighbourContext(x, y, z);
+            MapData.SetIntoNeighbourContext(x+1, y, z);
+            MapData.SetIntoNeighbourContext(x-1, y, z);
+            MapData.SetIntoNeighbourContext(x, y+1, z);
+            MapData.SetIntoNeighbourContext(x, y-1, z);
+            MapData.SetIntoNeighbourContext(x, y+1, z);
+            MapData.SetIntoNeighbourContext(x, y-1, z);
+            Chunk.CreateChunk(x, y, z, this);
+        }
         
         private IEnumerator InitializeMap(GameLoader loader)
         {

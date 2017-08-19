@@ -11,7 +11,7 @@ namespace Assets.Scripts.Data.Map
     {
         public const int ChunkSize = 16;
         
-        public static GameObject CreateChunk(int x, int y, int z, Map map)
+        public static Chunk CreateChunk(int x, int y, int z, Map map)
         {
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
@@ -19,7 +19,7 @@ namespace Assets.Scripts.Data.Map
             chunkC.InitializeContainer(new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize), map.MapData.Chunks[x, y, z], MaterialRegistry.Instance.Materials);
             chunkC.tag = "Chunk";
             chunk.transform.parent = map.transform;
-            return chunk;
+            return chunkC;
         }
         
         protected override List<Vector3> UpdateMesh()

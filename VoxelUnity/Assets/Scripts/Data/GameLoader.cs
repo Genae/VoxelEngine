@@ -41,21 +41,23 @@ namespace Assets.Scripts.Data
             yield return Map.Map.Instance.CreateMap(biomeConfig, this);
 
             //Trees
-            SetStatus("Loading Trees", 0.8f);
+            SetStatus("Loading Tree of Life", 0.8f);
             yield return null;
             var treeManager = new TreeManager();
             treeManager.BuildTreeOfLife();
+            SetStatus("Loading Trees", 0.85f);
+            yield return null;
             yield return treeManager.GenerateTrees((int)(Map.Map.Instance.MapData.Chunks.GetLength(0) * Map.Map.Instance.MapData.Chunks.GetLength(0) * 0.3f), Map.Map.Instance.MapData, this);
 
             //Ressources
-            SetStatus("Loading Ressources", 0.90f);
+            SetStatus("Loading Ressources", 0.95f);
             yield return null;
             var resourceManager = new ResourceManager();
             resourceManager.SpawnAllResources(Map.Map.Instance.MapData, biomeConfig.OreConfiguration);
             yield return null;
 
             //Characters
-            SetStatus("Loading Characters", 0.91f);
+            SetStatus("Loading Characters", 0.96f);
             yield return null;
             var gameController = FindObjectOfType<GameController>();
             for (int i = 0; i < 5; i++)
@@ -64,12 +66,12 @@ namespace Assets.Scripts.Data
             }
 
             //AmbientPlants
-            SetStatus("Loading Ambient Plants", 0.92f);
+            SetStatus("Loading Ambient Plants", 0.97f);
             yield return null;
             gameController.SpawnAmbientPlants(biomeConfig);
 
             //AddT1Nodes
-            SetStatus("Finish Pathfinder", 0.95f);
+            SetStatus("Finish Pathfinder", 0.98f);
             yield return null;
             Map.Map.Instance.AStarNetwork.AddTier1Nodes(20);
 
