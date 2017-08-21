@@ -6,8 +6,8 @@ namespace Assets.Scripts.AI.GOAP
     public abstract class GOAPAction
     {
 
-        private readonly HashSet<KeyValuePair<string, object>> _preconditions;
-        private readonly HashSet<KeyValuePair<string, object>> _effects;
+        private readonly Dictionary<string, object> _preconditions;
+        private readonly Dictionary<string, object> _effects;
 
         private bool _inRange;
 
@@ -17,8 +17,8 @@ namespace Assets.Scripts.AI.GOAP
 
         public GOAPAction()
         {
-            _preconditions = new HashSet<KeyValuePair<string, object>>();
-            _effects = new HashSet<KeyValuePair<string, object>>();
+            _preconditions = new Dictionary<string, object>();
+            _effects = new Dictionary<string, object>();
         }
 
         public void DoReset()
@@ -50,47 +50,25 @@ namespace Assets.Scripts.AI.GOAP
 
         public void AddPrecondition(string key, object value)
         {
-            _preconditions.Add(new KeyValuePair<string, object>(key, value));
+            _preconditions.Add(key, value);
         }
 
         public void RemovePrecondition(string key)
         {
-            var remove = default(KeyValuePair<string, object>);
-            foreach (var kvp in _preconditions)
-            {
-                if (kvp.Key.Equals(key))
-                {
-                    remove = kvp;
-                }
-                if (!default(KeyValuePair<string, object>).Equals(remove))
-                {
-                    _preconditions.Remove(remove);
-                }
-            }
+            _preconditions.Remove(key);
         }
 
         public void AddEffect(string key, object value)
         {
-            _effects.Add(new KeyValuePair<string, object>(key, value));
+            _effects.Add(key, value);
         }
 
         public void RemoveEffect(string key)
         {
-            var remove = default(KeyValuePair<string, object>);
-            foreach (var kvp in _effects)
-            {
-                if (kvp.Key.Equals(key))
-                {
-                    remove = kvp;
-                }
-                if (!default(KeyValuePair<string, object>).Equals(remove))
-                {
-                    _effects.Remove(remove);
-                }
-            }
+            _effects.Remove(key);
         }
 
-        public HashSet<KeyValuePair<string, object>> Preconditions
+        public Dictionary<string, object> Preconditions
         {
             get
             {
@@ -98,7 +76,7 @@ namespace Assets.Scripts.AI.GOAP
             }
         }
 
-        public HashSet<KeyValuePair<string, object>> Effects
+        public Dictionary<string, object> Effects
         {
             get
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Logic.Actions;
 using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
@@ -9,177 +10,68 @@ namespace Assets.Scripts.AI.GOAP
 {
     public sealed class GOAPAgent : MonoBehaviour
     {
-        private FSM _stateMachine;
-        private FSM.FSMState _idleState;
-        private FSM.FSMState _moveToState;
-        private FSM.FSMState _performActionState;
+        internal FSM StateMachine;
+        internal IState IdleState;
+        internal IState MoveToState;
+        internal IState PerformActionState;
+        internal IState WaitForPlanState;
 
-        private HashSet<GOAPAction> _availableActions;
-        private Queue<GOAPAction> _currentActions;
-        private IGOAP _dataProvider;
-        private GOAPPlanner _planner;
+        internal HashSet<GOAPAction> AvailableActions;
+        internal Queue<GOAPAction> CurrentActions;
+        internal Class DataProvider;
+        internal GOAPPlanner Planner;
 
-        private bool _isIdle = false;
-        private float _timer = 1;
+        public bool IsIdle;
+        public bool IsMoving;
+        public GOAPlan Plan;
 
         // Use this for initialization
         void Start()
         {
-            _stateMachine = new FSM();
-            _currentActions = new Queue<GOAPAction>();
-            _planner = new GOAPPlanner();
-            FindDataProvider();
-            CreateIdleState();
-            CreateMoveToState();
-            CreatePerformActionState();
-            _stateMachine.PushState(_idleState);
+            DataProvider = GetComponent<Class>();
+            StateMachine = new FSM();
+            CurrentActions = new Queue<GOAPAction>();
+            Planner = new GOAPPlanner();
+            IdleState = new IdleState();
+            MoveToState = new MoveToState();
+            PerformActionState = new PerformActionState();
+            WaitForPlanState = new WaitingForPlanState();
+            StateMachine.PushState(IdleState);
             LoadActions();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (_isIdle && _timer > 0)
-                _timer -= Time.deltaTime;
-            else
-            {
-                _isIdle = false;
-                _stateMachine.Update(gameObject);
-            }
+            if (IsIdle)
+                return;
+            
+            StateMachine.Update(this, gameObject);
         }
 
         public void AddAction(GOAPAction action)
         {
-            _availableActions.Add(action);
+            AvailableActions.Add(action);
         }
 
         public GOAPAction GetAction(Type action)
         {
-            return _availableActions.FirstOrDefault(currAction => currAction.GetType() == action);
+            return AvailableActions.FirstOrDefault(currAction => currAction.GetType() == action);
         }
 
         public void RemoveAction(GOAPAction action)
         {
-            _availableActions.Remove(action);
+            AvailableActions.Remove(action);
         }
 
-        private bool HasActionPlan()
+        internal bool HasActionPlan()
         {
-            return _currentActions.Count > 0;
+            return CurrentActions.Count > 0;
         }
-
-        private void CreateIdleState()
-        {
-            _idleState = (fsm, obj) => {
-
-                var worldState = _dataProvider.GetWorldState();
-                var goal = _dataProvider.CreateGoalState();
-
-                var plan = _planner.Plan(gameObject, _availableActions, worldState, goal);
-                if (plan != null)
-                {
-                    _currentActions = plan;
-                    _dataProvider.PlanFound(goal, plan);
-
-                    fsm.PopState();
-                    fsm.PushState(_performActionState);
-                }
-                else
-                {
-                    _dataProvider.PlanFailed(goal);
-                    fsm.PopState();
-                    fsm.PushState(_idleState);
-                    _isIdle = true;
-                    _timer = 1 + UnityEngine.Random.Range(0f, 0.1f);
-                }
-            };
-        }
-
-        private void CreateMoveToState()
-        {
-            _moveToState = (fsm, go) => {
-
-                var action = _currentActions.Peek();
-                if (action.RequiresInRange() && action.Targets.Count == 0)
-                {
-                    fsm.PopState();
-                    fsm.PopState();
-                    fsm.PushState(_idleState);
-                    return;
-                }
-
-                if (_dataProvider.MoveAgent(action))
-                {
-                    fsm.PopState();
-                }
-
-            };
-        }
-
-        private void CreatePerformActionState()
-        {
-
-            _performActionState = (fsm, obj) => {
-
-                if (!HasActionPlan())
-                {
-                    fsm.PopState();
-                    fsm.PushState(_idleState);
-                    _dataProvider.ActionsFinished();
-                    return;
-                }
-
-                var action = _currentActions.Peek();
-                if (action.IsDone())
-                {
-                    _currentActions.Dequeue();
-                }
-
-                if (HasActionPlan())
-                {
-                    action = _currentActions.Peek();
-
-                    if (!action.RequiresInRange() || action.IsInRange())
-                    {
-                        var success = action.Perform(Time.deltaTime, obj);
-                        if (!success)
-                        {
-                            fsm.PopState();
-                            fsm.PushState(_idleState);
-                            CreateIdleState();
-                            _dataProvider.PlanAborted(action);
-                        }
-                    }
-                    else
-                    {
-                        fsm.PushState(_moveToState);
-                    }
-                }
-                else
-                {
-                    fsm.PopState();
-                    fsm.PushState(_idleState);
-                    _dataProvider.ActionsFinished();
-                }
-            };
-        }
-
-        private void FindDataProvider()
-        {
-            foreach (var comp in gameObject.GetComponents(typeof(Component)))
-            {
-                var goap = comp as IGOAP;
-                if (goap != null)
-                {
-                    _dataProvider = goap;
-                    return;
-                }
-            }
-        }
-
+        
         private void LoadActions()
         {
-            _availableActions = new HashSet<GOAPAction>
+            AvailableActions = new HashSet<GOAPAction>
             {
                 new SolveJobAction("hasMined", JobType.Mining),
                 new SolveJobAction("hasBuilt", JobType.Building),
@@ -187,6 +79,115 @@ namespace Assets.Scripts.AI.GOAP
                 new SolveJobAction("hasHoed", JobType.CreateSoil),
                 new SolveJobAction("hasHarvested", JobType.HarvestCrop)
             };
+        }
+    }
+
+    internal class PerformActionState : IState
+    {
+        public void Run(GOAPAgent agent, FSM fsm, GameObject actor)
+        {
+
+            if (!agent.HasActionPlan())
+            {
+                fsm.PopState();
+                fsm.PushState(agent.IdleState);
+                agent.DataProvider.ActionsFinished();
+                return;
+            }
+
+            var action = agent.CurrentActions.Peek();
+            if (action.IsDone())
+            {
+                agent.CurrentActions.Dequeue();
+            }
+
+            if (agent.HasActionPlan())
+            {
+                action = agent.CurrentActions.Peek();
+
+                if (!action.RequiresInRange() || action.IsInRange())
+                {
+                    var success = action.Perform(Time.deltaTime, agent.gameObject);
+                    if (!success)
+                    {
+                        fsm.PopState();
+                        fsm.PushState(agent.IdleState);
+                        agent.DataProvider.PlanAborted(action);
+                    }
+                }
+                else
+                {
+                    fsm.PushState(agent.MoveToState);
+                }
+            }
+            else
+            {
+                fsm.PopState();
+                fsm.PushState(agent.IdleState);
+                agent.DataProvider.ActionsFinished();
+            }
+        }
+    }
+
+    internal class MoveToState : IState
+    {
+        public void Run(GOAPAgent agent, FSM fsm, GameObject actor)
+        {
+
+            var action = agent.CurrentActions.Peek();
+            if (action.RequiresInRange() && action.Targets.Count == 0)
+            {
+                fsm.PopState();
+                fsm.PopState();
+                fsm.PushState(agent.IdleState);
+                return;
+            }
+
+            if (agent.DataProvider.MoveAgent(action))
+            {
+                fsm.PopState();
+            }
+
+        }
+    }
+
+    internal class IdleState : IState
+    {
+        public void Run(GOAPAgent agent, FSM fsm, GameObject actor)
+        {
+            var worldState = agent.DataProvider.GetWorldState();
+            var goal = agent.DataProvider.CreateGoalState();
+
+            agent.Plan = agent.Planner.Plan(agent.gameObject, agent.AvailableActions, worldState, goal);
+            fsm.PopState();
+            fsm.PushState(agent.WaitForPlanState);
+        }
+    }
+
+    internal class WaitingForPlanState : IState
+    {
+        public void Run(GOAPAgent agent, FSM fsm, GameObject actor)
+        {
+            if(!agent.Plan.Finished)
+                return;
+
+            var plan = agent.Plan;
+            if (plan != null && plan.Actions != null && plan.Success)
+            {
+                agent.CurrentActions = plan.Actions;
+                agent.DataProvider.PlanFound(plan.Goal, plan.Actions);
+
+                fsm.PopState();
+                fsm.PushState(agent.PerformActionState);
+            }
+            else
+            {
+                agent.DataProvider.PlanFailed(plan.Goal);
+                fsm.PopState();
+                fsm.PushState(agent.IdleState);
+                JobController.Instance.AddIdleSolver(agent.DataProvider);
+                agent.IsIdle = true;
+            }
         }
     }
 }

@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.AI.GOAP;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using Assets.Scripts.Data.Map;
+using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
 {
     public abstract class Class : MonoBehaviour, IGOAP
     {
-        private JobController _jobController;
+        private GOAPAgent _agent;
         public Path PathToTarget;
         public float MoveSpeed;
         private int _pathIndex;
@@ -19,32 +21,39 @@ namespace Assets.Scripts.Logic
 
         void Start()
         {
-            if (_jobController == null)
-            {
-                _jobController = GameObject.Find("World").GetComponent<JobController>();
-            }
+            _agent = GetComponent<GOAPAgent>();
         }
-        public HashSet<KeyValuePair<string, object>> GetWorldState()
+        public Dictionary<string, object> GetWorldState()
         {
-            var worldData = new HashSet<KeyValuePair<string, object>>
+            var worldData = new Dictionary<string, object>
             {
-                new KeyValuePair<string, object>("hasMined", false),
-                new KeyValuePair<string, object>("hasBuilt", false),
-                new KeyValuePair<string, object>("hasPlanted", false),
-                new KeyValuePair<string, object>("hasHoed", false),
-                new KeyValuePair<string, object>("hasHarvested", false)
+                {"hasMined", false},
+                {"hasBuilt", false},
+                {"hasPlanted", false},
+                {"hasHoed", false},
+                { "hasHarvested", false}
             };
             return worldData;
         }
 
-        public abstract HashSet<KeyValuePair<string, object>> CreateGoalState();
+        public void JobAvailable()
+        {
+            _agent.IsIdle = false;
+        }
 
-        public void PlanFailed(HashSet<KeyValuePair<string, object>> failedGoal)
+        public JobType[] GetPossibleJobs()
+        {
+            return (JobType[]) Enum.GetValues(typeof(JobType));
+        }
+
+        public abstract Dictionary<string, object> CreateGoalState();
+
+        public void PlanFailed(Dictionary<string, object> failedGoal)
         {
             ResetState();
         }
 
-        public void PlanFound(HashSet<KeyValuePair<string, object>> goal, Queue<GOAPAction> actions)
+        public void PlanFound(Dictionary<string, object> goal, Queue<GOAPAction> actions)
         {
             foreach (var goapAction in actions)
             {
@@ -130,5 +139,6 @@ namespace Assets.Scripts.Logic
             }
             return true;
         }
+
     }
 }

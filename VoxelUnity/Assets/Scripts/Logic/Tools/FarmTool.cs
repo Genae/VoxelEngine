@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic.Farming;
@@ -9,14 +8,7 @@ using UnityEngine;
 namespace Assets.Scripts.Logic.Tools
 {
     public class FarmTool : AreaTool {
-
-        private JobController _jobController;
-
-        protected void Awake()
-        {
-            _jobController = GameObject.Find("World").GetComponent<JobController>();
-        }
-
+        
         protected override void StartAction(IEnumerable<Vector3> voxels)
         {
             Farm farm = null;
@@ -42,7 +34,7 @@ namespace Assets.Scripts.Logic.Tools
 
         private bool CreateFarmAtPosition(Vector3 pos)
         {
-            if (_jobController.HasJob(pos, JobType.CreateSoil))
+            if (JobController.Instance.HasJob(pos, JobType.CreateSoil))
                 return false;
             
             var type = Map.Instance.MapData.GetVoxelMaterial(pos);
@@ -55,7 +47,7 @@ namespace Assets.Scripts.Logic.Tools
             type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up + Vector3.up);
             if (!type.Equals(air))
                 return false;
-            _jobController.AddJob(new CreateSoilJob(pos));
+            JobController.Instance.AddJob(new CreateSoilJob(pos));
             return true;
         }
 

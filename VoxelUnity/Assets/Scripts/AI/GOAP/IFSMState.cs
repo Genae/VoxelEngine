@@ -2,9 +2,8 @@
 
 namespace Assets.Scripts.AI.GOAP
 {
-    public interface IFSMState
+    public interface IState
     {
-
-        void Update(IFSMState fsm, GameObject obj);
+        void Run(GOAPAgent agent, FSM fsm, GameObject actor);
     }
 }

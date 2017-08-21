@@ -4,13 +4,13 @@ namespace Assets.Scripts.AI.GOAP
 {
     public interface IGOAP
     {
-        HashSet<KeyValuePair<string, object>> GetWorldState();
+        Dictionary<string, object> GetWorldState();
 
-        HashSet<KeyValuePair<string, object>> CreateGoalState();
+        Dictionary<string, object> CreateGoalState();
 
-        void PlanFailed(HashSet<KeyValuePair<string, object>> failedGoal);
+        void PlanFailed(Dictionary<string, object> failedGoal);
 
-        void PlanFound(HashSet<KeyValuePair<string, object>> goal, Queue<GOAPAction> actions);
+        void PlanFound(Dictionary<string, object> goal, Queue<GOAPAction> actions);
 
         void ActionsFinished();
 

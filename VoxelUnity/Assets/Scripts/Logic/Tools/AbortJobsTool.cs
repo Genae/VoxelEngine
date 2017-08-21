@@ -5,13 +5,6 @@ namespace Assets.Scripts.Logic.Tools
 {
     public class AbortJobsTool : AreaTool
     {
-        private JobController _jobController;
-
-        void Awake()
-        {
-            _jobController = GameObject.Find("World").GetComponent<JobController>();
-        }
-
         protected override void StartAction(IEnumerable<Vector3> voxels)
         {
             foreach (var vox in voxels)
@@ -27,7 +20,7 @@ namespace Assets.Scripts.Logic.Tools
 
         private void ClearJobAtPosition(Vector3 pos)
         {
-            var jobs = _jobController.GetJobAt(pos);
+            var jobs = JobController.Instance.GetJobAt(pos);
             if(jobs != null && jobs.Count > 0)
             foreach (var job in jobs.ToArray())
             {

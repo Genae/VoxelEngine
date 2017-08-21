@@ -29,7 +29,7 @@ namespace Assets.Scripts.Logic.Actions
 
         public override bool CheckProceduralPrecondition(GameObject agent)
         {
-            MyJob = Object.FindObjectOfType<JobController>().AskForJob(_type);
+            MyJob = JobController.Instance.AskForJob(_type);
             if (MyJob == null)
                 return false;
             Targets = MyJob.GetPossibleWorkLocations();
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Logic.Actions
 
         public override void HasBeenChoosen()
         {
-            Object.FindObjectOfType<JobController>().AcceptJob(MyJob);
+            JobController.Instance.AcceptJob(MyJob);
         }
     }
 }

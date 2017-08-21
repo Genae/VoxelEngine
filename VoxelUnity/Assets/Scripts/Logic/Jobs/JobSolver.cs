@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Jobs
 {
-    public class JobSolver : MonoBehaviour
+     /*public class JobSolver : MonoBehaviour
     {
         public PriorityQueue<JobType> PossibleTypes = new PriorityQueue<JobType>();
         private Job _currentJob;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Logic.Jobs
 
         void Update()
         {
-            if (_currentJob != null)
+           if (_currentJob != null)
             {
                 if (_currentJob.Aborted)
                 {
@@ -131,5 +131,5 @@ namespace Assets.Scripts.Logic.Jobs
             }
             return positions;
         }
-    }
+    }*/
 }

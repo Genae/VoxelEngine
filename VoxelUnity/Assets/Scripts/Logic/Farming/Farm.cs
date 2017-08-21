@@ -27,7 +27,6 @@ namespace Assets.Scripts.Logic.Farming
         }
         void Update()
         {
-            var jobController = GameObject.Find("World").GetComponent<JobController>();
             foreach (var farmBlock in FarmBlocks.ToArray())
             {
                 if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air) || !Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air))
@@ -38,7 +37,7 @@ namespace Assets.Scripts.Logic.Farming
                 }
                 if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position).Equals(_soil))
                 {
-                    if (!jobController.HasJob(farmBlock.Position, JobType.CreateSoil))
+                    if (!JobController.Instance.HasJob(farmBlock.Position, JobType.CreateSoil))
                     {
                         farmBlock.Dispose();
                         FarmBlocks.Remove(farmBlock);
@@ -102,11 +101,10 @@ namespace Assets.Scripts.Logic.Farming
         {
             if (Stage == 0)
             {
-                var jobController = GameObject.Find("World").GetComponent<JobController>();
-                if (!jobController.HasJob(Position + Vector3.up, JobType.PlantCrop))
+                if (!JobController.Instance.HasJob(Position + Vector3.up, JobType.PlantCrop))
                 {
                     _currentJob = new PlantCropJob(this);
-                    jobController.AddJob(_currentJob);
+                    JobController.Instance.AddJob(_currentJob);
                 }
             }
             else
@@ -117,11 +115,10 @@ namespace Assets.Scripts.Logic.Farming
                     Stage += 1;
                     if (Stage == Type.GrowStages.Count)
                     {
-                        var jobController = GameObject.Find("World").GetComponent<JobController>();
-                        if (!jobController.HasJob(Position + Vector3.up, JobType.HarvestCrop))
+                        if (!JobController.Instance.HasJob(Position + Vector3.up, JobType.HarvestCrop))
                         {
                             _currentJob = new HarvestCropJob(this);
-                            jobController.AddJob(_currentJob);
+                            JobController.Instance.AddJob(_currentJob);
                         }
                     }
                 }

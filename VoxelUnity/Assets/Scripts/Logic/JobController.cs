@@ -10,9 +10,14 @@ namespace Assets.Scripts.Logic
     public class JobController : MonoBehaviour
     {
         protected readonly Dictionary<JobType, PriorityQueue<PositionedJob>> OpenJobs = new Dictionary<JobType, PriorityQueue<PositionedJob>>();
-        protected readonly List<JobSolver> FreeSolvers = new List<JobSolver>();
+        protected readonly List<Class> FreeSolvers = new List<Class>();
         protected List<PositionedJob>[,,] Jobs;
-        
+        public static JobController Instance;
+
+        void Awake()
+        {
+            Instance = this;
+        }
         void Update()
         {
             foreach (var freeSolver in FreeSolvers.ToArray())
@@ -21,12 +26,12 @@ namespace Assets.Scripts.Logic
             }
         }
 
-        private void FindJobFor(JobSolver freeSolver)
+        private void FindJobFor(Class freeSolver)
         {
             var possibleJobs = freeSolver.GetPossibleJobs();
-            while (!possibleJobs.IsEmpty())
+            for(var i = 0; i < possibleJobs.Length; i++)
             {
-                var jobType = possibleJobs.Dequeue();
+                var jobType = possibleJobs[i];
                 if (OpenJobs.ContainsKey(jobType) && !OpenJobs[jobType].IsEmpty())
                 {
                     foreach (var job in OpenJobs[jobType])
@@ -36,7 +41,7 @@ namespace Assets.Scripts.Logic
                             continue;
                         }
 
-                        freeSolver.Solve(OpenJobs[jobType].Dequeue(job));
+                        freeSolver.JobAvailable();
                         FreeSolvers.Remove(freeSolver);
                         return;
                     }
@@ -100,9 +105,9 @@ namespace Assets.Scripts.Logic
             return Jobs[(int) pos.x, (int) pos.y, (int) pos.z].Any(j => j.GetJobType().Equals(jobType));
         }
 
-        public void AddIdleSolver(JobSolver solver)
+        public void AddIdleSolver(Class agent)
         {
-            FreeSolvers.Add(solver);
+            FreeSolvers.Add(agent);
         }
 
         public List<PositionedJob> GetJobAt(Vector3 pos)

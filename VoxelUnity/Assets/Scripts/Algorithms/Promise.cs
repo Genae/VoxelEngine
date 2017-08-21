@@ -11,7 +11,7 @@ namespace Assets.Scripts.Algorithms
         private bool _finished;
         public bool Finished
         {
-            get { return _finished; }
+            get { return _finished || !Thread.IsAlive; }
             set
             {
                 _finished = value;

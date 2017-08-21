@@ -28,7 +28,7 @@ namespace Assets.Scripts.Logic.Jobs
         {
             if (!base.Solve(deltaTime, actor))
                 return false;
-            GameObject.Find("World").GetComponent<JobController>().SolveJob(this);
+            JobController.Instance.SolveJob(this);
             Marker.Destroy();
             return true;
         }
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Logic.Jobs
         public override void Abort()
         {
             base.Abort();
-            GameObject.Find("World").GetComponent<JobController>().SolveJob(this);
+            JobController.Instance.SolveJob(this);
             Marker.Destroy();
         }
     }

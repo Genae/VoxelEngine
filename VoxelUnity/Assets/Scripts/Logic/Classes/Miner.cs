@@ -4,15 +4,15 @@ namespace Assets.Scripts.Logic.Classes
 {
     public class Miner : Class
     {
-        public override HashSet<KeyValuePair<string, object>> CreateGoalState()
+        public override Dictionary<string, object> CreateGoalState()
         {
-            var goalState = new HashSet<KeyValuePair<string, object>>
+            var goalState = new Dictionary<string, object>
             {
-                new KeyValuePair<string, object>("hasMined", true),
-                new KeyValuePair<string, object>("hasBuilt", true),
-                new KeyValuePair<string, object>("hasPlanted", true),
-                new KeyValuePair<string, object>("hasHoed", true),
-                new KeyValuePair<string, object>("hasHarvested", true)
+                {"hasMined", true},
+                {"hasBuilt", true},
+                {"hasPlanted", true},
+                {"hasHoed", true},
+                {"hasHarvested", true}
             };
             return goalState;
         }

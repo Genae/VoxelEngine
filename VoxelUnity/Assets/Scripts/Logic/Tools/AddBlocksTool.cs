@@ -9,13 +9,6 @@ namespace Assets.Scripts.Logic.Tools
     public class AddBlocksTool : AreaTool {
         
         public int BlockMaterialId = 1;
-        private JobController _jobController;
-
-        void Awake()
-        {
-            _jobController = GameObject.Find("World").GetComponent<JobController>();
-        }
-
 
         protected override Color GetPreviewColor()
         {
@@ -33,13 +26,13 @@ namespace Assets.Scripts.Logic.Tools
 
         private void ClearVoxelAtPosition(Vector3 pos)
         {
-            if (_jobController.HasJob(pos, JobType.Building))
+            if (JobController.Instance.HasJob(pos, JobType.Building))
                 return;
 
             var type = Map.Instance.MapData.GetVoxelMaterial(pos);
             if (!type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
                 return;
-            _jobController.AddJob(new BuildingJob(pos, MaterialRegistry.Instance.MaterialFromId(BlockMaterialId)));
+            JobController.Instance.AddJob(new BuildingJob(pos, MaterialRegistry.Instance.MaterialFromId(BlockMaterialId)));
         }
 
         public override void SwapOverlays()

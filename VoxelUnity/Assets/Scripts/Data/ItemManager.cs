@@ -11,7 +11,7 @@ namespace Assets.Scripts.Data
     public class ItemManager
     {
         private static Dictionary<string, ItemType> _items;
-        private static readonly List<Inventory> _inventories = new List<Inventory>();
+        private static readonly List<Inventory> Inventories = new List<Inventory>();
         public static void DropItem(Vector3 pos, ItemType item)
         {
             GetModel(pos, item);
@@ -28,7 +28,7 @@ namespace Assets.Scripts.Data
             {
                 var inv = obj.AddComponent<Inventory>();
                 inv.SetSlotCount(item.Inventory.SlotAmount);
-                _inventories.Add(inv);
+                Inventories.Add(inv);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Assets.Scripts.Data
 
         public static List<Inventory> GetInventoriesFor(ItemType items)
         {
-            return _inventories.Where(i => i.GetSpaceForItem(items) > 0).ToList();
+            return Inventories.Where(i => i.GetSpaceForItem(items) > 0).ToList();
         }
 
         private static Dictionary<string, ItemType> LoadItems()
