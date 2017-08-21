@@ -154,9 +154,9 @@ GameObject:
   m_Component:
   - component: {fileID: 427384}
   - component: {fileID: 9537360}
-  - component: {fileID: 11450350}
-  - component: {fileID: 11402376}
   - component: {fileID: 114407928982670436}
+  - component: {fileID: 114236513247343188}
+  - component: {fileID: 114901121233008082}
   m_Layer: 0
   m_Name: Bunny
   m_TagString: Untagged
@@ -672,29 +672,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11402376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 130348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95be8711e672074aa1a40edceb65be7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11450350
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 130348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149fd16b20479f34daa8f9a693e78ce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 10
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -706,6 +683,17 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 130348}
   m_IsPrefabParent: 1
+--- !u!114 &114236513247343188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b02fba9a0c3b0142bc2717380040c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114407928982670436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -717,4 +705,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a07ae4701c7b0a4c919c2176737215e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlotCount: 5
+--- !u!114 &114901121233008082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bcf9efe50ab3a941bc013a9682275bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 10
