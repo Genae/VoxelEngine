@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
@@ -74,7 +75,15 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (int z = minz; z < maxz; z++)
                     {
-                        if (Map.Instance.IsInBounds(x, y, z) && Vector3.Cross(ray.direction, new Vector3(x, y, z) - ray.origin).magnitude <= veinRadius)
+                        if (!Map.Instance.IsInBounds(x, y, z))
+                            continue;
+                        if (Vector3.Cross(ray.direction, new Vector3(x, y, z) - ray.origin).magnitude <= veinRadius)
+                        {
+                            var intersect = ray.origin + ray.direction * Vector3.Dot(ray.direction, new Vector3(x, y, z) - ray.origin);
+                            if(!((start - end).magnitude < (start - intersect).magnitude || (end - start).magnitude < (end - intersect).magnitude))
+                                World.At(x, y, z).SetVoxel(material);
+                        }
+                        if ((new Vector3(x, y, z) - start).magnitude <= veinRadius || (new Vector3(x, y, z) - end).magnitude <= veinRadius)
                         {
                             World.At(x, y, z).SetVoxel(material);
                         }
