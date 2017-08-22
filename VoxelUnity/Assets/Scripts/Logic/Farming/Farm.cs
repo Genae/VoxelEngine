@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Data.Map;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Data.Multiblock;
 using Assets.Scripts.Logic.Jobs;
@@ -14,7 +14,6 @@ namespace Assets.Scripts.Logic.Farming
     {
         public List<FarmBlock> FarmBlocks = new List<FarmBlock>();
         private static VoxelMaterial _soil;
-        private static VoxelMaterial _air;
         public CropType CropType;
 
         void Start()
@@ -22,20 +21,18 @@ namespace Assets.Scripts.Logic.Farming
             if (_soil == null)
             {
                 _soil = MaterialRegistry.Instance.GetMaterialFromName("Soil");
-                _air = MaterialRegistry.Instance.GetMaterialFromName("Air");
             }
         }
         void Update()
         {
             foreach (var farmBlock in FarmBlocks.ToArray())
             {
-                if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air) || !Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position + Vector3.up).Equals(_air))
+                if (!World.At(farmBlock.Position + Vector3.up).IsAir())
                 {
-                    Map.Instance.MapData.SetVoxel((int)farmBlock.Position.x, (int)farmBlock.Position.y,
-                        (int)farmBlock.Position.z, true, MaterialRegistry.Instance.GetMaterialFromName("Dirt"));
+                    World.At(farmBlock.Position).SetVoxel("Dirt");
                     continue;
                 }
-                if (!Map.Instance.MapData.GetVoxelMaterial(farmBlock.Position).Equals(_soil))
+                if (!World.At(farmBlock.Position).GetMaterial().Equals(_soil))
                 {
                     if (!JobController.Instance.HasJob(farmBlock.Position, JobType.CreateSoil))
                     {

@@ -45,10 +45,9 @@ namespace Assets.Scripts.Data.Map
                 yield return hmg.CreateHeightMap(129, 129, 42);
                 loader.SetStatus("Building Map", 0.1f);
                 MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
-                yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
                 AStarNetwork = new VoxelGraph();
+                yield return MapData.LoadHeightmap(hmg.Values, hmg.BottomValues, hmg.CutPattern, 100);
                 yield return null;
-                yield return InitializeMap(loader);
                 //RemoveTerrainNotOfType(new[] { MaterialRegistry.Instance.GetMaterialFromName("Iron"), MaterialRegistry.Instance.GetMaterialFromName("Gold"), MaterialRegistry.Instance.GetMaterialFromName("Copper"), MaterialRegistry.Instance.GetMaterialFromName("Coal") });
                 //TestAStar();
             } else
@@ -58,40 +57,13 @@ namespace Assets.Scripts.Data.Map
             IsDoneGenerating = true;
         }
 
-        public void CreateChunk(int x, int y, int z)
+        public ChunkData CreateChunk(int x, int y, int z)
         {
-            MapData.Chunks[x, y, z] = new ChunkData(new Vector3(x, z, z) * Chunk.ChunkSize);
-            MapData.SetIntoNeighbourContext(x, y, z);
-            MapData.SetIntoNeighbourContext(x+1, y, z);
-            MapData.SetIntoNeighbourContext(x-1, y, z);
-            MapData.SetIntoNeighbourContext(x, y+1, z);
-            MapData.SetIntoNeighbourContext(x, y-1, z);
-            MapData.SetIntoNeighbourContext(x, y+1, z);
-            MapData.SetIntoNeighbourContext(x, y-1, z);
+            MapData.Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z) * Chunk.ChunkSize);
             Chunk.CreateChunk(x, y, z, this);
+            return MapData.Chunks[x, y, z];
         }
         
-        private IEnumerator InitializeMap(GameLoader loader)
-        {
-            var all = MapData.Chunks.GetLength(0) * MapData.Chunks.GetLength(1) * MapData.Chunks.GetLength(2);
-            var current = 0f;
-            for (var x = 0; x < MapData.Chunks.GetLength(0); x++)
-            {
-                for (var z = 0; z < MapData.Chunks.GetLength(2); z++)
-                {
-                    for (var y = MapData.Chunks.GetLength(1)-1; y >= 0 ; y--)
-                    {
-                        current++;
-                        loader.SetStatus("Building Chunks", 0.1f + (current/all)*0.7f);
-                        if (MapData.Chunks[x, y, z] == null)
-                            continue;
-                        Chunk.CreateChunk(x, y, z, this);
-                        yield return null;
-                    }
-                }
-            }
-        }
-
         #region Tests
         private void RemoveTerrainNotOfType(VoxelMaterial[] types)
         {

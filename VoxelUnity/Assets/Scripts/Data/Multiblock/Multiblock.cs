@@ -18,7 +18,7 @@ namespace Assets.Scripts.Data.Multiblock
             {
                 foreach (var v in voxels[type])
                 {
-                    data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), true, type);
+                    data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), type);
                 }
             }
             var container = CreateContainer<Multiblock>(position+zeroVec, data, MaterialRegistry.Instance.Materials, name);

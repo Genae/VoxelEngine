@@ -1,4 +1,5 @@
 using System.Collections;
+using Assets.Scripts.AccessLayer;
 using UnityEngine;
 using Assets.Scripts.Data.Material;
 
@@ -20,17 +21,9 @@ namespace Assets.Scripts.Data.Map
 
         public IEnumerator LoadHeightmap(float[,] heightmap, float[,] bottom, float[,] cut, float heightmapHeight)
         {
-            for (var x = 0; x < Chunks.GetLength(0); x++)
-            {
-                for (var y = 0; y < Chunks.GetLength(1); y++)
-                {
-                    for (var z = 0; z < Chunks.GetLength(2); z++)
-                    {
-                        Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z) * Chunk.ChunkSize);
-                    }
-                }
-                yield return null;
-            }
+            var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
+            var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
+            var stone = MaterialRegistry.Instance.GetMaterialFromName("Stone");
             for (var x = 0; x < Chunks.GetLength(0) * Chunk.ChunkSize; x++)
             {
                 for (var z = 0; z < Chunks.GetLength(2) * Chunk.ChunkSize; z++)
@@ -42,13 +35,8 @@ namespace Assets.Scripts.Data.Map
                         var isActive = y < (int) lheight && y > bot && cut[(int)(x /Scale), (int)(z /Scale)] > 0.5f;
                         if (!isActive)
                             continue;
-                        var blockType = y == (int) lheight - 1 ? MaterialRegistry.Instance.GetMaterialFromName("Grass") : (y >= (int) lheight - 4 ? MaterialRegistry.Instance.GetMaterialFromName("Dirt") : MaterialRegistry.Instance.GetMaterialFromName("Stone"));
-                        var cx = x / Chunk.ChunkSize;
-                        var cy = y / Chunk.ChunkSize;
-                        var cz = z / Chunk.ChunkSize;
-                        if (Chunks[cx, cy, cz] == null)
-                            Chunks[cx, cy, cz] = new ChunkData(new Vector3(cx, cy, cz));
-                        SetVoxel(x, y, z, true, blockType);
+                        var blockType = y == (int) lheight - 1 ? grass : (y >= (int) lheight - 4 ? dirt : stone);
+                        World.At(x, y, z).SetVoxel(blockType);
                     }
                 }
                 yield return null;
@@ -59,61 +47,12 @@ namespace Assets.Scripts.Data.Map
                 {
                     for (var z = 0; z < Chunks.GetLength(2); z++)
                     {
-                        SetIntoNeighbourContext(x, y, z);
+                        if(Chunks[x, y, z] != null)
+                            Chunks[x, y, z].ContainerUpdated();
                     }
                 }
                 yield return null;
             }
         }
-        
-        public void SetVoxel(int x, int y, int z, bool active, VoxelMaterial material, Multiblock.Multiblock mb = null)
-        {
-            var cx = x / Chunk.ChunkSize;
-            var cy = y / Chunk.ChunkSize;
-            var cz = z / Chunk.ChunkSize;
-            if (Chunks[cx, cy, cz] == null)
-                Map.Instance.CreateChunk(cx, cy, cz);
-            Chunks[cx, cy, cz].SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, material);
-        }
-        public VoxelMaterial GetVoxelMaterial(int x, int y, int z)
-        {
-            var cx = x / Chunk.ChunkSize;
-            var cy = y / Chunk.ChunkSize;
-            var cz = z / Chunk.ChunkSize;
-            if (Chunks[cx, cy, cz] == null)
-                Map.Instance.CreateChunk(cx, cy, cz);
-            return Chunks[cx, cy, cz].GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
-        }
-
-        public VoxelMaterial GetVoxelMaterial(Vector3 pos)
-        {
-            return GetVoxelMaterial((int) pos.x, (int) pos.y, (int) pos.z);
-        }
-
-        public void SetIntoNeighbourContext(int x, int y, int z)
-        {
-            if (!Map.Instance.IsInBounds(x*Chunk.ChunkSize, y*Chunk.ChunkSize, z*Chunk.ChunkSize) || Chunks[x, y, z] == null)
-                return;
-            var borders = new bool[6][,];
-            var solid = new[]
-            {
-                x == 0 || Chunks[x - 1, y, z] != null && !Chunks[x - 1, y, z].HasSolidBorder(0, out borders[0]),
-                x == Chunks.GetLength(0) - 1 || Chunks[x + 1, y, z] != null && !Chunks[x + 1, y, z].HasSolidBorder(1, out borders[1]),
-                y == 0 || Chunks[x, y - 1, z] != null && !Chunks[x, y - 1, z].HasSolidBorder(2, out borders[2]),
-                y == Chunks.GetLength(1) - 1 || Chunks[x, y + 1, z] != null && !Chunks[x, y + 1, z].HasSolidBorder(3, out borders[3]),
-                z == 0 || Chunks[x, y, z - 1] != null && !Chunks[x, y, z - 1].HasSolidBorder(4, out borders[4]),
-                z == Chunks.GetLength(2) - 1 || Chunks[x, y, z + 1] != null && !Chunks[x, y, z + 1].HasSolidBorder(5, out borders[5])
-            };
-            var neighbourData = new ChunkData[6];
-            if (x != 0) neighbourData[0] = Chunks[x - 1, y, z];
-            if (x < Chunks.GetLength(0) - 1) neighbourData[1] = Chunks[x + 1, y, z];
-            if (y != 0) neighbourData[2] = Chunks[x, y - 1, z];
-            if (y < Chunks.GetLength(1) - 1) neighbourData[3] = Chunks[x, y + 1, z];
-            if (z != 0) neighbourData[4] = Chunks[x, y, z - 1];
-            if (z < Chunks.GetLength(2) - 1) neighbourData[5] = Chunks[x, y, z + 1];
-
-            Chunks[x, y, z].UpdateBorder(borders, solid, neighbourData, false);
-        }
-
     }
 }

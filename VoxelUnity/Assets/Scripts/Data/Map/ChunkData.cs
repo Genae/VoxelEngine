@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic;
 using UnityEngine;
@@ -10,8 +11,8 @@ namespace Assets.Scripts.Data.Map
 {
     public class ChunkData : ContainerData
     {
-        public bool[][,] NeighbourBorders;
-        public bool[] NeighbourSolidBorders;
+        public bool[][,] NeighbourBorders = new bool[6][,];
+        public bool[] NeighbourSolidBorders = new bool[6];
         public ChunkData[] NeighbourData;
         public LocalAStarNetwork LocalAStar = new LocalAStarNetwork();
         private readonly List<Multiblock.Multiblock> _multiblocks = new List<Multiblock.Multiblock>();
@@ -20,6 +21,78 @@ namespace Assets.Scripts.Data.Map
 
         public ChunkData(Vector3 position) : base(Chunk.ChunkSize, position)
         {
+            var chunkPos = Position/Chunk.ChunkSize;
+            NeighbourData = new[]
+            {
+                World.At((chunkPos + new Vector3(1, 0, 0))*Chunk.ChunkSize).GetChunkData(),
+                World.At((chunkPos + new Vector3(-1, 0, 0))*Chunk.ChunkSize).GetChunkData(),
+                World.At((chunkPos + new Vector3(0, 1, 0))*Chunk.ChunkSize).GetChunkData(),
+                World.At((chunkPos + new Vector3(0, -1, 0))*Chunk.ChunkSize).GetChunkData(),
+                World.At((chunkPos + new Vector3(0, 0, 1))*Chunk.ChunkSize).GetChunkData(),
+                World.At((chunkPos + new Vector3(0, 0, 1))*Chunk.ChunkSize).GetChunkData()
+            };
+            for (var i = 0; i < NeighbourData.Length; i++)
+            {
+                if (NeighbourData[i] == null)
+                {
+                    NeighbourBorders[i] = new bool[Chunk.ChunkSize,Chunk.ChunkSize];
+                }
+                else
+                {
+                    NeighbourData[i].ConnectNeigbour(this);
+                    bool[,] border;
+                    var solid = NeighbourData[i].HasSolidBorder(i % 2 == 0 ? i + 1 : i - 1, out border);
+                    UpdateBorder(border, solid, i);
+                }
+            }
+            OnContainerUpdated();
+        }
+
+        private void ConnectNeigbour(ChunkData chunkData)
+        {
+            var diff = Position - chunkData.Position;
+            if (diff.x < 0)
+            {
+                NeighbourData[0] = chunkData;
+                bool[,] border;
+                var solid = chunkData.HasSolidBorder(1, out border);
+                UpdateBorder(border, solid, 0);
+            }
+            if (diff.x > 0)
+            {
+                NeighbourData[1] = chunkData;
+                bool[,] border;
+                var solid = chunkData.HasSolidBorder(0, out border);
+                UpdateBorder(border, solid, 1);
+            }
+            if (diff.y < 0)
+            {
+                NeighbourData[2] = chunkData;
+                bool[,] border;
+                var solid = chunkData.HasSolidBorder(3, out border);
+                UpdateBorder(border, solid, 2);
+            }
+            if (diff.y > 0)
+            {
+                NeighbourData[3] = chunkData;
+                bool[,] border;
+                var solid = chunkData.HasSolidBorder(2, out border);
+                UpdateBorder(border, solid, 3);
+            }
+            if (diff.z < 0)
+            {
+                NeighbourData[4] = chunkData;
+                bool[,] border;
+                var solid = chunkData.HasSolidBorder(5, out border);
+                UpdateBorder(border, solid, 4);
+            }
+            if (diff.z > 0)
+            {
+                NeighbourData[5] = chunkData;
+                bool[,] border;
+                var solid = chunkData.HasSolidBorder(4, out border);
+                UpdateBorder(border, solid, 5);
+            }
         }
 
         public override void SetVoxelType(int x, int y, int z, VoxelMaterial material)
@@ -47,12 +120,13 @@ namespace Assets.Scripts.Data.Map
             OnContainerUpdated();
         }
 
-        public void UpdateBorder(bool[,] border, bool solid, int side, bool runUpdate = true)
+        public void UpdateBorder(bool[,] border, bool solid, int side)
         {
+            Debug.Log(border[0, 0] + "/" +  solid);
             NeighbourBorders[side] = border;
             NeighbourSolidBorders[side] = solid;
-            if (runUpdate)
-                OnContainerUpdated();
+            OnContainerUpdated();
+
         }
         
         public override void CheckDirtyVoxels()
@@ -87,21 +161,6 @@ namespace Assets.Scripts.Data.Map
             NeighbourData[side].UpdateBorder(border, solid, side%2==0?side+1:side-1);
         }
 
-
-        public void UpdateBorder(bool[][,] border, bool[] solid, ChunkData[] neighbourData, bool runUpdate = true)
-        {
-            NeighbourData = neighbourData;
-            NeighbourBorders = border;
-            NeighbourSolidBorders = solid;
-            for (var i = 0; i < 6; i++)
-            {
-                if (NeighbourBorders[i] == null)
-                    NeighbourBorders[i] = new bool[Chunk.ChunkSize, Chunk.ChunkSize];
-            }
-            if (runUpdate)
-                OnContainerUpdated();
-        }
-
         public override bool IsWorldPosBlocked(int x, int y, int z)
         {
             var posX = (int)Position.x + x % Chunk.ChunkSize;
@@ -123,7 +182,7 @@ namespace Assets.Scripts.Data.Map
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
                             border[y, z] = GetVoxelActive(Chunk.ChunkSize - 1, y, z);
-                            solid = solid && GetVoxelActive(Chunk.ChunkSize - 1, y, z);
+                            solid = border[y, z] && solid;
                         }
                     }
                     return solid;
@@ -133,7 +192,7 @@ namespace Assets.Scripts.Data.Map
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
                             border[y, z] = GetVoxelActive(0, y, z);
-                            solid = solid && GetVoxelActive(0, y, z);
+                            solid = border[y, z] && solid;
                         }
                     }
                     return solid;
@@ -143,7 +202,7 @@ namespace Assets.Scripts.Data.Map
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
                             border[x, z] = GetVoxelActive(x, Chunk.ChunkSize - 1, z);
-                            solid = solid && GetVoxelActive(x, Chunk.ChunkSize - 1, z);
+                            solid = border[x, z] && solid;
                         }
                     }
                     return solid;
@@ -153,17 +212,17 @@ namespace Assets.Scripts.Data.Map
                         for (var z = 0; z < Chunk.ChunkSize; z++)
                         {
                             border[x, z] = GetVoxelActive(x, 0, z);
-                            solid = solid && GetVoxelActive(x, 0, z);
+                            solid = border[x, z] && solid;
                         }
                     }
-                    return true;
+                    return solid;
                 case 4: //+z
                     for (var x = 0; x < Chunk.ChunkSize; x++)
                     {
                         for (var y = 0; y < Chunk.ChunkSize; y++)
                         {
                             border[x, y] = GetVoxelActive(x, y, Chunk.ChunkSize - 1);
-                            solid = solid && GetVoxelActive(x, y, Chunk.ChunkSize - 1);
+                            solid = border[x, y] && solid;
                         }
                     }
                     return solid;
@@ -173,12 +232,13 @@ namespace Assets.Scripts.Data.Map
                         for (var y = 0; y < Chunk.ChunkSize; y++)
                         {
                             border[x, y] = GetVoxelActive(x, y, 0);
-                            solid = solid && GetVoxelActive(x, y, 0);
+                            solid = border[x, y] && solid;
                         }
                     }
                     return solid;
+                default:
+                    return false;
             }
-            return false;
         }
 
         public void AttachMultiblock(Multiblock.Multiblock m)
@@ -263,7 +323,7 @@ namespace Assets.Scripts.Data.Map
             {
                 if (Voxels[x, y, z] == null)
                 {
-                    Voxels[x, y, z] = new VoxelData(true, type);
+                    Voxels[x, y, z] = new VoxelData(type);
                 }
                 else
                 {
@@ -301,9 +361,9 @@ namespace Assets.Scripts.Data.Map
             return Voxels[x, y, z] != null && Voxels[x, y, z].IsActive;
         }
         
-        public VoxelData SetVoxel(int x, int y, int z, bool active, VoxelMaterial material)
+        public VoxelData SetVoxel(int x, int y, int z, VoxelMaterial material)
         {
-            return Voxels[x, y, z] = new VoxelData(active, MaterialRegistry.Instance.GetMaterialId(material));
+            return Voxels[x, y, z] = new VoxelData(MaterialRegistry.Instance.GetMaterialId(material));
         }
     }
 }

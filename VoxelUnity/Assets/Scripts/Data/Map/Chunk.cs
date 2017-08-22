@@ -16,9 +16,9 @@ namespace Assets.Scripts.Data.Map
             var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
             chunkC.CanBeHighlighted = false;
-            chunkC.InitializeContainer(new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize), map.MapData.Chunks[x, y, z], MaterialRegistry.Instance.Materials);
             chunkC.tag = "Chunk";
             chunk.transform.parent = map.transform;
+            chunkC.InitializeContainer(new Vector3(x * ChunkSize, y * ChunkSize, z * ChunkSize), map.MapData.Chunks[x, y, z], MaterialRegistry.Instance.Materials);
             return chunkC;
         }
         
@@ -163,7 +163,7 @@ namespace Assets.Scripts.Data.Map
             mCollider.sharedMesh = null;
             mCollider.sharedMesh = Mesh;
             SetHighlightMaterial(_highlightColor);
-            gameObject.SetActive(vertices.Length != 0);
+            //gameObject.SetActive(vertices.Length != 0);
             //gameObject.GetComponent<MeshCollider>().enabled = vertices.Length != 0;
             //gameObject.GetComponent<MeshRenderer>().enabled = vertices.Length != 0;
             return upVoxels;

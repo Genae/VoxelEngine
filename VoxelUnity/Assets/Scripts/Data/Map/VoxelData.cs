@@ -3,22 +3,24 @@ namespace Assets.Scripts.Data.Map
     public class VoxelData
     {
         private int _blockType;
-        internal bool IsActive { get; set; }
-        
+
+        internal bool IsActive
+        {
+            get { return _blockType != 0; }
+        }
+
         internal int BlockType
         {
             get { return _blockType; }
             set
             {
                 _blockType = value;
-                IsActive = value != 0;
             }
         }
 
-        internal VoxelData(bool active, int blockType)
+        internal VoxelData(int blockType)
         {
-            IsActive = active;
-            _blockType = blockType;
+            BlockType = blockType;
         }
     }
 }

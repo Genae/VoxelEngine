@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AccessLayer\World.cs" />
     <Compile Include="Assets\Scripts\AI\GOAP\FSM.cs" />
     <Compile Include="Assets\Scripts\AI\GOAP\IFSMState.cs" />
     <Compile Include="Assets\Scripts\AI\GOAP\GOAPAction.cs" />

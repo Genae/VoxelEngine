@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Data;
+﻿using Assets.Scripts.AccessLayer;
+using Assets.Scripts.Data;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.MultiblockHandling;
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Logic.Tools
                 item.GetComponent<Renderer>().material.color = new Color(c.r, c.g, c.b, 1);
                 ItemManager.ActivateObject(item, ItemToPlace);
             }
-            if (chunkHit != null && Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up).Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+            if (chunkHit != null && World.At(pos + Vector3.up).IsAir())
             {
                 DrawPreview(pos);
             }

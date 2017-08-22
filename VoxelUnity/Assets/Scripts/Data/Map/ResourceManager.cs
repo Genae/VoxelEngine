@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Data.Material;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ namespace Assets.Scripts.Data.Map
                     {
                         if (Map.Instance.IsInBounds(x, y, z) && Vector3.Cross(ray.direction, new Vector3(x, y, z) - ray.origin).magnitude <= veinRadius)
                         {
-                            Map.Instance.MapData.SetVoxel(x, y, z, true, material);
+                            World.At(x, y, z).SetVoxel(material);
                         }
                     }
                 }

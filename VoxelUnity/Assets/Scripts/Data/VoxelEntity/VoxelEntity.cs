@@ -18,7 +18,7 @@ namespace Assets.Scripts.Data.VoxelEntity
             {
                 foreach (var v in voxels[type])
                 {
-                    data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), true, materialRegistry.GetColorIndex(type));
+                    data.SetVoxel((int)(v.x - zeroVec.x), (int)(v.y - zeroVec.y), (int)(v.z - zeroVec.z), materialRegistry.GetColorIndex(type));
                 }
             }
             var container = CreateContainer<VoxelEntity>(position + zeroVec, data, materialRegistry.Materials, "Tree");

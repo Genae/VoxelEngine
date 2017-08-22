@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Assets.Scripts.Data.Map;
-using Assets.Scripts.Data.Material;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
@@ -26,8 +25,7 @@ namespace Assets.Scripts.Logic.Tools
             if (JobController.Instance.HasJob(pos, JobType.Mining))
                 return;
             
-            var type = Map.Instance.MapData.GetVoxelMaterial(pos);
-            if (type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Air")))
+            if (World.At(pos).IsAir())
                 return;
             JobController.Instance.AddJob(new MiningJob(pos));
         }

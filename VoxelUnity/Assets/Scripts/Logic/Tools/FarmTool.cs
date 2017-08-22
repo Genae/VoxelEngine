@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic.Farming;
@@ -37,15 +38,12 @@ namespace Assets.Scripts.Logic.Tools
             if (JobController.Instance.HasJob(pos, JobType.CreateSoil))
                 return false;
             
-            var type = Map.Instance.MapData.GetVoxelMaterial(pos);
-            var air = MaterialRegistry.Instance.GetMaterialFromName("Air");
-            if(type.Equals(air) || !(type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Dirt")) || type.Equals(MaterialRegistry.Instance.GetMaterialFromName("Grass"))))
+            var wpos = World.At(pos);
+            if(!(wpos.GetMaterial().Equals(MaterialRegistry.Instance.GetMaterialFromName("Dirt")) || wpos.GetMaterial().Equals(MaterialRegistry.Instance.GetMaterialFromName("Grass"))))
                 return false;
-            type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up);
-            if (!type.Equals(air))
+            if (!World.At(pos + Vector3.up).IsAir())
                 return false;
-            type = Map.Instance.MapData.GetVoxelMaterial(pos + Vector3.up + Vector3.up);
-            if (!type.Equals(air))
+            if (!World.At(pos + Vector3.up + Vector3.up).IsAir())
                 return false;
             JobController.Instance.AddJob(new CreateSoilJob(pos));
             return true;
