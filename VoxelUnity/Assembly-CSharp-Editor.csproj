@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\MultiblockHandling\Editor\NoPlayObjectLoader.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\Editor\Configuration.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\Editor\MenuItems.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\Editor\ViewInspector.cs" />
@@ -69,15 +70,19 @@
      <None Include="Assets\UnityPackages\MarkLight\Views\EventSystem.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\LayoutExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Slider.xml" />
+     <None Include="Assets\Resources\Units\Classes\2Dwarfs.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Button.xml" />
      <None Include="Assets\Resources\Imported\Plants\Ambient\flower2.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\InputFieldExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\TabPanelExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\GameMenuExample.xml" />
+     <None Include="Assets\Materials\Shader\transparent.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ComboBoxExample.xml" />
+     <None Include="Assets\Resources\Imported\Objects\chest.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\UIView.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\RadialMenuExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\TextMeshProInputField.xml" />
+     <None Include="Assets\Resources\World\Crops\Wheat.txt" />
      <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\RowHeader.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\RadioButton.xml" />
@@ -86,6 +91,8 @@
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\DataBinding\DynamicDataGridExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ComboBoxItem.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\DataGridExample.xml" />
+     <None Include="Assets\Resources\Configs\Tools\Tools.txt" />
+     <None Include="Assets\Resources\World\Trees\oak.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\3.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\5.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\4.txt" />
@@ -98,6 +105,8 @@
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Mask.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\StateAnimation.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\Animate.xml" />
+     <None Include="Assets\Resources\Imported\Items\Dirt.txt" />
+     <None Include="Assets\Resources\Units\Classes\1Elves.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\VirtualizedItemsContainer.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ScrollRect.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Column.xml" />
@@ -108,6 +117,7 @@
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ListItem.xml" />
      <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />
      <None Include="Assets\Resources\Imported\Plants\Ambient\flower.txt" />
+     <None Include="Assets\Resources\Units\BaseValues\Basevalues.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\Themes\Neat.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\InputField.xml" />
      <None Include="Assets\Materials\Shader\test.shader" />
@@ -121,15 +131,21 @@
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\DataBinding\DynamicListExample.xml" />
      <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Region.xml" />
+     <None Include="Assets\Resources\Units\Classes\0Humans.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\2.txt" />
+     <None Include="Assets\Resources\World\Biomes\Default.txt" />
      <None Include="Assets\UI\Views\LoadingScreen.xml" />
      <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\ViewAnimation.xml" />
+     <None Include="Assets\Resources\Items\Blocks.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\InteractableRegion.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ComboBox.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Panel.xml" />
+     <None Include="Assets\Resources\World\Trees\birch.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\ViewSwitcherExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\UICanvas.xml" />
+     <None Include="Assets\Materials\Shader\windy.shader" />
+     <None Include="Assets\Resources\Items\Objects.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Tab.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ListExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\Themes\Flat.xml" />
@@ -140,6 +156,7 @@
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ButtonsExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\SliderExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Image.xml" />
+     <None Include="Assets\Resources\World\Materials\Materials.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\UserInterface.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ColumnHeader.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\List.xml" />
