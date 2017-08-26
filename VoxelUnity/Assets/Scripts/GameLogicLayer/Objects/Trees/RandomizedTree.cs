@@ -29,7 +29,7 @@ namespace Assets.Scripts.GameLogicLayer.Objects.Trees
             var treeTopVoxels = GenerateTreeTop(topOfStain, data);
             voxels.Add(MaterialRegistry.Instance.GetMaterialFromName(config.LeafMaterial), treeTopVoxels);
 
-            Multiblock = Multiblock.InstantiateVoxels(position, voxels, "RandomizedTree");
+            Multiblock = Multiblock.InstantiateVoxels(position, voxels, "Tree");
             Multiblock.EnableWind(1);
         }
 

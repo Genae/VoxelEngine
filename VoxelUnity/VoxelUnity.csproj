@@ -83,6 +83,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AccessLayer\UnitManager.cs" />
+    <Compile Include="Assets\Scripts\AccessLayer\Worlds\AmbientManager.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\Farming\CropManager.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\Farming\Farm.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\ItemManager.cs" />
@@ -165,14 +167,13 @@
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceObjectTool.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\Class.cs" />
-    <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\EngineLayer\Objects\Inventory.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\JobController.cs" />
     <Compile Include="Assets\Scripts\ControlInputs\MouseController.cs" />
     <Compile Include="Assets\Scripts\EngineLayer\AI\WalkingController.cs" />
-    <Compile Include="Assets\Scripts\MultiblockHandling\ImportObject.cs" />
-    <Compile Include="Assets\Scripts\MultiblockHandling\MultiblockImporter.cs" />
-    <Compile Include="Assets\Scripts\MultiblockHandling\MultiblockLoader.cs" />
+    <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\ImportObject.cs" />
+    <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\MultiblockImporter.cs" />
+    <Compile Include="Assets\Scripts\AccessLayer\MultiblockLoader.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\TreeManager.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Objects\TreeOfLife\Stem.cs" />

@@ -2,11 +2,11 @@
 using System.Linq;
 using Assets.Scripts.AccessLayer;
 using Assets.Scripts.AccessLayer.Material;
+using Assets.Scripts.AccessLayer.Worlds;
 using Assets.Scripts.Algorithms;
 using Assets.Scripts.EngineLayer;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
-using Assets.Scripts.Logic;
 using Assets.Scripts.UI;
 using UnityEngine;
 
@@ -15,6 +15,7 @@ namespace Assets.Scripts.GameLogicLayer
     public class GameLoader : MonoBehaviour
     {
         public static bool GameLoaded = false;
+        public GameObject Bunny;
         private LoadingScreen _loadingScreen;
 
         void Awake()
@@ -61,16 +62,15 @@ namespace Assets.Scripts.GameLogicLayer
             //Characters
             SetStatus("Loading Characters", 0.96f);
             yield return null;
-            var gameController = FindObjectOfType<GameController>();
             for (int i = 0; i < 5; i++)
             {
-                gameController.SpawnCharacter();
+                UnitManager.SpawnUnitAtRandomPosition(Bunny);
             }
 
             //AmbientPlants
             SetStatus("Loading Ambient Plants", 0.97f);
             yield return null;
-            gameController.SpawnAmbientPlants(biomeConfig);
+            AmbientManager.SpawnAmbientPlants(biomeConfig);
 
             //AddT1Nodes
             SetStatus("Finish Pathfinder", 0.98f);

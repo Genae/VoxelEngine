@@ -3,10 +3,11 @@ using System.Linq;
 using Assets.Scripts.AccessLayer.Material;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
 using Assets.Scripts.EngineLayer.Voxels.Material;
+using Assets.Scripts.EngineLayer.Voxels.MultiblockHandling;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Assets.Scripts.MultiblockHandling
+namespace Assets.Scripts.AccessLayer
 {
     public class MultiblockLoader
     {

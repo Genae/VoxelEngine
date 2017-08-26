@@ -6,7 +6,6 @@ using Assets.Scripts.AccessLayer.Worlds;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
 using Assets.Scripts.EngineLayer.Voxels.Material;
 using Assets.Scripts.GameLogicLayer.Actions;
-using Assets.Scripts.MultiblockHandling;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

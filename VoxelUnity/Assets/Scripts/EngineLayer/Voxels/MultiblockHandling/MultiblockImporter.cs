@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Assets.Scripts.AccessLayer;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Assets.Scripts.MultiblockHandling
+namespace Assets.Scripts.EngineLayer.Voxels.MultiblockHandling
 {
     public class MultiblockImporter : MonoBehaviour
     {
