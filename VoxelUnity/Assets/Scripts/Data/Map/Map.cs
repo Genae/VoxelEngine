@@ -39,7 +39,6 @@ namespace Assets.Scripts.Data.Map
         // ReSharper disable once UnusedMember.Local
         public IEnumerator CreateMap(BiomeConfiguration biomeConfig, GameLoader loader)
         {
-            VoxelContainer.EnableDraw = true;
             if (GenerateMap)
             {
                 loader.SetStatus("Calculating Heightmap", 0.03f);
@@ -57,6 +56,7 @@ namespace Assets.Scripts.Data.Map
                 MapData = new MapData(129 / Chunk.ChunkSize, 300 / Chunk.ChunkSize, 2f);
             }
             IsDoneGenerating = true;
+            VoxelContainer.EnableDraw = true;
         }
 
         public ChunkData CreateChunk(int x, int y, int z)
