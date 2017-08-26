@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.AccessLayer;
+using Assets.Scripts.AccessLayer.Material;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.Data;
-using Assets.Scripts.Data.Material;
+using Assets.Scripts.EngineLayer.Objects;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
-using Assets.Scripts.Logic;
+using Assets.Scripts.EngineLayer.Voxels.Material;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

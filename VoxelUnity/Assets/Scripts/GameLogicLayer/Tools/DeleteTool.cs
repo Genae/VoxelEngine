@@ -1,9 +1,8 @@
 using System.Collections.Generic;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.AccessLayer.Tools;
 using Assets.Scripts.AccessLayer.Worlds;
 using Assets.Scripts.GameLogicLayer.Actions;
-using Assets.Scripts.Logic;
-using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayer.Tools

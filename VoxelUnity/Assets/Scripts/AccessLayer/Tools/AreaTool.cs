@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.ControlInputs;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
-using Assets.Scripts.Logic;
 using UnityEngine;
 
 namespace Assets.Scripts.AccessLayer.Tools

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.Logic;
-using Assets.Scripts.Logic.Jobs;
-using Assets.Scripts.Util;
+using Assets.Scripts.EngineLayer.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.AccessLayer.Jobs

@@ -1,6 +1,6 @@
 using System.Collections;
+using Assets.Scripts.AccessLayer.Material;
 using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.Data.Material;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
 
 namespace Assets.Scripts.EngineLayer.Voxels.Data

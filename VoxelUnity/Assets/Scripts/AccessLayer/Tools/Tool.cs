@@ -126,7 +126,7 @@ namespace Assets.Scripts.AccessLayer.Tools
             return inbetween;
         }
 
-        protected GameObject DrawPreview(Vector3 startPos, Vector3 curPos, Material mat, Color c, GameObject previewBox = null)
+        protected GameObject DrawPreview(Vector3 startPos, Vector3 curPos, UnityEngine.Material mat, Color c, GameObject previewBox = null)
         {
             if (previewBox == null)
             {

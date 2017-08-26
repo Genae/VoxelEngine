@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.AccessLayer.Material;
 using Assets.Scripts.Algorithms;
-using Assets.Scripts.Data.Material;
+using Assets.Scripts.EngineLayer.Util;
 using Assets.Scripts.EngineLayer.Voxels.Data;
-using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.EngineLayer.Voxels.Containers
@@ -76,7 +76,7 @@ namespace Assets.Scripts.EngineLayer.Voxels.Containers
         public void OnMouseOver()
         {
             HighlightColor = Color.white;
-            if (this is Multiblock.Multiblock && transform.name.Equals("Tree"))
+            if (this is Multiblock.Multiblock && transform.name.Equals("RandomizedTree"))
             {
                 Exploder.Explode(this as Multiblock.Multiblock);
             }

@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.AccessLayer.Jobs;
+﻿using Assets.Scripts.AccessLayer.Farming;
+using Assets.Scripts.AccessLayer.Jobs;
 using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.Logic.Farming;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayer.Actions

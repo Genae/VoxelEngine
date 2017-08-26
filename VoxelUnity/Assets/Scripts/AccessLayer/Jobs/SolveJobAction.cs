@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.EngineLayer.AI.GOAP;
-using Assets.Scripts.Logic;
 using UnityEngine;
 
 namespace Assets.Scripts.AccessLayer.Jobs

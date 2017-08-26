@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Assets.Scripts.Data.Material;
+using Assets.Scripts.AccessLayer.Material;
 using Assets.Scripts.EngineLayer.Voxels.Data;
 using UnityEngine;
 
