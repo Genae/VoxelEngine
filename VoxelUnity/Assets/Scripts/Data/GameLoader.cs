@@ -2,8 +2,9 @@
 using System.Linq;
 using Assets.Scripts.Algorithms;
 using Assets.Scripts.Data.Importer;
-using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
+using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
 using Assets.Scripts.Logic;
 using Assets.Scripts.UI;
 using Newtonsoft.Json;
@@ -40,7 +41,7 @@ namespace Assets.Scripts.Data
             SetStatus("Loading Map", 0.02f);
             yield return null;
             var biomeConfig = ConfigImporter.GetAllConfigs<BiomeConfiguration>("World/Biomes").First();
-            yield return Map.Map.Instance.CreateMap(biomeConfig, this);
+            yield return Map.Instance.CreateMap(biomeConfig, this);
 
             //Trees
             SetStatus("Loading Tree of Life", 0.8f);
@@ -49,13 +50,13 @@ namespace Assets.Scripts.Data
             treeManager.BuildTreeOfLife();
             SetStatus("Loading Trees", 0.85f);
             yield return null;
-            yield return treeManager.GenerateTrees((int)(Map.Map.Instance.MapData.Chunks.GetLength(0) * Map.Map.Instance.MapData.Chunks.GetLength(0) * 0.3f), Map.Map.Instance.MapData, this);
+            yield return treeManager.GenerateTrees((int)(Map.Instance.MapData.Chunks.GetLength(0) * Map.Instance.MapData.Chunks.GetLength(0) * 0.3f), Map.Instance.MapData, this);
 
             //Ressources
             SetStatus("Loading Ressources", 0.95f);
             yield return null;
             var resourceManager = new ResourceManager();
-            resourceManager.SpawnAllResources(Map.Map.Instance.MapData, biomeConfig.OreConfiguration);
+            resourceManager.SpawnAllResources(Map.Instance.MapData, biomeConfig.OreConfiguration);
             yield return null;
 
             //Characters
@@ -75,7 +76,7 @@ namespace Assets.Scripts.Data
             //AddT1Nodes
             SetStatus("Finish Pathfinder", 0.98f);
             yield return null;
-            Map.Map.Instance.AStarNetwork.AddTier1Nodes(20);
+            Map.Instance.AStarNetwork.AddTier1Nodes(20);
 
             SetStatus("Done", 1f);
             //Start Time Again
@@ -96,8 +97,8 @@ namespace Assets.Scripts.Data
 
         private void SetCameraValues()
         {
-            var cameraController = Map.Map.Instance.CameraController;
-            var chunks = Map.Map.Instance.MapData.Chunks;
+            var cameraController = Map.Instance.CameraController;
+            var chunks = Map.Instance.MapData.Chunks;
             if (cameraController == null) return;
             var mapSize = chunks.GetLength(0) * Chunk.ChunkSize;
             var mapHeight = chunks.GetLength(1) * Chunk.ChunkSize;

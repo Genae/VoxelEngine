@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Logic;
-using MarkLight.Views.UI;
+﻿using MarkLight.Views.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.UI

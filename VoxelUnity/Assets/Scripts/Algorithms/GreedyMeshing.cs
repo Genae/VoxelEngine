@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
+using Assets.Scripts.EngineLayer.Voxels.Data;
 using UnityEngine;
 
 namespace Assets.Scripts.Algorithms

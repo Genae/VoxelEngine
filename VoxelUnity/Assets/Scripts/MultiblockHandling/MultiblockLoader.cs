@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.Material;
-using Assets.Scripts.Data.Multiblock;
+using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
 using Newtonsoft.Json;
 using UnityEngine;
 

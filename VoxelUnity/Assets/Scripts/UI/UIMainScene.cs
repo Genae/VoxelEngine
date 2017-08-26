@@ -1,5 +1,8 @@
 ﻿using MarkLight;
 
-public class UIMainScene : View
+namespace Assets.Scripts.UI
 {
+    public class UIMainScene : View
+    {
+    }
 }

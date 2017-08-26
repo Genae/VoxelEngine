@@ -3,7 +3,7 @@ using System.Linq;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.Data.Map;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic

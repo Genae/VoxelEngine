@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.Data.Map;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
+using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+using Assets.Scripts.EngineLayer.Voxels.Data;
 using UnityEngine;
 
 namespace Assets.Scripts.Algorithms.Pathfinding

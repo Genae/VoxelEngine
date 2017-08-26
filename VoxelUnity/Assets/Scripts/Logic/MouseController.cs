@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.AccessLayer.Tools;
 using Assets.Scripts.Data.Importer;
-using Assets.Scripts.Logic.Tools;
+using Assets.Scripts.GameLogicLayer.Tools;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
@@ -24,6 +25,11 @@ namespace Assets.Scripts.Logic
             }
         }
 
+        public void SelectTool<T>()
+        {
+            SelectTool(typeof(T).FullName);
+        }
+
         public void SelectTool(string tool)
         {
             SelectedTool = Tools[tool];
@@ -42,7 +48,7 @@ namespace Assets.Scripts.Logic
                     AddTools(toolConfig, parent.transform);
                 }
             }
-            SelectTool("Assets.Scripts.Logic.Tools.MouseoverTool");
+            SelectTool<MouseoverTool>();
         }
 
         private void AddTools(ToolConfig toolConfig, Transform parent)

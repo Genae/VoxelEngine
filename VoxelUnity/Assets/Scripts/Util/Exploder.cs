@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Assets.Scripts.Data.Map;
 using Assets.Scripts.Data.Material;
-using Assets.Scripts.Data.Multiblock;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
+using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
 
 namespace Assets.Scripts.Util
 {

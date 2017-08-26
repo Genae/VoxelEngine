@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AI.GOAP;
+using Assets.Scripts.AccessLayer.Jobs;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.Data.Map;
-using Assets.Scripts.Logic.Jobs;
+using Assets.Scripts.EngineLayer.AI.GOAP;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
@@ -23,6 +23,7 @@ namespace Assets.Scripts.Logic
         {
             _agent = GetComponent<GOAPAgent>();
         }
+        
         public Dictionary<string, object> GetWorldState()
         {
             var worldData = new Dictionary<string, object>
@@ -30,8 +31,8 @@ namespace Assets.Scripts.Logic
                 {"hasMined", false},
                 {"hasBuilt", false},
                 {"hasPlanted", false},
-                {"hasHoed", false},
-                { "hasHarvested", false}
+                {"hasCreatedSoil", false},
+                {"hasHarvested", false}
             };
             return worldData;
         }
@@ -41,9 +42,11 @@ namespace Assets.Scripts.Logic
             _agent.IsIdle = false;
         }
 
-        public JobType[] GetPossibleJobs()
+        public abstract List<GOAPAction> GetPossibleActions();
+
+        public string[] GetPossibleJobs()
         {
-            return (JobType[]) Enum.GetValues(typeof(JobType));
+            return GetPossibleActions().Where(a => a is SolveJobAction).Select(a => ((SolveJobAction) a).Type).ToArray();
         }
 
         public abstract Dictionary<string, object> CreateGoalState();
@@ -98,9 +101,8 @@ namespace Assets.Scripts.Logic
                 return false;
             }
 
-            if (PathToTarget.Targets.Any(t => (t.Position - transform.position).magnitude < 0.6f))
+            if (nextAction.IsInRange(_agent))
             {
-                nextAction.SetInRange(true);
                 return true;
             }
 
@@ -110,7 +112,6 @@ namespace Assets.Scripts.Logic
                 if (_currentNode == null)
                 {
                     PathToTarget = null;
-                    nextAction.SetInRange(true);
                     return true;
                 }
                 _pathIndex = 0;

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.AccessLayer.Jobs;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.Data.Map;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
+using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
 using Assets.Scripts.Logic.Jobs;
 using UnityEngine;
 
@@ -9,7 +11,7 @@ namespace Assets.Scripts.Logic
 {
     public class JobController : MonoBehaviour
     {
-        protected readonly Dictionary<JobType, PriorityQueue<PositionedJob>> OpenJobs = new Dictionary<JobType, PriorityQueue<PositionedJob>>();
+        protected readonly Dictionary<string, PriorityQueue<PositionedJob>> OpenJobs = new Dictionary<string, PriorityQueue<PositionedJob>>();
         protected readonly List<Class> FreeSolvers = new List<Class>();
         protected List<PositionedJob>[,,] Jobs;
         public static JobController Instance;
@@ -49,7 +51,7 @@ namespace Assets.Scripts.Logic
             }
         }
 
-        public PositionedJob AskForJob(JobType jobType)
+        public PositionedJob AskForJob(string jobType)
         {
             if (OpenJobs.ContainsKey(jobType) && !OpenJobs[jobType].IsEmpty())
             {
@@ -98,7 +100,7 @@ namespace Assets.Scripts.Logic
                 Jobs[(int) job.Position.x, (int) job.Position.y, (int) job.Position.z].Remove(job);
         }
 
-        public bool HasJob(Vector3 pos, JobType jobType)
+        public bool HasJob(Vector3 pos, string jobType)
         {
             if (Jobs == null || Jobs[(int) pos.x, (int) pos.y, (int) pos.z] == null)
                 return false;

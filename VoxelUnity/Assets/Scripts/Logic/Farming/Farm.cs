@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.AccessLayer;
+using Assets.Scripts.AccessLayer.Jobs;
+using Assets.Scripts.AccessLayer.Worlds;
 using Assets.Scripts.Data.Material;
-using Assets.Scripts.Data.Multiblock;
+using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
+using Assets.Scripts.GameLogicLayer.Actions;
 using Assets.Scripts.Logic.Jobs;
 using Assets.Scripts.MultiblockHandling;
 using UnityEngine;
@@ -34,7 +37,7 @@ namespace Assets.Scripts.Logic.Farming
                 }
                 if (!World.At(farmBlock.Position).GetMaterial().Equals(_soil))
                 {
-                    if (!JobController.Instance.HasJob(farmBlock.Position, JobType.CreateSoil))
+                    if (!JobController.Instance.HasJob(farmBlock.Position, "CreateSoil"))
                     {
                         farmBlock.Dispose();
                         FarmBlocks.Remove(farmBlock);
@@ -98,7 +101,7 @@ namespace Assets.Scripts.Logic.Farming
         {
             if (Stage == 0)
             {
-                if (!JobController.Instance.HasJob(Position + Vector3.up, JobType.PlantCrop))
+                if (!JobController.Instance.HasJob(Position + Vector3.up, "PlantCrop"))
                 {
                     _currentJob = new PlantCropJob(this);
                     JobController.Instance.AddJob(_currentJob);
@@ -112,7 +115,7 @@ namespace Assets.Scripts.Logic.Farming
                     Stage += 1;
                     if (Stage == Type.GrowStages.Count)
                     {
-                        if (!JobController.Instance.HasJob(Position + Vector3.up, JobType.HarvestCrop))
+                        if (!JobController.Instance.HasJob(Position + Vector3.up, "HarvestCrop"))
                         {
                             _currentJob = new HarvestCropJob(this);
                             JobController.Instance.AddJob(_currentJob);

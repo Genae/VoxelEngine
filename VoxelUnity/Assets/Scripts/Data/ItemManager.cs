@@ -23,7 +23,7 @@ namespace Assets.Scripts.Data
         }
         public static void ActivateObject(GameObject obj, ItemType item)
         {
-            var i = obj.AddComponent<Item>();
+            obj.AddComponent<Item>();
             if (item.Inventory != null)
             {
                 var inv = obj.AddComponent<Inventory>();
