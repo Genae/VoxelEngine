@@ -15,7 +15,7 @@ namespace Assets.Scripts.Algorithms
             bool[][,] neighbourBorders;
             if (chunk != null)
             {
-                neighbourBorders = chunk.NeighbourBorders;
+                neighbourBorders = chunk.GetNeighbourBorders();
             }
             else
             {
@@ -77,32 +77,29 @@ namespace Assets.Scripts.Algorithms
                     {
                         if (chunk.GetVoxelActive(x, y, z))
                         {
-                            if ((x == 0 && !borders[0][y, z]) || (x != 0 && !chunk.GetVoxelActive(x - 1, y, z))) //+x left
+                            if (x == 0 && !borders[0][y, z] || x != 0 && !chunk.GetVoxelActive(x - 1, y, z)) //+x left
                             {
                                 planes[0][x][y, z] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((x == containerSize - 1 && !borders[1][y, z]) ||
-                                (x != containerSize - 1 && !chunk.GetVoxelActive(x + 1, y, z))) //-x right
+                            if (x == containerSize - 1 && !borders[1][y, z] || x != containerSize - 1 && !chunk.GetVoxelActive(x + 1, y, z)) //-x right
                             {
                                 planes[1][x][y, z] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((y == 0 && !borders[2][x, z]) || (y != 0 && !chunk.GetVoxelActive(x, y - 1, z))) //+y bottom
+                            if (y == 0 && !borders[2][x, z] || y != 0 && !chunk.GetVoxelActive(x, y - 1, z)) //+y bottom
                             {
                                 planes[2][y][x, z] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((y == containerSize - 1 && !borders[3][x, z]) ||
-                                (y != containerSize - 1 && !chunk.GetVoxelActive(x, y + 1, z))) //-y top
+                            if (y == containerSize - 1 && !borders[3][x, z] || y != containerSize - 1 && !chunk.GetVoxelActive(x, y + 1, z)) //-y top
                             {
                                 if (y < containerSize - 1)
-                                    upVoxels.Add(new Vector3(x, y+1, z));
+                                    upVoxels.Add(new Vector3(x, y + 1, z));
                                 planes[3][y][x, z] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((z == 0 && !borders[4][x, y]) || (z != 0 && !chunk.GetVoxelActive(x, y, z - 1))) //+z back
+                            if (z == 0 && !borders[4][x, y] || z != 0 && !chunk.GetVoxelActive(x, y, z - 1)) //+z back
                             {
                                 planes[4][z][x, y] = chunk.GetVoxelType(x, y, z);
                             }
-                            if ((z == containerSize - 1 && !borders[5][x, y]) ||
-                                (z != containerSize - 1 && !chunk.GetVoxelActive(x, y, z + 1))) //-z front
+                            if (z == containerSize - 1 && !borders[5][x, y] || z != containerSize - 1 && !chunk.GetVoxelActive(x, y, z + 1)) //-z front
                             {
                                 planes[5][z][x, y] = chunk.GetVoxelType(x, y, z);
                             }
@@ -133,7 +130,7 @@ namespace Assets.Scripts.Algorithms
                 for (var i = 0; i < plane.GetLength(0); i++)
                 {
                     var vox = plane[i, j];
-                    if (vox != curType || visited[i, j]) //End Rect because of current voxel
+                    if (!Equals(vox, curType) || visited[i, j]) //End Rect because of current voxel
                     {
                         if (curRectangle != null)
                         {
@@ -193,7 +190,7 @@ namespace Assets.Scripts.Algorithms
                 //check next line
                 for (var i = curRectangle.X; i < curRectangle.X + curRectangle.Width; i++)
                 {
-                    if (plane[i, curRectangle.Y + curRectangle.Height] != curType)
+                    if (!Equals(plane[i, curRectangle.Y + curRectangle.Height], curType))
                         return; // found wrong type
                 }
                 curRectangle.Height++;

@@ -1,4 +1,4 @@
-using Assets.Scripts.Data.Map;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Data.Material;
 using Assets.Scripts.Logic.Tools;
 using UnityEngine;
@@ -19,8 +19,7 @@ namespace Assets.Scripts.Logic.Jobs
 
         protected override void SolveInternal(GameObject actor)
         {
-            Map.Instance.MapData.Chunks[(int)Position.x/16, (int)Position.y/16, (int)Position.z/16]
-                .SetVoxelType((int)Position.x%16, (int)Position.y%16, (int)Position.z%16, MaterialRegistry.Instance.GetMaterialFromName("Soil"));
+            World.At(Position).SetVoxel(MaterialRegistry.Instance.GetMaterialFromName("Soil"));
         }
     }
 }

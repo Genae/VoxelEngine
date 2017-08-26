@@ -1,6 +1,5 @@
 using System.Collections;
 using Assets.Scripts.AccessLayer;
-using UnityEngine;
 using Assets.Scripts.Data.Material;
 
 namespace Assets.Scripts.Data.Map
@@ -37,18 +36,6 @@ namespace Assets.Scripts.Data.Map
                             continue;
                         var blockType = y == (int) lheight - 1 ? grass : (y >= (int) lheight - 4 ? dirt : stone);
                         World.At(x, y, z).SetVoxel(blockType);
-                    }
-                }
-                yield return null;
-            }
-            for (var x = 0; x < Chunks.GetLength(0); x++)
-            {
-                for (var y = 0; y < Chunks.GetLength(1); y++)
-                {
-                    for (var z = 0; z < Chunks.GetLength(2); z++)
-                    {
-                        if(Chunks[x, y, z] != null)
-                            Chunks[x, y, z].ContainerUpdated();
                     }
                 }
                 yield return null;

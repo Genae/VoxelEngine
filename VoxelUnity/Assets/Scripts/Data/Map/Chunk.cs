@@ -29,10 +29,18 @@ namespace Assets.Scripts.Data.Map
             cd.LocalAStar.RefreshNetwork(cd, up);
             return up;
         }
+
+        public override void Update()
+        {
+            base.Update();
+            var chunkData = ContainerData as ChunkData;
+            if (chunkData != null) chunkData.CheckDirtyVoxels();
+        }
     }
 
     public class VoxelContainer : MonoBehaviour
     {
+        public static bool EnableDraw;
         public Mesh Mesh;
         private UnityEngine.Material[] _materials;
         protected bool MeshNeedsUpdate;
@@ -86,9 +94,9 @@ namespace Assets.Scripts.Data.Map
             return containerC;
         }
 
-        public void Update()
+        public virtual void Update()
         {
-            if (MeshNeedsUpdate)
+            if (EnableDraw && MeshNeedsUpdate)
             {
                 UpdateMesh();
                 MeshNeedsUpdate = false;
@@ -163,7 +171,7 @@ namespace Assets.Scripts.Data.Map
             mCollider.sharedMesh = null;
             mCollider.sharedMesh = Mesh;
             SetHighlightMaterial(_highlightColor);
-            //gameObject.SetActive(vertices.Length != 0);
+            gameObject.SetActive(vertices.Length != 0);
             //gameObject.GetComponent<MeshCollider>().enabled = vertices.Length != 0;
             //gameObject.GetComponent<MeshRenderer>().enabled = vertices.Length != 0;
             return upVoxels;

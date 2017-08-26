@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.Algorithms.Pathfinding.Graphs;
 using Assets.Scripts.Control;
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Data.Map
         // ReSharper disable once UnusedMember.Local
         public IEnumerator CreateMap(BiomeConfiguration biomeConfig, GameLoader loader)
         {
+            VoxelContainer.EnableDraw = true;
             if (GenerateMap)
             {
                 loader.SetStatus("Calculating Heightmap", 0.03f);
@@ -67,18 +69,16 @@ namespace Assets.Scripts.Data.Map
         #region Tests
         private void RemoveTerrainNotOfType(VoxelMaterial[] types)
         {
+            var air = MaterialRegistry.Instance.GetMaterialFromName("Air");
             for (var x = 0; x < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; x++)
             {
                 for (var y = 0; y < MapData.Chunks.GetLength(1) * Chunk.ChunkSize; y++)
                 {
                     for (var z = 0; z < MapData.Chunks.GetLength(0) * Chunk.ChunkSize; z++)
                     {
-                        var chunk = MapData.Chunks[x / Chunk.ChunkSize, y / Chunk.ChunkSize, z / Chunk.ChunkSize];
-                        if(chunk == null)
-                            continue;
-                        var mat = chunk.GetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize);
+                        var mat = World.At(x, y, z).GetMaterial();
                         if (!types.Contains(mat))
-                            chunk.SetVoxelType(x % Chunk.ChunkSize, y % Chunk.ChunkSize, z % Chunk.ChunkSize, MaterialRegistry.Instance.GetMaterialFromName("Air"));
+                            World.At(x, y, z).SetVoxel(air);
                     }
                 }
             }
