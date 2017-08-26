@@ -180,7 +180,6 @@
     <Compile Include="Assets\Scripts\GameLogicLayer\Objects\TreeOfLife\TreeNode.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Objects\TreeOfLife\TreeOfLife.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Objects\Trees\RandomizedTree.cs" />
-    <Compile Include="Assets\Scripts\EngineLayer\Voxels\Containers\VoxelEntity.cs" />
     <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBelt.cs" />

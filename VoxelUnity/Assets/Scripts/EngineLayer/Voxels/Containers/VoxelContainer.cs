@@ -76,7 +76,7 @@ namespace Assets.Scripts.EngineLayer.Voxels.Containers
         public void OnMouseOver()
         {
             HighlightColor = Color.white;
-            if (this is Multiblock.Multiblock && transform.name.Equals("RandomizedTree"))
+            if (this is Multiblock.Multiblock && transform.name.Equals("Tree"))
             {
                 Exploder.Explode(this as Multiblock.Multiblock);
             }

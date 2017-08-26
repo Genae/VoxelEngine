@@ -44,7 +44,7 @@ namespace Assets.Scripts.GameLogicLayer
             yield return Map.Instance.CreateMap(biomeConfig, this);
 
             //Trees
-            SetStatus("Loading RandomizedTree of Life", 0.8f);
+            SetStatus("Loading Tree of Life", 0.8f);
             yield return null;
             var treeManager = new TreeManager();
             treeManager.BuildTreeOfLife();
