@@ -3,11 +3,11 @@
 		"Name": "Village",
 		"Children": [
 			{
-				"Name": "CreateVillage",
+				"Name": "Village",
 				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
 			},
 			{
-				"Name": "CreateEnemySpawn",
+				"Name": "EnemySpawn",
 				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
 			}
 		]
