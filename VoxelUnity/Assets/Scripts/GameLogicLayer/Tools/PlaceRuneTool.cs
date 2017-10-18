@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.AccessLayer.Tools;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayer.Tools
@@ -8,18 +9,41 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 
         private GameObject _previewBox;
         public Material PreviewMaterial;
+		private static GameObject MarkerParent;
 
+		void Start()
+		{
+			if (MarkerParent == null) {
+				MarkerParent = new GameObject("Markers");
+			}
+		}
 
         // Update is called once per frame
         void Update () {
-	        //_mouseScrollDelta += (int)Input.mouseScrollDelta.y;
-            Chunk chunkHit;
-            var pos = GetMouseOveredVoxelPos(out chunkHit);
-            if (chunkHit != null)
-            {
-                DrawPreview(pos);
-            }
+			var pos = GetPos();
+			DrawPreview(pos);
+			if (Input.GetKeyDown(KeyCode.Mouse0))
+			{
+				var currentMarker = MarkerParent.transform.Find (gameObject.name).gameObject;
+				if (currentMarker == null) {
+					currentMarker = Instantiate (_previewBox);
+					currentMarker.transform.parent = MarkerParent.transform;
+				}
+				currentMarker.transform.position = _previewBox.transform.position;
+			}
         }
+
+		private Vector3 GetPos()
+		{
+			var hits = GetRaycastHitOnMousePosition();
+			if (hits == null || hits.Length == 0)
+				return Vector3.zero;
+			var firstChunkHit = hits.FirstOrDefault(h => h.collider.gameObject.name.Equals("Table"));
+			if(firstChunkHit.transform == null)
+				return Vector3.zero;
+			return firstChunkHit.point;
+		}
+
         protected override void OnDisable()
         {
             Destroy(_previewBox);
@@ -35,7 +59,8 @@ namespace Assets.Scripts.GameLogicLayer.Tools
                 _previewBox.name = "preview";
             }
             _previewBox.transform.position = startPos;
-            _previewBox.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            _previewBox.transform.localScale = new Vector3(10f, 10f, 10f);
+
         }
 
         public override void SwapOverlays()
