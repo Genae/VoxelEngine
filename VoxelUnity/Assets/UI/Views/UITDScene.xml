@@ -1,0 +1,7 @@
+<UITDScene>
+    <UserInterface>
+        <Runes />
+        <GameSpeed/>
+    </UserInterface>
+    <EventSystem />
+</UITDScene>
