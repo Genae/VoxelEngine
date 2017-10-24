@@ -46,5 +46,12 @@ namespace Assets.Scripts.UI
                 ResourceManager.DrawCapsule(markers[i - 1].position, markers[i].position, 3f, dirt, grass);
             }
         }
+        public void ClickClear()
+        {
+            foreach (Transform child in Map.Instance.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

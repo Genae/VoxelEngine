@@ -21,6 +21,8 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         // Update is called once per frame
         void Update () {
 			var pos = GetPos();
+            if (pos == Vector3.zero)
+                return;
 			DrawPreview(pos);
 			if (Input.GetKeyDown(KeyCode.Mouse0))
 			{
