@@ -48,7 +48,7 @@ namespace Assets.Scripts.ControlInputs
                     AddTools(toolConfig, parent.transform);
                 }
             }
-            SelectTool<PlaceRuneTool>();
+            SelectTool<PlaceRuneToolP1>();
         }
 
         private void AddTools(ToolConfig toolConfig, Transform parent)

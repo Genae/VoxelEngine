@@ -1,7 +1,11 @@
 ﻿using Assets.Scripts.AccessLayer.Tools;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.AccessLayer.Worlds;
+using Assets.Scripts.AccessLayer.Material;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
 
 namespace Assets.Scripts.GameLogicLayer.Tools
 {
@@ -9,10 +13,11 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 
         private GameObject _previewBox;
         public Material PreviewMaterial;
-		private static GameObject MarkerParent;
+		public static GameObject MarkerParent;
 
-		void Start()
+		protected override void Start()
 		{
+			base.Start();
 			if (MarkerParent == null) {
 				MarkerParent = new GameObject("Markers");
 			}
@@ -24,14 +29,19 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 			DrawPreview(pos);
 			if (Input.GetKeyDown(KeyCode.Mouse0))
 			{
-				var currentMarker = MarkerParent.transform.Find (gameObject.name).gameObject;
+				var currentMarker = MarkerParent.transform.Find(gameObject.name);
 				if (currentMarker == null) {
-					currentMarker = Instantiate (_previewBox);
-					currentMarker.transform.parent = MarkerParent.transform;
+					currentMarker = Instantiate (_previewBox).transform;
+					currentMarker.gameObject.name = gameObject.name;
+					currentMarker.parent = MarkerParent.transform;
+					OnBuild();
 				}
-				currentMarker.transform.position = _previewBox.transform.position;
+				currentMarker.position = _previewBox.transform.position;
 			}
         }
+
+		protected virtual void OnBuild (){
+		}
 
 		private Vector3 GetPos()
 		{
@@ -59,7 +69,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
                 _previewBox.name = "preview";
             }
             _previewBox.transform.position = startPos;
-            _previewBox.transform.localScale = new Vector3(10f, 10f, 10f);
+            _previewBox.transform.localScale = new Vector3(1f, 1f, 1f);
 
         }
 
@@ -68,4 +78,29 @@ namespace Assets.Scripts.GameLogicLayer.Tools
             OverlayManager.SwapOverlays(false, false, false);
         }
     }
+
+	public class PlaceRuneToolV : PlaceRuneTool {
+		protected override void OnBuild ()
+		{
+            while(Map.Instance.CreateMap(null, null).MoveNext());
+			var markers = new List<Transform>();
+			for(var i = 0;  i< MarkerParent.transform.childCount; i++)
+				markers.Add(MarkerParent.transform.GetChild (i));
+			var minX = markers.Min (m => m.position.x);
+			var minY = markers.Min (m => m.position.z);
+			var maxX = markers.Max (m => m.position.x);
+			var maxY = markers.Max (m => m.position.z);
+
+			for (var x = minX; x < maxX; x++) {
+				for (var y = minY; y < maxY; y++) {
+					World.At (x, 0, y).SetVoxel (MaterialRegistry.Instance.GetMaterialFromName ("Grass"));
+				}
+			}
+		}
+	}
+	public class PlaceRuneToolP1 : PlaceRuneTool {}
+	public class PlaceRuneToolP2 : PlaceRuneTool {}
+	public class PlaceRuneToolP3 : PlaceRuneTool {}
+	public class PlaceRuneToolTB : PlaceRuneTool {}
+	public class PlaceRuneToolF : PlaceRuneTool {}
 }

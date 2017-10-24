@@ -4,11 +4,7 @@
 		"Children": [
 			{
 				"Name": "Village",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
-			},
-			{
-				"Name": "EnemySpawn",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolV"
 			}
 		]
 	},
@@ -17,15 +13,15 @@
 		"Children": [
 			{
 				"Name": "Path 1",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolP1"
 			},
 			{
 				"Name": "Path 2",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolP2"
 			},
 			{
 				"Name": "Path 3",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolP3"
 			}
 		]
 	},
@@ -34,11 +30,11 @@
 		"Children": [
 			{
 				"Name": "Tower Base",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolTB"
 			},
 			{
 				"Name": "Fire",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolF"
 			}
 		]
 	}

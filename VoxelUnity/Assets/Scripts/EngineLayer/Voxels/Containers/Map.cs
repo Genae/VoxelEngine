@@ -57,12 +57,13 @@ namespace Assets.Scripts.EngineLayer.Voxels.Containers
                 //TestAStar();
             } else
             {
-                MapData = new MapData(129 / Chunk.ChunkSize, 300 / Chunk.ChunkSize, 2f);
+                MapData = new MapData(129 / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
+                AStarNetwork = new VoxelGraph();
             }
             IsDoneGenerating = true;
             VoxelContainer.EnableDraw = true;
         }
-
+        
         public ChunkData CreateChunk(int x, int y, int z)
         {
             MapData.Chunks[x, y, z] = new ChunkData(new Vector3(x, y, z) * Chunk.ChunkSize);

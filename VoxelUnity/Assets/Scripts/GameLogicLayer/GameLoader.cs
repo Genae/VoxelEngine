@@ -47,7 +47,7 @@ namespace Assets.Scripts.GameLogicLayer
             SetStatus("Loading Tree of Life", 0.8f);
             yield return null;
             var treeManager = new TreeManager();
-            treeManager.BuildTreeOfLife();
+            //treeManager.BuildTreeOfLife();
             SetStatus("Loading Trees", 0.85f);
             yield return null;
             yield return treeManager.GenerateTrees((int)(Map.Instance.MapData.Chunks.GetLength(0) * Map.Instance.MapData.Chunks.GetLength(0) * 0.3f), Map.Instance.MapData, this);
