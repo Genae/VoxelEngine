@@ -2,6 +2,7 @@
     <UserInterface>
         <Runes />
         <GameSpeed/>
+        <Button Text="START" Alpha="0.5" Click="ClickStart" Alignment="Top"/>
     </UserInterface>
     <EventSystem />
 </UITDScene>

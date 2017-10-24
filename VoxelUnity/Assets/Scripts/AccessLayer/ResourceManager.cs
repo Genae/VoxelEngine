@@ -62,7 +62,7 @@ namespace Assets.Scripts.AccessLayer
             }
         }
 
-        public static void DrawCapsule(Vector3 start, Vector3 end, float veinRadius, VoxelMaterial material)
+        public static void DrawCapsule(Vector3 start, Vector3 end, float veinRadius, VoxelMaterial material, VoxelMaterial replace = null)
         {
             var minx = (int)(Mathf.Min(start.x, end.x) - veinRadius);
             var miny = (int)(Mathf.Min(start.y, end.y) - veinRadius);
@@ -84,11 +84,13 @@ namespace Assets.Scripts.AccessLayer
                         {
                             var intersect = ray.origin + ray.direction * Vector3.Dot(ray.direction, new Vector3(x, y, z) - ray.origin);
                             if(!((start - end).magnitude < (start - intersect).magnitude || (end - start).magnitude < (end - intersect).magnitude))
-                                World.At(x, y, z).SetVoxel(material);
+                                if(replace == null || World.At(x, y, z).GetMaterial().Equals(replace))
+                                    World.At(x, y, z).SetVoxel(material);
                         }
                         if ((new Vector3(x, y, z) - start).magnitude <= veinRadius || (new Vector3(x, y, z) - end).magnitude <= veinRadius)
                         {
-                            World.At(x, y, z).SetVoxel(material);
+                            if (replace == null || World.At(x, y, z).GetMaterial().Equals(replace))
+                                World.At(x, y, z).SetVoxel(material);
                         }
                     }
                 }
