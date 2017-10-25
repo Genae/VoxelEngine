@@ -41,9 +41,11 @@ namespace Assets.Scripts.UI
             }
 
             markers = markers.OrderBy(m => m.gameObject.name).ToList<Transform>();
-            for (var i = 1; i < markers.Count; i++)
+            
+            var list = Bezier.GetBezierPoints(markers.Select(m => m.position).ToList(), 10f);
+            for (var i = 1; i < list.Count; i++)
             {
-                ResourceManager.DrawCapsule(markers[i - 1].position, markers[i].position, 3f, dirt, grass);
+                ResourceManager.DrawCapsule(list[i - 1], list[i], 3f, dirt, grass);
             }
         }
         public void ClickClear()
