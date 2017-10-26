@@ -32,7 +32,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 					currentMarker.gameObject.name = gameObject.name;
 					currentMarker.parent = MarkerParent.transform;
 				}
-				currentMarker.position = _previewBox.transform.position;
+                currentMarker.position = _previewBox.transform.position;
 			}
         }
         
@@ -45,7 +45,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 			var firstChunkHit = hits.FirstOrDefault(h => h.collider.gameObject.name.Equals("Table"));
 			if(firstChunkHit.transform == null)
 				return Vector3.zero;
-			return firstChunkHit.point;
+			return new Vector3((int)firstChunkHit.point.x, (int)firstChunkHit.point.y, (int)firstChunkHit.point.z);
 		}
 
         protected override void OnDisable()
