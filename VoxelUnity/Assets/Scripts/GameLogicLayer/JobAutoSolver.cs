@@ -16,8 +16,7 @@ namespace Assets.Scripts.GameLogicLayer
                 {"hasMined", true},
                 {"hasBuilt", true},
                 {"hasPlanted", true},
-                {"hasCreatedSoil", true},
-                {"hasHarvested", true}
+                {"hasCreatedSoil", true}
             };
             return goalState;
         }
@@ -28,7 +27,6 @@ namespace Assets.Scripts.GameLogicLayer
                 new BuildingAction(),
                 new MiningAction(),
                 new CreateSoilAction(),
-                new HarvestCropAction(),
                 new PlantCropAction()
             };
             return actions;
