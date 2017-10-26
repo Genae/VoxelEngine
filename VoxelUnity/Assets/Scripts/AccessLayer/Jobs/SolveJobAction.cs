@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.EngineLayer.AI.GOAP;
+using Assets.Scripts.GameLogicLayer;
 using UnityEngine;
 
 namespace Assets.Scripts.AccessLayer.Jobs
@@ -41,7 +42,7 @@ namespace Assets.Scripts.AccessLayer.Jobs
 
         public override bool Perform(float deltaTime, GameObject agent)
         {
-            IsJobDone = MyJob.Solve(deltaTime, agent);
+            IsJobDone = MyJob.Solve(deltaTime, agent, agent.GetComponent<JobAutoSolver>() != null ? 1000 : 1);
             return true;
         }
         

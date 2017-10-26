@@ -25,9 +25,9 @@ namespace Assets.Scripts.AccessLayer.Jobs
             return GetStandingPositions(Position);
         }
         
-        public override bool Solve(float deltaTime, GameObject actor)
+        public override bool Solve(float deltaTime, GameObject actor, float actorSkill)
         {
-            if (!base.Solve(deltaTime, actor))
+            if (!base.Solve(deltaTime, actor, actorSkill))
                 return false;
             JobController.Instance.SolveJob(this);
             Marker.Destroy();

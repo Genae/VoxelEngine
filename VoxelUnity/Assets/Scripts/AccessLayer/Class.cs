@@ -84,7 +84,7 @@ namespace Assets.Scripts.AccessLayer
             }
         }
 
-        public bool MoveAgent(GOAPAction nextAction)
+        public virtual bool MoveAgent(GOAPAction nextAction)
         {
             if (PathToTarget == null || !PathToTarget.Finished || PathToTarget.State != PathState.Ready)
             {

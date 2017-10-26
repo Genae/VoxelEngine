@@ -14,9 +14,9 @@ namespace Assets.Scripts.AccessLayer.Jobs
         {
             Aborted = true;
         }
-        public virtual bool Solve(float deltaTime, GameObject actor)
+        public virtual bool Solve(float deltaTime, GameObject actor, float actorSkill)
         {
-            RemainingTime -= deltaTime;
+            RemainingTime -= deltaTime * actorSkill;
             if (RemainingTime > 0)
                 return false;
             SolveInternal(actor);

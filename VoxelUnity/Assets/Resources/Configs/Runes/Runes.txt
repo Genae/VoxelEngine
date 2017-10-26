@@ -9,6 +9,15 @@
 		]
 	},
 	{
+		"Name": "Farming",
+		"Children": [
+			{
+				"Name": "Farm",
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolF"
+			}
+		]
+	},
+	{
 		"Name": "Path",
 		"Children": [
 			{
@@ -31,10 +40,6 @@
 			{
 				"Name": "Tower Base",
 				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolTB"
-			},
-			{
-				"Name": "Fire",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolF"
 			}
 		]
 	}

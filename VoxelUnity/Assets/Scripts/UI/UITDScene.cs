@@ -8,6 +8,9 @@ using System.Linq;
 using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.GameLogicLayer.Tools;
 using Assets.Scripts.AccessLayer;
+using Assets.Scripts.AccessLayer.Farming;
+using Assets.Scripts.EngineLayer.Voxels.Material;
+using Assets.Scripts.GameLogicLayer.Actions;
 
 namespace Assets.Scripts.UI
 {
@@ -15,39 +18,78 @@ namespace Assets.Scripts.UI
     {
         public void ClickStart()
         {
-            var size = 129;
-            while (Map.Instance.CreateMap(null, null).MoveNext()) ;
             var markers = new List<Transform>();
-            for (var i = 0; i < PlaceRuneTool.MarkerParent.transform.childCount; i++)
-                markers.Add(PlaceRuneTool.MarkerParent.transform.GetChild(i));
-            var minX = (int)markers.Min(m => m.position.x) - 10;
-            var minY = (int)markers.Min(m => m.position.z) - 10;
-            var maxX = (int)markers.Max(m => m.position.x) + 10;
-            var maxY = (int)markers.Max(m => m.position.z) + 10;
-
-            var ds = new DiamondSquare(0.01f, size, size);
-            var height = ds.Generate(new System.Random());
-
-
             var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
-            for (var x = Mathf.Max(minX, 0); x < Mathf.Min(maxX, size); x++)
+
+            BuildEmptyMap(markers, grass);
+
+            CreatePath(markers.Where(m => m.gameObject.name.Contains("Path") || m.gameObject.name.Contains("Village")).ToList(), dirt, grass);
+
+            CreateFarms(markers.Where(m => m.gameObject.name.Contains("Farm")).ToList());
+        }
+
+        private void CreateFarms(List<Transform> markers)
+        {
+            foreach (var m in markers)
             {
-                for (var y = Mathf.Max(minY, 0); y < Mathf.Min(maxY, size); y++)
+                var farm = new GameObject("Farm").AddComponent<Farm>();
+                farm.transform.parent = GameObject.Find("Map").transform;
+                farm.CropType = CropManager.Instance.GetCropByName("Wheat");
+                for (var i = -3; i <= 3; i++)
                 {
-                    for(var h = 0; h <= (int)((height[x,y]*3) - 0.01f); h++)
-                        World.At(x, h, y).SetVoxel(grass);
+                    for (var j = -3; j <= 3; j++)
+                    {
+                        var pos = new Vector3(m.position.x + i, 0, m.position.z + j);
+                        //find top block
+                        while(!World.At(pos + Vector3.up).IsAir())
+                            pos += Vector3.up;
+
+                        JobController.Instance.AddJob(new CreateSoilJob(pos));
+                        farm.AddFarmblock(pos);
+                    }
                 }
             }
 
-            markers = markers.OrderBy(m => m.gameObject.name).ToList<Transform>();
-            
+        }
+
+        private static void CreatePath(List<Transform> markers, VoxelMaterial dirt, VoxelMaterial grass)
+        {
+            if (markers.Count < 2) return;
+            markers = markers.OrderBy(m => m.gameObject.name).ToList();
+
             var list = Bezier.GetBezierPoints(markers.Select(m => m.position).ToList(), 10f);
             for (var i = 1; i < list.Count; i++)
             {
                 ResourceManager.DrawCapsule(list[i - 1], list[i], 3f, dirt, grass);
             }
         }
+
+        private static void BuildEmptyMap(List<Transform> markers, VoxelMaterial grass)
+        {
+            var size = 129;
+            while (Map.Instance.CreateMap(null, null).MoveNext()) ;
+            for (var i = 0; i < PlaceRuneTool.MarkerParent.transform.childCount; i++)
+                markers.Add(PlaceRuneTool.MarkerParent.transform.GetChild(i));
+            var minX = (int) markers.Min(m => m.position.x) - 10;
+            var minY = (int) markers.Min(m => m.position.z) - 10;
+            var maxX = (int) markers.Max(m => m.position.x) + 10;
+            var maxY = (int) markers.Max(m => m.position.z) + 10;
+
+            var ds = new DiamondSquare(0.01f, size, size);
+            var height = ds.Generate(new System.Random());
+
+
+            for (var x = Mathf.Max(minX, 0); x < Mathf.Min(maxX, size); x++)
+            {
+                for (var y = Mathf.Max(minY, 0); y < Mathf.Min(maxY, size); y++)
+                {
+                    for (var h = 0; h <= (int) ((height[x, y] * 3) - 0.01f); h++)
+                        World.At(x, h, y).SetVoxel(grass);
+                }
+            }
+        }
+
         public void ClickClear()
         {
             foreach (Transform child in Map.Instance.transform)
