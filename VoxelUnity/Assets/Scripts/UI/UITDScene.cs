@@ -11,6 +11,7 @@ using Assets.Scripts.AccessLayer;
 using Assets.Scripts.AccessLayer.Farming;
 using Assets.Scripts.EngineLayer.Voxels.Material;
 using Assets.Scripts.GameLogicLayer.Actions;
+using Assets.Scripts.GameLogicLayerTD;
 
 namespace Assets.Scripts.UI
 {
@@ -33,22 +34,7 @@ namespace Assets.Scripts.UI
         {
             foreach (var m in markers)
             {
-                var farm = new GameObject("Farm").AddComponent<Farm>();
-                farm.transform.parent = GameObject.Find("Map").transform;
-                farm.CropType = CropManager.Instance.GetCropByName("Wheat");
-                for (var i = -3; i <= 3; i++)
-                {
-                    for (var j = -3; j <= 3; j++)
-                    {
-                        var pos = new Vector3(m.position.x + i, 0, m.position.z + j);
-                        //find top block
-                        while(!World.At(pos + Vector3.up).IsAir())
-                            pos += Vector3.up;
-
-                        JobController.Instance.AddJob(new CreateSoilJob(pos));
-                        farm.AddFarmblock(pos);
-                    }
-                }
+                var farm = new TDFarm(m.position);
             }
 
         }

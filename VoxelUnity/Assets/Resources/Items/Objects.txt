@@ -22,7 +22,27 @@
 
 		
     },
+	{
+        "Name": "Fence",
+		"StackSize": 1,
+        "Model": "Objects/fence_post",
+        "Connection": "Objects/fence_connector",
+		
+		/* RECIPESTART */
+		"Recipe" : {
+			"Ingredients" : {
+			"Oakwood" : 1
+			},
+			"JobRequirements" : {
+				"Carpenter" : 1
+			},
+			"CraftingType" : "Wood",
+			"Experience" : 1
+		},
+		/* RECIPEEND */
 
+		
+    },
 	{
 		"Name": "Workbench",
 		"StackSize": 1, 

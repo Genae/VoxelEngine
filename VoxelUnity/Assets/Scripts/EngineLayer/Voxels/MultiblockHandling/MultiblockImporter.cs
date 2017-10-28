@@ -91,7 +91,7 @@ namespace Assets.Scripts.EngineLayer.Voxels.MultiblockHandling
                 {
                     var texCoord = hitsrev.First().textureCoord;
                     var mat = hitsrev.First().collider.gameObject.GetComponent<MeshRenderer>().material;
-                    color = ((Texture2D)mat.mainTexture).GetPixelBilinear(texCoord.x, texCoord.y);
+                    color = mat.mainTexture == null ? mat.color : ((Texture2D)mat.mainTexture).GetPixelBilinear(texCoord.x, texCoord.y);
                     break;
                 }
             }

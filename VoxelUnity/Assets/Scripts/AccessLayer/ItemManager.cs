@@ -71,6 +71,7 @@ namespace Assets.Scripts.AccessLayer
         public string Name;
         public int StackSize;
         public string Model;
+        public string Connector;
         public InventoryConfig Inventory;
         public Recipe Recipe;
         public CraftingStationConfig CraftingStationConfig;
