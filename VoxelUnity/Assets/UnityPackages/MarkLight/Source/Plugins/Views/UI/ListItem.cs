@@ -15,9 +15,9 @@ using UnityEngine.UI;
 namespace MarkLight.Views.UI
 {
     /// <summary>
-    /// List item view.
+    /// List object view.
     /// </summary>
-    /// <d>Displays a selectable list item. Has the states: Default, Disabled, Highlighted, Pressed and Selected.</d>
+    /// <d>Displays a selectable list object. Has the states: Default, Disabled, Highlighted, Pressed and Selected.</d>
     [HideInPresenter]
     public class ListItem : UIView
     {
@@ -26,169 +26,169 @@ namespace MarkLight.Views.UI
         #region ItemLabel
 
         /// <summary>
-        /// List item text.
+        /// List object text.
         /// </summary>
-        /// <d>The text of the list item label.</d>
+        /// <d>The text of the list object label.</d>
         [MapTo("ItemLabel.Text", "TextChanged")]
         public _string Text;
 
         /// <summary>
-        /// List item text font.
+        /// List object text font.
         /// </summary>
-        /// <d>The font of the list item label.</d>
+        /// <d>The font of the list object label.</d>
         [MapTo("ItemLabel.Font")]
         public _Font Font;
 
         /// <summary>
-        /// List item text font size.
+        /// List object text font size.
         /// </summary>
-        /// <d>The font size of the list item label.</d>
+        /// <d>The font size of the list object label.</d>
         [MapTo("ItemLabel.FontSize")]
         public _int FontSize;
 
         /// <summary>
-        /// List item text line spacing.
+        /// List object text line spacing.
         /// </summary>
-        /// <d>The line spacing of the list item label.</d>
+        /// <d>The line spacing of the list object label.</d>
         [MapTo("ItemLabel.LineSpacing")]
         public _int LineSpacing;
 
         /// <summary>
         /// Supports rich text.
         /// </summary>
-        /// <d>Boolean indicating if the list item label supports rich text.</d>
+        /// <d>Boolean indicating if the list object label supports rich text.</d>
         [MapTo("ItemLabel.SupportRichText")]
         public _bool SupportRichText;
 
         /// <summary>
-        /// List item text font color.
+        /// List object text font color.
         /// </summary>
-        /// <d>The font color of the list item label.</d>
+        /// <d>The font color of the list object label.</d>
         [MapTo("ItemLabel.FontColor")]
         public _Color FontColor;
 
         /// <summary>
-        /// List item text font style.
+        /// List object text font style.
         /// </summary>
-        /// <d>The font style of the list item label.</d>
+        /// <d>The font style of the list object label.</d>
         [MapTo("ItemLabel.FontStyle")]
         public _FontStyle FontStyle;
 
         /// <summary>
-        /// List item text margin.
+        /// List object text margin.
         /// </summary>
-        /// <d>The margin of the list item label. Can be used to adjust the text positioning.</d>
+        /// <d>The margin of the list object label. Can be used to adjust the text positioning.</d>
         [MapTo("ItemLabel.Margin")]
         public _ElementMargin TextMargin;
 
         /// <summary>
-        /// List item text alignment.
+        /// List object text alignment.
         /// </summary>
-        /// <d>The alignment of the text inside the list item label. Can be used with TextMargin and TextOffset to get desired positioning of the text.</d>
+        /// <d>The alignment of the text inside the list object label. Can be used with TextMargin and TextOffset to get desired positioning of the text.</d>
         [MapTo("ItemLabel.TextAlignment")]
         public _ElementAlignment TextAlignment;
 
         /// <summary>
-        /// List item text offset.
+        /// List object text offset.
         /// </summary>
-        /// <d>The offset of the list item label. Can be used with TextMargin and TextAlignment to get desired positioning of the text.</d>
+        /// <d>The offset of the list object label. Can be used with TextMargin and TextAlignment to get desired positioning of the text.</d>
         [MapTo("ItemLabel.Offset")]
         public _ElementMargin TextOffset;
 
         /// <summary>
-        /// List item text shadow color.
+        /// List object text shadow color.
         /// </summary>
-        /// <d>The shadow color of the list item label.</d>
+        /// <d>The shadow color of the list object label.</d>
         [MapTo("ItemLabel.ShadowColor")]
         public _Color ShadowColor;
 
         /// <summary>
-        /// List item text shadow distance.
+        /// List object text shadow distance.
         /// </summary>
-        /// <d>The distance of the list item label shadow.</d>
+        /// <d>The distance of the list object label shadow.</d>
         [MapTo("ItemLabel.ShadowDistance")]
         public _Vector2 ShadowDistance;
 
         /// <summary>
-        /// List item text outline color.
+        /// List object text outline color.
         /// </summary>
-        /// <d>The outline color of the list item label.</d>
+        /// <d>The outline color of the list object label.</d>
         [MapTo("ItemLabel.OutlineColor")]
         public _Color OutlineColor;
 
         /// <summary>
-        /// List item text outline distance.
+        /// List object text outline distance.
         /// </summary>
-        /// <d>The distance of the list item label outline.</d>
+        /// <d>The distance of the list object label outline.</d>
         [MapTo("ItemLabel.OutlineDistance")]
         public _Vector2 OutlineDistance;
 
         /// <summary>
-        /// Adjusts the list item to the text.
+        /// Adjusts the list object to the text.
         /// </summary>
-        /// <d>An enum indiciating how the list item should adjust its size to the label text.</d>
+        /// <d>An enum indiciating how the list object should adjust its size to the label text.</d>
         [MapTo("ItemLabel.AdjustToText")]
         public _AdjustToText AdjustToText;
 
         /// <summary>
-        /// The list item label.
+        /// The list object label.
         /// </summary>
-        /// <d>The list item label displays text next to the list item.</d>
+        /// <d>The list object label displays text next to the list object.</d>
         public Label ItemLabel;
 
         #endregion
 
         /// <summary>
-        /// Indicates if the item is disabled.
+        /// Indicates if the object is disabled.
         /// </summary>
-        /// <d>If set to true the item enters the "Disabled" state and can't be interacted with.</d>
+        /// <d>If set to true the object enters the "Disabled" state and can't be interacted with.</d>
         [ChangeHandler("IsDisabledChanged")]
         public _bool IsDisabled;
 
         /// <summary>
-        /// Indicates if this item is an alternate item.
+        /// Indicates if this object is an alternate object.
         /// </summary>
-        /// <d>Boolean indicating if the tiem is an alternate item which uses the "Alternate" state instead of the "Default" state.</d>
+        /// <d>Boolean indicating if the tiem is an alternate object which uses the "Alternate" state instead of the "Default" state.</d>
         [ChangeHandler("IsAlternateChanged", TriggerImmediately = true)]
         public _bool IsAlternate;
 
         /// <summary>
-        /// List item text padding.
+        /// List object text padding.
         /// </summary>
-        /// <d>Padding added to list item text when AdjustToText is set.</d>
+        /// <d>Padding added to list object text when AdjustToText is set.</d>
         [ChangeHandler("TextChanged")]
         public _ElementMargin TextPadding;
 
         /// <summary>
-        /// List item length.
+        /// List object length.
         /// </summary>
-        /// <d>Specifies the list item length. Used as the default item width when Width isn't set.</d>
+        /// <d>Specifies the list object length. Used as the default object width when Width isn't set.</d>
         [ChangeHandler("LayoutsChanged")]
         public _ElementSize Length;
 
         /// <summary>
-        /// List item breadth.
+        /// List object breadth.
         /// </summary>
-        /// <d>Specifies the list item breadth. Used as the default item height when Height isn't set.</d>
+        /// <d>Specifies the list object breadth. Used as the default object height when Height isn't set.</d>
         [ChangeHandler("LayoutsChanged")]
         public _ElementSize Breadth;
 
         /// <summary>
-        /// List item pool size.
+        /// List object pool size.
         /// </summary>
-        /// <d>Indicates how many list items should be pooled. Pooled items are already created and ready to be used rather than being created and destroyed on demand. Can be used to increase the performance of dynamic lists.</d>
+        /// <d>Indicates how many list objects should be pooled. Pooled objects are already created and ready to be used rather than being created and destroyed on demand. Can be used to increase the performance of dynamic lists.</d>
         public _int PoolSize;
 
         /// <summary>
-        /// Max list item pool size.
+        /// Max list object pool size.
         /// </summary>
-        /// <d>Indicates maximum number of list items that should be pooled. If not set it uses initial PoolSize is used as max. Pooled items are already created and ready to be used rather than being created and destroyed on demand. Can be used to increase the performance of dynamic lists.</d>
+        /// <d>Indicates maximum number of list objects that should be pooled. If not set it uses initial PoolSize is used as max. Pooled objects are already created and ready to be used rather than being created and destroyed on demand. Can be used to increase the performance of dynamic lists.</d>
         public _int MaxPoolSize;
 
         /// <summary>
         /// Template used to create view.
         /// </summary>
-        /// <d>Reference to the template used to create the view. Used to identify the list item type.</d>
+        /// <d>Reference to the template used to create the view. Used to identify the list object type.</d>
         public View Template;
 
         [NotSetFromXuml]
@@ -204,7 +204,7 @@ namespace MarkLight.Views.UI
         /// <summary>
         /// Parent list.
         /// </summary>
-        /// <d>The list that created this list item.</d>
+        /// <d>The list that created this list object.</d>
         public List ParentList;
 
         #endregion
@@ -221,7 +221,7 @@ namespace MarkLight.Views.UI
             Length.DirectValue = new ElementSize(120);
             TextPadding.DirectValue = new ElementMargin();
 
-            // list item label
+            // list object label
             if (ItemLabel != null)
             {
                 ItemLabel.TextAlignment.DirectValue = ElementAlignment.Center;
@@ -231,7 +231,7 @@ namespace MarkLight.Views.UI
         }
 
         /// <summary>
-        /// Initializes the list item.
+        /// Initializes the list object.
         /// </summary>
         public override void Initialize()
         {
@@ -273,14 +273,14 @@ namespace MarkLight.Views.UI
         }
 
         /// <summary>
-        /// Called when the item text has been changed.
+        /// Called when the object text has been changed.
         /// </summary>
         public virtual void TextChanged()
         {
             if (ItemLabel == null || ItemLabel.AdjustToText.Value == MarkLight.AdjustToText.None)
                 return;
             
-            // adjust item size to text
+            // adjust object size to text
             if (ItemLabel.AdjustToText.Value == MarkLight.AdjustToText.Width)
             {
                 Width.Value = new ElementSize(ItemLabel.PreferredWidth + TextPadding.Value.Left.Pixels + TextPadding.Value.Right.Pixels
@@ -424,7 +424,7 @@ namespace MarkLight.Views.UI
             {
                 SetState("Disabled");
 
-                // disable list item actions
+                // disable list object actions
                 Click.IsDisabled = true;
                 MouseEnter.IsDisabled = true;
                 MouseExit.IsDisabled = true;
@@ -435,7 +435,7 @@ namespace MarkLight.Views.UI
             {
                 SetState(IsSelected ? "Selected" : DefaultItemStyle);
 
-                // enable list item actions
+                // enable list object actions
                 Click.IsDisabled = false;
                 MouseEnter.IsDisabled = false;
                 MouseExit.IsDisabled = false;
@@ -472,7 +472,7 @@ namespace MarkLight.Views.UI
         #region Properties
 
         /// <summary>
-        /// Returns default item style.
+        /// Returns default object style.
         /// </summary>
         public string DefaultItemStyle
         {

@@ -258,7 +258,7 @@ namespace MarkLight
         /// <summary>
         /// Item data.
         /// </summary>
-        /// <d>Provides a mechanism to bind to dynamic list data. The item is set, e.g. by the List view on the child views it generates for its dynamic list data. The Item points to the list item data the view is associated with.</d>
+        /// <d>Provides a mechanism to bind to dynamic list data. The object is set, e.g. by the List view on the child views it generates for its dynamic list data. The Item points to the list object data the view is associated with.</d>
         [GenericViewField]
         public _object Item;
 
@@ -1516,7 +1516,7 @@ namespace MarkLight
         {
             GameObject go = null;
 
-            // if pool isn't empty get an item from the pool
+            // if pool isn't empty get an object from the pool
             if (viewPool != null && !viewPool.IsEmpty)
             {
                 go = viewPool.GetView().gameObject;

@@ -31,7 +31,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                     if (i == -size / 2 || j == -size / 2 || i == size / 2 || j == size / 2)
                     {
                         var pos = new Vector3(position.x + i, height + 0.5f, position.z + j);
-                        var fence = ItemManager.PlaceItemOfType("Fence", pos);
+                        var fence = ObjectManager.PlaceItemOfType("Fence", pos);
                     }
                 }
             }

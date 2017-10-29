@@ -227,7 +227,7 @@
     <Compile Include="Assets\Scripts\AccessLayer\Class.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\Farming\CropManager.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\Farming\Farm.cs" />
-    <Compile Include="Assets\Scripts\AccessLayer\ItemManager.cs" />
+    <Compile Include="Assets\Scripts\AccessLayer\ObjectManager.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\JobController.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\Jobs\Job.cs" />
     <Compile Include="Assets\Scripts\AccessLayer\Jobs\JobMarker.cs" />

@@ -11,11 +11,11 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         private GameObject _preview;
         private GameObject _previewRotation;
         private GameObject _previewObj;
-        public ItemType ItemToPlace;
+        public ObjectType ObjectToPlace;
 
         void Awake()
         {
-            ItemToPlace = ItemManager.GetItemType("Chest");
+            ObjectToPlace = ObjectManager.GetObjectType("Chest");
         }
         // Update is called once per frame
         void Update ()
@@ -36,11 +36,11 @@ namespace Assets.Scripts.GameLogicLayer.Tools
             {
                 var obj = Instantiate(_previewRotation);
                 obj.transform.position += _preview.transform.position;
-                obj.name = ItemToPlace.Name;
+                obj.name = ObjectToPlace.Name;
                 var item = obj.transform.GetChild(0).gameObject;
                 var c = item.GetComponent<Renderer>().material.color;
                 item.GetComponent<Renderer>().material.color = new Color(c.r, c.g, c.b, 1);
-                ItemManager.ActivateObject(item, ItemToPlace);
+                ObjectManager.ActivateObject(item, ObjectToPlace);
             }
             if (chunkHit != null && World.At(pos + Vector3.up).IsAir())
             {
@@ -63,7 +63,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         {
             if (_previewObj == null)
             {
-                _previewObj = ItemManager.GetModel(startPos, ItemToPlace);
+                _previewObj = ObjectManager.GetModel(startPos, ObjectToPlace);
                 _previewObj.transform.parent = _previewRotation.transform;
                 _previewObj.transform.localRotation = Quaternion.identity;
                 _previewObj.transform.localPosition = Vector3.zero;

@@ -23,82 +23,82 @@ namespace Assets.Scripts.EngineLayer.Objects
                 InventorySlots[i] = new InventorySlot();
         }
 
-        public int InsertItems(ItemType item, int amount)
+        public int InsertItems(ObjectType @object, int amount)
         {
-            foreach (var filled in InventorySlots.Where(sl => sl.ItemType != null && item.Equals(sl.ItemType))
+            foreach (var filled in InventorySlots.Where(sl => sl.ObjectType != null && @object.Equals(sl.ObjectType))
                 .OrderByDescending(sl => sl.Amount).ToArray())
             {
-                amount = InsertIntoSlot(item, amount, filled);
+                amount = InsertIntoSlot(@object, amount, filled);
                 if (amount == 0)
                     return 0;
             }
-            foreach (var inventorySlot in InventorySlots.Where(slot => slot.ItemType == null))
+            foreach (var inventorySlot in InventorySlots.Where(slot => slot.ObjectType == null))
             {
-                amount = InsertIntoSlot(item, amount, inventorySlot);
+                amount = InsertIntoSlot(@object, amount, inventorySlot);
                 if (amount == 0)
                     return 0;
             }
             return amount;
         }
 
-        private int InsertIntoSlot(ItemType item, int amount, InventorySlot slot)
+        private int InsertIntoSlot(ObjectType @object, int amount, InventorySlot slot)
         {
-            var free = item.StackSize - slot.Amount;
+            var free = @object.StackSize - slot.Amount;
             var insert = Mathf.Min(free, amount);
             slot.Amount += insert;
-            slot.ItemType = item;
+            slot.ObjectType = @object;
             amount -= insert;
             return amount;
         }
 
-        public int GetSpaceForItem(ItemType item)
+        public int GetSpaceForItem(ObjectType @object)
         {
-            var emptySlots = InventorySlots.Count(slot => slot.ItemType == null);
-            var freeSpace = emptySlots * item.StackSize;
-            foreach (var filled in InventorySlots.Where(slot => item.Equals(slot.ItemType)))
+            var emptySlots = InventorySlots.Count(slot => slot.ObjectType == null);
+            var freeSpace = emptySlots * @object.StackSize;
+            foreach (var filled in InventorySlots.Where(slot => @object.Equals(slot.ObjectType)))
             {
-                freeSpace += item.StackSize - filled.Amount;
+                freeSpace += @object.StackSize - filled.Amount;
             }
             return freeSpace;
         }
 
-        public int GetItemCount(ItemType item)
+        public int GetItemCount(ObjectType @object)
         {
-            return InventorySlots.Where(sl => item.Equals(sl.ItemType)).Sum(sl => sl.Amount);
+            return InventorySlots.Where(sl => @object.Equals(sl.ObjectType)).Sum(sl => sl.Amount);
         }
 
         public bool IsEmpty()
         {
-            return InventorySlots.Any(s => s.ItemType != null);
+            return InventorySlots.Any(s => s.ObjectType != null);
         }
 
-        public ItemType First()
+        public ObjectType First()
         {
-            return InventorySlots.First(s => s.ItemType != null).ItemType;
+            return InventorySlots.First(s => s.ObjectType != null).ObjectType;
         }
 
-        public void TransferItemTo(ItemType item, Inventory inventory)
+        public void TransferItemTo(ObjectType @object, Inventory inventory)
         {
-            if (GetItemCount(item) == 0)
+            if (GetItemCount(@object) == 0)
                 return;
-            var rest = inventory.InsertItems(item, 1);
+            var rest = inventory.InsertItems(@object, 1);
             if (rest == 0)
-                RemoveItem(item);
+                RemoveItem(@object);
         }
 
-        private void RemoveItem(ItemType item)
+        private void RemoveItem(ObjectType @object)
         {
-            var slot = InventorySlots.Where(sl => sl.ItemType != null && item.Equals(sl.ItemType))
+            var slot = InventorySlots.Where(sl => sl.ObjectType != null && @object.Equals(sl.ObjectType))
                 .OrderBy(sl => sl.Amount).First();
             slot.Amount--;
             if (slot.Amount == 0)
-                slot.ItemType = null;
+                slot.ObjectType = null;
         }
     }
 
     public class InventorySlot
     {
-        public ItemType ItemType;
+        public ObjectType ObjectType;
         public int Amount;
     }
 }

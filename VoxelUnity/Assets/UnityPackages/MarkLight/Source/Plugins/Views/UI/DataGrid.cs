@@ -37,14 +37,14 @@ namespace MarkLight.Views.UI
         /// <summary>
         /// User-defined data grid data.
         /// </summary>
-        /// <d>Can be bound to an generic ObservableList to dynamically generate data grid items based on a template.</d>
+        /// <d>Can be bound to an generic ObservableList to dynamically generate data grid objects based on a template.</d>
         [MapTo("DataGridList.Items")]
         public _IObservableList Items;
 
         /// <summary>
-        /// Selected list item.
+        /// Selected list object.
         /// </summary>
-        /// <d>Set when the selected data grid item changes and points to the user-defined item data.</d>
+        /// <d>Set when the selected data grid object changes and points to the user-defined object data.</d>
         [MapTo("DataGridList.SelectedItem")]
         public _object SelectedItem;
 
@@ -56,23 +56,23 @@ namespace MarkLight.Views.UI
         public _bool IsScrollable;
 
         /// <summary>
-        /// Indicates if items can be deselected by clicking.
+        /// Indicates if objects can be deselected by clicking.
         /// </summary>
-        /// <d>A boolean indicating if items in the data grid can be deselected by clicking. Items can always be deselected programmatically.</d>
+        /// <d>A boolean indicating if objects in the data grid can be deselected by clicking. Items can always be deselected programmatically.</d>
         [MapTo("DataGridList.CanDeselect")]
         public _bool CanDeselect;
 
         /// <summary>
-        /// Indicates if more than one list item can be selected.
+        /// Indicates if more than one list object can be selected.
         /// </summary>
-        /// <d>A boolean indicating if more than one data grid item can be selected by clicking or programmatically.</d>
+        /// <d>A boolean indicating if more than one data grid object can be selected by clicking or programmatically.</d>
         [MapTo("DataGridList.CanMultiSelect")]
         public _bool CanMultiSelect;
 
         /// <summary>
-        /// Indicates if items can be selected by clicking.
+        /// Indicates if objects can be selected by clicking.
         /// </summary>
-        /// <d>A boolean indicating if items can be selected by clicking. Items can always be selected programmatically.</d>
+        /// <d>A boolean indicating if objects can be selected by clicking. Items can always be selected programmatically.</d>
         [MapTo("DataGridList.CanSelect")]
         public _bool CanSelect;
 
@@ -154,16 +154,16 @@ namespace MarkLight.Views.UI
         public _ElementOrientation ListOrientation;
 
         /// <summary>
-        /// Spacing between data grid list items.
+        /// Spacing between data grid list objects.
         /// </summary>
-        /// <d>The spacing between data grid list items.</d>
+        /// <d>The spacing between data grid list objects.</d>
         [MapTo("DataGridList.Spacing")]
         public _ElementSize ListSpacing;
 
         /// <summary>
-        /// The alignment of data grid list items.
+        /// The alignment of data grid list objects.
         /// </summary>
-        /// <d>If the data grid list items varies in size the content alignment specifies how the data grid list items should be arranged in relation to each other.</d>
+        /// <d>If the data grid list objects varies in size the content alignment specifies how the data grid list objects should be arranged in relation to each other.</d>
         [MapTo("DataGridList.ContentAlignment")]
         public _ElementAlignment ListContentAlignment;
 
@@ -177,7 +177,7 @@ namespace MarkLight.Views.UI
         /// <summary>
         /// Sort direction.
         /// </summary>
-        /// <d>If data grid list items has SortIndex set they can be sorted in the direction specified.</d>
+        /// <d>If data grid list objects has SortIndex set they can be sorted in the direction specified.</d>
         [MapTo("DataGridList.SortDirection")]
         public _ElementSortDirection ListSortDirection;
 

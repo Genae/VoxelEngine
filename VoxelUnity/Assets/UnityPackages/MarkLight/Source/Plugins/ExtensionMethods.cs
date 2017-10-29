@@ -667,7 +667,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Adds range of items to a hashset.
+        /// Adds range of objects to a hashset.
         /// </summary>
         public static void AddRange<T>(this HashSet<T> hashSet, IEnumerable<T> items)
         {

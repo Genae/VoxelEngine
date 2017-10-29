@@ -17,7 +17,7 @@ namespace MarkLight.Views.UI
     /// <summary>
     /// Combo box view.
     /// </summary>
-    /// <d>Presents a static or dynamic list of items in a drop-down.</d>
+    /// <d>Presents a static or dynamic list of objects in a drop-down.</d>
     [MapViewField("ItemSelected", "ComboBoxList.ItemSelected")]
     [HideInPresenter]
     public class ComboBox : UIView
@@ -221,28 +221,28 @@ namespace MarkLight.Views.UI
         /// <summary>
         /// Scroll delta distance for disabling interaction.
         /// </summary>
-        /// <d>If set any interaction with child views (clicks, etc) is disabled when the specified distance has been scrolled. This is used e.g. to disable clicks while scrolling a selectable list of items.</d>
+        /// <d>If set any interaction with child views (clicks, etc) is disabled when the specified distance has been scrolled. This is used e.g. to disable clicks while scrolling a selectable list of objects.</d>
         [MapTo("ComboBoxList.DisableInteractionScrollDelta")]
         public _float DisableInteractionScrollDelta;
 
         /// <summary>
-        /// Indicates if items are selected on mouse up.
+        /// Indicates if objects are selected on mouse up.
         /// </summary>
-        /// <d>Boolean indicating if items are selected on mouse up rather than mouse down (default).</d>
+        /// <d>Boolean indicating if objects are selected on mouse up rather than mouse down (default).</d>
         [MapTo("ComboBoxList.SelectOnMouseUp")]
         public _bool SelectOnMouseUp;
 
         /// <summary>
         /// User-defined list data.
         /// </summary>
-        /// <d>Can be bound to an generic ObservableList to dynamically generate combo box items based on a template.</d>
+        /// <d>Can be bound to an generic ObservableList to dynamically generate combo box objects based on a template.</d>
         [MapTo("ComboBoxList.Items")]
         public _IObservableList Items;
 
         /// <summary>
-        /// Selected list item.
+        /// Selected list object.
         /// </summary>
-        /// <d>Set when the selected combo box item changes and points to the user-defined item data.</d>
+        /// <d>Set when the selected combo box object changes and points to the user-defined object data.</d>
         [MapTo("ComboBoxList.SelectedItem")]
         public _object SelectedItem;
         
@@ -317,16 +317,16 @@ namespace MarkLight.Views.UI
         public _ElementOrientation ListOrientation;
 
         /// <summary>
-        /// Spacing between combo box list items.
+        /// Spacing between combo box list objects.
         /// </summary>
-        /// <d>The spacing between combo box list items.</d>
+        /// <d>The spacing between combo box list objects.</d>
         [MapTo("ComboBoxList.Spacing")]
         public _ElementSize ListSpacing;
 
         /// <summary>
-        /// The alignment of combo box list items.
+        /// The alignment of combo box list objects.
         /// </summary>
-        /// <d>If the combo box list items varies in size the content alignment specifies how the combo box list items should be arranged in relation to each other.</d>
+        /// <d>If the combo box list objects varies in size the content alignment specifies how the combo box list objects should be arranged in relation to each other.</d>
         [MapTo("ComboBoxList.ContentAlignment")]
         public _ElementAlignment ListContentAlignment;
 
@@ -340,7 +340,7 @@ namespace MarkLight.Views.UI
         /// <summary>
         /// Sort direction.
         /// </summary>
-        /// <d>If combo box list items has SortIndex set they can be sorted in the direction specified.</d>
+        /// <d>If combo box list objects has SortIndex set they can be sorted in the direction specified.</d>
         [MapTo("ComboBoxList.SortDirection")]
         public _ElementSortDirection ListSortDirection;
 
@@ -553,7 +553,7 @@ namespace MarkLight.Views.UI
         /// </summary>
         public void ComboBoxListSelectionChanged(ItemSelectionActionData actionData)
         {
-            // close list and set selected item text
+            // close list and set selected object text
             ComboBoxButton.ToggleValue.Value = false;
             ComboBoxButton.Text.Value = actionData.ItemView != null? actionData.ItemView.Text.Value : String.Empty;
             ComboBoxList.Deactivate();

@@ -47,7 +47,7 @@ namespace MarkLight
         Replace = 3,
 
         /// <summary>
-        /// All items cleared from list.
+        /// All objects cleared from list.
         /// </summary>
         Clear = 4,
 

@@ -11,7 +11,7 @@ using UnityEngine;
 namespace MarkLight
 {
     /// <summary>
-    /// Generic list that notify observers when items are added, deleted or moved.
+    /// Generic list that notify observers when objects are added, deleted or moved.
     /// </summary>
     [Serializable]
     public class ObservableList<T> : IObservableList, IEnumerable<T>
@@ -55,7 +55,7 @@ namespace MarkLight
         #region Methods
 
         /// <summary>
-        /// Adds item to the end of the list.
+        /// Adds object to the end of the list.
         /// </summary>
         public void Add(object item)
         {
@@ -63,7 +63,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Adds a range of items to the list.
+        /// Adds a range of objects to the list.
         /// </summary>
         public void Add(IEnumerable items)
         {
@@ -74,7 +74,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Adds item to the end of the list.
+        /// Adds object to the end of the list.
         /// </summary>
         public void Add(T item)
         {
@@ -88,7 +88,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Adds a range of items to the end of the list.
+        /// Adds a range of objects to the end of the list.
         /// </summary>
         public void AddRange(IEnumerable<T> items)
         {
@@ -108,7 +108,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Replaces the items in the list.
+        /// Replaces the objects in the list.
         /// </summary>
         public void Replace(IEnumerable<T> newItems)
         {
@@ -136,18 +136,18 @@ namespace MarkLight
 
             if (newItemsCount > Count)
             {
-                // old list smaller than new - add items
+                // old list smaller than new - add objects
                 AddRange(newItemsList.Skip(replaceCount));
             }
             else if (newItemsCount < Count)
             {
-                // old list larger than new - remove items
+                // old list larger than new - remove objects
                 RemoveRange(newItemsCount, Count - newItemsCount);
             }
         }
 
         /// <summary>
-        /// Replaces a single item in the list.
+        /// Replaces a single object in the list.
         /// </summary>
         public void Replace(int index, T item)
         {
@@ -162,7 +162,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Informs observers that item has been modified.
+        /// Informs observers that object has been modified.
         /// </summary>
         public void ItemModified(T item, string fieldPath = "")
         {
@@ -174,7 +174,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Informs observers that item has been modified.
+        /// Informs observers that object has been modified.
         /// </summary>
         public void ItemModified(int index, string fieldPath = "")
         {
@@ -185,7 +185,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Informs observers that all items have been modified.
+        /// Informs observers that all objects have been modified.
         /// </summary>
         public void ItemsModified(string fieldPath = "")
         {
@@ -199,7 +199,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Informs observers that items have been modified.
+        /// Informs observers that objects have been modified.
         /// </summary>
         public void ItemsModified(int startIndex, int endIndex, string fieldPath = "")
         {
@@ -218,7 +218,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Performs a binary search on the sorted list using default comparer and returning a zero-based index of the item.
+        /// Performs a binary search on the sorted list using default comparer and returning a zero-based index of the object.
         /// </summary>
         public int BinarySearch(T item)
         {
@@ -226,7 +226,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Performs a binary search on the sorted list using default comparer and returning a zero-based index of the item.
+        /// Performs a binary search on the sorted list using default comparer and returning a zero-based index of the object.
         /// </summary>
         public int BinarySearch(T item, IComparer<T> comparer)
         {
@@ -234,7 +234,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Performs a binary search on the sorted list using default comparer and returning a zero-based index of the item.
+        /// Performs a binary search on the sorted list using default comparer and returning a zero-based index of the object.
         /// </summary>
         public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
         {
@@ -242,7 +242,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Removes all items from the list.
+        /// Removes all objects from the list.
         /// </summary>
         public void Clear()
         {
@@ -258,7 +258,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns boolean indicating if list contains the item.
+        /// Returns boolean indicating if list contains the object.
         /// </summary>
         public bool Contains(T item)
         {
@@ -266,7 +266,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Converts the items in the list to another type and returns a new list.
+        /// Converts the objects in the list to another type and returns a new list.
         /// </summary>
         public List<TOutput> ConvertAll<TOutput>(Converter<T, TOutput> converter)
         {
@@ -298,7 +298,7 @@ namespace MarkLight
         }
         
         /// <summary>
-        /// Returns boolean indicating if an item matching the predicate exists in the list.
+        /// Returns boolean indicating if an object matching the predicate exists in the list.
         /// </summary>
         public bool Exists(Predicate<T> predicate)
         {
@@ -306,7 +306,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns first item matching the predicate.
+        /// Returns first object matching the predicate.
         /// </summary>
         public T Find(Predicate<T> predicate)
         {
@@ -314,7 +314,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns all items that matches the predicate.
+        /// Returns all objects that matches the predicate.
         /// </summary>
         public List<T> FindAll(Predicate<T> predicate)
         {
@@ -322,7 +322,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns the index of the item matching the predicate.
+        /// Returns the index of the object matching the predicate.
         /// </summary>
         public int FindIndex(Predicate<T> predicate)
         {
@@ -330,7 +330,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns the index of the item matching the predicate.
+        /// Returns the index of the object matching the predicate.
         /// </summary>
         public int FindIndex(int startIndex, Predicate<T> predicate)
         {
@@ -338,7 +338,7 @@ namespace MarkLight
         }
         
         /// <summary>
-        /// Returns the index of the item matching the predicate.
+        /// Returns the index of the object matching the predicate.
         /// </summary>
         public int FindIndex(int startIndex, int count, Predicate<T> predicate)
         {
@@ -346,7 +346,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns the last item matching the predicate.
+        /// Returns the last object matching the predicate.
         /// </summary>
         public T FindLast(Predicate<T> predicate)
         {
@@ -354,7 +354,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns the index of the last item matching the predicate.
+        /// Returns the index of the last object matching the predicate.
         /// </summary>
         public int FindLastIndex(Predicate<T> predicate)
         {
@@ -362,7 +362,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns the index of the last item matching the predicate.
+        /// Returns the index of the last object matching the predicate.
         /// </summary>
         public int FindLastIndex(int startIndex, Predicate<T> predicate)
         {
@@ -370,7 +370,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns the index of the last item matching the predicate.
+        /// Returns the index of the last object matching the predicate.
         /// </summary>
         public int FindLastIndex(int startIndex, int count, Predicate<T> predicate)
         {
@@ -378,7 +378,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Performs an action on each item in the list.
+        /// Performs an action on each object in the list.
         /// </summary>
         public void ForEach(Action<T> action)
         {
@@ -402,7 +402,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Creates a shallow copies of the specified range of items in the list.
+        /// Creates a shallow copies of the specified range of objects in the list.
         /// </summary>
         public List<T> GetRange(int index, int count)
         {
@@ -410,7 +410,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets the index of the specified item.
+        /// Gets the index of the specified object.
         /// </summary>
         public int IndexOf(T item)
         {
@@ -418,7 +418,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets the index of the specified item.
+        /// Gets the index of the specified object.
         /// </summary>
         public int IndexOf(T item, int startIndex)
         {
@@ -426,7 +426,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets the index of the specified item.
+        /// Gets the index of the specified object.
         /// </summary>
         public int IndexOf(T item, int startIndex, int count)
         {
@@ -434,7 +434,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Inserts an item into the list at the specified index.
+        /// Inserts an object into the list at the specified index.
         /// </summary>
         public void Insert(int index, T item)
         {
@@ -447,7 +447,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Inserts a range of items at the specified index.
+        /// Inserts a range of objects at the specified index.
         /// </summary>
         public void InsertRange(int startIndex, IEnumerable<T> collection)
         {
@@ -462,7 +462,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets the last index of the specified item.
+        /// Gets the last index of the specified object.
         /// </summary>
         public int LastIndexOf(T item)
         {
@@ -470,7 +470,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets the last index of the specified item.
+        /// Gets the last index of the specified object.
         /// </summary>
         public int LastIndexOf(T item, int startIndex)
         {
@@ -478,7 +478,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets the last index of the specified item.
+        /// Gets the last index of the specified object.
         /// </summary>
         public int LastIndexOf(T item, int startIndex, int count)
         {
@@ -486,7 +486,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Removes the first occurance of an item from the list.
+        /// Removes the first occurance of an object from the list.
         /// </summary>
         public bool Remove(object item)
         {
@@ -494,7 +494,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Removes the first occurance of an item from the list.
+        /// Removes the first occurance of an object from the list.
         /// </summary>
         public bool Remove(T item)
         {
@@ -509,7 +509,7 @@ namespace MarkLight
         }
         
         /// <summary>
-        /// Removes the items from the list.
+        /// Removes the objects from the list.
         /// </summary>
         public void Remove(IEnumerable items)
         {
@@ -521,7 +521,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Removes all items that matches the predicate.
+        /// Removes all objects that matches the predicate.
         /// </summary>
         public int RemoveAll(Predicate<T> predicate)
         {
@@ -539,7 +539,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Removes item at the specified index.
+        /// Removes object at the specified index.
         /// </summary>
         public void RemoveAt(int index)
         {
@@ -552,7 +552,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Removes a range of items from the list.
+        /// Removes a range of objects from the list.
         /// </summary>
         public void RemoveRange(int startIndex, int count)
         {
@@ -579,7 +579,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Reverses the order of the items in the specified range.
+        /// Reverses the order of the objects in the specified range.
         /// </summary>
         public void Reverse(int startIndex, int count)
         {
@@ -652,7 +652,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Sets capacity to the number of items in the list.
+        /// Sets capacity to the number of objects in the list.
         /// </summary>
         public void TrimExcess()
         {
@@ -660,7 +660,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Returns boolean indicating if all items matches the predicate.
+        /// Returns boolean indicating if all objects matches the predicate.
         /// </summary>
         public bool TrueForAll(Predicate<T> predicate)
         {
@@ -668,7 +668,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Sets selected item without notifying observers.
+        /// Sets selected object without notifying observers.
         /// </summary>
         public void SetSelected(object item)
         {
@@ -676,7 +676,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets index of an item.
+        /// Gets index of an object.
         /// </summary>
         public int GetIndex(object item)
         {
@@ -684,7 +684,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Scrolls to item.
+        /// Scrolls to object.
         /// </summary>
         public void ScrollTo(T item, ElementAlignment? alignment = null, ElementMargin offset = null)
         {
@@ -696,7 +696,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Scrolls to item.
+        /// Scrolls to object.
         /// </summary>
         public void ScrollTo(int index, ElementAlignment? alignment = null, ElementMargin offset = null)
         {
@@ -726,7 +726,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets the number of items in the list.
+        /// Gets the number of objects in the list.
         /// </summary>
         public int Count
         {
@@ -737,7 +737,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets item at index.
+        /// Gets object at index.
         /// </summary>
         object IObservableList.this[int index]
         {
@@ -748,7 +748,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets or sets the item at the specified index.
+        /// Gets or sets the object at the specified index.
         /// </summary>
         public T this[int index]
         {
@@ -773,7 +773,7 @@ namespace MarkLight
         }
 
         /// <summary>
-        /// Gets or sets the selected item.
+        /// Gets or sets the selected object.
         /// </summary>
         public T SelectedItem
         {

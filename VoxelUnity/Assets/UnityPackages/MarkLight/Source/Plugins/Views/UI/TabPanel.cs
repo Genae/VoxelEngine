@@ -169,16 +169,16 @@ namespace MarkLight.Views.UI
         public _ElementOrientation TabListOrientation;
 
         /// <summary>
-        /// Spacing between tab header list items.
+        /// Spacing between tab header list objects.
         /// </summary>
-        /// <d>The spacing between tab header list items.</d>
+        /// <d>The spacing between tab header list objects.</d>
         [MapTo("TabHeaderList.Spacing")]
         public _ElementSize TabListSpacing;
 
         /// <summary>
-        /// The alignment of tab header list items.
+        /// The alignment of tab header list objects.
         /// </summary>
-        /// <d>If the tab header list items varies in size the content alignment specifies how the tab header list items should be arranged in relation to each other.</d>
+        /// <d>If the tab header list objects varies in size the content alignment specifies how the tab header list objects should be arranged in relation to each other.</d>
         [MapTo("TabHeaderList.ContentAlignment")]
         public _ElementAlignment TabListContentAlignment;
 
@@ -192,7 +192,7 @@ namespace MarkLight.Views.UI
         /// <summary>
         /// Sort direction.
         /// </summary>
-        /// <d>If tab header list items has SortIndex set they can be sorted in the direction specified.</d>
+        /// <d>If tab header list objects has SortIndex set they can be sorted in the direction specified.</d>
         [MapTo("TabHeaderList.SortDirection")]
         public _ElementSortDirection TabListSortDirection;
 
@@ -304,9 +304,9 @@ namespace MarkLight.Views.UI
         public _bool AutoAdjustTabListContentAlignment;
         
         /// <summary>
-        /// Selected data list item.
+        /// Selected data list object.
         /// </summary>
-        /// <d>Set when the selected list item changes and points to the user-defined data item.</d>
+        /// <d>Set when the selected list object changes and points to the user-defined data object.</d>
         [ChangeHandler("SelectedItemChanged")]
         public _object SelectedItem;
 
@@ -320,7 +320,7 @@ namespace MarkLight.Views.UI
         /// <summary>
         /// List changed view action.
         /// </summary>
-        /// <d>Triggered when the list changes (items added, removed or moved).</d>
+        /// <d>Triggered when the list changes (objects added, removed or moved).</d>
         /// <actionData>ListChangedActionData</actionData>
         public ViewAction ListChanged;
 
@@ -425,7 +425,7 @@ namespace MarkLight.Views.UI
                     StaticTabsGenerated = true;
                     TabHeaderList.Content.DestroyChildren();
 
-                    // go through static items and initialize tab headers
+                    // go through static objects and initialize tab headers
                     foreach (var tab in _presentedTabs)
                     {
                         CreateTabHeader(tab);
@@ -502,7 +502,7 @@ namespace MarkLight.Views.UI
             // select
             SetSelected(tab, true);
 
-            // deselect other items if we can't multi-select
+            // deselect other objects if we can't multi-select
             foreach (var presentedTabItem in _presentedTabs)
             {
                 if (presentedTabItem == tab)
@@ -551,7 +551,7 @@ namespace MarkLight.Views.UI
         }
 
         /// <summary>
-        /// Called when the selected item has been changed.
+        /// Called when the selected object has been changed.
         /// </summary>
         public virtual void SelectedItemChanged()
         {
@@ -581,7 +581,7 @@ namespace MarkLight.Views.UI
                     TabHeaderList.SelectItem(tabHeader, false);
                 }
 
-                // item selected
+                // object selected
                 _selectedItem = tab.Item.Value;
                 SelectedItem.Value = tab.Item.Value;
                 SelectedTab = tab;
@@ -590,7 +590,7 @@ namespace MarkLight.Views.UI
                     Items.SetSelected(_selectedItem);
                 }
 
-                // trigger item selected action
+                // trigger object selected action
                 if (TabSelected.HasEntries)
                 {
                     TabSelected.Trigger(new TabSelectionActionData { IsSelected = true, TabView = tab, Item = tab.Item.Value });
@@ -599,7 +599,7 @@ namespace MarkLight.Views.UI
         }
 
         /// <summary>
-        /// Called when the list of items has been changed.
+        /// Called when the list of objects has been changed.
         /// </summary>
         public virtual void ItemsChanged()
         {
@@ -610,7 +610,7 @@ namespace MarkLight.Views.UI
         }
 
         /// <summary>
-        /// Called when the list of items has been changed.
+        /// Called when the list of objects has been changed.
         /// </summary>
         private void OnListChanged(object sender, ListChangedEventArgs e)
         {
@@ -662,7 +662,7 @@ namespace MarkLight.Views.UI
                 // subscribe to change events in the new list
                 Items.ListChanged += OnListChanged;
 
-                // add list items
+                // add list objects
                 if (Items.Count > 0)
                 {
                     AddRange(0, Items.Count - 1);
@@ -698,7 +698,7 @@ namespace MarkLight.Views.UI
             // make sure we have a template
             if (TabItemTemplate == null)
             {
-                Debug.LogError(String.Format("[MarkLight] {0}: Unable to generate tabs from items. Template missing. Add a template by adding a Tab view with IsTemplate=\"True\" to the TabPanel.", GameObjectName));
+                Debug.LogError(String.Format("[MarkLight] {0}: Unable to generate tabs from objects. Template missing. Add a template by adding a Tab view with IsTemplate=\"True\" to the TabPanel.", GameObjectName));
                 return;
             }
 
@@ -755,7 +755,7 @@ namespace MarkLight.Views.UI
 
             _presentedTabs.Insert(index, newTabView);
 
-            // set item data
+            // set object data
             SetItemData(newTabView, itemData);
 
             // initialize view
@@ -769,7 +769,7 @@ namespace MarkLight.Views.UI
         }
 
         /// <summary>
-        /// Sets item data.
+        /// Sets object data.
         /// </summary>
         private void SetItemData(View view, object itemData)
         {
@@ -892,7 +892,7 @@ namespace MarkLight.Views.UI
         #region Properties
 
         /// <summary>
-        /// Returns list item template.
+        /// Returns list object template.
         /// </summary>
         public Tab TabItemTemplate
         {

@@ -49,7 +49,7 @@ namespace MarkLight.Views.UI
             var templateTypeName = Template != null ? Template.ViewTypeName : null;
             var itemsToDestroy = new List<View>();
 
-            // remove any items not of the right type
+            // remove any objects not of the right type
             foreach (var child in this)
             {
                 if (child.ViewTypeName != templateTypeName)

@@ -9,66 +9,66 @@ using UnityEngine;
 
 namespace Assets.Scripts.AccessLayer
 {
-    public class ItemManager
+    public class ObjectManager
     {
-        private static Dictionary<string, ItemType> _items;
+        private static Dictionary<string, ObjectType> _objects;
         private static readonly List<Inventory> Inventories = new List<Inventory>();
-        public static void DropItem(Vector3 pos, ItemType item)
+        public static void DropObject(Vector3 pos, ObjectType objectType)
         {
-            GetModel(pos, item);
+            GetModel(pos, objectType);
         }
 
-        public static GameObject GetModel(Vector3 pos, ItemType item)
+        public static GameObject GetModel(Vector3 pos, ObjectType objectType)
         {
-            return MultiblockLoader.LoadMultiblock(item.Model, pos - Vector3.one / 2).gameObject;
+            return MultiblockLoader.LoadMultiblock(objectType.Model, pos - Vector3.one / 2).gameObject;
         }
-        public static void ActivateObject(GameObject obj, ItemType item)
+        public static void ActivateObject(GameObject obj, ObjectType objectType)
         {
             obj.AddComponent<Item>();
             var chunk = World.At(obj.transform.position).GetChunkData();
             chunk.RegisterSmallMultiblock(obj.GetComponentInChildren<Multiblock>(), (Vector3I)(obj.transform.position - chunk.Position));
-            if (item.Inventory != null)
+            if (objectType.Inventory != null)
             {
                 var inv = obj.AddComponent<Inventory>();
-                inv.SetSlotCount(item.Inventory.SlotAmount);
+                inv.SetSlotCount(objectType.Inventory.SlotAmount);
                 Inventories.Add(inv);
             }
-            if (!string.IsNullOrEmpty(item.Connection.Model))
+            if (!string.IsNullOrEmpty(objectType.Connection.Model))
             {
                 var ctn = obj.AddComponent<ConnectToNeighbours>();
-                ctn.ItemType = item;
+                ctn.ObjectType = objectType;
             }
         }
 
-        public static ItemType GetItemType(string name)
+        public static ObjectType GetObjectType(string name)
         {
-            if (_items == null)
-                _items = LoadItems();
-            return _items[name];
+            if (_objects == null)
+                _objects = LoadItems();
+            return _objects[name];
         }
 
-        public static List<Inventory> GetInventoriesFor(ItemType items)
+        public static List<Inventory> GetInventoriesFor(ObjectType objectTypes)
         {
-            return Inventories.Where(i => i.GetSpaceForItem(items) > 0).ToList();
+            return Inventories.Where(i => i.GetSpaceForItem(objectTypes) > 0).ToList();
         }
 
-        private static Dictionary<string, ItemType> LoadItems()
+        private static Dictionary<string, ObjectType> LoadItems()
         {
-            _items = new Dictionary<string, ItemType>();
-            var configs = ConfigImporter.GetAllConfigs<ItemType[]>("Items");
+            _objects = new Dictionary<string, ObjectType>();
+            var configs = ConfigImporter.GetAllConfigs<ObjectType[]>("Items");
             foreach (var config in configs)
             {
                 foreach (var itemType in config)
                 {
-                    _items[itemType.Name] = itemType;
+                    _objects[itemType.Name] = itemType;
                 }
             }
-            return _items;
+            return _objects;
         }
 
         public static object PlaceItemOfType(string itemTypeName, Vector3 pos)
         {
-            var itemType = GetItemType(itemTypeName);
+            var itemType = GetObjectType(itemTypeName);
             var obj = new GameObject(itemTypeName);
             obj.transform.position = pos;
             var model = GetModel(pos, itemType);
@@ -82,7 +82,7 @@ namespace Assets.Scripts.AccessLayer
 
     public class ConnectToNeighbours : MonoBehaviour
     {
-        public ItemType ItemType;
+        public ObjectType ObjectType;
         void Start()
         {
             for (var i = 0; i < 4; i++)
@@ -110,9 +110,9 @@ namespace Assets.Scripts.AccessLayer
                 var rotate = new GameObject("Connection " + i);
                 rotate.transform.parent = transform;
                 rotate.transform.localPosition = Vector3.zero;
-                var connector = MultiblockLoader.LoadMultiblock(ItemType.Connection.Model, transform.position).gameObject;
+                var connector = MultiblockLoader.LoadMultiblock(ObjectType.Connection.Model, transform.position).gameObject;
                 connector.transform.parent = rotate.transform;
-                connector.transform.localPosition = ItemType.Connection.Offset;
+                connector.transform.localPosition = ObjectType.Connection.Offset;
                 rotate.transform.RotateAround(transform.position + new Vector3(0.05f, 0, 0.05f), Vector3.up, 90 * i);
             }
         }
@@ -126,7 +126,7 @@ namespace Assets.Scripts.AccessLayer
         }
     }
 
-    public class ItemType
+    public class ObjectType
     {
         public string Name;
         public int StackSize;

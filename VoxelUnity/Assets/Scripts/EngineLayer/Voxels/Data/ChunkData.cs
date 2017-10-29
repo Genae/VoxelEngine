@@ -124,11 +124,11 @@ namespace Assets.Scripts.EngineLayer.Voxels.Data
             {
                 foreach (var drop in type.Drops)
                 {
-                    var item = ItemManager.GetItemType(drop.Item);
+                    var item = ObjectManager.GetObjectType(drop.Item);
                     var notStored = inventory.InsertItems(item, drop.Amount);
                     for (var i = 0; i < notStored; i++)
                     {
-                        ItemManager.DropItem(new Vector3(x, y, z) + Position, item);
+                        ObjectManager.DropObject(new Vector3(x, y, z) + Position, item);
                     }
                 }
             }
