@@ -68,5 +68,10 @@ namespace Assets.Scripts.AccessLayer.Worlds
             var cz = _v.z / Chunk.ChunkSize;
             return Map.Instance.IsInBounds(_v.x, _v.y, _v.z) ? Map.Instance.MapData.Chunks[cx, cy, cz] : null;
         }
+
+        public GameObject GetObject()
+        {
+            return GetChunkData().GetMultiblocksAt(_v.x % Chunk.ChunkSize, _v.y % Chunk.ChunkSize, _v.z % Chunk.ChunkSize);
+        }
     }
 }

@@ -17,10 +17,31 @@ namespace Assets.Scripts.GameLogicLayerTD
             farm.transform.parent = GameObject.Find("Map").transform;
             farm.CropType = CropManager.Instance.GetCropByName("Wheat");
 
-            var height = FlattenTerrain(position, 9);
-            for (var i = -3; i <= 3; i++)
+            var height = FlattenTerrain(position, 11);
+            CreateSoil(position, height, farm, 7);
+            BuildFence(position, height, 9);
+        }
+
+        private void BuildFence(Vector3 position, float height, int size)
+        {
+            for (var i = -size / 2; i <= size / 2; i++)
             {
-                for (var j = -3; j <= 3; j++)
+                for (var j = -size / 2; j <= size / 2; j++)
+                {
+                    if (i == -size / 2 || j == -size / 2 || i == size / 2 || j == size / 2)
+                    {
+                        var pos = new Vector3(position.x + i, height + 0.5f, position.z + j);
+                        var fence = ItemManager.PlaceItemOfType("Fence", pos);
+                    }
+                }
+            }
+        }
+
+        private static void CreateSoil(Vector3 position, float height, Farm farm, int size)
+        {
+            for (var i = -size / 2; i <= size / 2; i++)
+            {
+                for (var j = -size / 2; j <= size / 2; j++)
                 {
                     var pos = new Vector3(position.x + i, height, position.z + j);
                     JobController.Instance.AddJob(new CreateSoilJob(pos));
@@ -65,7 +86,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                 }
             }
 
-            return height;
+            return (int)height;
         }
     }
 }

@@ -107,6 +107,15 @@ namespace Assets.Scripts.EngineLayer.Voxels.Data
             }
             _smallMultiblocks[pos] = mb;
         }
+        public GameObject GetMultiblocksAt(int x, int y, int z)
+        {
+            if (!_smallMultiblocks.ContainsKey(new Vector3(x, y, z)))
+            {
+                return null;
+            }
+            Debug.Log("found multiblock at " + new Vector3(x, y, z));
+            return _smallMultiblocks[new Vector3(x, y, z)].gameObject;
+        }
 
         public void MineVoxel(int x, int y, int z, Inventory inventory)
         {
@@ -133,6 +142,7 @@ namespace Assets.Scripts.EngineLayer.Voxels.Data
                 borders[i % 2 == 0 ? i + 1 : i - 1] = ChunkBorders[i].GetNeighbourBorder();
             return borders;
         }
+
     }
 
     public class ContainerData

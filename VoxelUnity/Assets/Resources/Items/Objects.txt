@@ -26,7 +26,10 @@
         "Name": "Fence",
 		"StackSize": 1,
         "Model": "Objects/fence_post",
-        "Connection": "Objects/fence_connector",
+        "Connection": {
+			"Model": "Objects/fence_connector",
+			"Offset": {"X":0.2,"Y":0.5,"Z":0.0}
+		},
 		
 		/* RECIPESTART */
 		"Recipe" : {
