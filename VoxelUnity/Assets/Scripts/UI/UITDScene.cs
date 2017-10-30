@@ -44,7 +44,7 @@ namespace Assets.Scripts.UI
             if (markers.Count < 2) return;
             markers = markers.OrderBy(m => m.gameObject.name).ToList();
 
-            var list = Bezier.GetBezierPoints(markers.Select(m => m.position).ToList(), 10f);
+            var list = Bezier.GetBSplinePoints(markers.Select(m => m.position).ToList(), 10f);
             for (var i = 1; i < list.Count; i++)
             {
                 ResourceManager.DrawCapsule(list[i - 1], list[i], 3f, dirt, grass);

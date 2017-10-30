@@ -17,6 +17,38 @@ public class Bezier : MonoBehaviour {
         }
     }*/
 
+    //splitting curve into parts to make resulting line closer to controlpolygon. pretty sure this is not exactly bsplines, close enough for me tho
+    public static List<Vector3> GetBSplinePoints(List<Vector3> verts, float stepcount)
+    {
+        //no splitting possible if less then 3 points
+        if(verts.Count <= 3) return GetBezierPoints(verts, stepcount);
+
+        var list = new List<Vector3>();
+        //first 2 points
+        list.Add(verts[0]);
+        list.Add(GetMidPointAt(verts[0], verts[1], 0.5f));
+        var dynlist = new List<Vector3>();
+
+        for (int i = 1; i < verts.Count-1; i++)
+        {
+            //get 3 points ready for bezier
+            dynlist.Clear();
+            dynlist.Add(GetMidPointAt(verts[i-1], verts[i], 0.5f));
+            dynlist.Add(verts[i]);
+            dynlist.Add(GetMidPointAt(verts[i], verts[i + 1], 0.5f));
+            //use bezier
+            list.AddRange(GetBezierPoints(dynlist, stepcount));
+        }
+
+        //last 2 points
+        list.Add(GetMidPointAt(verts[verts.Count-2], verts[verts.Count - 1], 0.5f));
+        list.Add(verts[verts.Count - 1]);
+
+        Debug.Log(list.Count);
+
+        return list;
+    }
+
     public static List<Vector3> GetBezierPoints(List<Vector3> verts, float stepcount)
     {
         var vertcount = verts.Count;
