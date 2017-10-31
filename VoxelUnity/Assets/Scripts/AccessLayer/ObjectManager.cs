@@ -66,7 +66,7 @@ namespace Assets.Scripts.AccessLayer
             return _objects;
         }
 
-        public static object PlaceItemOfType(string itemTypeName, Vector3 pos)
+        public static GameObject PlaceItemOfType(string itemTypeName, Vector3 pos)
         {
             var itemType = GetObjectType(itemTypeName);
             var obj = new GameObject(itemTypeName);

@@ -1,25 +1,35 @@
 ﻿using Assets.Scripts.AccessLayer;
 using Assets.Scripts.AccessLayer.Farming;
 using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.GameLogicLayer.Actions;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
     public class TDFarm
     {
-        private Vector3 _position;
+        private Farm _farm;
 
         public TDFarm(Vector3 position)
         {
-            _position = position;
-            var farm = new GameObject("Farm").AddComponent<Farm>();
-            farm.transform.parent = GameObject.Find("Map").transform;
-            farm.CropType = CropManager.Instance.GetCropByName("Wheat");
+            var _size = 7;
+            _farm = new GameObject("Farm").AddComponent<Farm>();
+            _farm.transform.parent = GameObject.Find("Map").transform;
+            _farm.CropType = CropManager.Instance.GetCropByName("Wheat");
 
-            var height = FlattenTerrain(position, 11);
-            CreateSoil(position, height, farm, 7);
-            BuildFence(position, height, 9);
+            var height = FlattenTerrain(position, _size + 4);
+            CreateSoil(position, height, _farm, _size);
+            BuildFence(position, height, _size + 2);
+            CreateCollider(position, height, _size + 2);
+        }
+
+        private void CreateCollider(Vector3 position, float height, int size)
+        {
+            var colliderGO = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            colliderGO.transform.position = position + Vector3.up*height;
+            colliderGO.transform.parent = _farm.transform;
+            colliderGO.transform.localScale = new Vector3(size, 3, size);
+            Object.Destroy(colliderGO.GetComponent<MeshRenderer>());
+            colliderGO.AddComponent<Harvester>().Farm = this;
         }
 
         private void BuildFence(Vector3 position, float height, int size)
@@ -32,6 +42,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                     {
                         var pos = new Vector3(position.x + i, height + 0.5f, position.z + j);
                         var fence = ObjectManager.PlaceItemOfType("Fence", pos);
+                        fence.transform.parent = _farm.transform;
                     }
                 }
             }
@@ -44,10 +55,20 @@ namespace Assets.Scripts.GameLogicLayerTD
                 for (var j = -size / 2; j <= size / 2; j++)
                 {
                     var pos = new Vector3(position.x + i, height, position.z + j);
-                    JobController.Instance.AddJob(new CreateSoilJob(pos));
-                    farm.AddFarmblock(pos);
+                    World.At(pos).SetVoxel("Soil");
+                    farm.AddFarmblock(pos).Stage = 1;
                 }
             }
+        }
+
+        public bool HarvestFarm()
+        {
+            if(_farm.FarmBlocks.TrueForAll(f => f.Stage == _farm.CropType.GrowStages.Count))
+            foreach (var farmblock in _farm.FarmBlocks)
+            {
+                farmblock.Stage = 1;
+            }
+            return true;
         }
 
         private float FlattenTerrain(Vector3 position, int size)
@@ -87,6 +108,15 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
 
             return (int)height;
+        }
+    }
+
+    public class Harvester : MonoBehaviour
+    {
+        public TDFarm Farm;
+        void OnMouseDown()
+        {
+            Farm.HarvestFarm();
         }
     }
 }

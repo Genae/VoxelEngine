@@ -113,7 +113,6 @@ namespace Assets.Scripts.EngineLayer.Voxels.Data
             {
                 return null;
             }
-            Debug.Log("found multiblock at " + new Vector3(x, y, z));
             return _smallMultiblocks[new Vector3(x, y, z)].gameObject;
         }
 

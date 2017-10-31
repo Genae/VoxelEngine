@@ -50,9 +50,11 @@ namespace Assets.Scripts.AccessLayer.Farming
             }
         }
 
-        public void AddFarmblock(Vector3 position)
+        public FarmBlock AddFarmblock(Vector3 position)
         {
-            FarmBlocks.Add(new FarmBlock(position, CropType, transform));
+            var block = new FarmBlock(position, CropType, transform);
+            FarmBlocks.Add(block);
+            return block;
         }
     }
 
