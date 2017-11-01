@@ -8,7 +8,8 @@ namespace Assets.Scripts.AccessLayer.Worlds
     {
         public static void SpawnAmbientPlants(BiomeConfiguration biomeConfig)
         {
-            var parent = GameObject.Find("AmbientFlowers").transform;
+            var af = GameObject.Find("AmbientFlowers") != null ? GameObject.Find("AmbientFlowers") : CreateParent();
+            var parent = af.transform;
             foreach (var ambientPlantConfiguration in biomeConfig.AmbientPlants)
             {
                 for (int i = 0; i < ambientPlantConfiguration.Amount; i++)
@@ -27,6 +28,13 @@ namespace Assets.Scripts.AccessLayer.Worlds
                     }
                 }
             }
+        }
+
+        private static GameObject CreateParent()
+        {
+            var go = new GameObject("AmbientFlowers");
+            go.transform.parent = Map.Instance.transform;
+            return go;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MarkLight;
+﻿using System.Collections;
+using MarkLight;
 using Assets.Scripts.AccessLayer.Worlds;
 using Assets.Scripts.AccessLayer.Material;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
@@ -9,6 +10,7 @@ using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.GameLogicLayer.Tools;
 using Assets.Scripts.AccessLayer;
 using Assets.Scripts.AccessLayer.Farming;
+using Assets.Scripts.EngineLayer;
 using Assets.Scripts.EngineLayer.Voxels.Material;
 using Assets.Scripts.GameLogicLayer.Actions;
 using Assets.Scripts.GameLogicLayerTD;
@@ -23,11 +25,24 @@ namespace Assets.Scripts.UI
             var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
-            BuildEmptyMap(markers, grass);
+            var size = BuildEmptyMap(markers, grass);
 
             CreatePath(markers.Where(m => m.gameObject.name.Contains("Path") || m.gameObject.name.Contains("Village")).ToList(), dirt, grass);
 
             CreateFarms(markers.Where(m => m.gameObject.name.Contains("Farm")).ToList());
+
+
+            StartCoroutine(LoadGame(size));
+            
+        }
+
+        private IEnumerator LoadGame(int[] size)
+        {
+            yield return null;
+            var biomeConfig = ConfigImporter.GetAllConfigs<BiomeConfiguration>("World/Biomes").First();
+            var treeManager = new TreeManager();
+            yield return treeManager.GenerateTrees((int)(size[0] * size[1] * 0.003f), Map.Instance.MapData, null);
+            AmbientManager.SpawnAmbientPlants(biomeConfig);
         }
 
         private void CreateFarms(List<Transform> markers)
@@ -51,7 +66,7 @@ namespace Assets.Scripts.UI
             }
         }
 
-        private static void BuildEmptyMap(List<Transform> markers, VoxelMaterial grass)
+        private static int[] BuildEmptyMap(List<Transform> markers, VoxelMaterial grass)
         {
             var size = 129;
             while (Map.Instance.CreateMap(null, null).MoveNext()) ;
@@ -74,6 +89,7 @@ namespace Assets.Scripts.UI
                         World.At(x, h, y).SetVoxel(grass);
                 }
             }
+            return new[] {maxX - minX, maxY - minY};
         }
 
         public void ClickClear()

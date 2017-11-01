@@ -30,11 +30,11 @@ namespace Assets.Scripts.AccessLayer
 
         public IEnumerator GenerateTrees(int amount, MapData map, GameLoader loader)
         {
-
+            Debug.Log(amount);
             for (int i = 0; i < amount; i++)
             {
-                loader.SetStatus("Spawning Trees", 0.85f + (i/(float)amount)*0.1f);
-                var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize));
+                if(loader!=null) loader.SetStatus("Spawning Trees", 0.85f + (i/(float)amount)*0.1f);
+                var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(2) * Chunk.ChunkSize));
                 RaycastHit hit;
                 Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
                 if (hit.collider.tag.Equals("Chunk"))

@@ -44,8 +44,6 @@ public class Bezier : MonoBehaviour {
         list.Add(GetMidPointAt(verts[verts.Count-2], verts[verts.Count - 1], 0.5f));
         list.Add(verts[verts.Count - 1]);
 
-        Debug.Log(list.Count);
-
         return list;
     }
 
