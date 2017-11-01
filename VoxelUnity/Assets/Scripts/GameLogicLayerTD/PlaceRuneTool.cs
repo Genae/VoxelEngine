@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.AccessLayer.Tools;
+﻿using System;
+using Assets.Scripts.AccessLayer.Tools;
 using System.Linq;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         private GameObject _previewBox;
         public Material PreviewMaterial;
 		public static GameObject MarkerParent;
+        protected string RuneName;
 
 		protected override void Start()
 		{
@@ -45,7 +47,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 			var firstChunkHit = hits.FirstOrDefault(h => h.collider.gameObject.name.Equals("Table"));
 			if(firstChunkHit.transform == null)
 				return Vector3.zero;
-			return new Vector3((int)firstChunkHit.point.x, (int)firstChunkHit.point.y, (int)firstChunkHit.point.z);
+			return new Vector3((int)firstChunkHit.point.x, (int)firstChunkHit.point.y + 0.01f, (int)firstChunkHit.point.z);
 		}
 
         protected override void OnDisable()
@@ -58,8 +60,8 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         {
             if (_previewBox == null)
             {
-                _previewBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                _previewBox.GetComponent<MeshRenderer>().material = PreviewMaterial;
+                _previewBox = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                _previewBox.GetComponent<MeshRenderer>().material = Resources.Load(string.Format("Runes/Materials/{0}", RuneName), typeof(Material)) as Material;
                 _previewBox.name = "preview";
             }
             _previewBox.transform.position = startPos;
@@ -73,10 +75,48 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         }
     }
 
-	public class PlaceRuneToolV : PlaceRuneTool {}
-	public class PlaceRuneToolP1 : PlaceRuneTool {}
-	public class PlaceRuneToolP2 : PlaceRuneTool {}
-	public class PlaceRuneToolP3 : PlaceRuneTool {}
-	public class PlaceRuneToolTB : PlaceRuneTool {}
-	public class PlaceRuneToolF : PlaceRuneTool {}
+    public class PlaceRuneToolV : PlaceRuneTool
+    {
+        public PlaceRuneToolV()
+        {
+            RuneName = "mannaz";
+        }
+    }
+
+    public class PlaceRuneToolP1 : PlaceRuneTool
+    {
+        public PlaceRuneToolP1()
+        {
+            RuneName = "raido";
+        }
+    }
+
+    public class PlaceRuneToolP2 : PlaceRuneTool
+    {
+        public PlaceRuneToolP2()
+        {
+            RuneName = "raido";
+        }
+    }
+	public class PlaceRuneToolP3 : PlaceRuneTool
+	{
+	    public PlaceRuneToolP3()
+	    {
+	        RuneName = "raido";
+	    }
+	}
+	public class PlaceRuneToolTB : PlaceRuneTool
+	{
+	    public PlaceRuneToolTB()
+	    {
+	        RuneName = "agliz";
+	    }
+	}
+	public class PlaceRuneToolF : PlaceRuneTool
+	{
+	    public PlaceRuneToolF()
+	    {
+	        RuneName = "jera";
+	    }
+	}
 }
