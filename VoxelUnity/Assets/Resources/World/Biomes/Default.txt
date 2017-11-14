@@ -45,11 +45,11 @@
 		},
 		{
 			"Name": "mushroom",
-			"Amount": 100
+			"Amount": 0
 		},
 		{
 			"Name": "mushroom2",
-			"Amount": 100
+			"Amount": 0
 		}
 	]
 }
