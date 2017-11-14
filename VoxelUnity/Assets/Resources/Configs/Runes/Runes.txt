@@ -42,5 +42,18 @@
 				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolTB"
 			}
 		]
+	},
+	{
+		"Name": "Upgrades",
+		"Children": [
+			{
+				"Name": "Speed Upgrade",
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolUS"
+			},
+			{
+				"Name": "AOE Upgrade",
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolUAOE"
+			}
+		]
 	}
 ]

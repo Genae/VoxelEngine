@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_2_0;UNITY_2017_2;UNITY_2017;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_EVENT_QUEUE;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_1_0;UNITY_2017_1;UNITY_2017;PLATFORM_ARCH_64;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;ENABLE_SPRITE_MASKING;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_VIDEO;ENABLE_RMGUI;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_STYLE_SHEETS;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -44,17 +44,16 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed\UnityEngine.dll</HintPath>
+      <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AccessLayer\Class.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Farming\CropManager.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Farming\Farm.cs" />
-     <Compile Include="Assets\Scripts\AccessLayer\ItemManager.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\JobController.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Jobs\Job.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Jobs\JobMarker.cs" />
@@ -62,6 +61,7 @@
      <Compile Include="Assets\Scripts\AccessLayer\Jobs\SolveJobAction.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Material\MaterialRegistry.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\MultiblockLoader.cs" />
+     <Compile Include="Assets\Scripts\AccessLayer\ObjectManager.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\ResourceManager.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Tools\AreaTool.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Tools\OverlayManager.cs" />
@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\AccessLayer\UnitManager.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Worlds\AmbientManager.cs" />
      <Compile Include="Assets\Scripts\AccessLayer\Worlds\World.cs" />
+     <Compile Include="Assets\Scripts\Algorithms\Bezier.cs" />
      <Compile Include="Assets\Scripts\Algorithms\GreedyMeshing.cs" />
      <Compile Include="Assets\Scripts\Algorithms\MapGeneration\DiamondCutPattern.cs" />
      <Compile Include="Assets\Scripts\Algorithms\MapGeneration\DiamondSquare.cs" />
@@ -141,6 +142,7 @@
      <Compile Include="Assets\Scripts\GameLogicLayer\Actions\PlantCropAction.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Classes\Miner.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\GameLoader.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayer\JobAutoSolver.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Objects\TreeOfLife\Stem.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Objects\TreeOfLife\TreeNode.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Objects\TreeOfLife\TreeOfLife.cs" />
@@ -151,7 +153,11 @@
      <Compile Include="Assets\Scripts\GameLogicLayer\Tools\FarmTool.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Tools\MouseoverTool.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceObjectTool.cs" />
-     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceRuneTool.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\PlaceRuneTool.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDFarm.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDTower.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Tower.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Upgrade.cs" />
      <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
      <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
      <Compile Include="Assets\Scripts\UI\Runes.cs" />
@@ -359,11 +365,13 @@
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\RadioButton.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ViewPoolContainer.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Frame.xml" />
+     <None Include="Assets\Resources\Imported\Objects\fence_connector.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\DataBinding\DynamicDataGridExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ComboBoxItem.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\DataGridExample.xml" />
      <None Include="Assets\Resources\Configs\Tools\Tools.txt" />
      <None Include="Assets\Resources\World\Trees\oak.txt" />
+     <None Include="Assets\Resources\Imported\Objects\fence_post.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\3.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\5.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\4.txt" />
@@ -436,40 +444,28 @@
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\List.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\DataGrid.xml" />
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Timeline">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UIAutomation">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.GoogleAudioSpatializer">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.HoloLens">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
- </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>D:/Eigene Dateien/Git/voxelEngine/VoxelUnity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Users/Stefan/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@1.0.1/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
- <Reference Include="UnityEngine.Purchasing">
- <HintPath>C:/Users/Stefan/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@1.0.1/UnityEngine.Purchasing.dll</HintPath>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>D:/Unity/Projects/VoxelIslands/VoxelUnity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

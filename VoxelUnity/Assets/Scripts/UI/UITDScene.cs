@@ -31,6 +31,7 @@ namespace Assets.Scripts.UI
 
             CreateFarms(markers.Where(m => m.gameObject.name.Contains("Farm")).ToList());
 
+			CreateTowers (markers.Where (m => m.gameObject.name.Contains("Tower")).ToList());
 
             StartCoroutine(LoadGame(size));
             
@@ -53,6 +54,13 @@ namespace Assets.Scripts.UI
             }
 
         }
+
+		private void CreateTowers(List<Transform> markers)
+		{
+			foreach (var m in markers) {
+				var tower = new TDTower (m.position);
+			}
+		}
 
         private static void CreatePath(List<Transform> markers, VoxelMaterial dirt, VoxelMaterial grass)
         {

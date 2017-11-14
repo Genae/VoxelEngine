@@ -30,7 +30,7 @@ namespace Assets.Scripts.AccessLayer
 
         public IEnumerator GenerateTrees(int amount, MapData map, GameLoader loader)
         {
-            Debug.Log(amount);
+            //Debug.Log(amount);
             for (int i = 0; i < amount; i++)
             {
                 if(loader!=null) loader.SetStatus("Spawning Trees", 0.85f + (i/(float)amount)*0.1f);

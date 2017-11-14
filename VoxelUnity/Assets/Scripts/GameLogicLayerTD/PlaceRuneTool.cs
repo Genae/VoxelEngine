@@ -33,6 +33,12 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 					currentMarker = Instantiate (_previewBox).transform;
 					currentMarker.gameObject.name = gameObject.name;
 					currentMarker.parent = MarkerParent.transform;
+
+					//hehe fuck you stefan
+					if (currentMarker.name.Contains ("Upgrade")) {
+						currentMarker.gameObject.AddComponent<Upgrade>();
+					}
+
 				}
                 currentMarker.position = _previewBox.transform.position;
 			}
@@ -75,7 +81,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         }
     }
 
-    public class PlaceRuneToolV : PlaceRuneTool
+    public class PlaceRuneToolV : PlaceRuneTool //VILLAGE
     {
         public PlaceRuneToolV()
         {
@@ -83,7 +89,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         }
     }
 
-    public class PlaceRuneToolP1 : PlaceRuneTool
+    public class PlaceRuneToolP1 : PlaceRuneTool //PATH
     {
         public PlaceRuneToolP1()
         {
@@ -105,18 +111,32 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 	        RuneName = "raido";
 	    }
 	}
-	public class PlaceRuneToolTB : PlaceRuneTool
+	public class PlaceRuneToolTB : PlaceRuneTool //TOWERBASE
 	{
 	    public PlaceRuneToolTB()
 	    {
-	        RuneName = "agliz";
+	        RuneName = "algiz";
 	    }
 	}
-	public class PlaceRuneToolF : PlaceRuneTool
+	public class PlaceRuneToolF : PlaceRuneTool //FARM
 	{
 	    public PlaceRuneToolF()
 	    {
 	        RuneName = "jera";
 	    }
+	}
+	public class PlaceRuneToolUS : PlaceRuneTool //SPEEDUPGRADE
+	{
+		public PlaceRuneToolUS()
+		{
+			RuneName = "ehwaz";
+		}
+	}
+	public class PlaceRuneToolUAOE : PlaceRuneTool //AOEUPGRADE
+	{
+		public PlaceRuneToolUAOE()
+		{
+			RuneName = "hagalaz";
+		}
 	}
 }
