@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.AccessLayer.Tools;
 using System.Linq;
+using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayer.Tools
@@ -28,20 +29,21 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 			DrawPreview(pos);
 			if (Input.GetKeyDown(KeyCode.Mouse0))
 			{
-				var currentMarker = MarkerParent.transform.Find(gameObject.name);
-				if (currentMarker == null) {
-					currentMarker = Instantiate (_previewBox).transform;
-					currentMarker.gameObject.name = gameObject.name;
-					currentMarker.parent = MarkerParent.transform;
-
-					//hehe fuck you stefan
-					if (currentMarker.name.Contains ("Upgrade")) {
-						currentMarker.gameObject.AddComponent<Upgrade>();
-					}
-
-				}
-                currentMarker.position = _previewBox.transform.position;
+				PlaceRune(pos);
 			}
+        }
+
+        protected virtual Transform PlaceRune(Vector3 pos)
+        {
+            var currentMarker = MarkerParent.transform.Find(gameObject.name);
+            if (currentMarker == null)
+            {
+                currentMarker = Instantiate(_previewBox).transform;
+                currentMarker.gameObject.name = gameObject.name;
+                currentMarker.parent = MarkerParent.transform;
+            }
+            currentMarker.position = _previewBox.transform.position;
+            return currentMarker;
         }
         
 
@@ -78,6 +80,17 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         public override void SwapOverlays()
         {
             OverlayManager.SwapOverlays(false, false, false);
+        }
+    }
+
+    public class PlaceUpgradeRuneTool : PlaceRuneTool
+    {
+        protected override Transform PlaceRune(Vector3 pos)
+        {
+            var currentMarker = base.PlaceRune(pos);
+            //get rekt n00bs
+            currentMarker.gameObject.AddComponent<Upgrade>();
+            return currentMarker;
         }
     }
 
@@ -125,15 +138,15 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 	        RuneName = "jera";
 	    }
 	}
-	public class PlaceRuneToolUS : PlaceRuneTool //SPEEDUPGRADE
-	{
+	public class PlaceRuneToolUS : PlaceUpgradeRuneTool //SPEEDUPGRADE
+    {
 		public PlaceRuneToolUS()
 		{
 			RuneName = "ehwaz";
 		}
 	}
-	public class PlaceRuneToolUAOE : PlaceRuneTool //AOEUPGRADE
-	{
+	public class PlaceRuneToolUAOE : PlaceUpgradeRuneTool //AOEUPGRADE
+    {
 		public PlaceRuneToolUAOE()
 		{
 			RuneName = "hagalaz";
