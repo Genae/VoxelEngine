@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -306,6 +308,9 @@
     <Compile Include="Assets\Scripts\EngineLayer\Voxels\Material\VoxelMaterial.cs" />
     <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\ImportObject.cs" />
     <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\MultiblockImporter.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\TDMap.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\TDMinion.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\WaveManager.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Actions\BuildingAction.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Actions\CreateSoilAction.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Actions\HarvestCropAction.cs" />
