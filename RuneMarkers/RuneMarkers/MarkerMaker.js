@@ -1,7 +1,5 @@
 var c = document.getElementById('myCanvas');
 var ctx = c.getContext("2d");
-ctx.fillStyle = "white";
-ctx.fillRect(0,0,300,300);
 
 var invert = true;
 
@@ -129,6 +127,8 @@ function downloadURI(uri, name) {
 }
 function create(r, x) {
     var centerRune = runeArray[r].img;
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, 300, 300);
 
     // all Runes are 150 x 200 px
     var cRuneWidth = centerRune.width || centerRune.naturalWidth;
@@ -192,8 +192,8 @@ function create(r, x) {
 
         // overwrite original image
         ctx.putImageData(imageData, 0, 0);
-        var url = c.toDataURL("image/jpg");
-        downloadURI(url, runeArray[r].name + x + ".jpg");
+        var url = c.toDataURL("image/jpeg");
+        downloadURI(url, runeArray[r].name + x + ".jpeg");
     }
 }
 
