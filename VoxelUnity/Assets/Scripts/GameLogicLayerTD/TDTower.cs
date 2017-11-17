@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.GameLogicLayerTD.Runes;
 using UnityEngine;
 
 public class TDTower{
 
 	public Tower Tower;
+    public Algiz Marker;
+    public UpgradeRune Upgrades;
 
-	public TDTower(Vector3 pos){
+	public TDTower(GameObject marker){
 		Tower = new GameObject("Tower").AddComponent<Tower>();
-		Tower.transform.position = pos;
+	    Marker = marker.GetComponentInChildren<Algiz>();
+        Tower.Init(Marker);
+		Tower.transform.position = marker.transform.position;
 		Tower.transform.parent = GameObject.Find("Map").transform;
-		var cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
-		//TODO Placeholder stuff
-		cube.transform.parent = Tower.transform;
-		cube.transform.localPosition = Vector3.zero;
-		cube.transform.localScale = new Vector3 (4, 15, 4);
-		cube.transform.name = "TowerMesh";
+	    var prefab = GameObject.Instantiate(GameObject.Find("tower"));
+        //TODO Placeholder stuff
+	    prefab.transform.parent = Tower.transform;
+	    prefab.transform.localPosition = Vector3.zero + Vector3.up * 0.5f;
+	    prefab.transform.name = "TowerMesh";
 	}
 }

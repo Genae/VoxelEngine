@@ -30,6 +30,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
             else
             {
+                if((this.transform.position - Path[wayIndex-1]).magnitude < 1f)
                 Destroy(gameObject);
             }
             var q1 = Quaternion.LookRotation(targetVector - this.transform.position);

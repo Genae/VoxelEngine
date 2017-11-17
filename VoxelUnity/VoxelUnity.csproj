@@ -311,6 +311,9 @@
     <Compile Include="Assets\Scripts\EngineLayer\Voxels\Material\VoxelMaterial.cs" />
     <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\ImportObject.cs" />
     <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\MultiblockImporter.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Hagalaz.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Rune.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\UpgradeRune.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Actions\BuildingAction.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Actions\CreateSoilAction.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Actions\HarvestCropAction.cs" />
@@ -330,13 +333,13 @@
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceObjectTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\PlaceRuneTool.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Algiz.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TargetBuilder.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDFarm.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDMap.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDMinion.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDTower.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Tower.cs" />
-    <Compile Include="Assets\Scripts\GameLogicLayerTD\Upgrade.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\WaveManager.cs" />
     <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />

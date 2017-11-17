@@ -36,7 +36,7 @@ namespace Assets.Scripts.GameLogicLayerTD
 
             CreateFarms(markers.Where(m => m.gameObject.name.Contains("Farm")).ToList());
 
-            CreateTowers(markers.Where(m => m.gameObject.name.Contains("Tower")).ToList());
+            CreateTowers(markers.Where(m => m.gameObject.GetComponentInChildren<Algiz>() != null).ToList());
 
             var wm = new GameObject("WaveManager").AddComponent<WaveManager>();
             wm.transform.parent = gameObject.transform;
@@ -64,7 +64,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                 for (var y = Mathf.Max(minY, 0); y < Mathf.Min(maxY, size); y++)
                 {
                     for (var h = 0; h <= (int)((height[x, y] * 3) - 0.01f); h++)
-                        World.At(x, h, y).SetVoxel(grass);
+                       World.At(x, h, y).SetVoxel(grass);
                 }
             }
             return new[] { maxX - minX, maxY - minY };
@@ -92,7 +92,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             foreach (var m in markers)
             {
-                Towers.Add(new TDTower(m.position));
+                Towers.Add(new TDTower(m.gameObject));
             }
         }
 

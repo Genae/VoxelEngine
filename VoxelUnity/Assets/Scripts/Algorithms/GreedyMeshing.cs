@@ -275,7 +275,7 @@ namespace Assets.Scripts.Algorithms
                     new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
                     new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
                     new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
-                    new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize),
+                    new Vector2(uvcoord.x + 0.1f/MaterialRegistry.AtlasSize, uvcoord.y+ 0.1f/MaterialRegistry.AtlasSize)
                 });
             }
         }

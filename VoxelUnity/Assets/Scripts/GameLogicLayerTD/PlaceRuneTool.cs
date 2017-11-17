@@ -2,6 +2,7 @@
 using Assets.Scripts.AccessLayer.Tools;
 using System.Linq;
 using Assets.Scripts.Algorithms.Pathfinding.Utils;
+using Assets.Scripts.GameLogicLayerTD.Runes;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayer.Tools
@@ -45,7 +46,9 @@ namespace Assets.Scripts.GameLogicLayer.Tools
             currentMarker.position = _previewBox.transform.position;
             return currentMarker;
         }
-        
+
+        public virtual void AddRuneComponent(GameObject marker)
+        {}
 
 		private Vector3 GetPos()
 		{
@@ -71,10 +74,10 @@ namespace Assets.Scripts.GameLogicLayer.Tools
                 _previewBox = GameObject.CreatePrimitive(PrimitiveType.Plane);
                 _previewBox.GetComponent<MeshRenderer>().material = Resources.Load(string.Format("Runes/Materials/{0}", RuneName), typeof(Material)) as Material;
                 _previewBox.name = "preview";
+                AddRuneComponent(_previewBox.gameObject);
             }
             _previewBox.transform.position = startPos;
             _previewBox.transform.localScale = new Vector3(1f, 1f, 1f);
-
         }
 
         public override void SwapOverlays()
@@ -82,18 +85,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
             OverlayManager.SwapOverlays(false, false, false);
         }
     }
-
-    public class PlaceUpgradeRuneTool : PlaceRuneTool
-    {
-        protected override Transform PlaceRune(Vector3 pos)
-        {
-            var currentMarker = base.PlaceRune(pos);
-            //get rekt n00bs
-            currentMarker.gameObject.AddComponent<Upgrade>();
-            return currentMarker;
-        }
-    }
-
+    
     public class PlaceRuneToolV : PlaceRuneTool //VILLAGE
     {
         public PlaceRuneToolV()
@@ -130,6 +122,13 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 	    {
 	        RuneName = "algiz";
 	    }
+
+	    public override void AddRuneComponent(GameObject marker)
+	    {
+	        var rune = new GameObject();
+	        rune.transform.parent = marker.transform;
+	        rune.AddComponent<Algiz>();
+	    }
 	}
 	public class PlaceRuneToolF : PlaceRuneTool //FARM
 	{
@@ -138,18 +137,25 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 	        RuneName = "jera";
 	    }
 	}
-	public class PlaceRuneToolUS : PlaceUpgradeRuneTool //SPEEDUPGRADE
+	public class PlaceRuneToolUS : PlaceRuneTool //SPEEDUPGRADE
     {
 		public PlaceRuneToolUS()
 		{
 			RuneName = "ehwaz";
 		}
 	}
-	public class PlaceRuneToolUAOE : PlaceUpgradeRuneTool //AOEUPGRADE
+	public class PlaceRuneToolUAOE : PlaceRuneTool //AOEUPGRADE
     {
 		public PlaceRuneToolUAOE()
 		{
 			RuneName = "hagalaz";
-		}
-	}
+        }
+
+        public override void AddRuneComponent(GameObject marker)
+        {
+            var rune = new GameObject();
+            rune.transform.parent = marker.transform;
+            rune.AddComponent<Hagalaz>();
+        }
+    }
 }
