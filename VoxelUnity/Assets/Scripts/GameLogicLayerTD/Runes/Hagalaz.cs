@@ -1,7 +1,7 @@
 ﻿
 namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
-    public class Hagalaz : UpgradeRune
+    public class Hagalaz : UpgradeRune //aoe upgrade
     {
     }
 }
