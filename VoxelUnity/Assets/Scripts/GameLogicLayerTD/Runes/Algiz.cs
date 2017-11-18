@@ -15,7 +15,7 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
         {
             var upgrades = FindObjectsOfType<UpgradeRune>().ToList();
             if (upgrades.Count > 0)
-                upgrades = upgrades.Where(u => transform.Equals(u.Tower)).ToList();
+                upgrades = upgrades.Where(u => transform.Equals(u.UpgradeTarget)).ToList();
             return upgrades;
         }
     }

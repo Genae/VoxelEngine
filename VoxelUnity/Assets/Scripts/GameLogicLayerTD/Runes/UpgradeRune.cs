@@ -5,13 +5,28 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class UpgradeRune : Rune
     {
-        private List<Transform> _towerList;
-        public Transform Tower;
+        //can upgrade
+        private readonly bool _towerUpgrade;
+        private readonly bool _farmUpgrade;
+        private readonly bool _mobUpgrade;
+        private readonly bool _villageUpgrade;
+        private readonly bool _pathUpgrade;
+        
+        public Transform UpgradeTarget;
         private LineRenderer _lr;
+
+        public UpgradeRune(bool towerUpgrade, bool farmUpgrade, bool mobUpgrade, bool villageUpgrade, bool pathUpgrade)
+        {
+            _towerUpgrade = towerUpgrade;
+            _farmUpgrade = farmUpgrade;
+            _mobUpgrade = mobUpgrade;
+            _villageUpgrade = villageUpgrade;
+            _pathUpgrade = pathUpgrade;
+        }
+
 
         void Start()
         {
-            _towerList = new List<Transform>();
             //linerenderer init
             if ((_lr = gameObject.GetComponent<LineRenderer>()) == null)
             {
@@ -24,30 +39,61 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 
         void Update()
         {
-
-            GetTowers();
-            GetClosestTower();
+            var list = GetUpgradeableRunes();
+            GetClosestUpgradeTarget(list);
             ConfigLineRenderer();
         }
 
-        private void GetTowers()
+        private List<Transform> GetUpgradeableRunes()
         {
-            _towerList.Clear();
-            foreach (var t in FindObjectsOfType<Algiz>())
+            var upgradeableList = new List<Transform>();
+            if (_towerUpgrade)
             {
-                _towerList.Add(t.transform);
+                foreach (var t in FindObjectsOfType<Algiz>())
+                {
+                    upgradeableList.Add(t.transform);
+                }
             }
+            if (_farmUpgrade)
+            {
+                foreach (var t in FindObjectsOfType<Jera>())
+                {
+                    upgradeableList.Add(t.transform);
+                }
+            }
+            if (_mobUpgrade)
+            {
+                foreach (var t in FindObjectsOfType<Isa>())
+                {
+                    upgradeableList.Add(t.transform);
+                }
+            }
+            if (_villageUpgrade)
+            {
+                foreach (var t in FindObjectsOfType<Mannaz>())
+                {
+                    upgradeableList.Add(t.transform);
+                }
+            }
+            if (_pathUpgrade)
+            {
+                foreach (var t in FindObjectsOfType<Raido>())
+                {
+                    upgradeableList.Add(t.transform);
+                }
+            }
+            return upgradeableList;
         }
 
-        private void GetClosestTower()
+        private void GetClosestUpgradeTarget(List<Transform> allTargets)
         {
-            Tower = null;
+            UpgradeTarget = null;
             var dist = 20f;
-            foreach (var t in _towerList)
+            foreach (var t in allTargets)
             {
                 if (Vector3.Distance(transform.position, t.position) < dist)
                 {
-                    Tower = t;
+                    UpgradeTarget = t;
                     dist = Vector3.Distance(transform.position, t.position); //awesome
                 }
             }
@@ -55,14 +101,14 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 
         private void ConfigLineRenderer()
         {
-            if (Tower == null)
+            if (UpgradeTarget == null)
             {
                 _lr.positionCount = 0;
                 return;
             }
             _lr.positionCount = 2;
             _lr.SetPosition(0, transform.position);
-            _lr.SetPosition(1, Tower.position);
+            _lr.SetPosition(1, UpgradeTarget.position);
             _lr.startWidth = 1;
             _lr.endWidth = 1;
             //_lr.startColor = Color.black;

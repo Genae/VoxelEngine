@@ -92,6 +92,13 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         {
             RuneName = "mannaz";
         }
+
+        public override void AddRuneComponent(GameObject marker)
+        {
+            var rune = new GameObject();
+            rune.transform.parent = marker.transform;
+            rune.AddComponent<Mannaz>();
+        }
     }
 
     public class PlaceRuneToolP1 : PlaceRuneTool //PATH
@@ -99,6 +106,13 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         public PlaceRuneToolP1()
         {
             RuneName = "raido";
+        }
+
+        public override void AddRuneComponent(GameObject marker)
+        {
+            var rune = new GameObject();
+            rune.transform.parent = marker.transform;
+            rune.AddComponent<Raido>();
         }
     }
 
@@ -108,6 +122,13 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         {
             RuneName = "raido";
         }
+
+        public override void AddRuneComponent(GameObject marker)
+        {
+            var rune = new GameObject();
+            rune.transform.parent = marker.transform;
+            rune.AddComponent<Raido>();
+        }
     }
 	public class PlaceRuneToolP3 : PlaceRuneTool
 	{
@@ -115,7 +136,14 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 	    {
 	        RuneName = "raido";
 	    }
-	}
+
+	    public override void AddRuneComponent(GameObject marker)
+	    {
+	        var rune = new GameObject();
+	        rune.transform.parent = marker.transform;
+	        rune.AddComponent<Raido>();
+	    }
+    }
 	public class PlaceRuneToolTB : PlaceRuneTool //TOWERBASE
 	{
 	    public PlaceRuneToolTB()
@@ -136,14 +164,28 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 	    {
 	        RuneName = "jera";
 	    }
-	}
+
+	    public override void AddRuneComponent(GameObject marker)
+	    {
+	        var rune = new GameObject();
+	        rune.transform.parent = marker.transform;
+	        rune.AddComponent<Jera>();
+	    }
+    }
 	public class PlaceRuneToolUS : PlaceRuneTool //SPEEDUPGRADE
     {
 		public PlaceRuneToolUS()
 		{
 			RuneName = "ehwaz";
-		}
-	}
+        }
+
+        public override void AddRuneComponent(GameObject marker)
+        {
+            var rune = new GameObject();
+            rune.transform.parent = marker.transform;
+            rune.AddComponent<Ehwaz>();
+        }
+    }
 	public class PlaceRuneToolUAOE : PlaceRuneTool //AOEUPGRADE
     {
 		public PlaceRuneToolUAOE()
