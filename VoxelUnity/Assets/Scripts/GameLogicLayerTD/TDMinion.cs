@@ -9,6 +9,14 @@ namespace Assets.Scripts.GameLogicLayerTD
         private int wayIndex = 0;
         private Vector3 targetVector;
         private float speed = 10;
+        private float _health = 100;
+        private Healthbar _healthbar;
+
+        void Start()
+        {
+            _healthbar = gameObject.AddComponent<Healthbar>();
+            _healthbar.Init(_health, _health);
+        }
 
         public void SetPath(List<Vector3> path)
         {
