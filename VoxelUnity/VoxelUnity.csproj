@@ -338,6 +338,7 @@
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Hagalaz.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Rune.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\UpgradeRune.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\StartScreenLogic.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TargetBuilder.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDFarm.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDMap.cs" />
