@@ -1,0 +1,171 @@
+[
+  {
+    "ID": "fehu",
+    "Name": "fehu",
+    "Transliteration": "f",
+    "Phonetic": "/f/",
+    "Meaning": "wealth, cattle",
+    "Usage": ""
+  },{
+    "ID": "uruz",
+    "Name": "ūruz",
+    "Transliteration": "u",
+    "Phonetic": "/u(ː)/",
+    "Meaning": "aurochs",
+    "Usage": ""
+  },{
+    "ID": "thurisaz",
+    "Name": "þurisaz",
+    "Transliteration": "þ = th",
+    "Phonetic": "/θ/, /ð/",
+    "Meaning": "the god Thor, giant",
+    "Usage": ""
+  },{
+    "ID": "ansuz",
+    "Name": "ansuz",
+    "Transliteration": "a",
+    "Phonetic": "/a(ː)/",
+    "Meaning": "one of the Æsir (gods)",
+    "Usage": ""
+  },{
+    "ID": "raido",
+    "Name": "raidō",
+    "Transliteration": "r",
+    "Phonetic": "/r/",
+    "Meaning": "ride, journey",
+    "Usage": ""
+  },{
+    "ID": "kenaz",
+    "Name": "kaunan",
+    "Transliteration": "k (c)",
+    "Phonetic": "/k/",
+    "Meaning": "torch, ulcer",
+    "Usage": ""
+  },{
+    "ID": "gebo",
+    "Name": "gebō",
+    "Transliteration": "g",
+    "Phonetic": "/ɡ/",
+    "Meaning": "gift",
+    "Usage": ""
+  },{
+    "ID": "wunjo",
+    "Name": "wunjō",
+    "Transliteration": "w",
+    "Phonetic": "	/w/",
+    "Meaning": "joy",
+    "Usage": ""
+  },{
+    "ID": "hagalaz",
+    "Name": "hagalaz",
+    "Transliteration": "h",
+    "Phonetic": "/h/",
+    "Meaning": "hail",
+    "Usage": ""
+  },{
+    "ID": "naudhiz",
+    "Name": "naudiz",
+    "Transliteration": "n",
+    "Phonetic": "/n/",
+    "Meaning": "need",
+    "Usage": ""
+  },{
+    "ID": "isa",
+    "Name": "īsaz",
+    "Transliteration": "i",
+    "Phonetic": "/i(ː)/",
+    "Meaning": "ice",
+    "Usage": ""
+  },{
+    "ID": "jera",
+    "Name": "jēra-",
+    "Transliteration": "j",
+    "Phonetic": "/j/",
+    "Meaning": "year, good year, harvest",
+    "Usage": ""
+  },{
+    "ID": "ihwaz",
+    "Name": "ī(h)waz/ei(h)waz",
+    "Transliteration": "ï (æ)",
+    "Phonetic": "/æː/(?)",
+    "Meaning": "yew-tree",
+    "Usage": ""
+  },{
+    "ID": "perthro",
+    "Name": "perþ-",
+    "Transliteration": "p",
+    "Phonetic": "/p/",
+    "Meaning": "dice shaker, pear-tree(?)",
+    "Usage": ""
+  },{
+    "ID": "algiz",
+    "Name": "algiz",
+    "Transliteration": "z",
+    "Phonetic": "/z/",
+    "Meaning": "protection, elk",
+    "Usage": ""
+  },{
+    "ID": "sowilo",
+    "Name": "sōwilō",
+    "Transliteration": "s",
+    "Phonetic": "/s/",
+    "Meaning": "Sun",
+    "Usage": ""
+  },{
+    "ID": "tiwaz",
+    "Name": "tīwaz/teiwaz",
+    "Transliteration": "t",
+    "Phonetic": "/t/",
+    "Meaning": "the god Tyr",
+    "Usage": ""
+  },{
+    "ID": "berkano",
+    "Name": "berkanan",
+    "Transliteration": "b",
+    "Phonetic": "/b/",
+    "Meaning": "birch",
+    "Usage": ""
+  },{
+    "ID": "ehwaz",
+    "Name": "ehwaz",
+    "Transliteration": "e",
+    "Phonetic": "/e(ː)/",
+    "Meaning": "horse",
+    "Usage": ""
+  },{
+    "ID": "mannaz",
+    "Name": "mannaz",
+    "Transliteration": "m",
+    "Phonetic": "/m/",
+    "Meaning": "Man",
+    "Usage": ""
+  },{
+    "ID": "laguz",
+    "Name": "laguz",
+    "Transliteration": "l",
+    "Phonetic": "/l/",
+    "Meaning": "water, lake",
+    "Usage": ""
+  },{
+    "ID": "ingwaz",
+    "Name": "ingwaz",
+    "Transliteration": "ŋ = ng",
+    "Phonetic": "/ŋ/",
+    "Meaning": "the god Yngvi",
+    "Usage": ""
+  },{
+    "ID": "othala",
+    "Name": "ōþila-/ōþala-",
+    "Transliteration": "o",
+    "Phonetic": "/o(ː)/",
+    "Meaning": "heritage, estate, possession",
+    "Usage": ""
+  },{
+    "ID": "dagaz",
+    "Name": "dagaz",
+    "Transliteration": "d",
+    "Phonetic": "/d/",
+    "Meaning": "day",
+    "Usage": ""
+  }
+]

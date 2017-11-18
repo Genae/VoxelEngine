@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
-    <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
+    <RootNamespace>
+    </RootNamespace>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -373,6 +375,7 @@
     <Compile Include="Assets\Scripts\GameLogicLayerTD\WaveManager.cs" />
     <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
+    <Compile Include="Assets\Scripts\UI\RuneOverview.cs" />
     <Compile Include="Assets\Scripts\UI\Runes.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBelt.cs" />
     <Compile Include="Assets\Scripts\UI\UIMainScene.cs" />
@@ -621,10 +624,15 @@
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
     <None Include="Assets\UI\Views\GameSpeed.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />
+    <None Include="Assets\UI\Views\RuneOverview.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Assets\UI\Views\Runes.xml" />
     <None Include="Assets\UI\Views\ToolBelt.xml" />
     <None Include="Assets\UI\Views\UIMainScene.xml" />
-    <None Include="Assets\UI\Views\UITDScene.xml" />
+    <None Include="Assets\UI\Views\UITDScene.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ButtonsExample.xml" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ComboBoxExample.xml" />

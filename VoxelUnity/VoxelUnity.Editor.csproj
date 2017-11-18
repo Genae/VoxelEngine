@@ -347,6 +347,7 @@
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
     <None Include="Assets\UI\Views\GameSpeed.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />
+    <None Include="Assets\UI\Views\RuneOverview.xml" />
     <None Include="Assets\UI\Views\Runes.xml" />
     <None Include="Assets\UI\Views\ToolBelt.xml" />
     <None Include="Assets\UI\Views\UIMainScene.xml" />

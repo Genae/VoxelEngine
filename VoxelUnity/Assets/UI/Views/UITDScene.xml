@@ -1,6 +1,7 @@
 <UITDScene>
     <UserInterface>
         <Runes />
+        <!--<RuneOverview />-->
         <GameSpeed/>
         <Group Spacing="15px" Alignment="Top" Orientation="Horizontal">
           <Button Text="START" Alpha="0.5" Click="ClickStart"/>
