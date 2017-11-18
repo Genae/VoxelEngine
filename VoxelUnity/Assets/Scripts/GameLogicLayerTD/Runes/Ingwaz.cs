@@ -7,7 +7,7 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class Ingwaz : UpgradeRune // Weinfarm
     {
-        public Ingwaz() : base(false, false, false, false, false)
+        public Ingwaz() : base(false, false, false, false, false, "Ingwaz")
         {
         }
     }

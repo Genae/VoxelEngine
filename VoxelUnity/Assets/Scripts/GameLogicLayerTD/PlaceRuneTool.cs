@@ -1,7 +1,5 @@
-﻿using System;
-using Assets.Scripts.AccessLayer.Tools;
+﻿using Assets.Scripts.AccessLayer.Tools;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
 using Assets.Scripts.GameLogicLayerTD.Runes;
 using UnityEngine;
 

@@ -2,7 +2,7 @@
 {
     public class Sowilo : UpgradeRune //Beam
     {
-        public Sowilo() : base(true, true, false, false, false)
+        public Sowilo() : base(true, true, false, false, false, "Sowilo")
         {
         }
     }

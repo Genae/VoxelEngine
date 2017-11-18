@@ -15,7 +15,7 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
         public Transform UpgradeTarget;
         private LineRenderer _lr;
 
-        public UpgradeRune(bool towerUpgrade, bool farmUpgrade, bool mobUpgrade, bool villageUpgrade, bool pathUpgrade)
+        public UpgradeRune(bool towerUpgrade, bool farmUpgrade, bool mobUpgrade, bool villageUpgrade, bool pathUpgrade, string name) : base(name)
         {
             _towerUpgrade = towerUpgrade;
             _farmUpgrade = farmUpgrade;
@@ -23,8 +23,7 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
             _villageUpgrade = villageUpgrade;
             _pathUpgrade = pathUpgrade;
         }
-
-
+        
         void Start()
         {
             //linerenderer init

@@ -7,5 +7,8 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class Jera : Rune // Farm
     {
+        public Jera() : base("Jera")
+        {
+        }
     }
 }

@@ -7,5 +7,8 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class Mannaz : Rune //Village
     {
+        public Mannaz() : base("Mannaz")
+        {
+        }
     }
 }

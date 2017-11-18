@@ -18,5 +18,9 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
                 upgrades = upgrades.Where(u => transform.Equals(u.UpgradeTarget)).ToList();
             return upgrades;
         }
+
+        public Algiz() : base("Algiz")
+        {
+        }
     }
 }

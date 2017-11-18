@@ -2,7 +2,7 @@
 {
     public class ElementRune : UpgradeRune
     {
-        public ElementRune() : base(true, false, true, false, false)
+        public ElementRune(string name) : base(true, false, true, false, false, name)
         {
         }
     }

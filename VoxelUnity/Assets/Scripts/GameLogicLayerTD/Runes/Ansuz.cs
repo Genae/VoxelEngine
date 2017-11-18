@@ -2,7 +2,7 @@
 {
     public class Ansuz : UpgradeRune //unsichtbarkeit aufdecken?
     {
-        public Ansuz() : base(false, false, false, false, false)
+        public Ansuz() : base(false, false, false, false, false, "Ansuz")
         {
         }
     }
