@@ -29,6 +29,8 @@ public class Healthbar : MonoBehaviour
         _currentHealth = curH;
         _widthScale = _currentHealth / _maxHealth;
         _plane.localScale = new Vector3(0.2f * _widthScale, 1, 0.05f);
+        if(_widthScale < 0.5f && _widthScale > 0.25f) _plane.GetComponent<Renderer>().material.color = new Color(255,140,0);
+        if (_widthScale < 0.25f) _plane.GetComponent<Renderer>().material.color = Color.red;
     }
 
     private void InitBar()

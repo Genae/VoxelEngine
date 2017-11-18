@@ -54,6 +54,7 @@ public class Tower : MonoBehaviour
 internal class Projectile: MonoBehaviour
 {
     public GameObject TarGameObject;
+    private float _dmg = 10;
 
     void Update()
     {
@@ -62,7 +63,7 @@ internal class Projectile: MonoBehaviour
         this.transform.position += ((TarGameObject.transform.position - transform.position).normalized * Time.deltaTime * 30);
         if ((TarGameObject.transform.position - transform.position).magnitude < 1f)
         {
-            Destroy(TarGameObject.gameObject);
+            TarGameObject.GetComponent<TDMinion>().ApplyDmg(_dmg);
             Destroy(gameObject);
         }
     }

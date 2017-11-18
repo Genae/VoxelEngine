@@ -25,8 +25,22 @@ namespace Assets.Scripts.GameLogicLayerTD
             targetVector = path[0];
 
         }
+
+        public void ApplyDmg(float dmg)
+        {
+            _health -= dmg;
+            _healthbar.UpdateCurrentHealth(_health);
+        }
+
+        private void AliveCheck()
+        {
+            if (_health <= 0) Destroy(gameObject);
+        }
+
         void Update()
         {
+            AliveCheck();
+
             var oldPos = this.transform.position;
             if (wayIndex <= Path.Count - 1)
             {
