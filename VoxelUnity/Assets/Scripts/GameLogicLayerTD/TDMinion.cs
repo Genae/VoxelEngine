@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.*;
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
@@ -11,6 +12,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         private float speed = 10;
         private float _health = 100;
         private Healthbar _healthbar;
+        //private ElementType _type;
 
         void Start()
         {
@@ -23,7 +25,6 @@ namespace Assets.Scripts.GameLogicLayerTD
             Path = path;
             wayIndex = 0;
             targetVector = path[0];
-
         }
 
         public void ApplyDmg(float dmg)

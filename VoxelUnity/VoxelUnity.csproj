@@ -333,6 +333,7 @@
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\FarmTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceObjectTool.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\DamageCalculator.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Healthbar.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\PlaceRuneTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Algiz.cs" />
