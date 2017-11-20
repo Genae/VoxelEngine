@@ -15,12 +15,12 @@ public class Rune : MonoBehaviour
         go.GetComponent<MeshRenderer>().material.color = InBorders() ? Color.green : Color.red;
         go.transform.parent = transform;
         go.transform.localPosition = Vector3.zero;
-        go.transform.localScale = Vector3.one * 3;
+        go.transform.localScale = Vector3.one *0.5f;
     }
 
     private bool InBorders()
     {
-        return transform.position.x < 129 && transform.position.x > 0 && transform.position.z < 129 &&
-               transform.position.z > 0 && transform.position.y > 0;
+        return transform.position.x <= 129 && transform.position.x >= 0 && transform.position.z <= 129 &&
+               transform.position.z >= 0 && transform.position.y >= 0;
     }
 }
