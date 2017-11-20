@@ -76,6 +76,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             var treeManager = new TreeManager();
             yield return treeManager.GenerateTrees((int)(size[0] * size[1] * 0.003f), Map.Instance.MapData, null);
             AmbientManager.SpawnAmbientPlants(biomeConfig);
+            //Map.Instance.transform.parent.transform.localScale = Vector3.one * 0.05f;
         }
 
         private void CreateFarms(List<Transform> markers)
