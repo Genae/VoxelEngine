@@ -27,7 +27,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         }
         public void BuildMap()
         {
-            var markers = new List<Transform>();
+            var markers = FindObjectsOfType<Rune>().Select(r => r.transform).ToList();
             var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
@@ -49,8 +49,6 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             var size = 129;
             while (Map.Instance.CreateMap(null, null).MoveNext()) ;
-            for (var i = 0; i < PlaceRuneTool.MarkerParent.transform.childCount; i++)
-                markers.Add(PlaceRuneTool.MarkerParent.transform.GetChild(i));
             var minX = (int)markers.Min(m => m.position.x) - 10;
             var minY = (int)markers.Min(m => m.position.z) - 10;
             var maxX = (int)markers.Max(m => m.position.x) + 10;
