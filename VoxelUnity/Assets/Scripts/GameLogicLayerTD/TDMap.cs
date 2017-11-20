@@ -8,7 +8,6 @@ using Assets.Scripts.Algorithms.MapGeneration;
 using Assets.Scripts.EngineLayer;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
 using Assets.Scripts.EngineLayer.Voxels.Material;
-using Assets.Scripts.GameLogicLayer.Tools;
 using Assets.Scripts.GameLogicLayerTD.Runes;
 using UnityEngine;
 
@@ -32,10 +31,8 @@ namespace Assets.Scripts.GameLogicLayerTD
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
             var size = BuildEmptyMap(markers.Select(m => m.transform).ToList(), grass);
-
-            var pathMarkers = markers.OfType<Raido>().Select(m => m.transform).ToList();
-            pathMarkers.AddRange(markers.OfType<Mannaz>().Select(m => m.transform));
-            CreatePath(pathMarkers, dirt, grass);
+            
+            CreatePath(markers.OfType<Raido>().ToList(), markers.OfType<Mannaz>().ToList(), dirt, grass);
 
             CreateFarms(markers.OfType<Jera>().ToList());
 
@@ -98,12 +95,16 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
         }
 
-        private void CreatePath(List<Transform> markers, VoxelMaterial dirt, VoxelMaterial grass)
+        private void CreatePath(List<Raido> markersPath, List<Mannaz> markersBase, VoxelMaterial dirt, VoxelMaterial grass)
         {
-            if (markers.Count < 2) return;
-            markers = markers.OrderBy(m => m.gameObject.name).ToList();
+            var transforms = new List<Transform>();
+            if(markersPath.Count > 0)
+                transforms.AddRange(markersPath.OrderBy(m => m.Number).Select(m => m.transform));
+            if(markersBase.Count > 0)
+                transforms.AddRange(markersBase.Select(m => m.transform));
+            if (transforms.Count < 2) return;
 
-            var list = Bezier.GetBSplinePoints(markers.Select(m => m.position).ToList(), 10f);
+            var list = Bezier.GetBSplinePoints(transforms.Select(m => m.position).ToList(), 10f);
             Path = BuildWalkablePath(list);
             for (var i = 1; i < list.Count; i++)
             {

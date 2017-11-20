@@ -111,7 +111,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         {
             var rune = new GameObject();
             rune.transform.parent = marker.transform;
-            rune.AddComponent<Raido>();
+            rune.AddComponent<Raido>().Number = 0;
         }
     }
 
@@ -126,7 +126,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
         {
             var rune = new GameObject();
             rune.transform.parent = marker.transform;
-            rune.AddComponent<Raido>();
+            rune.AddComponent<Raido>().Number = 1;
         }
     }
 	public class PlaceRuneToolP3 : PlaceRuneTool
@@ -140,8 +140,8 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 	    {
 	        var rune = new GameObject();
 	        rune.transform.parent = marker.transform;
-	        rune.AddComponent<Raido>();
-	    }
+	        rune.AddComponent<Raido>().Number = 2;
+        }
     }
 	public class PlaceRuneToolTB : PlaceRuneTool //TOWERBASE
 	{

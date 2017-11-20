@@ -1001,6 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Jera
+  SphereRenderer: {fileID: 0}
 --- !u!1 &56239422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1043,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Raido
+  SphereRenderer: {fileID: 0}
+  Number: 0
 --- !u!1 &85574848
 GameObject:
   m_ObjectHideFlags: 0
@@ -3125,6 +3128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Raido
+  SphereRenderer: {fileID: 0}
+  Number: 2
 --- !u!1 &342554234
 GameObject:
   m_ObjectHideFlags: 0
@@ -3166,6 +3171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Algiz
+  SphereRenderer: {fileID: 0}
 --- !u!1 &348263296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3207,6 +3213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Hagalaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1 &373687997 stripped
 GameObject:
@@ -3629,6 +3636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Ehwaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1001 &442221063
 Prefab:
@@ -4774,6 +4782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Ehwaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1 &510817887 stripped
 GameObject:
@@ -5936,7 +5945,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 692473582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 781.5, y: 464, z: 0}
+  m_LocalPosition: {x: 649.5, y: 350, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 445488114}
@@ -8000,6 +8009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Hagalaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1 &755013436
 GameObject:
@@ -8042,6 +8052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Algiz
+  SphereRenderer: {fileID: 0}
 --- !u!1001 &759188692
 Prefab:
   m_ObjectHideFlags: 0
@@ -36010,7 +36021,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 927904868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 451.5, z: 0}
+  m_LocalPosition: {x: 0, y: 337.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1203284706}
@@ -37516,6 +37527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Mannaz
+  SphereRenderer: {fileID: 0}
 --- !u!1 &1017424703
 GameObject:
   m_ObjectHideFlags: 0
@@ -37721,6 +37733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Jera
+  SphereRenderer: {fileID: 0}
 --- !u!1 &1052144814 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 384a0d8cc71cef74a873b3353337ea2c, type: 2}
@@ -37778,6 +37791,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Raido
+  SphereRenderer: {fileID: 0}
+  Number: 3
 --- !u!1 &1140189975
 GameObject:
   m_ObjectHideFlags: 0
@@ -37819,6 +37834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Hagalaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1 &1147030244 stripped
 GameObject:
@@ -37862,7 +37878,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1164033382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 832, y: 476.5, z: 0}
+  m_LocalPosition: {x: 700, y: 362.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 329716935}
@@ -40777,6 +40793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Algiz
+  SphereRenderer: {fileID: 0}
 --- !u!1 &1309650656
 GameObject:
   m_ObjectHideFlags: 0
@@ -41796,6 +41813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Jera
+  SphereRenderer: {fileID: 0}
 --- !u!1 &1388719198
 GameObject:
   m_ObjectHideFlags: 0
@@ -41837,6 +41855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Algiz
+  SphereRenderer: {fileID: 0}
 --- !u!1 &1458863794
 GameObject:
   m_ObjectHideFlags: 1
@@ -45481,6 +45500,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Raido
+  SphereRenderer: {fileID: 0}
+  Number: 1
 --- !u!1 &1806854561
 GameObject:
   m_ObjectHideFlags: 0
@@ -45522,6 +45543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Ehwaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1 &1831703796 stripped
 GameObject:
@@ -45743,7 +45765,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: algiz0Material
+  m_Name: raido2Material
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -46107,6 +46129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Jera
+  SphereRenderer: {fileID: 0}
 --- !u!1 &1988070322
 GameObject:
   m_ObjectHideFlags: 0
@@ -47031,6 +47054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Hagalaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1 &2036832786
 GameObject:
@@ -47716,6 +47740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Ehwaz
+  SphereRenderer: {fileID: 0}
   UpgradeTarget: {fileID: 0}
 --- !u!1 &2124547238 stripped
 GameObject:
