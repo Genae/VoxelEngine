@@ -13,14 +13,12 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
-    <LangVersion>4</LangVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -336,6 +334,7 @@
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceObjectTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\DamageCalculator.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\DEBUGScript.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Healthbar.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\PlaceRuneTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Algiz.cs" />
@@ -630,6 +629,7 @@
     <None Include="Assets\UI\Views\Runes.xml" />
     <None Include="Assets\UI\Views\ToolBelt.xml" />
     <None Include="Assets\UI\Views\UIMainScene.xml" />
+    <None Include="Assets\UI\Views\UITDARScene.xml" />
     <None Include="Assets\UI\Views\UITDScene.xml" />
     <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ButtonsExample.xml" />
@@ -716,9 +716,6 @@
     <None Include="Assets\license_3rdpartynotice.txt" />
     <None Include="Assets\link.xml" />
     <None Include="Assets\readme_SDK.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\UI\Views\UITDARScene.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
