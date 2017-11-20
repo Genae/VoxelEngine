@@ -5,7 +5,6 @@ public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
 {
     //Put this on rune image target to see when it is tracked or use variable Tracked of this class
     
-    public Transform Painter3DTransform;
     private TrackableBehaviour mTrackableBehaviour;
     public bool Tracked = false;
 
