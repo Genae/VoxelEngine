@@ -7,34 +7,40 @@ namespace Assets.Scripts.GameLogicLayerTD
 {
     public static class DamageCalculator
     {
-
-        //TODO graph solution? this seems very ugly
-
-        public static float Calc(float dmg, ElementType attacker, ElementType defender)
+        public static float[,] elementTable= new float[5,5]
         {
+            {  1f, 0.5f,   1f,   2f,   1f },
+            {  2f,   1f,   2f, 0.5f,   1f },
+            {  2f, 0.5f,   1f,   0f,   2f },
+            {0.5f,   1f,   2f,   2f,   1f },
+            {0.5f,   1f,   1f, 0.5f,   2f },
+        };
+
+        public static float Calc(float dmg, List<ElementType> AList, List<ElementType> DList)
+        {
+
+            if (AList.Count == 0 || DList.Count == 0) return dmg; //incase something has no element? temp workaround TODO
+
             var multiplier = 1f;
-
-            if (attacker == defender) multiplier = 1;
-
-            if (attacker == ElementType.Water && defender == ElementType.Fire)
+            foreach (var elementA in AList)
             {
-                multiplier = 2;
+                foreach (var elementD in DList)
+                {
+                    multiplier *= elementTable[(int)elementA, (int)elementD];
+                }
             }
-            else if (attacker == ElementType.Fire && defender == ElementType.Water)
-            {
-                multiplier = 0.5f;
-            }
-            //to ugly to cont, Graph might be best option
             return dmg * multiplier;
         }
     }
+}
 
-    public enum ElementType
-    {
-        Fire,
-        Water
-    }
-
+public enum ElementType
+{
+    Fire,
+    Water,
+    Earth,
+    Air,
+    Light
 }
 
 

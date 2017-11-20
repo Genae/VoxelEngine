@@ -24,9 +24,15 @@ namespace Assets.Scripts.GameLogicLayerTD
         private void SpawnUnit(List<Vector3> instancePath)
         {
             var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            go.transform.position = instancePath[0];
-            go.AddComponent<TDMinion>().SetPath(instancePath);
-            
+
+            //TODO change, just testing stuff here
+            var tdminion = go.AddComponent<TDMinion>();
+            int rnd = (int) Random.Range(0, 4);
+            var list = new List<ElementType>();
+            list.Add((ElementType)rnd);
+            //INIT
+            tdminion.Init(instancePath, list);
+
         }
     }
 }

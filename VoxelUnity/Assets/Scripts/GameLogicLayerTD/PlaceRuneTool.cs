@@ -44,6 +44,7 @@ namespace Assets.Scripts.GameLogicLayer.Tools
             currentMarker.position = _previewBox.transform.position;
             return currentMarker;
         }
+        
 
         public virtual void AddRuneComponent(GameObject marker)
         {}

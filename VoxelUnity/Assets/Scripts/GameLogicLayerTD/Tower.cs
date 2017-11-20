@@ -9,14 +9,17 @@ public class Tower : MonoBehaviour
 {
     public Algiz Marker;
 
-    public int Range = 30;
+    public int Range = 50;
     private float currentCooldown;
     public float cooldown = 1;
+    private List<ElementType> _elementList;
 
     // Use this for initialization
     void Start () {
 		Debug.Log ("Tower meldet sich zum Dienst");
-	}
+        _elementList = new List<ElementType>(); //list init
+        _elementList.Add(ElementType.Air); //TODO remove, testing if dmg calc works
+    }
 
     public void Init(Algiz marker)
     {
@@ -47,23 +50,30 @@ public class Tower : MonoBehaviour
         proj.name = "Prjoctile";
         proj.transform.position = transform.position + Vector3.up * 25;
         proj.transform.localScale = Vector3.one * 0.7f;
-        proj.AddComponent<Projectile>().TarGameObject = tdMinion.gameObject;
+        proj.AddComponent<Projectile>().Init(tdMinion.gameObject,_elementList);
     }
 }
 
 internal class Projectile: MonoBehaviour
 {
-    public GameObject TarGameObject;
-    private float _dmg = 10;
+    private GameObject _tarGameObject;
+    private float _dmg = 25;
+    private List<ElementType> _elementList;
+
+    public void Init(GameObject target, List<ElementType> elementList)
+    {
+        _tarGameObject = target;
+        _elementList = elementList;
+    }
 
     void Update()
     {
-        if(TarGameObject == null)
+        if(_tarGameObject == null)
             Destroy(gameObject);
-        this.transform.position += ((TarGameObject.transform.position - transform.position).normalized * Time.deltaTime * 30);
-        if ((TarGameObject.transform.position - transform.position).magnitude < 1f)
+        this.transform.position += ((_tarGameObject.transform.position - transform.position).normalized * Time.deltaTime * 30);
+        if ((_tarGameObject.transform.position - transform.position).magnitude < 1f)
         {
-            TarGameObject.GetComponent<TDMinion>().ApplyDmg(_dmg);
+            _tarGameObject.GetComponent<TDMinion>().ApplyDmg(_dmg, _elementList);
             Destroy(gameObject);
         }
     }

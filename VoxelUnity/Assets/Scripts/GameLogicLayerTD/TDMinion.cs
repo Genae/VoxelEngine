@@ -12,7 +12,16 @@ namespace Assets.Scripts.GameLogicLayerTD
         private float speed = 10;
         private float _health = 100;
         private Healthbar _healthbar;
-        //private ElementType _type;
+        private List<ElementType> _elementList;
+
+        public void Init(List<Vector3> path, List<ElementType> elementList)
+        {
+            SetPath(path);
+            transform.position = path[0];
+            _elementList = new List<ElementType>(); //init list
+            _elementList = elementList;
+            SetColor(_elementList[0]); //well :D dont judge me
+        }
 
         void Start()
         {
@@ -20,22 +29,33 @@ namespace Assets.Scripts.GameLogicLayerTD
             _healthbar.Init(_health, _health);
         }
 
-        public void SetPath(List<Vector3> path)
+        private void SetPath(List<Vector3> path)
         {
             Path = path;
             wayIndex = 0;
             targetVector = path[0];
         }
 
-        public void ApplyDmg(float dmg)
+        public void ApplyDmg(float dmg, List<ElementType> projElementList)
         {
-            _health -= dmg;
+            _health -= DamageCalculator.Calc(dmg, projElementList, _elementList);
             _healthbar.UpdateCurrentHealth(_health);
         }
 
         private void AliveCheck()
         {
             if (_health <= 0) Destroy(gameObject);
+        }
+
+        private void SetColor(ElementType type)
+        {
+            var m = GetComponent<MeshRenderer>().material;
+            if (type == ElementType.Air) m.color = Color.grey;
+            else if (type == ElementType.Water) m.color = Color.blue;
+            else if (type == ElementType.Earth) m.color = Color.black;
+            else if (type == ElementType.Fire) m.color = Color.red;
+            else if (type == ElementType.Light) m.color = Color.yellow;
+            else m.color = Color.white;
         }
 
         void Update()
