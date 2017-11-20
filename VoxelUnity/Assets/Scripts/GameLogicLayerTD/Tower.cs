@@ -15,10 +15,10 @@ public class Tower : MonoBehaviour
     private List<ElementType> _elementList;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 		Debug.Log ("Tower meldet sich zum Dienst");
-        _elementList = new List<ElementType>(); //list init
-        _elementList.Add(ElementType.Air); //TODO remove, testing if dmg calc works
+        _elementList = GetElements();
     }
 
     public void Init(Algiz marker)
@@ -26,7 +26,13 @@ public class Tower : MonoBehaviour
         Marker = marker;
     }
 
-	// Update is called once per frame
+    private List<ElementType> GetElements()
+    {
+        var elements = Marker.GetUpgradeRunes().OfType<ElementRune>().Select(er => er.ElementType).ToList();
+        return elements;
+    }
+
+    // Update is called once per frame
 	void Update ()
 	{
         if (Marker.GetUpgradeRunes().Count > 0)

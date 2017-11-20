@@ -2,7 +2,7 @@
 {
     public class Berkano : ElementRune //Erd Element
     {
-        public Berkano() : base("Berkano")
+        public Berkano() : base("Berkano", ElementType.Earth)
         {
         }
     }
