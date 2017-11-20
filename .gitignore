@@ -234,3 +234,9 @@ sysinfo.txt
 VoxelUnity/Voxel.exe
 VoxelUnity/Voxel_Data/*
 *.cs.orig*
+/VoxelUnity/Assets/Plugins/x86.meta
+/VoxelUnity/Assets/Plugins/x64.meta
+/VoxelUnity/Assets/Plugins/WSA/x86.meta
+/VoxelUnity/Assets/Plugins/WSA/x64.meta
+/VoxelUnity/VoxelUnity.csproj
+/VoxelUnity/VoxelUnity.Editor.csproj

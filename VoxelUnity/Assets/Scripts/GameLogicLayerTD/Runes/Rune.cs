@@ -8,4 +8,9 @@ public class Rune : MonoBehaviour
     {
         Name = name;
     }
+
+    void Update()
+    {
+        
+    }
 }
