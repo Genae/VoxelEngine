@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.*;
+
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
