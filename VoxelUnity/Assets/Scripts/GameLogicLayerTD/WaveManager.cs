@@ -24,6 +24,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         private void SpawnUnit(List<Vector3> instancePath)
         {
             var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            go.transform.parent = transform;
 
             //TODO change, just testing stuff here
             var tdminion = go.AddComponent<TDMinion>();

@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
     public static class DamageCalculator
     {
-        public static float[,] elementTable= new float[5,5]
-        {
+        public static float[,] ElementTable= {
             {  1f, 0.5f,   1f,   2f,   1f },
             {  2f,   1f,   2f, 0.5f,   1f },
             {  2f, 0.5f,   1f,   0f,   2f },
@@ -16,17 +13,17 @@ namespace Assets.Scripts.GameLogicLayerTD
             {0.5f,   1f,   1f, 0.5f,   2f },
         };
 
-        public static float Calc(float dmg, List<ElementType> AList, List<ElementType> DList)
+        public static float Calc(float dmg, List<ElementType> aList, List<ElementType> dList)
         {
 
-            if (AList.Count == 0 || DList.Count == 0) return dmg; //incase something has no element? temp workaround TODO
+            if (aList.Count == 0 || dList.Count == 0) return dmg; //incase something has no element? temp workaround TODO
 
             var multiplier = 1f;
-            foreach (var elementA in AList)
+            foreach (var elementA in aList)
             {
-                foreach (var elementD in DList)
+                foreach (var elementD in dList)
                 {
-                    multiplier *= elementTable[(int)elementA, (int)elementD];
+                    multiplier *= ElementTable[(int)elementA, (int)elementD];
                 }
             }
             return dmg * multiplier;

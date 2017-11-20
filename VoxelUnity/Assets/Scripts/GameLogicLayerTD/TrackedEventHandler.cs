@@ -38,8 +38,8 @@ public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
             component.enabled = true;
         }
         Tracked = true;
-
         //TODO Insert Code for OnTrackingFound
+        GetComponentInChildren<Rune>().enabled = true;
 
     }
 
@@ -53,6 +53,7 @@ public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
         Tracked = false;
 
         //TODO Insert Code for OnTrackingLost
+        GetComponentInChildren<Rune>().enabled = false;
 
     }
 }

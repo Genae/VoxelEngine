@@ -41,7 +41,7 @@ public class Tower : MonoBehaviour
 	    if (currentCooldown > 0 || minionsInRange.Count == 0)
 	        return;
 	    currentCooldown = cooldown;
-	    AttackUnit(minionsInRange[0]);
+	    AttackUnit(minionsInRange.Last());
     }
 
     private void AttackUnit(TDMinion tdMinion)
@@ -68,9 +68,12 @@ internal class Projectile: MonoBehaviour
 
     void Update()
     {
-        if(_tarGameObject == null)
+        if (_tarGameObject == null)
+        {
             Destroy(gameObject);
-        this.transform.position += ((_tarGameObject.transform.position - transform.position).normalized * Time.deltaTime * 30);
+            return;
+        }
+        transform.position += ((_tarGameObject.transform.position - transform.position).normalized * Time.deltaTime * 30);
         if ((_tarGameObject.transform.position - transform.position).magnitude < 1f)
         {
             _tarGameObject.GetComponent<TDMinion>().ApplyDmg(_dmg, _elementList);
