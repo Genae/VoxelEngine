@@ -6,8 +6,9 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class Algiz : Rune { //Tower
 
-        void Update()
+        public override void Update()
         {
+            base.Update();
             transform.parent.GetComponent<MeshRenderer>().material.color = GetUpgradeRunes().Count > 0 ? Color.blue : Color.white;
         }
 

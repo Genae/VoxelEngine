@@ -37,8 +37,9 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
             }
         }
 
-        void Update()
+        public override void Update()
         {
+            base.Update();
             var list = GetUpgradeableRunes();
             GetClosestUpgradeTarget(list);
             ConfigLineRenderer();
