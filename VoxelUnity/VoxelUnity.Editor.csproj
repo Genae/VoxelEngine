@@ -350,6 +350,7 @@
     <None Include="Assets\UI\Views\Runes.xml" />
     <None Include="Assets\UI\Views\ToolBelt.xml" />
     <None Include="Assets\UI\Views\UIMainScene.xml" />
+    <None Include="Assets\UI\Views\UITDARScene.xml" />
     <None Include="Assets\UI\Views\UITDScene.xml" />
     <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ButtonsExample.xml" />
