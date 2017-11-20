@@ -24,8 +24,9 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
             _pathUpgrade = pathUpgrade;
         }
         
-        void Start()
+        public override void Start()
         {
+            base.Start();
             //linerenderer init
             if ((_lr = gameObject.GetComponent<LineRenderer>()) == null)
             {

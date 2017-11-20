@@ -9,7 +9,7 @@ public class Rune : MonoBehaviour
         Name = name;
     }
 
-    void Start()
+    public virtual void Start()
     {
         var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         go.GetComponent<MeshRenderer>().material.color = InBorders() ? Color.green : Color.red;
