@@ -27,17 +27,19 @@ namespace Assets.Scripts.GameLogicLayerTD
         }
         public void BuildMap()
         {
-            var markers = FindObjectsOfType<Rune>().Select(r => r.transform).ToList();
+            var markers = FindObjectsOfType<Rune>().ToList();
             var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
-            var size = BuildEmptyMap(markers, grass);
+            var size = BuildEmptyMap(markers.Select(m => m.transform).ToList(), grass);
 
-            CreatePath(markers.Where(m => m.gameObject.name.Contains("Path") || m.gameObject.name.Contains("Village")).ToList(), dirt, grass);
+            var pathMarkers = markers.OfType<Raido>().Select(m => m.transform).ToList();
+            pathMarkers.AddRange(markers.OfType<Mannaz>().Select(m => m.transform));
+            CreatePath(pathMarkers, dirt, grass);
 
-            CreateFarms(markers.Where(m => m.gameObject.name.Contains("Farm")).ToList());
+            CreateFarms(markers.OfType<Jera>().ToList());
 
-            CreateTowers(markers.Where(m => m.gameObject.GetComponentInChildren<Algiz>() != null).ToList());
+            CreateTowers(markers.OfType<Algiz>().ToList());
 
             var wm = new GameObject("WaveManager").AddComponent<WaveManager>();
             wm.transform.parent = gameObject.transform;
@@ -79,16 +81,16 @@ namespace Assets.Scripts.GameLogicLayerTD
             //Map.Instance.transform.parent.transform.localScale = Vector3.one * 0.05f;
         }
 
-        private void CreateFarms(List<Transform> markers)
+        private void CreateFarms(List<Jera> markers)
         {
             foreach (var m in markers)
             {
-                Farms.Add(new TDFarm(m.position));
+                Farms.Add(new TDFarm(m.transform.position));
             }
 
         }
 
-        private void CreateTowers(List<Transform> markers)
+        private void CreateTowers(List<Algiz> markers)
         {
             foreach (var m in markers)
             {
