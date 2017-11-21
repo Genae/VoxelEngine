@@ -1,24 +1,42 @@
 <RuneOverview>
-  <Group Alignment="Center" Orientation="Vertical" Spacing="5px">
-    <List Items="{Runes0}" Orientation="Horizontal" Alignment="Top" CanSelect="true" ItemSelected="SelectedMain">
-      <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
-        <Image Sprite="{#Item.Image}" Margin="3" />
-      </ListItem>
-    </List>
-    <List Items="{Runes1}" Orientation="Horizontal" Alignment="Top" CanSelect="true" ItemSelected="SelectedMain">
-      <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
-        <Image Sprite="{#Item.Image}" Margin="3" />
-      </ListItem>
-    </List>
-    <List Items="{Runes2}" Orientation="Horizontal" Alignment="Top" CanSelect="true" ItemSelected="SelectedMain">
-      <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
-        <Image Sprite="{#Item.Image}" Margin="3" />
-      </ListItem>
-    </List>
-    <List Items="{Runes3}" Orientation="Horizontal" Alignment="Top" CanSelect="true" ItemSelected="SelectedMain">
-      <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
-        <Image Sprite="{#Item.Image}" Margin="3" />
-      </ListItem>
-    </List>
+  <Group Alignment="Center" Orientation="Horizontal" Spacing="5px" BackgroundColor="white">
+    <Group Alignment="Center" Orientation="Vertical" Spacing="5px" Width="500px" Height="420px">
+      <List Items="{Runes0}" Orientation="Horizontal" Alignment="Top" CanSelect="true" DeselectAfterSelect="true" ItemSelected="Selected0">
+        <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
+          <Image Sprite="{#Item.Image}" Margin="3" />
+        </ListItem>
+      </List>
+      <List Items="{Runes1}" Orientation="Horizontal" Alignment="Top" CanSelect="true" DeselectAfterSelect="true" ItemSelected="Selected1">
+        <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
+          <Image Sprite="{#Item.Image}" Margin="3" />
+        </ListItem>
+      </List>
+      <List Items="{Runes2}" Orientation="Horizontal" Alignment="Top" CanSelect="true" DeselectAfterSelect="true" ItemSelected="Selected2">
+        <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
+          <Image Sprite="{#Item.Image}" Margin="3" />
+        </ListItem>
+      </List>
+      <List Items="{Runes3}" Orientation="Horizontal" Alignment="Top" CanSelect="true" DeselectAfterSelect="true" ItemSelected="Selected3">
+        <ListItem IsTemplate="True" Width="75" Height="100" TextAlignment="Center">
+          <Image Sprite="{#Item.Image}" Margin="3" />
+        </ListItem>
+      </List>
+    </Group>
+    <Group Alignment="Center" Orientation="Vertical" Spacing="5px" Width="300px" Height="420px">
+      <Image Sprite="{SelectedDescription.Image}" Margin="3" Alignment="Center" Width="150px" Height="200px"/>
+      <Group Alignment="Left" Orientation="Vertical" Width="300px" Height="220px">
+        <Label Alignment="Left" Text="Name: {SelectedDescription.Name}" FontColor="black" Height="20px"></Label>
+        <Label Alignment="Left" Text="Transliteration: {SelectedDescription.Transliteration}" Height="20px" FontColor="black"></Label>
+        <Label Alignment="Left" Text="Phonetic: {SelectedDescription.Phonetic}" Height="20px" FontColor="black"></Label>
+        <Label Alignment="Left" Text="Meaning: {SelectedDescription.Meaning}" Height="20px" FontColor="black"></Label>
+        <Label Alignment="Left" Text="Usage: {SelectedDescription.Usage}" Height="20px" FontColor="black"></Label>
+      </Group>
+    <!--
+        public string Name { get; set; }
+        public string Transliteration { get; set; }
+        public string Phonetic { get; set; }
+        public string Meaning { get; set; }
+        public string Usage { get; set; }-->
+    </Group>
   </Group>
 </RuneOverview>
