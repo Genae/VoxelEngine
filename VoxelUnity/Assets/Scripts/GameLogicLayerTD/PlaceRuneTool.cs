@@ -7,10 +7,9 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 {
     public class PlaceRuneTool : Tool {
 
-        private GameObject _previewBox;
-        public Material PreviewMaterial;
+        public GameObject RuneToPlace;
 		public static GameObject MarkerParent;
-        protected string RuneName;
+        public string runeId;
 
 		protected override void Start()
 		{
@@ -37,18 +36,15 @@ namespace Assets.Scripts.GameLogicLayer.Tools
             var currentMarker = MarkerParent.transform.Find(gameObject.name);
             if (currentMarker == null)
             {
-                currentMarker = Instantiate(_previewBox).transform;
+                currentMarker = Instantiate(RuneToPlace).transform;
                 currentMarker.gameObject.name = gameObject.name;
                 currentMarker.parent = MarkerParent.transform;
             }
-            currentMarker.position = _previewBox.transform.position;
+            currentMarker.position = RuneToPlace.transform.position;
+            gameObject.SetActive(false);
             return currentMarker;
         }
         
-
-        public virtual void AddRuneComponent(GameObject marker)
-        {}
-
 		private Vector3 GetPos()
 		{
 			var hits = GetRaycastHitOnMousePosition();
@@ -62,141 +58,37 @@ namespace Assets.Scripts.GameLogicLayer.Tools
 
         protected override void OnDisable()
         {
-            Destroy(_previewBox);
+            Destroy(RuneToPlace);
             base.OnDisable();
         }
 
         private void DrawPreview(Vector3 startPos)
         {
-            if (_previewBox == null)
+            if (RuneToPlace == null)
             {
-                _previewBox = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                _previewBox.GetComponent<MeshRenderer>().material = Resources.Load(string.Format("Runes/Materials/{0}", RuneName), typeof(Material)) as Material;
-                _previewBox.name = "preview";
-                AddRuneComponent(_previewBox.gameObject);
+                RuneToPlace = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                RuneToPlace.GetComponent<MeshRenderer>().material = Resources.Load(string.Format("Runes/Materials/{0}", runeId), typeof(Material)) as Material;
+                RuneToPlace.name = "preview";
+                AddRuneComponent(RuneToPlace.gameObject, runeId);
             }
-            _previewBox.transform.position = startPos;
-            _previewBox.transform.localScale = new Vector3(1f, 1f, 1f);
+            RuneToPlace.transform.position = startPos;
+            RuneToPlace.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        
+        public virtual void AddRuneComponent(GameObject marker, string runeId)
+        {
+            var rune = new GameObject();
+            rune.transform.parent = marker.transform;
+            switch (runeId)
+            {
+
+            }
+            rune.AddComponent<Raido>().Number = 0;
         }
 
         public override void SwapOverlays()
         {
             OverlayManager.SwapOverlays(false, false, false);
-        }
-    }
-    
-    public class PlaceRuneToolV : PlaceRuneTool //VILLAGE
-    {
-        public PlaceRuneToolV()
-        {
-            RuneName = "mannaz";
-        }
-
-        public override void AddRuneComponent(GameObject marker)
-        {
-            var rune = new GameObject();
-            rune.transform.parent = marker.transform;
-            rune.AddComponent<Mannaz>();
-        }
-    }
-
-    public class PlaceRuneToolP1 : PlaceRuneTool //PATH
-    {
-        public PlaceRuneToolP1()
-        {
-            RuneName = "raido";
-        }
-
-        public override void AddRuneComponent(GameObject marker)
-        {
-            var rune = new GameObject();
-            rune.transform.parent = marker.transform;
-            rune.AddComponent<Raido>().Number = 0;
-        }
-    }
-
-    public class PlaceRuneToolP2 : PlaceRuneTool
-    {
-        public PlaceRuneToolP2()
-        {
-            RuneName = "raido";
-        }
-
-        public override void AddRuneComponent(GameObject marker)
-        {
-            var rune = new GameObject();
-            rune.transform.parent = marker.transform;
-            rune.AddComponent<Raido>().Number = 1;
-        }
-    }
-	public class PlaceRuneToolP3 : PlaceRuneTool
-	{
-	    public PlaceRuneToolP3()
-	    {
-	        RuneName = "raido";
-	    }
-
-	    public override void AddRuneComponent(GameObject marker)
-	    {
-	        var rune = new GameObject();
-	        rune.transform.parent = marker.transform;
-	        rune.AddComponent<Raido>().Number = 2;
-        }
-    }
-	public class PlaceRuneToolTB : PlaceRuneTool //TOWERBASE
-	{
-	    public PlaceRuneToolTB()
-	    {
-	        RuneName = "algiz";
-	    }
-
-	    public override void AddRuneComponent(GameObject marker)
-	    {
-	        var rune = new GameObject();
-	        rune.transform.parent = marker.transform;
-	        rune.AddComponent<Algiz>();
-	    }
-	}
-	public class PlaceRuneToolF : PlaceRuneTool //FARM
-	{
-	    public PlaceRuneToolF()
-	    {
-	        RuneName = "jera";
-	    }
-
-	    public override void AddRuneComponent(GameObject marker)
-	    {
-	        var rune = new GameObject();
-	        rune.transform.parent = marker.transform;
-	        rune.AddComponent<Jera>();
-	    }
-    }
-	public class PlaceRuneToolUS : PlaceRuneTool //SPEEDUPGRADE
-    {
-		public PlaceRuneToolUS()
-		{
-			RuneName = "ehwaz";
-        }
-
-        public override void AddRuneComponent(GameObject marker)
-        {
-            var rune = new GameObject();
-            rune.transform.parent = marker.transform;
-            rune.AddComponent<Ehwaz>();
-        }
-    }
-	public class PlaceRuneToolUAOE : PlaceRuneTool //AOEUPGRADE
-    {
-		public PlaceRuneToolUAOE()
-		{
-			RuneName = "hagalaz";
-        }
-
-        public override void AddRuneComponent(GameObject marker)
-        {
-            var rune = new GameObject();
-            rune.transform.parent = marker.transform;
-            rune.AddComponent<Hagalaz>();
         }
     }
 }

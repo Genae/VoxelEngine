@@ -1,58 +1,10 @@
 [
 	{
-		"Name": "Village",
+		"Name": "Rune",
 		"Children": [
 			{
-				"Name": "Village",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolV"
-			}
-		]
-	},
-	{
-		"Name": "Farming",
-		"Children": [
-			{
-				"Name": "Farm",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolF"
-			}
-		]
-	},
-	{
-		"Name": "Path",
-		"Children": [
-			{
-				"Name": "Path 1",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolP1"
-			},
-			{
-				"Name": "Path 2",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolP2"
-			},
-			{
-				"Name": "Path 3",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolP3"
-			}
-		]
-	},
-	{
-		"Name": "Tower",
-		"Children": [
-			{
-				"Name": "Tower Base",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolTB"
-			}
-		]
-	},
-	{
-		"Name": "Upgrades",
-		"Children": [
-			{
-				"Name": "Speed Upgrade",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolUS"
-			},
-			{
-				"Name": "AOE Upgrade",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneToolUAOE"
+				"Name": "Rune",
+				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceRuneTool"
 			}
 		]
 	}

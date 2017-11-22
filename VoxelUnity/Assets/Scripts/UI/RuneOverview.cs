@@ -11,6 +11,7 @@ namespace Assets.Scripts.UI
 	{
         public ObservableList<RuneDescription>[] AllRunes = new ObservableList<RuneDescription>[4];
 	    public ObservableList<RuneDescription> Runes0, Runes1, Runes2, Runes3;
+	    public ObservableList<int> Buttons = new ObservableList<int> {0, 1, 2};
 	    public RuneDescription SelectedDescription;
         
 
@@ -28,6 +29,8 @@ namespace Assets.Scripts.UI
             Runes2 = AllRunes[2];
             Runes3 = AllRunes[3];
         }
+
+        public void BuildRune() { }
 
 	    public void Selected0()
 	    {
