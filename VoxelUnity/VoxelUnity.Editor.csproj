@@ -241,11 +241,20 @@
     <Reference Include="UnityEditor.VR">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
     </Reference>
+    <Reference Include="Vuforia.UnityExtensions.Editor">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Vuforia.UnityExtensions">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Graphs">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.WSA.Extensions">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
@@ -255,12 +264,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Vuforia.UnityExtensions.Editor">
-      <HintPath>Assets/Vuforia/Editor/Scripts/Vuforia.UnityExtensions.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Vuforia.UnityExtensions">
-      <HintPath>Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/Users/Stefan/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@1.0.7/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -295,11 +298,6 @@
     <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\Editor\ViewInspector.cs" />
     <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\Editor\ViewPostprocessor.cs" />
     <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\Editor\ViewPresenterInspector.cs" />
-    <Compile Include="Assets\Vuforia\Editor\Scripts\ComponentFactoryStarter\ComponentFactoryStarter.cs" />
-    <Compile Include="Assets\Vuforia\Editor\Scripts\ExtensionImport.cs" />
-    <Compile Include="Assets\Vuforia\Editor\Scripts\PostProcessBuildPlayer.cs" />
-    <Compile Include="Assets\Vuforia\Editor\Scripts\Unzipper\SharpZipLibUnzipper.cs" />
-    <Compile Include="Assets\Vuforia\Editor\Scripts\VuforiaConfigurationEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
@@ -415,17 +413,6 @@
     <None Include="Assets\UnityPackages\MarkLight\Views\UI\Window.xml" />
     <None Include="Assets\UnityPackages\MarkLight\Views\View.xml" />
     <None Include="Assets\UnityPackages\MarkLight\Views\ViewAnimation.xml" />
-    <None Include="Assets\Vuforia\Editor\Scripts\Vuforia.UnityExtensions.Editor.XML" />
-    <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
-    <None Include="Assets\Vuforia\Scripts\Internal\Vuforia.UnityExtensions.XML" />
-    <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
-    <None Include="Assets\Vuforia\Shaders\ClippingMask.shader" />
-    <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
-    <None Include="Assets\Vuforia\Shaders\DepthMask.shader" />
-    <None Include="Assets\Vuforia\Shaders\RenderVideoBackground.shader" />
-    <None Include="Assets\Vuforia\Shaders\Text3D.shader" />
-    <None Include="Assets\Vuforia\Shaders\VertexLitWithZ.shader" />
-    <None Include="Assets\Vuforia\Shaders\VideoBackground.shader" />
     <None Include="Assets\license_3rdpartynotice.txt" />
     <None Include="Assets\link.xml" />
     <None Include="Assets\readme_SDK.txt" />
