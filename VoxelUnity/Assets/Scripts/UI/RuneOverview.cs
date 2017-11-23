@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.ControlInputs;
 using Assets.Scripts.EngineLayer;
+using Assets.Scripts.GameLogicLayer.Tools;
 using MarkLight;
 using MarkLight.Views.UI;
 using UnityEngine;
@@ -13,7 +14,9 @@ namespace Assets.Scripts.UI
 	    public ObservableList<RuneDescription> Runes0, Runes1, Runes2, Runes3;
 	    public ObservableList<int> Buttons = new ObservableList<int> {0, 1, 2};
 	    public RuneDescription SelectedDescription;
-        
+	    public _bool Visible;
+	    private PlaceRuneTool _prt;
+	    private MouseController _mc;
 
         void Awake()
         {
@@ -30,9 +33,33 @@ namespace Assets.Scripts.UI
             Runes3 = AllRunes[3];
         }
 
+	    void Start()
+	    {
+	        _prt = FindObjectOfType<PlaceRuneTool>();
+	        _mc = FindObjectOfType<MouseController>();
+        }
+
         public void BuildRune() { }
 
-	    public void Selected0()
+	    public void Close()
+	    {
+	        Visible.Value = false;
+        }
+	    public void Open()
+	    {
+	        Visible.Value = true;
+	    }
+
+	    public void Place()
+	    {
+	        Close();
+	        _prt.RunePreview = null;
+	        _prt.runeId = SelectedDescription.ID;
+            _mc.SelectTool<PlaceRuneTool>();
+
+	    }
+
+        public void Selected0()
 	    {
             SetValue(() => SelectedDescription, Runes0.SelectedItem);
             Debug.Log(SelectedDescription.Name);

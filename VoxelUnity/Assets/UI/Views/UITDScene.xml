@@ -1,6 +1,5 @@
 <UITDScene>
     <UserInterface>
-        <Runes />
         <RuneOverview />
         <GameSpeed/>
         <Group Spacing="15px" Alignment="Top" Orientation="Horizontal">
