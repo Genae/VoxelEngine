@@ -12,8 +12,11 @@ namespace Assets.Scripts.GameLogicLayerTD
         private CampaignManager _cm;
         public bool spawn = true;
 
+        public static List<TDMinion> AliveMinions;
+
         void Start()
         {
+            AliveMinions = new List<TDMinion>();
             _cm = FindObjectOfType<CampaignManager>();
             currentWave = _cm.GetNextWave();
         }
@@ -39,6 +42,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                 return false;
             var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
             var minion = go.AddComponent<TDMinion>();
+            AliveMinions.Add(minion);
             minion.Init(instancePath, mobStats.ElementList.ToList(), mobStats.Speed, mobStats.Health, mobStats.Scale);
             go.transform.parent = transform;
             return true;

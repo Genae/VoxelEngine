@@ -12,6 +12,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         private float _speed = 10;
         private float _health = 100;
         private float _scale = 1;
+        public float DistanceMoved = 0f;
         private Healthbar _healthbar;
         private List<ElementType> _elementList;
 
@@ -32,6 +33,11 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             _healthbar = gameObject.AddComponent<Healthbar>();
             _healthbar.Init(_health, _health);
+        }
+
+        void OnDestroy()
+        {
+            WaveManager.AliveMinions.Remove(this);
         }
 
         private void SetPath(List<Vector3> path)
@@ -85,9 +91,9 @@ namespace Assets.Scripts.GameLogicLayerTD
 
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, q1, Time.deltaTime);
 
-            this.transform.position += ((targetVector - oldPos).normalized * Time.deltaTime * _speed);
+            var moveVector = (targetVector - oldPos).normalized * Time.deltaTime * _speed;
+            this.transform.position += moveVector;
+            DistanceMoved += moveVector.magnitude;
         }
-
-
     }
 }

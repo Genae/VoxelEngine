@@ -38,7 +38,7 @@ public class Tower : MonoBehaviour
         if (Marker.GetUpgradeRunes().Count > 0)
             transform.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
 
-	    var minionsInRange = FindObjectsOfType<TDMinion>().Where(minion => (minion.transform.position - transform.position).magnitude < Range).ToList();
+	    var minionsInRange = WaveManager.AliveMinions.Where(minion => (minion.transform.position - transform.position).magnitude < Range).ToList();
 	    foreach (var minion in minionsInRange)
 	    {
 	        Debug.DrawLine(transform.position + Vector3.up * 25, minion.transform.position);
@@ -47,7 +47,7 @@ public class Tower : MonoBehaviour
 	    if (currentCooldown > 0 || minionsInRange.Count == 0)
 	        return;
 	    currentCooldown = cooldown;
-	    AttackUnit(minionsInRange.Last());
+	    AttackUnit(minionsInRange.OrderByDescending(m => m.DistanceMoved).First());
     }
 
     private void AttackUnit(TDMinion tdMinion)
