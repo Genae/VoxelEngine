@@ -14,7 +14,7 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 
         public List<UpgradeRune> GetUpgradeRunes()
         {
-            var upgrades = FindObjectsOfType<UpgradeRune>().ToList();
+            var upgrades = RuneRegistry.Runes.OfType<UpgradeRune>().ToList();
             if (upgrades.Count > 0)
                 upgrades = upgrades.Where(u => transform.Equals(u.UpgradeTarget)).ToList();
             return upgrades;

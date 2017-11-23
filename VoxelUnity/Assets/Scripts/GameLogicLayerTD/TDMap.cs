@@ -26,7 +26,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         }
         public void BuildMap()
         {
-            var markers = FindObjectsOfType<Rune>().ToList();
+            var markers = RuneRegistry.Runes.ToList();
             var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 

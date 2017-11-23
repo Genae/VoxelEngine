@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayerTD.Runes
@@ -50,35 +51,35 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
             var upgradeableList = new List<Transform>();
             if (_towerUpgrade)
             {
-                foreach (var t in FindObjectsOfType<Algiz>())
+                foreach (var t in RuneRegistry.Runes.OfType<Algiz>())
                 {
                     upgradeableList.Add(t.transform);
                 }
             }
             if (_farmUpgrade)
             {
-                foreach (var t in FindObjectsOfType<Jera>())
+                foreach (var t in RuneRegistry.Runes.OfType<Jera>())
                 {
                     upgradeableList.Add(t.transform);
                 }
             }
             if (_mobUpgrade)
             {
-                foreach (var t in FindObjectsOfType<Isa>())
+                foreach (var t in RuneRegistry.Runes.OfType<Isa>())
                 {
                     upgradeableList.Add(t.transform);
                 }
             }
             if (_villageUpgrade)
             {
-                foreach (var t in FindObjectsOfType<Mannaz>())
+                foreach (var t in RuneRegistry.Runes.OfType<Mannaz>())
                 {
                     upgradeableList.Add(t.transform);
                 }
             }
             if (_pathUpgrade)
             {
-                foreach (var t in FindObjectsOfType<Raido>())
+                foreach (var t in RuneRegistry.Runes.OfType<Raido>())
                 {
                     upgradeableList.Add(t.transform);
                 }
