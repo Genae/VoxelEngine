@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayerTD
@@ -7,32 +8,40 @@ namespace Assets.Scripts.GameLogicLayerTD
     {
         private float currentCooldown;
         public float cooldown = 3;
+        public Wave currentWave;
+        private CampaignManager _cm;
+        public bool spawn = true;
+
+        void Start()
+        {
+            _cm = FindObjectOfType<CampaignManager>();
+            currentWave = _cm.GetNextWave();
+        }
 
         void Update()
         {
+            if (!spawn)
+                return;
             if (TDMap.Instance.Path.Count == 0)
                 return; //no path
             currentCooldown -= Time.deltaTime;
             if (currentCooldown > 0)
                 return;
             currentCooldown = cooldown;
-            SpawnUnit(TDMap.Instance.Path);
+            spawn = SpawnUnit(TDMap.Instance.Path);
         }
-        
 
-        private void SpawnUnit(List<Vector3> instancePath)
+
+        private bool SpawnUnit(List<Vector3> instancePath)
         {
+            var mobStats = currentWave.GetMobStats();
+            if (mobStats == null)
+                return false;
             var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var minion = go.AddComponent<TDMinion>();
+            minion.Init(instancePath, mobStats.ElementList.ToList(), mobStats.Speed, mobStats.Health, mobStats.Scale);
             go.transform.parent = transform;
-
-            //TODO change, just testing stuff here
-            var tdminion = go.AddComponent<TDMinion>();
-            int rnd = (int) Random.Range(0, 4);
-            var list = new List<ElementType>();
-            list.Add((ElementType)rnd);
-            //INIT
-            tdminion.Init(instancePath, list);
-
+            return true;
         }
     }
 }

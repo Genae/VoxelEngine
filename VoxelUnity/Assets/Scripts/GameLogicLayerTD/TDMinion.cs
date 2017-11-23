@@ -9,15 +9,20 @@ namespace Assets.Scripts.GameLogicLayerTD
         public List<Vector3> Path;
         private int wayIndex = 0;
         private Vector3 targetVector;
-        private float speed = 10;
+        private float _speed = 10;
         private float _health = 100;
+        private float _scale = 1;
         private Healthbar _healthbar;
         private List<ElementType> _elementList;
 
-        public void Init(List<Vector3> path, List<ElementType> elementList)
+        public void Init(List<Vector3> path, List<ElementType> elementList, float speed, float health, float scale)
         {
+            _speed = speed;
+            _health = health;
+            _scale = scale;
             SetPath(path);
             transform.position = path[0];
+            transform.localScale = Vector3.one * scale;
             _elementList = new List<ElementType>(); //init list
             _elementList = elementList;
             SetColor(_elementList[0]); //well :D dont judge me
@@ -73,14 +78,16 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
             else
             {
-                if((this.transform.position - Path[wayIndex-1]).magnitude < 1f)
-                Destroy(gameObject);
+                if ((this.transform.position - Path[wayIndex - 1]).magnitude < 1f)
+                    Destroy(gameObject);
             }
             var q1 = Quaternion.LookRotation(targetVector - this.transform.position);
 
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, q1, Time.deltaTime);
 
-            this.transform.position += ((targetVector - oldPos).normalized * Time.deltaTime * speed);
+            this.transform.position += ((targetVector - oldPos).normalized * Time.deltaTime * _speed);
         }
+
+
     }
 }

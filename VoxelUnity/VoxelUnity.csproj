@@ -327,6 +327,7 @@
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\FarmTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\MouseoverTool.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceObjectTool.cs" />
+    <Compile Include="Assets\Scripts\GameLogicLayerTD\CampaignManager.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\DamageCalculator.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\DEBUGScript.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Healthbar.cs" />
@@ -588,6 +589,7 @@
     <None Include="Assets\Materials\Shader\windy.shader" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\iOS\Vuforia.UnityExtensions.iOS.XML" />
+    <None Include="Assets\Resources\Configs\Campaign\Level1.txt" />
     <None Include="Assets\Resources\Configs\Runes\Runes.txt" />
     <None Include="Assets\Resources\Configs\Tools\Tools.txt" />
     <None Include="Assets\Resources\Imported\Items\Dirt.txt" />

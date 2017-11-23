@@ -1,0 +1,26 @@
+﻿{
+	"Waves": [{
+		"MobLookup":
+		  [
+			{
+			  "Speed": 10,
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": ["water", "earth"]
+			},
+			{
+			  "Speed": 20,
+			  "Health": 50,
+			  "Scale": 0.5,
+			  "ElementList": ["fire", "air"]
+			}
+		  ],
+		"SpawnPatterns":
+		  [
+			[5, 0],
+			[5, 1]
+		  ]
+		}
+	]
+}
+

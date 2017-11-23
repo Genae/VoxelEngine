@@ -37,7 +37,8 @@ namespace Assets.Scripts.GameLogicLayerTD
             CreateFarms(markers.OfType<Jera>().ToList());
 
             CreateTowers(markers.OfType<Algiz>().ToList());
-
+            var cm = new GameObject("CampaignManager").AddComponent<CampaignManager>();
+            cm.transform.parent = gameObject.transform;
             var wm = new GameObject("WaveManager").AddComponent<WaveManager>();
             wm.transform.parent = gameObject.transform;
 
