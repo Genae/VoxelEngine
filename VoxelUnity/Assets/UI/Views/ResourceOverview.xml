@@ -1,0 +1,10 @@
+<ResourceOverview>
+  <Group Alignment="TopLeft" Orientation="Horizontal" Margin="25px,0px,25px,0px">
+    <Label Text="Lives: {Lives}"></Label>
+    <Label Text="Gold: {Gold}"></Label>
+    <Label Text="Upkeep: {Upkeep}"></Label>
+  </Group>
+  <Group Width="100%" Height="100%" Alpha="0.7" BackgroundColor="grey" IsVisible="{Lost}" RaycastBlockMode="Always"></Group>
+  <Label FontSize="100" Text="You Lost!" Alignment="Center" IsVisible="{Lost}"></Label>
+  
+</ResourceOverview>

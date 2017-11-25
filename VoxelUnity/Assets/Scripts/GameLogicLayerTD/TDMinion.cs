@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.UI;
 using UnityEngine;
 
 
@@ -55,7 +56,11 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         private void AliveCheck()
         {
-            if (_health <= 0) Destroy(gameObject);
+            if (_health <= 0)
+            {
+                FindObjectOfType<ResourceOverview>().Gold.Value += 1;
+                Destroy(gameObject);
+            }
         }
 
         private void SetColor(ElementType type)
@@ -85,7 +90,10 @@ namespace Assets.Scripts.GameLogicLayerTD
             else
             {
                 if ((this.transform.position - Path[wayIndex - 1]).magnitude < 1f)
+                {
+                    FindObjectOfType<ResourceOverview>().Lives.Value -= 1;
                     Destroy(gameObject);
+                }
             }
             var q1 = Quaternion.LookRotation(targetVector - this.transform.position);
 

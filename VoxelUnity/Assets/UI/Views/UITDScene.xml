@@ -1,11 +1,12 @@
 <UITDScene>
     <UserInterface>
-        <RuneOverview />
-        <GameSpeed/>
-        <Group Spacing="15px" Alignment="Top" Orientation="Horizontal">
-          <Button Text="START" Alpha="0.5" Click="ClickStart"/>
-          <Button Text="CLEAR" Alpha="0.5" Click="ClickClear"/>
-        </Group>
+      <RuneOverview />
+      <GameSpeed />
+      <ResourceOverview />
+      <Group Spacing="15px" Alignment="Bottom" Orientation="Horizontal">
+        <Button Text="START" Alpha="0.5" Click="ClickStart"/>
+        <Button Text="CLEAR" Alpha="0.5" Click="ClickClear"/>
+      </Group>
     </UserInterface>
     <EventSystem />
 </UITDScene>

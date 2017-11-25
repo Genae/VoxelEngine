@@ -1,5 +1,5 @@
 <RuneOverview>
-  <Button Alignment="TopLeft" Text="Runes" Click="Open"></Button>
+  <Button Alignment="BottomLeft" Text="Runes" Click="Open"></Button>
   <Group Orientation="Vertical" BackgroundColor="white" IsVisible="{Visible}">
     <Button Text="X" Height="20px" Width="20px" Alignment="Right" Click="Close"></Button>
     <Group Orientation="Horizontal" Spacing="5px">

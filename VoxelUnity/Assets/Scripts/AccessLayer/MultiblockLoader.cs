@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.AccessLayer.Material;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
+using Assets.Scripts.EngineLayer.Voxels.Data;
 using Assets.Scripts.EngineLayer.Voxels.Material;
 using Assets.Scripts.EngineLayer.Voxels.MultiblockHandling;
 using Newtonsoft.Json;
@@ -43,6 +44,7 @@ namespace Assets.Scripts.AccessLayer
                     m.EnableWind(wind);
             }
             var obj = Object.Instantiate(Instance._loadedObjects[filename.GetHashCode()].gameObject).GetComponent<Multiblock>();
+            obj.ContainerData = Instance._loadedObjects[filename.GetHashCode()].ContainerData;
             obj.transform.position = position;
             obj.transform.parent = parent;
             return obj;

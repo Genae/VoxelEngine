@@ -13,7 +13,6 @@ namespace Assets.Scripts.EngineLayer.Util
 
             var vc = voxelContainer;
             var cd = vc.ContainerData;
-
             for (var x = 1; x < cd.Size-1; x+=2)
             {
                 for (var y = 1; y < cd.Size-1; y+=2)

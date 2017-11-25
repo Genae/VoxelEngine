@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.GameLogicLayerTD.Runes;
+﻿using Assets.Scripts.EngineLayer.Util;
+using Assets.Scripts.GameLogicLayerTD.Runes;
 using UnityEngine;
 
 public class TDTower{
@@ -19,4 +20,9 @@ public class TDTower{
 	    prefab.transform.localPosition = Vector3.zero + Vector3.up * 0.5f;
 	    prefab.transform.name = "TowerMesh";
 	}
+
+    public void Explode()
+    {
+        Object.Destroy(Tower);
+    }
 }

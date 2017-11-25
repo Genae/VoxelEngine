@@ -1,13 +1,18 @@
-﻿using Assets.Scripts.AccessLayer;
+﻿using System.Collections.Generic;
+using Assets.Scripts.AccessLayer;
 using Assets.Scripts.AccessLayer.Farming;
 using Assets.Scripts.AccessLayer.Worlds;
+using Assets.Scripts.EngineLayer.Util;
+using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
     public class TDFarm
     {
         private Farm _farm;
+        private List<GameObject> _fence = new List<GameObject>();
 
         public TDFarm(Vector3 position)
         {
@@ -43,6 +48,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                         var pos = new Vector3(position.x + i, height + 0.5f, position.z + j);
                         var fence = ObjectManager.PlaceItemOfType("Fence", pos);
                         fence.transform.parent = _farm.transform;
+                        _fence.Add(fence);
                     }
                 }
             }
@@ -108,6 +114,21 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
 
             return (int)height;
+        }
+
+        public void Explode()
+        {
+            foreach (var gameObject in _fence)
+            {
+                foreach (var multiblock in gameObject.GetComponentsInChildren<Multiblock>())
+                {
+                    Exploder.Explode(multiblock);
+                }
+            }
+            foreach (var childs in _farm.GetComponentsInChildren<Transform>())
+            {
+                Object.Destroy(childs.gameObject);
+            }
         }
     }
 
