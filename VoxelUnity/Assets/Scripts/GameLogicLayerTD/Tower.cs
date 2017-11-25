@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.GameLogicLayerTD;
 using Assets.Scripts.GameLogicLayerTD.Runes;

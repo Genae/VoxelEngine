@@ -17,6 +17,7 @@ namespace Assets.Scripts.GameLogicLayerTD
     {
         public static TDMap Instance;
         public List<TDTower> Towers = new List<TDTower>();
+        public List<TDVillage> Villages = new List<TDVillage>();
         public List<TDFarm> Farms = new List<TDFarm>();
         public List<Vector3> Path = new List<Vector3>();
 
@@ -37,6 +38,9 @@ namespace Assets.Scripts.GameLogicLayerTD
             CreateFarms(markers.OfType<Jera>().ToList());
 
             CreateTowers(markers.OfType<Algiz>().ToList());
+
+            CreateVillages(markers.OfType<Mannaz>().ToList());
+
             var cm = new GameObject("CampaignManager").AddComponent<CampaignManager>();
             cm.transform.parent = gameObject.transform;
             var wm = new GameObject("WaveManager").AddComponent<WaveManager>();
@@ -44,7 +48,15 @@ namespace Assets.Scripts.GameLogicLayerTD
 
             StartCoroutine(LoadGame(size));
         }
-        
+
+        private void CreateVillages(List<Mannaz> markers)
+        {
+            foreach (var m in markers)
+            {
+                Villages.Add(new TDVillage(m.gameObject));
+            }
+        }
+
         private static int[] BuildEmptyMap(List<Transform> markers, VoxelMaterial grass)
         {
             var size = 129;
