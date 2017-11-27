@@ -14,6 +14,8 @@ namespace Assets.Scripts.GameLogicLayerTD
         private float _health = 100;
         private float _scale = 1;
         public float DistanceMoved = 0f;
+        private float _slowIntensity = 1f;
+        private float _slowTime = 0;
         private Healthbar _healthbar;
         private List<ElementType> _elementList;
 
@@ -48,17 +50,18 @@ namespace Assets.Scripts.GameLogicLayerTD
             targetVector = path[0];
         }
 
-        public void ApplyDmg(float dmg, List<ElementType> projElementList)
+        public bool ApplyDmg(float dmg, List<ElementType> projElementList)
         {
             _health -= DamageCalculator.Calc(dmg, projElementList, _elementList);
             _healthbar.UpdateCurrentHealth(_health);
+            AliveCheck();
+            return _health <= 0;
         }
 
         private void AliveCheck()
         {
             if (_health <= 0)
             {
-                FindObjectOfType<ResourceOverview>().Gold.Value += 1;
                 Destroy(gameObject);
             }
         }
@@ -76,7 +79,7 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         void Update()
         {
-            AliveCheck();
+            SlowCheck();
 
             var oldPos = this.transform.position;
             if (wayIndex <= Path.Count - 1)
@@ -91,7 +94,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             {
                 if ((this.transform.position - Path[wayIndex - 1]).magnitude < 1f)
                 {
-                    FindObjectOfType<ResourceOverview>().Lives.Value -= 1;
+                    ResourceOverview.Instance.Lives.Value -= 1;
                     Destroy(gameObject);
                 }
             }
@@ -99,9 +102,24 @@ namespace Assets.Scripts.GameLogicLayerTD
 
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, q1, Time.deltaTime);
 
-            var moveVector = (targetVector - oldPos).normalized * Time.deltaTime * _speed;
+            var moveVector = (targetVector - oldPos).normalized * Time.deltaTime * _speed * _slowIntensity;
             this.transform.position += moveVector;
             DistanceMoved += moveVector.magnitude;
+        }
+
+        private void SlowCheck()
+        {
+            if (_slowTime <= 0)
+                _slowIntensity = 1f;
+            else
+                _slowTime -= Time.deltaTime;
+        }
+
+        public void ApplySlow(float slowIntensity)
+        {
+            if (_slowIntensity > slowIntensity)
+                _slowIntensity = slowIntensity;
+            _slowTime += 2;
         }
     }
 }

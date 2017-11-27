@@ -7,7 +7,7 @@ namespace Assets.Scripts.GameLogicLayerTD
     public class WaveManager : MonoBehaviour
     {
         private float currentCooldown;
-        public float cooldown = 3;
+        public float cooldown = 0.3f;
         public Wave currentWave;
         private CampaignManager _cm;
         public bool spawn = true;

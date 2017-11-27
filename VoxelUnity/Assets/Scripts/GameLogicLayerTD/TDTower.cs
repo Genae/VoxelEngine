@@ -9,16 +9,12 @@ public class TDTower{
     public UpgradeRune Upgrades;
 
 	public TDTower(GameObject marker){
-		Tower = new GameObject("Tower").AddComponent<Tower>();
+		Tower = GameObject.Instantiate(GameObject.Find("tower")).AddComponent<Tower>();
+	    Tower.gameObject.AddComponent<MeshCollider>();
 	    Marker = marker.GetComponentInChildren<Algiz>();
         Tower.Init(Marker);
 		Tower.transform.position = marker.transform.position;
 		Tower.transform.parent = GameObject.Find("Map").transform;
-	    var prefab = GameObject.Instantiate(GameObject.Find("tower"));
-        //TODO Placeholder stuff
-	    prefab.transform.parent = Tower.transform;
-	    prefab.transform.localPosition = Vector3.zero + Vector3.up * 0.5f;
-	    prefab.transform.name = "TowerMesh";
 	}
 
     public void Explode()

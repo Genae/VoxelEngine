@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.GameLogicLayerTD;
+﻿using System.ComponentModel.Design.Serialization;
+using Assets.Scripts.GameLogicLayerTD;
 using MarkLight;
 using MarkLight.Views.UI;
 
@@ -6,6 +7,7 @@ namespace Assets.Scripts.UI
 {
     public class ResourceOverview : UIView
     {
+        public static ResourceOverview Instance;
         public _int Gold;
         public _int Upkeep;
         public _int Lives;
@@ -20,6 +22,7 @@ namespace Assets.Scripts.UI
             Gold.Value = 10;
             Upkeep.Value = 0;
             Lives.Value = 10;
+            Instance = this;
         }
 
         void Update()

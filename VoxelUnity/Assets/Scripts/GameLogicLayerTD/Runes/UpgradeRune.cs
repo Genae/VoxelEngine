@@ -63,13 +63,13 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
                     upgradeableList.Add(t.transform);
                 }
             }
-            if (_mobUpgrade)
+            /*if (_mobUpgrade)
             {
                 foreach (var t in RuneRegistry.Runes.OfType<Isa>())
                 {
                     upgradeableList.Add(t.transform);
                 }
-            }
+            }*/
             if (_villageUpgrade)
             {
                 foreach (var t in RuneRegistry.Runes.OfType<Mannaz>())
