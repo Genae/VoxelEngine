@@ -95,7 +95,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             foreach (var m in markers)
             {
-                Farms.Add(new TDFarm(m.transform.position));
+                Farms.Add(new TDFarm(m));
             }
 
         }

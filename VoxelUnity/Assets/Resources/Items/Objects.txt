@@ -21,6 +21,14 @@
 		/* RECIPEEND */
 
 		
+    },{
+        "Name": "Cow",
+	"StackSize": 1,
+        "Model": "Units/Cow/Cow"	
+    },{
+        "Name": "Ox",
+	"StackSize": 1,
+        "Model": "Units/Cow/Ox"	
     },
 	{
         "Name": "Fence",

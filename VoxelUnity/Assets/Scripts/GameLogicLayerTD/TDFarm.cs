@@ -1,30 +1,85 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.AccessLayer;
 using Assets.Scripts.AccessLayer.Farming;
 using Assets.Scripts.AccessLayer.Worlds;
 using Assets.Scripts.EngineLayer.Util;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
+using Assets.Scripts.GameLogicLayerTD.Runes;
+using Assets.Scripts.UI;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
     public class TDFarm
     {
         private Farm _farm;
+        public Jera Marker;
         private List<GameObject> _fence = new List<GameObject>();
+        public int Income;
 
-        public TDFarm(Vector3 position)
+        public TDFarm(Jera marker)
         {
+            Marker = marker;
+            var position = marker.transform.position;
             var _size = 7;
             _farm = new GameObject("Farm").AddComponent<Farm>();
             _farm.transform.parent = GameObject.Find("Map").transform;
-            _farm.CropType = CropManager.Instance.GetCropByName("Wheat");
-
+            var fehu = Marker.GetUpgradeRunes().OfType<Fehu>();
+            var ingwaz = Marker.GetUpgradeRunes().OfType<Ingwaz>();
+            var sowilo = Marker.GetUpgradeRunes().OfType<Sowilo>();
+            var wunjo = Marker.GetUpgradeRunes().OfType<Wunjo>();
+            var uruz = Marker.GetUpgradeRunes().OfType<Uruz>().ToList();
             var height = FlattenTerrain(position, _size + 4);
-            CreateSoil(position, height, _farm, _size);
+            if (fehu.Any())
+            {
+                var c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f));
+                var cowComp = c.AddComponent<Cow>();
+                cowComp.IncomeOnCooldown = 2;
+                c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(4, 0, 1));
+                c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(2, 0, 3));
+                c.transform.RotateAround(Vector3.up, 90);
+                c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(0, 0, 2));
+                c.transform.RotateAround(Vector3.up, 90);
+                c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(-2, 0, 2));
+                c.transform.RotateAround(Vector3.up, 180);
+                c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(-2, 0, -3));
+                c.transform.RotateAround(Vector3.up, 180);
+                c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(0, 0, -4));
+                c.transform.RotateAround(Vector3.up, 270);
+                if (uruz.Any())
+                {
+                    c = ObjectManager.PlaceItemOfType("Ox", position + Vector3.up * (height + 0.5f) + new Vector3(3, 0, -4));
+                    c.transform.RotateAround(Vector3.up, 270);
+                    cowComp.IncomeOnCooldown += uruz.Count();
+                }
+            }
+            else
+            {
+                if (sowilo.Any())
+                {
+                    _farm.CropType = CropManager.Instance.GetCropByName("Sunflower");
+                    Income = 130;
+                    if (wunjo.Any())
+                    {
+                        Income = (int)(Income * Mathf.Pow(1.3f, wunjo.Count()));
+                    }
+                }
+                else if (ingwaz.Any())
+                {
+                    _farm.CropType = CropManager.Instance.GetCropByName("Wine");
+                    Income = 300;
+                }
+                else
+                {
+                    _farm.CropType = CropManager.Instance.GetCropByName("Wheat");
+                    Income = 100;
+                }
+                CreateSoil(position, height, _farm, _size);
+                CreateCollider(position, height, _size + 2);
+            }
             BuildFence(position, height, _size + 2);
-            CreateCollider(position, height, _size + 2);
         }
 
         private void CreateCollider(Vector3 position, float height, int size)
@@ -32,7 +87,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             var colliderGO = GameObject.CreatePrimitive(PrimitiveType.Cube);
             colliderGO.transform.position = position + Vector3.up*height;
             colliderGO.transform.parent = _farm.transform;
-            colliderGO.transform.localScale = new Vector3(size, 3, size);
+            colliderGO.transform.localScale = new Vector3(size, 6, size);
             Object.Destroy(colliderGO.GetComponent<MeshRenderer>());
             colliderGO.AddComponent<Harvester>().Farm = this;
         }
@@ -69,7 +124,9 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         public bool HarvestFarm()
         {
-            if(_farm.FarmBlocks.TrueForAll(f => f.Stage == _farm.CropType.GrowStages.Count))
+            if (!_farm.FarmBlocks.TrueForAll(f => f.Stage == _farm.CropType.GrowStages.Count))
+                return false;
+            ResourceOverview.Instance.Gold.Value += Income;
             foreach (var farmblock in _farm.FarmBlocks)
             {
                 farmblock.Stage = 1;
@@ -128,6 +185,21 @@ namespace Assets.Scripts.GameLogicLayerTD
             foreach (var childs in _farm.GetComponentsInChildren<Transform>())
             {
                 Object.Destroy(childs.gameObject);
+            }
+        }
+    }
+
+    public class Cow : MonoBehaviour
+    {
+        public float Cooldown;
+        public int IncomeOnCooldown;
+        void Update()
+        {
+            Cooldown -= Time.deltaTime;
+            if (Cooldown <= 0)
+            {
+                Cooldown = 1;
+                ResourceOverview.Instance.Gold.Value += IncomeOnCooldown;
             }
         }
     }

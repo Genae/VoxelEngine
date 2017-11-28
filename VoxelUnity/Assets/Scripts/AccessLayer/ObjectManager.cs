@@ -33,7 +33,7 @@ namespace Assets.Scripts.AccessLayer
                 inv.SetSlotCount(objectType.Inventory.SlotAmount);
                 Inventories.Add(inv);
             }
-            if (!string.IsNullOrEmpty(objectType.Connection.Model))
+            if (objectType.Connection != null && !string.IsNullOrEmpty(objectType.Connection.Model))
             {
                 var ctn = obj.AddComponent<ConnectToNeighbours>();
                 ctn.ObjectType = objectType;

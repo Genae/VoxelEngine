@@ -1,0 +1,5 @@
+{
+	"Name": "Sunflower",
+	"StageTime": 20.0,
+	"StageCount": 5
+}

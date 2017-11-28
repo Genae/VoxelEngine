@@ -353,5 +353,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FractionValue: 1
-  FileName: fence_post.txt
+  FileName: ox.txt
   active: 1

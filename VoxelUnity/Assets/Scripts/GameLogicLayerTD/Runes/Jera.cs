@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
-    public class Jera : Rune // Farm
+    public class Jera : UpgradeableRune // Farm
     {
         public Jera() : base("Jera")
         {
