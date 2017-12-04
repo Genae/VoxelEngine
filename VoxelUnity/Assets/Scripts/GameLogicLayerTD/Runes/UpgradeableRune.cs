@@ -12,7 +12,9 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
         {
             base.Update();
             _upgradeRunes.Clear();
-            transform.parent.GetComponent<MeshRenderer>().material.color = GetUpgradeRunes().Count > 0 ? Color.blue : Color.white;
+            var mr = transform.parent.GetComponent<MeshRenderer>();
+            if(mr != null)
+                mr.material.color = GetUpgradeRunes().Count > 0 ? Color.blue : Color.white;
         }
 
         public List<UpgradeRune> GetUpgradeRunes()

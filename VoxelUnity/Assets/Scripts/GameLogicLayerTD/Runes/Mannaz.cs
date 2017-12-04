@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
-    public class Mannaz : Rune //Village
+    public class Mannaz : UpgradeableRune //Village
     {
         public Mannaz() : base("Mannaz")
         {

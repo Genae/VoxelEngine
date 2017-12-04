@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.GameLogicLayerTD.Runes;
 using Assets.Scripts.UI;
 using UnityEngine;
 
@@ -81,10 +83,10 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             SlowCheck();
 
-            var oldPos = this.transform.position;
+            var oldPos = transform.position;
             if (wayIndex <= Path.Count - 1)
             {
-                if (Vector3.Distance(this.transform.position, targetVector) < 1f)
+                if (Vector3.Distance(transform.position, targetVector) < 1f)
                 {
                     targetVector = Path[wayIndex];
                     wayIndex++;
@@ -92,18 +94,26 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
             else
             {
-                if ((this.transform.position - Path[wayIndex - 1]).magnitude < 1f)
+                if ((transform.position - Path[wayIndex - 1]).magnitude < 1f)
                 {
-                    ResourceOverview.Instance.Lives.Value -= 1;
+                    var gebo = TDMap.Instance.Villages.First().Marker.GetUpgradeRunes().OfType<Gebo>().ToList();
+                    if (gebo.Any() && ResourceOverview.Instance.Gold.Value > 0)
+                    {
+                        ResourceOverview.Instance.Gold.Value -= (int)(20 * Mathf.Pow(0.9f, gebo.Count));
+                    }
+                    else
+                    {
+                        ResourceOverview.Instance.Lives.Value -= 1;
+                    }
                     Destroy(gameObject);
                 }
             }
-            var q1 = Quaternion.LookRotation(targetVector - this.transform.position);
+            var q1 = Quaternion.LookRotation(targetVector - transform.position);
 
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, q1, Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q1, Time.deltaTime);
 
             var moveVector = (targetVector - oldPos).normalized * Time.deltaTime * _speed * _slowIntensity;
-            this.transform.position += moveVector;
+            transform.position += moveVector;
             DistanceMoved += moveVector.magnitude;
         }
 

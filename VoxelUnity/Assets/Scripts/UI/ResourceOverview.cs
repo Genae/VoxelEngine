@@ -12,6 +12,7 @@ namespace Assets.Scripts.UI
         public _int Upkeep;
         public _int Lives;
         public _bool Lost;
+        public int MaxGold = 500;
 
         public ResourceOverview()
         {
@@ -27,6 +28,10 @@ namespace Assets.Scripts.UI
 
         void Update()
         {
+            if (Gold.Value > MaxGold)
+            {
+                Gold.Value = MaxGold;
+            }
             if (!Lost && Lives <= 0)
             {
                 Lost.Value = true;

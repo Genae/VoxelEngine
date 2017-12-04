@@ -17,6 +17,8 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
                 return TransformTower();
             if (upgradeableRune is Jera)
                 return TransformFarm();
+            if (upgradeableRune is Mannaz)
+                return TransformVillage();
             return null;
         }
 
@@ -41,6 +43,30 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
                     break;
                 case 4:
                     result = perthoRune.gameObject.AddComponent<Wunjo>();
+                    break;
+            }
+            Debug.Log("morphed pertho into " + result.Name);
+            Destroy(perthoRune);
+            return result;
+        }
+        private UpgradeRune TransformVillage()
+        {
+            var perthoRune = this;
+            var index = Random.Range(0, 3);
+            UpgradeRune result = null;
+            switch (index)
+            {
+                case 0:
+                    result = perthoRune.gameObject.AddComponent<Gebo>();
+                    break;
+                case 1:
+                    result = perthoRune.gameObject.AddComponent<Naudhiz>();
+                    break;
+                case 2:
+                    result = perthoRune.gameObject.AddComponent<Othala>();
+                    break;
+                case 3:
+                    result = perthoRune.gameObject.AddComponent<Uruz>();
                     break;
             }
             Debug.Log("morphed pertho into " + result.Name);
