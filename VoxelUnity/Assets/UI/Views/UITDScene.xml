@@ -1,6 +1,6 @@
 <UITDScene>
     <UserInterface>
-      <RuneOverview />
+      <RuneOverview PlaceEnabled="true"/>
       <GameSpeed />
       <ResourceOverview />
       <Group Spacing="15px" Alignment="Bottom" Orientation="Horizontal">

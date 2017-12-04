@@ -34,7 +34,7 @@
           <Label Alignment="Left" Text="Meaning: {SelectedDescription.Meaning}" Height="20px" FontColor="black"></Label>
           <Label Alignment="Left" Text="Usage: {SelectedDescription.Usage}" Height="20px" FontColor="black"></Label>
         </Group>
-        <Button Click="Place" Text="Place"></Button>
+        <Button Click="Place" Text="Place" IsVisible="{PlaceEnabled}"></Button>
       </Group>
     </Group>
   </Group>

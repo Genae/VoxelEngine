@@ -9,9 +9,13 @@ public class StartScreenLogic : MonoBehaviour
     //Logic lol
     void OnGUI()
     {
-        if (GUI.Button(new Rect(Screen.width/2 - buttonW/2, Screen.height/2 - buttonH/2, buttonW, buttonH), "start campaign"))
+        if (GUI.Button(new Rect(Screen.width/2 - buttonW/2, Screen.height/2 - buttonH/2, buttonW, buttonH), "Start Campaign (AR)"))
         {
             SceneManager.LoadScene(1); // 1 is TDAR_Scene, 0 is StartScreen
+        }
+        if (GUI.Button(new Rect(Screen.width / 2 - buttonW / 2, Screen.height / 2 + buttonH / 2, buttonW, buttonH), "Start Campaign"))
+        {
+            SceneManager.LoadScene(2); // 1 is TDAR_Scene, 0 is StartScreen
         }
     }
 }

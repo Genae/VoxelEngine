@@ -10,6 +10,7 @@ namespace Assets.Scripts.UI
 {
 	public class RuneOverview : UIView
 	{
+	    public _bool PlaceEnabled;
         public ObservableList<RuneDescription>[] AllRunes = new ObservableList<RuneDescription>[4];
 	    public ObservableList<RuneDescription> Runes0, Runes1, Runes2, Runes3;
 	    public ObservableList<int> Buttons = new ObservableList<int> {0, 1, 2};

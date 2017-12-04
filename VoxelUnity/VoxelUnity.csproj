@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -380,6 +382,7 @@
     <Compile Include="Assets\Scripts\UI\UIMainScene.cs" />
     <Compile Include="Assets\Scripts\UI\UITDARScene.cs" />
     <Compile Include="Assets\Scripts\UI\UITDScene.cs" />
+    <Compile Include="Assets\Scripts\UI\UITDStartScreen.cs" />
     <Compile Include="Assets\UnityPackages\MarkLight\Examples\Source\Data\Data.cs" />
     <Compile Include="Assets\UnityPackages\MarkLight\Examples\Source\UI\Basic\ButtonsExample.cs" />
     <Compile Include="Assets\UnityPackages\MarkLight\Examples\Source\UI\Basic\ComboBoxExample.cs" />
@@ -645,6 +648,7 @@
     <None Include="Assets\UI\Views\UIMainScene.xml" />
     <None Include="Assets\UI\Views\UITDARScene.xml" />
     <None Include="Assets\UI\Views\UITDScene.xml" />
+    <None Include="Assets\UI\Views\UITDStartScreen.xml" />
     <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ButtonsExample.xml" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ComboBoxExample.xml" />

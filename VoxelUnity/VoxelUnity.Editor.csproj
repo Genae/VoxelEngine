@@ -359,6 +359,7 @@
     <None Include="Assets\UI\Views\UIMainScene.xml" />
     <None Include="Assets\UI\Views\UITDARScene.xml" />
     <None Include="Assets\UI\Views\UITDScene.xml" />
+    <None Include="Assets\UI\Views\UITDStartScreen.xml" />
     <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ButtonsExample.xml" />
     <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ComboBoxExample.xml" />

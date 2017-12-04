@@ -110,7 +110,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
             var q1 = Quaternion.LookRotation(targetVector - transform.position);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, q1, Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q1, Time.deltaTime * 10);
 
             var moveVector = (targetVector - oldPos).normalized * Time.deltaTime * _speed * _slowIntensity;
             transform.position += moveVector;
