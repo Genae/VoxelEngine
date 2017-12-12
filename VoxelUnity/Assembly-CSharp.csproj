@@ -44,10 +44,10 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>E:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>E:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -153,17 +153,60 @@
      <Compile Include="Assets\Scripts\GameLogicLayer\Tools\FarmTool.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Tools\MouseoverTool.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Tools\PlaceObjectTool.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\CampaignManager.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\DamageCalculator.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\DEBUGScript.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Healthbar.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayerTD\PlaceRuneTool.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Algiz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Ansuz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Berkano.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Dagaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Ehwaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\ElementRune.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Fehu.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Gebo.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Hagalaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Ihwaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Ingwaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Isa.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Jera.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Kenaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Laguz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Mannaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Naudhiz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Odin.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Othala.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Pethro.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Raido.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Rune.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Sowilo.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Thurisaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Tiwaz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\UpgradeableRune.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\UpgradeRune.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Uruz.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\Runes\Wunjo.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\StartScreenLogic.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\TargetBuilder.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayerTD\TDFarm.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDMap.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDMinion.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayerTD\TDTower.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\TDVillage.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayerTD\Tower.cs" />
-     <Compile Include="Assets\Scripts\GameLogicLayerTD\Upgrade.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\TrackedEventHandler.cs" />
+     <Compile Include="Assets\Scripts\GameLogicLayerTD\WaveManager.cs" />
      <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
      <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
+     <Compile Include="Assets\Scripts\UI\ResourceOverview.cs" />
+     <Compile Include="Assets\Scripts\UI\RuneOverview.cs" />
      <Compile Include="Assets\Scripts\UI\Runes.cs" />
      <Compile Include="Assets\Scripts\UI\ToolBelt.cs" />
      <Compile Include="Assets\Scripts\UI\UIMainScene.cs" />
+     <Compile Include="Assets\Scripts\UI\UITDARScene.cs" />
      <Compile Include="Assets\Scripts\UI\UITDScene.cs" />
+     <Compile Include="Assets\Scripts\UI\UITDStartScreen.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Examples\Source\Data\Data.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Examples\Source\UI\Basic\ButtonsExample.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Examples\Source\UI\Basic\ComboBoxExample.cs" />
@@ -334,33 +377,83 @@
      <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\Views\ViewAnimation.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\ViewTypeData.cs" />
      <Compile Include="Assets\UnityPackages\MarkLight\Source\Plugins\VirtualizedItems.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\CylinderTargetBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\DefaultInitializationErrorHandler.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\DefaultSmartTerrainEventHandler.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\DefaultTrackableEventHandler.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\GLErrorHandler.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\HideExcessAreaBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\ImageTargetBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\Internal\AndroidUnityPlayer.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\Internal\ComponentFactoryStarterBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\Internal\IOSUnityPlayer.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\Internal\VuforiaBehaviourComponentFactory.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\Internal\WSAUnityPlayer.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\MaskOutBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\MultiTargetBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\ObjectTargetBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\PropBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\ReconstructionBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\ReconstructionFromTargetBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\SurfaceBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\TextRecoBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\TurnOffBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\TurnOffWordBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\UserDefinedTargetBuildingBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\Utilities\VRIntegrationHelper.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\VideoBackgroundBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\VirtualButtonBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\VuforiaBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\VuforiaConfiguration.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\VuforiaRuntimeInitialization.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\VuMarkBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\WireframeBehaviour.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\WireframeTrackableEventHandler.cs" />
+     <Compile Include="Assets\Vuforia\Scripts\WordBehaviour.cs" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\DataBinding\DynamicComboBoxExample.xml" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\CheckBox.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\Themes\Toon.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\DataBinding\DynamicTabPanelExample.xml" />
+     <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\HyperLink.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\ContentPlaceholder.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\PlayingCardsExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Scrollbar.xml" />
+     <None Include="Assets\UI\Views\ResourceOverview.xml" />
      <None Include="Assets\UI\Views\UIMainScene.xml" />
+     <None Include="Assets\Resources\Imported\Units\Cow\Cow.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\View.xml" />
+     <None Include="Assets\Resources\World\Crops\Wine.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\EventSystem.xml" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Sunflower\2.txt" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Sunflower\5.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\LayoutExample.xml" />
+     <None Include="Assets\StreamingAssets\Vuforia\RuneTD_DB.xml" />
+     <None Include="Assets\link.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Slider.xml" />
      <None Include="Assets\Resources\Units\Classes\2Dwarfs.txt" />
+     <None Include="Assets\Vuforia\Shaders\VertexLitWithZ.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Button.xml" />
      <None Include="Assets\Resources\Imported\Plants\Ambient\flower2.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\InputFieldExample.xml" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Wine\2.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\TabPanelExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\GameMenuExample.xml" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Wine\4.txt" />
      <None Include="Assets\Materials\Shader\transparent.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ComboBoxExample.xml" />
+     <None Include="Assets\Vuforia\Shaders\RenderVideoBackground.shader" />
      <None Include="Assets\Resources\Imported\Objects\chest.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\UIView.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\RadialMenuExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\TextMeshProInputField.xml" />
+     <None Include="Assets\UI\Views\RuneOverview.xml" />
      <None Include="Assets\Resources\World\Crops\Wheat.txt" />
      <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
+     <None Include="Assets\readme_SDK.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\RowHeader.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\RadioButton.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ViewPoolContainer.xml" />
@@ -382,11 +475,13 @@
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Label.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\TextMeshProLabel.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Mask.xml" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Sunflower\4.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\StateAnimation.xml" />
      <None Include="Assets\UI\Views\Runes.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\Animate.xml" />
      <None Include="Assets\Resources\Imported\Items\Dirt.txt" />
      <None Include="Assets\Resources\Units\Classes\1Elves.txt" />
+     <None Include="Assets\Vuforia\Shaders\VideoBackground.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\VirtualizedItemsContainer.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ScrollRect.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Column.xml" />
@@ -396,39 +491,52 @@
      <None Include="Assets\UI\Views\GameSpeed.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ListItem.xml" />
      <None Include="Assets\UnityPackages\MarkLight\ChangeLog.txt" />
+     <None Include="Assets\Resources\World\Crops\Sunflower.txt" />
+     <None Include="Assets\license_3rdpartynotice.txt" />
      <None Include="Assets\Resources\Imported\Plants\Ambient\flower.txt" />
      <None Include="Assets\Resources\Units\BaseValues\Basevalues.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\Themes\Neat.xml" />
+     <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\InputField.xml" />
-     <None Include="Assets\Materials\Shader\test.shader" />
+     <None Include="Assets\Vuforia\Shaders\DepthMask.shader" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Sunflower\1.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\PanelExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Please Read This.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Group.xml" />
+     <None Include="Assets\Resources\Imported\Units\Cow\Ox.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\RadialMenu.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Window.xml" />
      <None Include="Assets\Resources\Imported\Plants\Ambient\mushroom.txt" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Wine\3.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\UIExamples.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\DataBinding\DynamicListExample.xml" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Wine\5.txt" />
      <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Region.xml" />
      <None Include="Assets\Resources\Units\Classes\0Humans.txt" />
+     <None Include="Assets\UI\Views\UITDStartScreen.xml" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Wheat\2.txt" />
      <None Include="Assets\Resources\World\Biomes\Default.txt" />
      <None Include="Assets\UI\Views\LoadingScreen.xml" />
      <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Wine\1.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\ViewAnimation.xml" />
      <None Include="Assets\Resources\Items\Blocks.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\InteractableRegion.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ComboBox.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Panel.xml" />
      <None Include="Assets\Resources\World\Trees\birch.txt" />
+     <None Include="Assets\UI\Views\UITDARScene.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\ViewSwitcherExample.xml" />
+     <None Include="Assets\Resources\Configs\Campaign\Level1.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\UICanvas.xml" />
      <None Include="Assets\Materials\Shader\windy.shader" />
      <None Include="Assets\Resources\Items\Objects.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Tab.xml" />
+     <None Include="Assets\Vuforia\Shaders\ClippingMask.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\ListExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\Themes\Flat.xml" />
+     <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\GroupExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\TabHeader.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\WindowExample.xml" />
@@ -437,35 +545,40 @@
      <None Include="Assets\Resources\Configs\Runes\Runes.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Examples\Views\UI\Basic\SliderExample.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\Image.xml" />
+     <None Include="Assets\Resources\Imported\Plants\Crops\Sunflower\3.txt" />
      <None Include="Assets\UI\Views\UITDScene.xml" />
      <None Include="Assets\Resources\World\Materials\Materials.txt" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\UserInterface.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\ColumnHeader.xml" />
+     <None Include="Assets\Vuforia\Shaders\Text3D.shader" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\List.xml" />
      <None Include="Assets\UnityPackages\MarkLight\Views\UI\DataGrid.xml" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.TestRunner">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Timeline">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>D:/Unity/Projects/VoxelIslands/VoxelUnity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
+ <HintPath>E:/Unity/Projects/VoxelIslands/VoxelUnity/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="Vuforia.UnityExtensions">
+ <HintPath>E:/Unity/Projects/VoxelIslands/VoxelUnity/Assets/Vuforia/Scripts/Internal/Vuforia.UnityExtensions.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

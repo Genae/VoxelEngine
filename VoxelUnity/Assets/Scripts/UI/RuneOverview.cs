@@ -16,6 +16,7 @@ namespace Assets.Scripts.UI
 	    public ObservableList<int> Buttons = new ObservableList<int> {0, 1, 2};
 	    public RuneDescription SelectedDescription;
 	    public _bool Visible;
+		public ViewSwitcher ContentViewSwitcher;
 	    private PlaceRuneTool _prt;
 	    private MouseController _mc;
 
@@ -81,6 +82,16 @@ namespace Assets.Scripts.UI
 	        SetValue(() => SelectedDescription, Runes3.SelectedItem);
 	        Debug.Log(SelectedDescription.Name);
         }
+
+		public void Wiki()
+		{
+			ContentViewSwitcher.SwitchTo(1);
+		}
+
+		public void Back()
+		{
+			ContentViewSwitcher.Previous();
+		}
     }
 
     public class RuneDescription
@@ -91,6 +102,7 @@ namespace Assets.Scripts.UI
         public string Phonetic { get; set; }
         public string Meaning { get; set; }
         public string Usage { get; set; }
+		public string Wiki { get; set; }
         public string Image
         {
             get { return "Assets/Resources/Runes/Sprites/" + ID + ".png"; }
