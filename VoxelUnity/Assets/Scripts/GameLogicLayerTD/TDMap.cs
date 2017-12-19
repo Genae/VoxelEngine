@@ -41,8 +41,6 @@ namespace Assets.Scripts.GameLogicLayerTD
 
             CreateVillages(markers.OfType<Mannaz>().ToList());
 
-            var cm = new GameObject("CampaignManager").AddComponent<CampaignManager>();
-            cm.transform.parent = gameObject.transform;
             var wm = new GameObject("WaveManager").AddComponent<WaveManager>();
             wm.transform.parent = gameObject.transform;
 

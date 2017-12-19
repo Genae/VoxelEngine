@@ -1,5 +1,5 @@
 ﻿{
-	"LevelNumber": 1,
+	"LevelNumber": 0,
 	"Waves": [{
 		"MobLookup":
 		  [

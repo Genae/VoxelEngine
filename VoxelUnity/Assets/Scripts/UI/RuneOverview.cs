@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.ControlInputs;
 using Assets.Scripts.EngineLayer;
 using Assets.Scripts.GameLogicLayer.Tools;
@@ -10,7 +11,8 @@ namespace Assets.Scripts.UI
 {
 	public class RuneOverview : UIView
 	{
-	    public _bool PlaceEnabled;
+	    public static RuneOverview Instance;
+        public _bool PlaceEnabled;
         public ObservableList<RuneDescription>[] AllRunes = new ObservableList<RuneDescription>[4];
 	    public ObservableList<RuneDescription> Runes0, Runes1, Runes2, Runes3;
 	    public ObservableList<int> Buttons = new ObservableList<int> {0, 1, 2};
@@ -22,6 +24,7 @@ namespace Assets.Scripts.UI
 
         void Awake()
         {
+            Instance = this;
             var descriptions = ConfigImporter.GetAllConfigs<RuneDescription[]>("Configs/RuneDescriptions").First();
             for (int i = 0; i < descriptions.Length; i++)
             {
@@ -59,6 +62,19 @@ namespace Assets.Scripts.UI
 	        _prt.runeId = SelectedDescription.ID;
             _mc.SelectTool<PlaceRuneTool>();
 
+	    }
+
+	    public void SetUnlockedRunes(Dictionary<string, int> ur)
+	    {
+            Debug.Log("unlocking");
+	        foreach (var runeDescriptions in AllRunes)
+	        {
+	            foreach (var runeDescription in runeDescriptions)
+	            {
+	                runeDescription.SetUnlockedCount(ur);
+                }
+                runeDescriptions.ItemsModified(0, runeDescriptions.Count);
+	        }
 	    }
 
         public void Selected0()
@@ -103,6 +119,15 @@ namespace Assets.Scripts.UI
         public string Meaning { get; set; }
         public string Usage { get; set; }
 		public string Wiki { get; set; }
+        public int UnlockedCount = 0;
+        public float Alpha = 0.2f;
+        
+        public void SetUnlockedCount(Dictionary<string, int> unlockedRunes)
+        {
+            UnlockedCount = unlockedRunes.ContainsKey(ID) ? unlockedRunes[ID] : 0;
+            Alpha = UnlockedCount > 0 ? 1 : 0.2f;
+        }
+
         public string Image
         {
             get { return "Assets/Resources/Runes/Sprites/" + ID + ".png"; }

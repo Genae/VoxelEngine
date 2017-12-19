@@ -240,3 +240,6 @@ VoxelUnity/Assets/Plugins/WSA/x86.meta
 VoxelUnity/Assets/Plugins/WSA/x64.meta
 VoxelUnity/VoxelUnity.csproj
 VoxelUnity/VoxelUnity.Editor.csproj
+/VoxelUnity/Assets/Editor/Vuforia/**/*.meta
+/VoxelUnity/Assets/Editor/Vuforia/**/*.meta
+/VoxelUnity/Assets/Plugins/**/*.meta
