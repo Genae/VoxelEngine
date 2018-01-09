@@ -7,7 +7,6 @@ using Assets.Scripts.EngineLayer.Util;
 using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
 using Assets.Scripts.GameLogicLayerTD.Runes;
 using Assets.Scripts.UI;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayerTD
