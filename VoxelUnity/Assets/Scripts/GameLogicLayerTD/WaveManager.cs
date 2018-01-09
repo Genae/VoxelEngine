@@ -7,7 +7,7 @@ namespace Assets.Scripts.GameLogicLayerTD
     public class WaveManager : MonoBehaviour
     {
         private float currentCooldown;
-        public float cooldown = 0.3f;
+        public float cooldown = 2f;
         public Wave currentWave;
         private CampaignManager _cm;
         private GameObject _bunny;
@@ -19,7 +19,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             AliveMinions = new List<TDMinion>();
             _cm = FindObjectOfType<CampaignManager>();
-            _bunny = GameObject.Find("bunny");
+            _bunny = GameObject.Find("bunny_root");
             currentWave = _cm.GetNextWave();
         }
 

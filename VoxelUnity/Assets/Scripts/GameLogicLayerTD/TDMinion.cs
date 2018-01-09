@@ -70,13 +70,17 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         private void SetColor(ElementType type)
         {
-            var m = GetComponent<MeshRenderer>().material;
-            if (type == ElementType.Air) m.color = Color.grey;
-            else if (type == ElementType.Water) m.color = Color.blue;
-            else if (type == ElementType.Earth) m.color = Color.black;
-            else if (type == ElementType.Fire) m.color = Color.red;
-            else if (type == ElementType.Light) m.color = Color.yellow;
-            else m.color = Color.white;
+            var rendererList = GetComponentsInChildren<MeshRenderer>();
+            foreach (var mr in rendererList)
+            {
+                var m = mr.material;
+                if (type == ElementType.Air) m.color = Color.grey;
+                else if (type == ElementType.Water) m.color = Color.blue;
+                else if (type == ElementType.Earth) m.color = Color.black;
+                else if (type == ElementType.Fire) m.color = Color.red;
+                else if (type == ElementType.Light) m.color = Color.yellow;
+                else m.color = Color.white;
+            }
         }
 
         void Update()
@@ -108,9 +112,10 @@ namespace Assets.Scripts.GameLogicLayerTD
                     Destroy(gameObject);
                 }
             }
-            var q1 = Quaternion.LookRotation(targetVector - transform.position);
+            //var q1 = Quaternion.LookRotation(targetVector - transform.position);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, q1, Time.deltaTime * 10);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, q1, Time.deltaTime * 10);
+            transform.LookAt(targetVector);
 
             var moveVector = (targetVector - oldPos).normalized * Time.deltaTime * _speed * _slowIntensity;
             transform.position += moveVector;

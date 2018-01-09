@@ -14,7 +14,7 @@ public class Healthbar : MonoBehaviour
 
     void Update()
     {
-        _anchor.transform.LookAt(Camera.main.transform);
+        _anchor.transform.forward = -Camera.main.transform.forward;
     }
 
     public void Init(float maxH, float curH)
@@ -39,7 +39,7 @@ public class Healthbar : MonoBehaviour
         _anchor.parent = transform;
         _anchor.Rotate(-90,0,0);
         _anchor.localPosition = Vector3.zero;
-        _anchor.transform.localPosition = Vector3.up;
+        _anchor.transform.localPosition = Vector3.up * 2;
 
         _plane = GameObject.CreatePrimitive((PrimitiveType.Plane)).transform;
         _plane.parent = _anchor;
