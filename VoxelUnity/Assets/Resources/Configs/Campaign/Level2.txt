@@ -7,13 +7,15 @@
 			  "Speed": 10,
 			  "Health": 50,
 			  "Scale": 1,
-			  "ElementList": ["fire"]
+			  "ElementList": ["fire"],
+			  "Model": "villager_normal_root"
 			},
 			{
 			  "Speed": 20,
 			  "Health": 25,
 			  "Scale": 0.5,
-			  "ElementList": ["fire"]
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
 			}
 		  ],
 		"SpawnPatterns":

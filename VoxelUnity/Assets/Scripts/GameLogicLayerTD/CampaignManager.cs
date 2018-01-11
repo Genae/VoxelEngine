@@ -119,6 +119,7 @@ namespace Assets.Scripts.GameLogicLayerTD
     {
         public float Speed;
         public float Health;
+        public string Model;
         public float Scale;
         public ElementType[] ElementList;
     }
