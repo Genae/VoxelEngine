@@ -117,16 +117,21 @@ namespace Assets.Scripts.GameLogicLayerTD
             if (transforms.Count < 2) return;
 
             var list = Bezier.GetBSplinePoints(transforms.Select(m => m.position).ToList(), 10f);
-            Path = BuildWalkablePath(list);
             for (var i = 1; i < list.Count; i++)
             {
                 ResourceManager.DrawCapsule(list[i - 1], list[i], 3f, dirt, grass);
             }
+            Path = BuildWalkablePath(list);
         }
 
         private List<Vector3> BuildWalkablePath(List<Vector3> list)
         {
-            return list.Select(p => p +Vector3.up*3).ToList();
+            return list.Select(p => p + Vector3.up*GetHeightAt(p)).ToList();
+        }
+
+        private float GetHeightAt(Vector3 vector3)
+        {
+            return World.At(vector3).GetHeight();
         }
 
         public void Clear()

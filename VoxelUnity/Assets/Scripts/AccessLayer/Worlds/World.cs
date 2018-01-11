@@ -73,5 +73,13 @@ namespace Assets.Scripts.AccessLayer.Worlds
         {
             return GetChunkData().GetMultiblocksAt(_v.x % Chunk.ChunkSize, _v.y % Chunk.ChunkSize, _v.z % Chunk.ChunkSize);
         }
+
+        public int GetHeight()
+        {
+            var i = _v.y;
+            while (!World.At(_v + Vector3.up * i).IsAir())
+                i++;
+            return i;
+        }
     }
 }
