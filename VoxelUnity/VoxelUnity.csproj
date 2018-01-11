@@ -631,8 +631,6 @@
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Materials\Shader\transparent.shader" />
     <None Include="Assets\Materials\Shader\windy.shader" />
-    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
-    <None Include="Assets\Plugins\iOS\Vuforia.UnityExtensions.iOS.XML" />
     <None Include="Assets\Resources\Configs\Campaign\Level0.txt" />
     <None Include="Assets\Resources\Configs\Campaign\Level1.txt" />
     <None Include="Assets\Resources\Configs\Runes\Runes.txt" />

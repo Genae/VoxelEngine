@@ -193,6 +193,9 @@
     <Reference Include="UnityEngine.WindModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-UnityScript-Editor-firstpass">
+      <HintPath>Library/ScriptAssemblies/Assembly-UnityScript-Editor-firstpass.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -298,10 +301,6 @@
       <Project>{1B81D985-9A05-303F-1E1E-67A5CFA6A6DA}</Project>
       <Name>VoxelUnity</Name>
     </ProjectReference>
-    <ProjectReference Include="VoxelUnity.Editor.Plugins.unityproj">
-      <Project>{454BB126-1300-67B8-20ED-60F56D9F2463}</Project>
-      <Name>VoxelUnity.Editor.Plugins</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\Editor\NoPlayObjectLoader.cs" />
@@ -321,8 +320,6 @@
     <None Include="Assets\Materials\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Materials\Shader\transparent.shader" />
     <None Include="Assets\Materials\Shader\windy.shader" />
-    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
-    <None Include="Assets\Plugins\iOS\Vuforia.UnityExtensions.iOS.XML" />
     <None Include="Assets\Resources\Configs\Campaign\Level0.txt" />
     <None Include="Assets\Resources\Configs\Campaign\Level1.txt" />
     <None Include="Assets\Resources\Configs\Runes\Runes.txt" />
