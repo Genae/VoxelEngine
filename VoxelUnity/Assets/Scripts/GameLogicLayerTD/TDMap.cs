@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.AccessLayer;
@@ -126,6 +127,15 @@ namespace Assets.Scripts.GameLogicLayerTD
         private List<Vector3> BuildWalkablePath(List<Vector3> list)
         {
             return list.Select(p => p +Vector3.up*3).ToList();
+        }
+
+        public void Clear()
+        {
+            Destroy(Map.Instance.gameObject.GetComponent<TDMap>());
+            foreach (Transform child in Map.Instance.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 }

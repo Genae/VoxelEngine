@@ -16,11 +16,7 @@ namespace Assets.Scripts.UI
 
         public void ClickClear()
         {
-            Destroy(Map.Instance.gameObject.GetComponent<TDMap>());
-            foreach (Transform child in Map.Instance.transform)
-            {
-                Destroy(child.gameObject);
-            }
+            TDMap.Instance.Clear();
         }
     }
 }

@@ -1,31 +1,14 @@
 ﻿{
 	"LevelNumber": 0,
-	"Waves": [{
-		"MobLookup":
-		  [
-			{
-			  "Speed": 10,
-			  "Health": 100,
-			  "Scale": 1,
-			  "ElementList": ["fire"]
-			},
-			{
-			  "Speed": 20,
-			  "Health": 50,
-			  "Scale": 0.5,
-			  "ElementList": ["fire"]
-			}
-		  ],
-		"SpawnPatterns":
-		  [
-			[50, 0],
-			[5, 1]
-		  ]
-		}
-	],
+	"Waves": [],
+	"Text": "Hello and welcome to RuneTD!\nFirst you will have to print all the markers.\n The you should put the Table markers around your playing area. If you have done that check if all spheres are green and continue by clicking the play button.",
 	UnlockedRunes: [{
 		"Name": "algiz",
 		"Amount": 2
+	},
+	{
+		"Name": "mannaz",
+		"Amount": 1
 	}]
 }
 

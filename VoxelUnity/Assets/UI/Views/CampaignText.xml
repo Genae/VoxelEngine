@@ -1,0 +1,11 @@
+<CampaignText>
+  <Group Orientation="Vertical" BackgroundColor="white" IsVisible="{Visible}">
+    <Panel Id="ScrollMe" Width="600" Height="600" CanScrollHorizontally="false">
+      <Region Height="5000" Width="600" Alignment="Top">
+        <!--TODO: Get Height from {SelectedDescription}/-->
+        <Label AdjustToText="Height" Width="500" Text="{Text}" HorizontalOverflow="Wrap" Alignment="Top" FontColor="black"></Label>
+      </Region>
+    </Panel>
+    <Button Text="Close" Click="Close"></Button>
+  </Group> 
+</CampaignText>

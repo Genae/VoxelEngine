@@ -1,5 +1,5 @@
 ﻿{
-	"LevelNumber": 1,
+	"LevelNumber": 2,
 	"Waves": [{
 		"MobLookup":
 		  [
@@ -23,7 +23,7 @@
 		  ]
 		}
 	],
-	"Text": "Well done! Now we need to build a village and defend it with some towers. Place the mannaz rune to create a village and the algiz runes to build some defences.",
+	"Text": "Easy!",
 	UnlockedRunes: [{
 		"Name": "algiz",
 		"Amount": 2

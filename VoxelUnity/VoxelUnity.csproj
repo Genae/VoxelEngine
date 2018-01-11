@@ -439,6 +439,7 @@
     <Compile Include="Assets\Scripts\GameLogicLayerTD\Tower.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\TrackedEventHandler.cs" />
     <Compile Include="Assets\Scripts\GameLogicLayerTD\WaveManager.cs" />
+    <Compile Include="Assets\Scripts\UI\CampaignText.cs" />
     <Compile Include="Assets\Scripts\UI\GameSpeed.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\UI\ResourceOverview.cs" />
@@ -633,6 +634,7 @@
     <None Include="Assets\Materials\Shader\windy.shader" />
     <None Include="Assets\Resources\Configs\Campaign\Level0.txt" />
     <None Include="Assets\Resources\Configs\Campaign\Level1.txt" />
+    <None Include="Assets\Resources\Configs\Campaign\Level2.txt" />
     <None Include="Assets\Resources\Configs\Runes\Runes.txt" />
     <None Include="Assets\Resources\Configs\Tools\Tools.txt" />
     <None Include="Assets\Resources\Imported\Items\Dirt.txt" />
@@ -680,6 +682,7 @@
     <None Include="Assets\StreamingAssets\Vuforia\VuforiaMars_VuMark.xml" />
     <None Include="Assets\UI\Themes\MainTheme\Fonts\Font License.txt" />
     <None Include="Assets\UI\Themes\MainTheme\Views\MainTheme.xml" />
+    <None Include="Assets\UI\Views\CampaignText.xml" />
     <None Include="Assets\UI\Views\GameSpeed.xml" />
     <None Include="Assets\UI\Views\LoadingScreen.xml" />
     <None Include="Assets\UI\Views\ResourceOverview.xml" />

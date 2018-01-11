@@ -2,6 +2,7 @@
     <UserInterface>
       <RuneOverview PlaceEnabled="false"/>
       <GameSpeed />
+      <CampaignText />
       <ResourceOverview />
       <Group Spacing="15px" Alignment="Bottom" Orientation="Horizontal">
         <Button Text="START" Alpha="0.5" Click="ClickStart"/>

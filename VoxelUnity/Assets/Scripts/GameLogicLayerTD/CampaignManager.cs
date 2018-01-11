@@ -22,14 +22,12 @@ namespace Assets.Scripts.GameLogicLayerTD
         
         void Start()
         {
-            UnlockRunes();
+            SetLevel(CurrentLevel);
         }
 
         private void UnlockRunes()
         {
             UnlockedRunes.Clear();
-            UnlockedRunes["mannaz"] = 1;
-            UnlockedRunes["algiz"] = 2;
             UnlockedRunes["raido"] = 4;
             for (var i = 0; i < CurrentLevel; i++)
             {
@@ -51,12 +49,25 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         public Wave GetNextWave()
         {
+            Debug.Log("getting wave " +  _currentWave + " in level " + CurrentLevel);
+            if (_levels[CurrentLevel].Waves.Length <= _currentWave)
+            {
+                SetLevel(CurrentLevel + 1);
+                return null;
+            }
             return _levels[CurrentLevel].Waves[_currentWave++];
         }
 
         public void SetLevel(int level)
         {
+            Debug.Log(level);
             CurrentLevel = level;
+            _currentWave = 0;
+            if(TDMap.Instance != null)
+                TDMap.Instance.Clear();
+            CampaignText.Instance.Text.Value = _levels[level].Text;
+            CampaignText.Instance.Visible.Value = true;
+            UnlockRunes();
         }
     }
 
@@ -64,6 +75,7 @@ namespace Assets.Scripts.GameLogicLayerTD
     {
         public Wave[] Waves;
         public int LevelNumber;
+        public string Text;
         public UnlockedRune[] UnlockedRunes;
         //Vector3 list path
         //string flavortext

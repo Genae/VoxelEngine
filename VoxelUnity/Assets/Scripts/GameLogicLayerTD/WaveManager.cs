@@ -26,7 +26,11 @@ namespace Assets.Scripts.GameLogicLayerTD
         void Update()
         {
             if (!spawn)
+            {
+                currentWave = _cm.GetNextWave();
+                spawn = currentWave != null;
                 return;
+            }
             if (TDMap.Instance.Path.Count == 0)
                 return; //no path
             currentCooldown -= Time.deltaTime;
