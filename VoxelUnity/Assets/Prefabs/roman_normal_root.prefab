@@ -166,6 +166,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000545670715294}
+  - component: {fileID: 111224103464647806}
   m_Layer: 0
   m_Name: roman_normal
   m_TagString: Untagged
@@ -214,7 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4139938390013284}
   m_Layer: 0
-  m_Name: legiontorso
+  m_Name: torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4357416723702524}
   m_Layer: 0
-  m_Name: legionboots
+  m_Name: foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4354533000375756}
   m_Layer: 0
-  m_Name: legionhead
+  m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4845371987128510}
   m_Layer: 0
-  m_Name: legionboots (1)
+  m_Name: foot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,7 +320,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463311325168260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4066329336327614}
@@ -340,8 +341,6 @@ Transform:
   - {fileID: 4354533000375756}
   - {fileID: 4139938390013284}
   - {fileID: 4845371987128510}
-  - {fileID: 4638841738932456}
-  - {fileID: 4331519119649600}
   - {fileID: 4455914903023426}
   - {fileID: 4417216217428382}
   m_Father: {fileID: 4000545670715294}
@@ -406,13 +405,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984992915707510}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.3500001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4191657385113314}
-  m_Father: {fileID: 4066329336327614}
-  m_RootOrder: 5
+  m_Father: {fileID: 4417216217428382}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4354533000375756
 Transform:
@@ -466,8 +465,9 @@ Transform:
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children:
   - {fileID: 4602208124671204}
+  - {fileID: 4331519119649600}
   m_Father: {fileID: 4066329336327614}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4455914903023426
 Transform:
@@ -480,8 +480,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4538679092643260}
+  - {fileID: 4638841738932456}
   m_Father: {fileID: 4066329336327614}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4538679092643260
 Transform:
@@ -555,13 +556,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1979759800140856}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4132338052673794}
-  m_Father: {fileID: 4066329336327614}
-  m_RootOrder: 4
+  m_Father: {fileID: 4455914903023426}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4845371987128510
 Transform:
@@ -905,3 +906,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1212531812008236}
   m_Mesh: {fileID: 4300000, guid: decdad8c86d7ee94ca6b331f7664f62b, type: 3}
+--- !u!111 &111224103464647806
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463311325168260}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: c1750dd1d22aa824da8c5db15750da40, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: c1750dd1d22aa824da8c5db15750da40, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
