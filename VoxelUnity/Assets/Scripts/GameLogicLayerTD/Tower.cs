@@ -202,7 +202,7 @@ public class Tower : MonoBehaviour
             var tdMinion = minionsInRange.OrderByDescending(m => m.DistanceMoved).First();
             var proj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             proj.name = "Projectile";
-            proj.transform.position = transform.position + Vector3.up * 15;
+            proj.transform.position = transform.position + Vector3.up * 10; //projectile spawn height
             proj.transform.localScale = Vector3.one * 0.7f;
             proj.AddComponent<Projectile>().Init(tdMinion.gameObject, this, splashRadius, atkspeed);
         }
