@@ -1,5 +1,9 @@
 ﻿{
 	"LevelNumber": 0,
+	"MapInfo":{
+		"Path": [],
+		"Village":[]
+	},
 	"Waves": [],
 	"Text": "Hello and welcome to RuneTD!\nFirst you will have to print all the markers.\n The you should put the Table markers around your playing area. If you have done that check if all spheres are green and continue by clicking the play button.",
 	UnlockedRunes: [{

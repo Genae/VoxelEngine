@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.AccessLayer;
@@ -17,6 +16,7 @@ namespace Assets.Scripts.GameLogicLayerTD
     public class TDMap : MonoBehaviour
     {
         public static TDMap Instance;
+
         public List<TDTower> Towers = new List<TDTower>();
         public List<TDVillage> Villages = new List<TDVillage>();
         public List<TDFarm> Farms = new List<TDFarm>();
@@ -26,15 +26,19 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             Instance = this;
         }
+
         public void BuildMap()
         {
             var markers = RuneRegistry.Runes.ToList();
             var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
-            var size = BuildEmptyMap(markers.Select(m => m.transform).ToList(), grass);
+            var mapInfo = FindObjectOfType<CampaignManager>().GetMapInfo();
+            var size = TDMap.GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
+            var path = mapInfo.GetPath(size);
+            BuildEmptyMap(size, grass);
             
-            CreatePath(markers.OfType<Raido>().ToList(), markers.OfType<Mannaz>().ToList(), dirt, grass);
+            CreatePath(path, dirt, grass);
 
             CreateFarms(markers.OfType<Jera>().ToList());
 
@@ -45,8 +49,9 @@ namespace Assets.Scripts.GameLogicLayerTD
             var wm = new GameObject("WaveManager").AddComponent<WaveManager>();
             wm.transform.parent = gameObject.transform;
 
-            StartCoroutine(LoadGame(size));
+            StartCoroutine(LoadGame(new []{size.Width, size.Heigth}));
         }
+
 
         private void CreateVillages(List<Mannaz> markers)
         {
@@ -56,28 +61,33 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
         }
 
-        private static int[] BuildEmptyMap(List<Transform> markers, VoxelMaterial grass)
+        public static MapSize GetSize(List<Raido> markers)
+        {
+            var minX = (int)markers.Min(m => m.transform.position.x);
+            var minZ = (int)markers.Min(m => m.transform.position.z);
+            var maxX = (int)markers.Max(m => m.transform.position.x);
+            var maxZ = (int)markers.Max(m => m.transform.position.z);
+            return new MapSize(minX, minZ, maxX, maxZ);
+        }
+
+        private static void BuildEmptyMap(MapSize mapSize, VoxelMaterial grass)
         {
             var size = 129;
             while (Map.Instance.CreateMap(null, null).MoveNext()) ;
-            var minX = (int)markers.Min(m => m.position.x) - 10;
-            var minY = (int)markers.Min(m => m.position.z) - 10;
-            var maxX = (int)markers.Max(m => m.position.x) + 10;
-            var maxY = (int)markers.Max(m => m.position.z) + 10;
+            
 
             var ds = new DiamondSquare(0.01f, size, size);
             var height = ds.Generate(new System.Random());
 
 
-            for (var x = Mathf.Max(minX, 0); x < Mathf.Min(maxX, size); x++)
+            for (var x = Mathf.Max(mapSize.MinX, 0); x < Mathf.Min(mapSize.MaxX, size); x++)
             {
-                for (var y = Mathf.Max(minY, 0); y < Mathf.Min(maxY, size); y++)
+                for (var z = Mathf.Max(mapSize.MinZ, 0); z < Mathf.Min(mapSize.MaxZ, size); z++)
                 {
-                    for (var h = 0; h <= (int)((height[x, y] * 3) - 0.01f); h++)
-                       World.At(x, h, y).SetVoxel(grass);
+                    for (var h = 0; h <= (int)(height[x, z] * 3 - 0.01f); h++)
+                       World.At(x, h, z).SetVoxel(grass);
                 }
             }
-            return new[] { maxX - minX, maxY - minY };
         }
         
         private IEnumerator LoadGame(int[] size)
@@ -107,16 +117,11 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
         }
 
-        private void CreatePath(List<Raido> markersPath, List<Mannaz> markersBase, VoxelMaterial dirt, VoxelMaterial grass)
+        private void CreatePath(List<Vector3> positions, VoxelMaterial dirt, VoxelMaterial grass)
         {
-            var transforms = new List<Transform>();
-            if(markersPath.Count > 0)
-                transforms.AddRange(markersPath.OrderBy(m => m.Number).Select(m => m.transform));
-            if(markersBase.Count > 0)
-                transforms.AddRange(markersBase.Select(m => m.transform));
-            if (transforms.Count < 2) return;
-
-            var list = Bezier.GetBSplinePoints(transforms.Select(m => m.position).ToList(), 10f);
+            if (positions.Count < 2)
+                return;
+            var list = Bezier.GetBSplinePoints(positions, 10f);
             for (var i = 1; i < list.Count; i++)
             {
                 ResourceManager.DrawCapsule(list[i - 1], list[i], 3f, dirt, grass);
@@ -141,6 +146,21 @@ namespace Assets.Scripts.GameLogicLayerTD
             {
                 Destroy(child.gameObject);
             }
+        }
+    }
+
+    public class MapSize
+    {
+        public int MinX, MinZ, MaxX, MaxZ, Width, Heigth;
+
+        public MapSize(int minX, int minZ, int maxX, int maxZ)
+        {
+            MinX = minX;
+            MinZ = minZ;
+            MaxX = maxX;
+            MaxZ = maxZ;
+            Width = maxX - minX;
+            Heigth = maxZ - minZ;
         }
     }
 }

@@ -69,6 +69,34 @@ namespace Assets.Scripts.GameLogicLayerTD
             CampaignText.Instance.Visible.Value = true;
             UnlockRunes();
         }
+
+        public MapInfo GetMapInfo()
+        {
+            return _levels[CurrentLevel].MapInfo;
+        }
+    }
+
+    public class MapInfo
+    {
+        public float[][] Path;
+        public float[] Village;
+
+        public List<Vector3> GetPath(MapSize size)
+        {
+            var list = new List<Vector3>();
+            foreach (var pos in Path)
+            {
+                list.Add(new Vector3(pos[0]*size.Width + size.MinX, 0, pos[1]*size.Heigth + size.MinZ));
+            }
+            if(Village.Length != 0)
+                list.Add(new Vector3(Village[0] * size.Width + size.MinX, 0, Village[1] * size.Heigth + size.MinZ));
+            return list;
+        }
+
+        public Vector3 GetVillagePos(MapSize size)
+        {
+            return new Vector3(Village[0] * size.Width + size.MinX, 0.01f, Village[1] * size.Heigth + size.MinZ);
+        }
     }
 
     public class Level
@@ -77,8 +105,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         public int LevelNumber;
         public string Text;
         public UnlockedRune[] UnlockedRunes;
-        //Vector3 list path
-        //string flavortext
+        public MapInfo MapInfo;
     }
 
     public class UnlockedRune

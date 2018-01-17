@@ -1,6 +1,5 @@
 ﻿using MarkLight;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
-using UnityEngine;
 using Assets.Scripts.GameLogicLayerTD;
 
 namespace Assets.Scripts.UI
