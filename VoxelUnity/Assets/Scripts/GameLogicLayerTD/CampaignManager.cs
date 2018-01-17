@@ -1,22 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Assets.Scripts.EngineLayer;
 using Assets.Scripts.UI;
+using NUnit.Framework.Constraints;
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
     public class CampaignManager : MonoBehaviour
     {
-
+        public static CampaignManager Instance;
         public int CurrentLevel = 0;
         private int _currentWave = 0;
         private Dictionary<int, Level> _levels;
-        public readonly Dictionary<string, int> UnlockedRunes = new Dictionary<string, int>(); 
+        public readonly Dictionary<string, int> UnlockedRunes = new Dictionary<string, int>();
+        public readonly List<string> NewlyUnlocked = new List<string>();
+        public Dictionary<string, int> UnlockedThisTime = new Dictionary<string, int>();
 
         // Use this for initialization
         void Awake()
         {
+            Instance = this;
             _levels = ConfigImporter.GetAllConfigs<Level>("Configs/Campaign").ToDictionary(l => l.LevelNumber);
         }
         
@@ -29,6 +34,15 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             UnlockedRunes.Clear();
             UnlockedRunes["raido"] = 4;
+            if (CurrentLevel == 0)
+            {
+                NewlyUnlocked.Add("raido");
+                UnlockedThisTime["raido"] = 4;
+            }
+            else
+            {
+                UnlockedThisTime = _levels[CurrentLevel-1].UnlockedRunes.ToDictionary(ur => ur.Name, ur => ur.Amount);
+            }
             for (var i = 0; i < CurrentLevel; i++)
             {
                 if (_levels.ContainsKey(i))
@@ -38,6 +52,8 @@ namespace Assets.Scripts.GameLogicLayerTD
                         if (!UnlockedRunes.ContainsKey(unlockedRune.Name))
                         {
                             UnlockedRunes[unlockedRune.Name] = 0;
+                            if(i == CurrentLevel - 1)
+                                NewlyUnlocked.Add(unlockedRune.Name);
                         }
                         UnlockedRunes[unlockedRune.Name] += unlockedRune.Amount;
                     }
@@ -96,6 +112,8 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         public Vector3 GetVillagePos(MapSize size)
         {
+            if(Village.Length == 0)
+                return Vector3.zero;
             return new Vector3(Village[0] * size.Width + size.MinX, 0.01f, Village[1] * size.Heigth + size.MinZ);
         }
     }

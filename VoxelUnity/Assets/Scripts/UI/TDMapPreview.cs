@@ -27,7 +27,7 @@ namespace Assets.Scripts.UI
 
         void Start()
         {
-            _cm = FindObjectOfType<CampaignManager>();
+            _cm = CampaignManager.Instance;
             if ((_lr = gameObject.GetComponent<LineRenderer>()) == null)
             {
                 _lr = gameObject.AddComponent<LineRenderer>();
@@ -52,7 +52,8 @@ namespace Assets.Scripts.UI
             var size = TDMap.GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
             var path = mapInfo.GetPath(size);
             ConfigLineRenderer(path);
-            RenderVillagePreview(mapInfo.GetVillagePos(size));
+            if(CampaignManager.Instance.CurrentLevel != 0) 
+                RenderVillagePreview(mapInfo.GetVillagePos(size));
         }
 
         private void RenderVillagePreview(Vector3 startPos)

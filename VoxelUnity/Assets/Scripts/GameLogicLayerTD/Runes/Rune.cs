@@ -47,7 +47,7 @@ public class Rune : MonoBehaviour
 
 public class RuneRegistry : MonoBehaviour
 {
-    public static List<Rune> Runes;
+    public static List<Rune> Runes = new List<Rune>();
     public static List<Rune> RunesThisUpdate = new List<Rune>();
     public static void Add(Rune rune)
     {
@@ -58,5 +58,19 @@ public class RuneRegistry : MonoBehaviour
     {
         Runes = RunesThisUpdate.ToList();
         RunesThisUpdate.Clear();
+    }
+
+    public static Dictionary<string, int> GetPlacedRuned()
+    {
+        var dic = new Dictionary<string, int>();
+        foreach (var rune in Runes)
+        {
+            if (!dic.ContainsKey(rune.Name.ToLower()))
+            {
+                dic[rune.Name.ToLower()] = 0;
+            }
+            dic[rune.Name.ToLower()]++;
+        }
+        return dic;
     }
 }

@@ -18,7 +18,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         void Start()
         {
             AliveMinions = new List<TDMinion>();
-            _cm = FindObjectOfType<CampaignManager>();
+            _cm = CampaignManager.Instance;
             currentWave = _cm.GetNextWave();
         }
 

@@ -34,7 +34,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             var grass = MaterialRegistry.Instance.GetMaterialFromName("Grass");
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
-            var mapInfo = FindObjectOfType<CampaignManager>().GetMapInfo();
+            var mapInfo = CampaignManager.Instance.GetMapInfo();
             var size = GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
             var path = mapInfo.GetPath(size);
             BuildEmptyMap(size, grass);
@@ -123,12 +123,26 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             if (positions.Count < 2)
                 return;
+            positions = FixCurves(positions);
             var list = Bezier.GetBSplinePoints(positions, 10f);
             for (var i = 1; i < list.Count; i++)
             {
                 ResourceManager.DrawCapsule(list[i - 1], list[i], 3f, dirt, grass);
             }
             Path = BuildWalkablePath(list);
+        }
+
+        private List<Vector3> FixCurves(List<Vector3> positions)
+        {
+            var fixedList = new List<Vector3> {positions[0]};
+            for (var i = 1; i < positions.Count - 1; i++)
+            {
+                fixedList.Add(positions[i] + (positions[i - 1] - positions[i]) * 0.3f);
+                fixedList.Add(positions[i]);
+                fixedList.Add(positions[i] + (positions[i + 1] - positions[i]) * 0.3f);
+            }
+            fixedList.Add(positions[positions.Count-1]);
+            return fixedList;
         }
 
         private List<Vector3> BuildWalkablePath(List<Vector3> list)
