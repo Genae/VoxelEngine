@@ -52,7 +52,8 @@ namespace Assets.Scripts.GameLogicLayerTD
             Debug.Log("getting wave " +  _currentWave + " in level " + CurrentLevel);
             if (_levels[CurrentLevel].Waves.Length <= _currentWave)
             {
-                SetLevel(CurrentLevel + 1);
+                if(WaveManager.AliveMinions.Count == 0)
+                    SetLevel(CurrentLevel + 1);
                 return null;
             }
             return _levels[CurrentLevel].Waves[_currentWave++];

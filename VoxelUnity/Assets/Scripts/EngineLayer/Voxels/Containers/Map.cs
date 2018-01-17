@@ -20,7 +20,8 @@ namespace Assets.Scripts.EngineLayer.Voxels.Containers
         public CameraController CameraController;
         public VoxelGraph AStarNetwork;
         public bool IsDoneGenerating;
-        public bool GenerateMap; 
+        public bool GenerateMap;
+        public int Size = 513;
 
         public void Awake()
         {
@@ -47,7 +48,7 @@ namespace Assets.Scripts.EngineLayer.Voxels.Containers
             {
                 loader.SetStatus("Calculating Heightmap", 0.03f);
                 var hmg = new HeightmapGenerator();
-                yield return hmg.CreateHeightMap(129, 129, 42);
+                yield return hmg.CreateHeightMap(Size, Size, 42);
                 loader.SetStatus("Building Map", 0.1f);
                 MapData = new MapData(hmg.Values.GetLength(0) / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
                 AStarNetwork = new VoxelGraph();
@@ -57,7 +58,7 @@ namespace Assets.Scripts.EngineLayer.Voxels.Containers
                 //TestAStar();
             } else
             {
-                MapData = new MapData(129 / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
+                MapData = new MapData(Size / Chunk.ChunkSize, 100 / Chunk.ChunkSize, 2f);
                 AStarNetwork = new VoxelGraph();
             }
             IsDoneGenerating = true;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.AccessLayer;
@@ -34,7 +35,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
             var mapInfo = FindObjectOfType<CampaignManager>().GetMapInfo();
-            var size = TDMap.GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
+            var size = GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
             var path = mapInfo.GetPath(size);
             BuildEmptyMap(size, grass);
             
@@ -72,13 +73,14 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         private static void BuildEmptyMap(MapSize mapSize, VoxelMaterial grass)
         {
-            var size = 129;
+            var size = Map.Instance.Size;
             while (Map.Instance.CreateMap(null, null).MoveNext()) ;
             
 
             var ds = new DiamondSquare(0.01f, size, size);
             var height = ds.Generate(new System.Random());
 
+            Debug.Log(mapSize.MinX + "/" + mapSize.MaxX + "   " + mapSize.MinZ + "/" + mapSize.MaxZ);
 
             for (var x = Mathf.Max(mapSize.MinX, 0); x < Mathf.Min(mapSize.MaxX, size); x++)
             {

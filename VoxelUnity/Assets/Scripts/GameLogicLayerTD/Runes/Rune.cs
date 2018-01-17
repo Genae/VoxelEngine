@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.EngineLayer.Voxels.Containers;
 using UnityEngine;
 
 public class Rune : MonoBehaviour
@@ -40,7 +41,7 @@ public class Rune : MonoBehaviour
 
     private bool InBorders()
     {
-        return transform.position.x <= 129 && transform.position.x >= 0 && transform.position.z <= 129 && transform.position.z >= 0 && transform.position.y >= 0;
+        return transform.position.x <= Map.Instance.Size && transform.position.x >= 0 && transform.position.z <= Map.Instance.Size && transform.position.z >= 0 && transform.position.y >= 0;
     }
 }
 

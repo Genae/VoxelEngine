@@ -17,7 +17,7 @@ namespace Assets.Scripts.AccessLayer.Worlds
                     var pos = new Vector3(Random.Range(0, Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
                     RaycastHit hit;
                     Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
-                    if (hit.collider.tag.Equals("Chunk"))
+                    if (hit.collider != null && hit.collider.tag.Equals("Chunk"))
                     {
                         var start = hit.point;
                         var c = Map.Instance.MapData.Chunks[(int)start.x / Chunk.ChunkSize, (int)start.y / Chunk.ChunkSize, (int)start.z / Chunk.ChunkSize];
