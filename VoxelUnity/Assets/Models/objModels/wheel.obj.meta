@@ -1,18 +1,18 @@
 fileFormatVersion: 2
-guid: 2ebd0a296b5906049b3a9b2ee289d43a
-timeCreated: 1516809656
+guid: 28f864af6ddddaf44981e955310f9879
+timeCreated: 1516808494
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: ram-base
+    100000: default
     100002: //RootNode
-    400000: ram-base
+    400000: default
     400002: //RootNode
     2100000: palette
-    2300000: ram-base
-    3300000: ram-base
-    4300000: ram-base
+    2300000: default
+    3300000: default
+    4300000: default
   externalObjects: {}
   materials:
     importMaterials: 1
