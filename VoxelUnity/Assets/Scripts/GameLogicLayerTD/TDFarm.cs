@@ -133,9 +133,9 @@ namespace Assets.Scripts.GameLogicLayerTD
             return true;
         }
 
-        private float FlattenTerrain(Vector3 position, int size)
+        public static float FlattenTerrain(Vector3 position, int size)
         {
-            
+            if (size % 2 == 0) size++;
             var heights = new float[size, size];
             var sum = 0f;
 

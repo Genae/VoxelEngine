@@ -2,15 +2,18 @@
 using Assets.Scripts.GameLogicLayerTD;
 using Assets.Scripts.GameLogicLayerTD.Runes;
 using Assets.Scripts.UI;
+using JetBrains.Annotations;
 using UnityEngine;
 
-public class TDVillage{
+public class TDVillage {
 
 	public Village Village;
     public Mannaz Marker;
     public UpgradeRune Upgrades;
 
-	public TDVillage(GameObject marker){
+	public TDVillage(GameObject marker)
+	{
+	    TDFarm.FlattenTerrain(marker.transform.position, 55);
 		Village = new GameObject("Village").AddComponent<Village>();
 	    Marker = marker.GetComponentInChildren<Mannaz>();
 	    Village.Init(Marker);
