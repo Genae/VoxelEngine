@@ -29,7 +29,7 @@
 		  ]
 		}
 	],
-	"Text": "Well done! Now we need to build a village and defend it with some towers. Place the mannaz rune to create a village and the algiz runes to build some defences.",
+	"Text": "Well done!\n\nNow we need to build a village and some basic archer towers to defend it from the local wildlife.\nPlace the <b>mannaz</b> rune to create a village and the <b>algiz</b> runes to build some defences.",
 	UnlockedRunes: [{
 		"Name": "algiz",
 		"Amount": 2
