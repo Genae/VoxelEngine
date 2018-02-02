@@ -44,8 +44,12 @@ MonoBehaviour:
       ContainsMagnet: 0
   databaseLoad:
     dataSetsToLoad:
+    - VuforiaMars_Images
+    - VuforiaMars_VuMark
     - RuneTD_DB
     dataSetsToActivate:
+    - VuforiaMars_Images
+    - VuforiaMars_VuMark
     - RuneTD_DB
   videoBackground:
     clippingMode: 0
