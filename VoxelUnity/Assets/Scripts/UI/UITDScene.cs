@@ -10,13 +10,22 @@ namespace Assets.Scripts.UI
 {
     public class UITDScene : View
     {
+        public static UITDScene Instance;
         public _string ErrorText;
         public _bool Visible;
+        public _bool Running;
         private float _timeVisible = 2;
         public float Cooldown;
 
+        void Awake()
+        {
+            Instance = this;
+        }
+
         public void ClickStart()
         {
+            if(Running.Value)
+                return;
             if (!CheckRaido())
                 return;
             if (!CheckMannaz())

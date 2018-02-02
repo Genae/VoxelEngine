@@ -10,6 +10,7 @@ using Assets.Scripts.EngineLayer;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
 using Assets.Scripts.EngineLayer.Voxels.Material;
 using Assets.Scripts.GameLogicLayerTD.Runes;
+using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayerTD
@@ -51,6 +52,9 @@ namespace Assets.Scripts.GameLogicLayerTD
             wm.transform.parent = gameObject.transform;
 
             StartCoroutine(LoadGame(new []{size.Width, size.Heigth}));
+
+            ResourceOverview.Instance.Running = true;
+            UITDScene.Instance.Running.Value = true;
         }
 
 
@@ -157,6 +161,8 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         public void Clear()
         {
+            ResourceOverview.Instance.Running = false;
+            UITDScene.Instance.Running.Value = false;
             Destroy(Map.Instance.gameObject.GetComponent<TDMap>());
             foreach (Transform child in Map.Instance.transform)
             {

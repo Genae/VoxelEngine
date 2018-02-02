@@ -9,9 +9,10 @@ namespace Assets.Scripts.UI
     {
         public static ResourceOverview Instance;
         public _int Gold;
-        public _int Upkeep;
         public _int Lives;
         public _bool Lost;
+        public _bool Disabled;
+        public bool Running;
         public int MaxGold = 500;
 
         public ResourceOverview()
@@ -21,9 +22,15 @@ namespace Assets.Scripts.UI
         void Start()
         {
             Gold.Value = 10;
-            Upkeep.Value = 0;
             Lives.Value = 10;
+            Disabled.Value = false;
             Instance = this;
+        }
+
+        public void IncreaseDefense()
+        {
+            Gold.Value -= Lives;
+            Lives.Value++;
         }
 
         void Update()
@@ -43,7 +50,10 @@ namespace Assets.Scripts.UI
                 {
                     instanceFarm.Explode();
                 }
+
             }
+
+            Disabled.Value = Running || Gold.Value < Lives.Value;
         }
     }
 }
