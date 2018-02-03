@@ -25,7 +25,7 @@ public class Rune : MonoBehaviour
             SphereRenderer = go.GetComponent<MeshRenderer>();
             go.transform.parent = transform;
             go.transform.localPosition = Vector3.zero;
-            go.transform.localScale = Vector3.one * 0.5f;
+            go.transform.localScale = Vector3.one * 0.02f;
         }
     }
 

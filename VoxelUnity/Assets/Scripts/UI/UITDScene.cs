@@ -61,7 +61,7 @@ namespace Assets.Scripts.UI
             var mapInfo = CampaignManager.Instance.GetMapInfo();
             var size = TDMap.GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
             var village = mapInfo.GetVillagePos(size);
-            if (Vector3.Distance(pos, village) > 5)
+            if (Vector3.Distance(pos, village) > 1000)
             {
                 ErrorText.Value = "Please the Mannaz rune in the correct position.";
                 Cooldown = _timeVisible;
