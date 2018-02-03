@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
+using Assets.Scripts.GameLogicLayerTD;
+using Assets.Scripts.UI;
 using UnityEngine;
 
 public class Rune : MonoBehaviour
@@ -15,6 +17,7 @@ public class Rune : MonoBehaviour
 
     public virtual void Start()
     {
+        transform.parent.gameObject.AddComponent<ClickRemover>();
         if (FindObjectOfType<RuneRegistry>() == null)
         {
             new GameObject("RuneRegistry").AddComponent<RuneRegistry>();
@@ -42,6 +45,22 @@ public class Rune : MonoBehaviour
     private bool InBorders()
     {
         return transform.position.x <= Map.Instance.Size && transform.position.x >= 0 && transform.position.z <= Map.Instance.Size && transform.position.z >= 0 && transform.position.y >= 0;
+    }
+
+}
+
+public class ClickRemover : MonoBehaviour
+{
+    private bool _clickedOnce;
+    void OnMouseDown()
+    {
+        if (UITDScene.Instance.Running)
+            return;
+        if (_clickedOnce)
+        {
+            Destroy(gameObject);
+        }
+        _clickedOnce = true;
     }
 }
 
