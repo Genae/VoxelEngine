@@ -65,6 +65,7 @@ namespace Assets.Scripts.UI
                 SetFade(RunePreview.GetComponent<MeshRenderer>().material);
                 RunePreview.GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0.5f);
                 RunePreview.name = "preview";
+                RunePreview.transform.RotateAround(RunePreview.transform.position, Vector3.up, 180);
             }
             RunePreview.transform.position = startPos;
             RunePreview.transform.localScale = new Vector3(1f, 1f, 1f);
