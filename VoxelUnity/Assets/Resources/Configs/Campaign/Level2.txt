@@ -31,7 +31,76 @@
 	],
 	"Text": "Easy!\n",
 	UnlockedRunes: [{
+		"Name": "fehu",
+		"Amount": 2
+	},{
+		"Name": "uruz",
+		"Amount": 2
+	},{
+		"Name": "thurisaz",
+		"Amount": 2
+	},{
+		"Name": "ansuz",
+		"Amount": 2
+	},{
+		"Name": "raido",
+		"Amount": 2
+	},{
+		"Name": "kenaz",
+		"Amount": 2
+	},{
+		"Name": "gebo",
+		"Amount": 2
+	},{
+		"Name": "wunjo",
+		"Amount": 2
+	},{
+		"Name": "hagalaz",
+		"Amount": 2
+	},{
+		"Name": "naudhiz",
+		"Amount": 2
+	},{
+		"Name": "isa",
+		"Amount": 2
+	},{
+		"Name": "jera",
+		"Amount": 2
+	},{
+		"Name": "ihwaz",
+		"Amount": 2
+	},{
+		"Name": "perthro",
+		"Amount": 2
+	},{
 		"Name": "algiz",
+		"Amount": 2
+	},{
+		"Name": "sowilo",
+		"Amount": 2
+	},{
+		"Name": "tiwaz",
+		"Amount": 2
+	},{
+		"Name": "berkano",
+		"Amount": 2
+	},{
+		"Name": "ehwaz",
+		"Amount": 2
+	},{
+		"Name": "mannaz",
+		"Amount": 2
+	},{
+		"Name": "laguz",
+		"Amount": 2
+	},{
+		"Name": "ingwaz",
+		"Amount": 2
+	},{
+		"Name": "othala",
+		"Amount": 2
+	},{
+		"Name": "dagaz",
 		"Amount": 2
 	}]
 }

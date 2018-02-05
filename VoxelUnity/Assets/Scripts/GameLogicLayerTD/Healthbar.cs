@@ -39,7 +39,7 @@ public class Healthbar : MonoBehaviour
         _anchor.parent = transform;
         _anchor.Rotate(-90,0,0);
         _anchor.localPosition = Vector3.zero;
-        _anchor.transform.localPosition = Vector3.up * 2;
+        _anchor.transform.localPosition = Vector3.up * 4 * transform.localScale.y;
 
         _plane = GameObject.CreatePrimitive((PrimitiveType.Plane)).transform;
         _plane.parent = _anchor;
