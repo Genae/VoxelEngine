@@ -21,6 +21,7 @@ namespace Assets.Scripts.UI
 		public ViewSwitcher ContentViewSwitcher;
 	    private PlaceRuneTool _prt;
 	    private MouseController _mc;
+	    public _int HeightScroll;
 
         void Awake()
         {
@@ -36,6 +37,7 @@ namespace Assets.Scripts.UI
             Runes1 = AllRunes[1];
             Runes2 = AllRunes[2];
             Runes3 = AllRunes[3];
+            HeightScroll.Value = 5000;
         }
 
 	    void Start()
@@ -43,7 +45,7 @@ namespace Assets.Scripts.UI
 	        _prt = FindObjectOfType<PlaceRuneTool>();
 	        _mc = FindObjectOfType<MouseController>();
         }
-
+        
         public void BuildRune() { }
 
 	    public void Close()
@@ -100,13 +102,15 @@ namespace Assets.Scripts.UI
         }
 
 		public void Wiki()
-		{
-			ContentViewSwitcher.SwitchTo(1);
+        {
+            HeightScroll.Value = 5000;
+            ContentViewSwitcher.SwitchTo(1);
 		}
 
 		public void Back()
-		{
-			ContentViewSwitcher.Previous();
+        {
+            HeightScroll.Value = 0;
+            ContentViewSwitcher.Previous();
 		}
     }
 

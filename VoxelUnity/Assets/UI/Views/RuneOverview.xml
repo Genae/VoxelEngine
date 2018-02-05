@@ -51,7 +51,7 @@
 		<Region Id="Wiki">
 			<Group Orientation="Vertical" BackgroundColor="white">
 				<Panel Id="ScrollMe" Width="600" Height="600" CanScrollHorizontally="false">
-					<Region Height="5000" Width="600" Alignment="Top"> <!--TODO: Get Height from {SelectedDescription}/-->
+					<Region Height="{HeightScroll}px" Width="600" Alignment="Top" > <!--TODO: Get Height from {SelectedDescription}/-->
 						<Label AdjustToText="Height" Width="500" Text="{SelectedDescription.Wiki}" HorizontalOverflow="Wrap" Alignment="Top" FontColor="black" SupportRichText="true"></Label>
 					</Region>
 				</Panel>
