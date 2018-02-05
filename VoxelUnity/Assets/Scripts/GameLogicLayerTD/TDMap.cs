@@ -36,7 +36,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             var dirt = MaterialRegistry.Instance.GetMaterialFromName("Dirt");
 
             var mapInfo = CampaignManager.Instance.GetMapInfo();
-            var size = GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
+            var size = GetSize(mapInfo.Village);
             var path = mapInfo.GetPath(size);
             BuildEmptyMap(size, grass);
             
@@ -66,13 +66,11 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
         }
 
-        public static MapSize GetSize(List<Raido> markers)
+        public static MapSize GetSize(float[] villagePos)
         {
-            var minX = (int)markers.Min(m => m.transform.position.x);
-            var minZ = (int)markers.Min(m => m.transform.position.z);
-            var maxX = (int)markers.Max(m => m.transform.position.x);
-            var maxZ = (int)markers.Max(m => m.transform.position.z);
-            return new MapSize(minX, minZ, maxX, maxZ);
+            var relx = (int)(250 * villagePos[0]);
+            var relz = (int)(250 * villagePos[1]);
+            return new MapSize(250 - relx, 250 - relz, 500 - relx, 500-relz);
         }
 
         private static void BuildEmptyMap(MapSize mapSize, VoxelMaterial grass)

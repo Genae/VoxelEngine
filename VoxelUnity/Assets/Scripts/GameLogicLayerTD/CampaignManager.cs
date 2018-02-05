@@ -32,11 +32,11 @@ namespace Assets.Scripts.GameLogicLayerTD
         private void UnlockRunes()
         {
             UnlockedRunes.Clear();
-            UnlockedRunes["raido"] = 4;
+            UnlockedRunes["mannaz"] = 4;
             if (CurrentLevel == 0)
             {
-                NewlyUnlocked.Add("raido");
-                UnlockedThisTime["raido"] = 4;
+                NewlyUnlocked.Add("mannaz");
+                UnlockedThisTime["mannaz"] = 4;
             }
             else
             {
@@ -113,7 +113,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             if(Village.Length == 0)
                 return Vector3.zero;
-            return new Vector3(Village[0] * size.Width + size.MinX, 0.01f, Village[1] * size.Heigth + size.MinZ);
+            return new Vector3(250, 0.01f, 250);
         }
     }
 

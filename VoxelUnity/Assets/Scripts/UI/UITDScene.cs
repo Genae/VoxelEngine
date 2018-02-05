@@ -26,8 +26,6 @@ namespace Assets.Scripts.UI
         {
             if(Running.Value)
                 return;
-            if (!CheckRaido())
-                return;
             if (!CheckMannaz())
                 return;
             if (!CheckUnlocked())
@@ -59,9 +57,9 @@ namespace Assets.Scripts.UI
             }
             var pos = RuneRegistry.Runes.OfType<Mannaz>().First().transform.position;
             var mapInfo = CampaignManager.Instance.GetMapInfo();
-            var size = TDMap.GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
+            var size = TDMap.GetSize(mapInfo.Village);
             var village = mapInfo.GetVillagePos(size);
-            if (Vector3.Distance(pos, village) > 1000)
+            if (Vector3.Distance(pos, village) > 10)
             {
                 ErrorText.Value = "Please the Mannaz rune in the correct position.";
                 Cooldown = _timeVisible;

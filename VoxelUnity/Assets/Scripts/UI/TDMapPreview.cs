@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.EngineLayer.Voxels.Containers;
 using Assets.Scripts.GameLogicLayerTD;
-using Assets.Scripts.GameLogicLayerTD.Runes;
 using UnityEngine;
 
 namespace Assets.Scripts.UI
@@ -10,7 +8,7 @@ namespace Assets.Scripts.UI
     public class TDMapPreview : MonoBehaviour
     {
 
-        private bool _renderPreview = false;
+        private bool _renderPreview;
         private LineRenderer _lr;
         private CampaignManager _cm;
         public GameObject RunePreview;
@@ -48,8 +46,9 @@ namespace Assets.Scripts.UI
         {
             if (!_renderPreview)
                 return;
+            Debug.Log("preview");
             var mapInfo = _cm.GetMapInfo();
-            var size = TDMap.GetSize(RuneRegistry.Runes.OfType<Raido>().ToList());
+            var size = TDMap.GetSize(mapInfo.Village);
             var path = mapInfo.GetPath(size);
             ConfigLineRenderer(path);
             if(CampaignManager.Instance.CurrentLevel != 0) 
