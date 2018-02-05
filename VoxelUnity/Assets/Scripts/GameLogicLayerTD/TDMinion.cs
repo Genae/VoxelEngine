@@ -31,7 +31,8 @@ namespace Assets.Scripts.GameLogicLayerTD
             transform.localScale = Vector3.one * scale;
             _elementList = new List<ElementType>(); //init list
             _elementList = elementList;
-            SetColor(_elementList[0]); //well :D dont judge me
+            if(elementList.Count > 0)
+                SetColor(_elementList[0]); //well :D dont judge me
         }
 
         void Start()

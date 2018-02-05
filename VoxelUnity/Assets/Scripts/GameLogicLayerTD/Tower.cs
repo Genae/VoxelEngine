@@ -82,7 +82,11 @@ public class Tower : MonoBehaviour
             var p = GameObject.CreatePrimitive(PrimitiveType.Plane);
             
             p.transform.localScale = Vector3.one * 0.5f;
-            p.GetComponent<MeshRenderer>().material = upgradeRune.transform.parent.GetComponent<MeshRenderer>().material;
+            var tex = "Runes/RuneTD_DB/" +
+                      upgradeRune.transform.parent.name.Substring(0, upgradeRune.transform.parent.name.Length - 1).ToLower() +
+                      "0_scaled";
+            Debug.Log(tex);
+            p.GetComponent<MeshRenderer>().material.mainTexture = Resources.Load<Texture2D>(tex);
             p.transform.parent = Rotator.transform;
             var q = Instantiate(p);
             q.transform.parent = p.transform;
