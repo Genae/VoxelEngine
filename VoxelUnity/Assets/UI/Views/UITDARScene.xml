@@ -1,5 +1,5 @@
 <UITDARScene>
-    <UserInterface UIScaleMode="ScaleWithScreenSize">
+    <UserInterface UIScaleMode="ScaleWithScreenSize" ReferenceResolution="1920,1080">
       <RuneOverview PlaceEnabled="false"/>
       <GameSpeed />
       <CampaignText />

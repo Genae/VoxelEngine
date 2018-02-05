@@ -16,7 +16,7 @@ public class TDTower{
 	    Tower.gameObject.AddComponent<MeshCollider>();
 	    Marker = marker.GetComponentInChildren<Algiz>();
         Tower.Init(Marker);
-		Tower.transform.position = marker.transform.position;
+		Tower.transform.position = new Vector3(marker.transform.position.x, 0, marker.transform.position.z);
 		Tower.transform.parent = GameObject.Find("Map").transform;
 	}
 

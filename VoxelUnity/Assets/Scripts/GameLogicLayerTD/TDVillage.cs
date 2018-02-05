@@ -2,7 +2,6 @@
 using Assets.Scripts.GameLogicLayerTD;
 using Assets.Scripts.GameLogicLayerTD.Runes;
 using Assets.Scripts.UI;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class TDVillage {
@@ -17,7 +16,7 @@ public class TDVillage {
 		Village = new GameObject("Village").AddComponent<Village>();
 	    Marker = marker.GetComponentInChildren<Mannaz>();
 	    Village.Init(Marker);
-	    Village.transform.position = marker.transform.position;
+	    Village.transform.position = new Vector3(marker.transform.position.x, 0, marker.transform.position.z);
 	    Village.transform.parent = GameObject.Find("Map").transform;
 	    var prefab = Object.Instantiate(GameObject.Find("village"));
         //TODO Placeholder stuff

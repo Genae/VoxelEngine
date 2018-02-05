@@ -23,6 +23,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         public List<TDVillage> Villages = new List<TDVillage>();
         public List<TDFarm> Farms = new List<TDFarm>();
         public List<Vector3> Path = new List<Vector3>();
+        public static int MapSize = 125;
 
         void Awake()
         {
@@ -68,9 +69,9 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         public static MapSize GetSize(float[] villagePos)
         {
-            var relx = (int)(250 * villagePos[0]);
-            var relz = (int)(250 * villagePos[1]);
-            return new MapSize(250 - relx, 250 - relz, 500 - relx, 500-relz);
+            var relx = (int)(MapSize * villagePos[0]);
+            var relz = (int)(MapSize * villagePos[1]);
+            return new MapSize(250 - relx, 250 - relz, 250 + MapSize - relx, 250 + MapSize - relz);
         }
 
         private static void BuildEmptyMap(MapSize mapSize, VoxelMaterial grass)

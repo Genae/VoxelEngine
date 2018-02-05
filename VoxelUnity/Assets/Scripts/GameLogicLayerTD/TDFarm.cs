@@ -84,7 +84,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         private void CreateCollider(Vector3 position, float height, int size)
         {
             var colliderGO = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            colliderGO.transform.position = position + Vector3.up*height;
+            colliderGO.transform.position = new Vector3(position.x, 0, position.z) + Vector3.up*height;
             colliderGO.transform.parent = _farm.transform;
             colliderGO.transform.localScale = new Vector3(size, 6, size);
             Object.Destroy(colliderGO.GetComponent<MeshRenderer>());

@@ -2,7 +2,7 @@
 	"LevelNumber": 0,
 	"MapInfo":{
 		"Path": [],
-		"Village":[]
+		"Village":[0.5, 0.5]
 	},
 	"Waves": [],
 	"Text": "Hello and welcome to RuneTD!\nFirst you will have to print all the markers.\n Then you should put the Table markers around your playing area. If you have done that check if all spheres are green and continue by clicking the play button.",
