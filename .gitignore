@@ -231,6 +231,7 @@ sysinfo.txt
 *.userprefs
 *.pidb
 *.booproj
+*.csproj
 VoxelUnity/Voxel.exe
 VoxelUnity/Voxel_Data/*
 *.cs.orig*
