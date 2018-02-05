@@ -4,7 +4,7 @@ using Vuforia;
 public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
 {
     //Put this on rune image target to see when it is tracked or use variable Tracked of this class
-    
+
     private TrackableBehaviour mTrackableBehaviour;
     public bool Tracked = false;
 
@@ -19,9 +19,14 @@ public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
 
     public void OnTrackableStateChanged(TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
     {
-        if (newStatus == TrackableBehaviour.Status.TRACKED || newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+        if (newStatus == TrackableBehaviour.Status.TRACKED)
         {
             OnTrackingFound();
+            GetComponentInChildren<Rune>().ExtendedTracking = false;
+        }
+        else if (newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
+        {
+            GetComponentInChildren<Rune>().ExtendedTracking = true;
         }
         else
         {
@@ -39,7 +44,6 @@ public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
         Tracked = true;
         //TODO Insert Code for OnTrackingFound
         GetComponentInChildren<Rune>().enabled = true;
-
     }
 
     private void OnTrackingLost()
@@ -53,6 +57,5 @@ public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
 
         //TODO Insert Code for OnTrackingLost
         GetComponentInChildren<Rune>().enabled = false;
-
     }
 }

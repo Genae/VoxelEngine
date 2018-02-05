@@ -27,9 +27,14 @@ public class Tower : MonoBehaviour
     public float BoostTime = 0;
     public float BoostSpeedup = 1;
 
+    public GameObject Rotator;
+
     // Use this for initialization
     void Start ()
     {
+        Rotator = new GameObject();
+        Rotator.transform.parent = transform.GetChild(0);
+        Rotator.transform.localPosition = new Vector3(0, 50, 0);
         _lr = gameObject.AddComponent<LineRenderer>();
         var mat = new Material(Shader.Find("Standard"));
         mat.color = Color.magenta;
@@ -40,34 +45,52 @@ public class Tower : MonoBehaviour
         if(_elementList.Count > 0)
             Debug.Log("Elements active: " + _elementList.Select(e => e.ToString()).Aggregate((workingSentence, next) => next + ", " + workingSentence));
 
-        var ehwaz = Marker.GetUpgradeRunes().OfType<Ehwaz>().ToList();
+        var upgradeRunes = Marker.GetUpgradeRunes();
+        var ehwaz = upgradeRunes.OfType<Ehwaz>().ToList();
         if (ehwaz.Any())
         {
             atkspeed = Mathf.Pow(1.5f, ehwaz.Count);
         }
 
-        var gebo = Marker.GetUpgradeRunes().OfType<Gebo>().ToList();
+        var gebo = upgradeRunes.OfType<Gebo>().ToList();
         if (gebo.Any())
         {
             moneyOnHit = gebo.Count;
         }
 
-        var hagalaz = Marker.GetUpgradeRunes().OfType<Hagalaz>().ToList();
+        var hagalaz = upgradeRunes.OfType<Hagalaz>().ToList();
         if (hagalaz.Any())
         {
             splashRadius = hagalaz.Count * 7;
         }
 
-        var isa = Marker.GetUpgradeRunes().OfType<Isa>().ToList();
+        var isa = upgradeRunes.OfType<Isa>().ToList();
         if (isa.Any())
         {
             slowIntesity = Mathf.Pow(0.7f, isa.Count);
         }
 
-        var othala = Marker.GetUpgradeRunes().OfType<Othala>().ToList();
+        var othala = upgradeRunes.OfType<Othala>().ToList();
         if (othala.Any())
         {
             moneyOnKill = (int)Mathf.Pow(2, othala.Count);
+        }
+
+        var i = 0;
+        foreach (var upgradeRune in upgradeRunes)
+        {
+            var p = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            
+            p.transform.localScale = Vector3.one * 0.5f;
+            p.GetComponent<MeshRenderer>().material = upgradeRune.transform.parent.GetComponent<MeshRenderer>().material;
+            p.transform.parent = Rotator.transform;
+            var q = Instantiate(p);
+            q.transform.parent = p.transform;
+            q.transform.localPosition = Vector3.zero;
+            q.transform.Rotate(new Vector3(0,0,1), 180);
+            p.transform.localPosition = new Vector3(10, 0, 0);
+            p.transform.localRotation = Quaternion.Euler(90, 0, -90);
+            p.transform.RotateAround(Rotator.transform.position, Vector3.up, i++*360f/upgradeRunes.Count);
         }
     }
 
@@ -147,8 +170,9 @@ public class Tower : MonoBehaviour
         }
 	    _lr.enabled = BeamTarget != null;
 
-        if (Marker.GetUpgradeRunes().Count > 0)
-            transform.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
+        if(Rotator != null)
+            Rotator.transform.RotateAround(Rotator.transform.position, Vector3.up, 75*Time.deltaTime);
+
 
 	    var minionsInRange = WaveManager.AliveMinions.Where(minion => (minion.transform.position - transform.position).magnitude < Range).ToList();
 	    foreach (var minion in minionsInRange)

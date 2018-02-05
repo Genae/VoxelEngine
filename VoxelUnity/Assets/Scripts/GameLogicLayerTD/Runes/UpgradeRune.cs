@@ -90,7 +90,7 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
         private void GetClosestUpgradeTarget(List<Transform> allTargets)
         {
             UpgradeTarget = null;
-            var dist = 20f;
+            var dist = 40f;
             foreach (var t in allTargets)
             {
                 if (Vector3.Distance(transform.position, t.position) < dist)

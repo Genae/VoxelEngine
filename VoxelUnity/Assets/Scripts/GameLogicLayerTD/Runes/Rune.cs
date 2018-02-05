@@ -9,6 +9,7 @@ public class Rune : MonoBehaviour
 {
     public string Name;
     public MeshRenderer SphereRenderer;
+    public bool ExtendedTracking;
 
     public Rune(string name)
     {
@@ -24,11 +25,13 @@ public class Rune : MonoBehaviour
         }
         if ((SphereRenderer = transform.GetComponentInChildren<MeshRenderer>()) == null)
         {
+            transform.localPosition = Vector3.zero;
+            transform.localScale = Vector3.one;
             var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             SphereRenderer = go.GetComponent<MeshRenderer>();
             go.transform.parent = transform;
             go.transform.localPosition = Vector3.zero;
-            go.transform.localScale = Vector3.one * 0.02f;
+            go.transform.localScale = Vector3.one * 0.1f;
         }
     }
 
@@ -36,10 +39,13 @@ public class Rune : MonoBehaviour
     {
         RuneRegistry.Add(this);
         if(SphereRenderer != null)
-            if(InBorders())
-                SphereRenderer.material.color =  Color.green;
+        {
+            if(ExtendedTracking)
+                SphereRenderer.material.color =  Color.yellow;
             else
-                SphereRenderer.material.color = Color.red;
+                SphereRenderer.material.color = Color.green;
+            SphereRenderer.enabled = !UITDScene.Instance.Running;
+        }
     }
 
     private bool InBorders()
