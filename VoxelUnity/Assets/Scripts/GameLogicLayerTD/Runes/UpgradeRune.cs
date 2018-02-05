@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.GameLogicLayerTD.Runes
@@ -44,6 +45,7 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
             var list = GetUpgradeableRunes();
             GetClosestUpgradeTarget(list);
             ConfigLineRenderer();
+            _lr.enabled = !UITDScene.Instance.Running;
         }
 
         private List<Transform> GetUpgradeableRunes()

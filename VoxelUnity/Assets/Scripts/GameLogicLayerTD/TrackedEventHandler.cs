@@ -26,6 +26,7 @@ public class TrackedEventHandler : MonoBehaviour, ITrackableEventHandler
         }
         else if (newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
         {
+            OnTrackingFound();
             GetComponentInChildren<Rune>().ExtendedTracking = true;
         }
         else
