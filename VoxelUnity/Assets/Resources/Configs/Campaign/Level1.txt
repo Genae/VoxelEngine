@@ -1,7 +1,7 @@
 ﻿{
 	"LevelNumber": 1,
 	"MapInfo":{
-		"Path": [[0.1, 0.9], [0.9, 0.9], [0.1, 0.1]],
+		"Path": [[0.9, 0.9]],
 		"Village":[0.9, 0.1]
 	},
 	"Waves": [{
@@ -9,30 +9,25 @@
 		  [
 			{
 			  "Speed": 10,
-			  "Health": 50,
-			  "Scale": 1,
-			  "ElementList": ["fire"],
-			  "Model": "bunny_root"
-			},
-			{
-			  "Speed": 20,
 			  "Health": 25,
 			  "Scale": 1,
-			  "ElementList": ["fire"],
-			  "Model": "wolf_root"
+			  "ElementList": [],
+			  "Model": "bunny_root"
 			}
 		  ],
 		"SpawnPatterns":
 		  [
-			[5, 0],
-			[5, 1]
+			[9, 0]
 		  ]
 		}
 	],
-	"Text": "Well done!\n\nNow we need to build a village and some basic archer towers to defend it from the local wildlife.\nPlace the <b>mannaz</b> rune to create a village and the <b>algiz</b> runes to build some defences.",
-	UnlockedRunes: [{
+	"Text": "Well done!\n\nYou will notice that a black line is now attached to the mannaz rune.\nIt shows the path enemies will take to try and destroy your village.\nA basic archer tower should be enough to deal with this problem for now.\nPlace a algiz rune next to the path to defend it.",
+	"UnlockedRunes": [{
 		"Name": "algiz",
-		"Amount": 2
+		"Amount": 1
+	},{
+		"Name": "jera",
+		"Amount": 1
 	}]
 }
 

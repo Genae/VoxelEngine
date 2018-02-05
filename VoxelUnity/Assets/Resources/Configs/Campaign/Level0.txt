@@ -5,13 +5,9 @@
 		"Village":[0.5, 0.5]
 	},
 	"Waves": [],
-	"Text": "Hello and welcome to RuneTD!\nFirst you will have to print all the markers.\n Then you should put the Table markers around your playing area. If you have done that check if all spheres are green and continue by clicking the play button.",
-	UnlockedRunes: [{
+	"Text": "Hello and welcome to RuneTD!\nFirst you will have to print and cut out all the markers.\nNext, place the Mannaz rune to mark your playing area.\nYou will know that the Rune is tracked correctly if a green circle is showing where the village is supposed to be.\nWhen you are ready press 'Start'",
+	"UnlockedRunes": [{
 		"Name": "algiz",
-		"Amount": 2
-	},
-	{
-		"Name": "mannaz",
 		"Amount": 1
 	}]
 }

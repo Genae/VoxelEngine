@@ -8,100 +8,29 @@
 		"MobLookup":
 		  [
 			{
-			  "Speed": 10,
-			  "Health": 50,
-			  "Scale": 1,
-			  "ElementList": ["fire"],
-			  "Model": "villager_normal_root"
-			},
-			{
 			  "Speed": 20,
-			  "Health": 25,
-			  "Scale": 0.5,
-			  "ElementList": ["fire"],
-			  "Model": "roman_normal_root"
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "wolf_root"
 			}
 		  ],
 		"SpawnPatterns":
 		  [
-			[5, 0],
-			[5, 1]
+			[15, 0]
 		  ]
 		}
 	],
-	"Text": "Easy!\n",
-	UnlockedRunes: [{
-		"Name": "fehu",
-		"Amount": 2
-	},{
-		"Name": "uruz",
-		"Amount": 2
-	},{
-		"Name": "thurisaz",
-		"Amount": 2
-	},{
-		"Name": "ansuz",
-		"Amount": 2
-	},{
-		"Name": "raido",
-		"Amount": 2
-	},{
-		"Name": "kenaz",
-		"Amount": 2
-	},{
-		"Name": "gebo",
-		"Amount": 2
-	},{
-		"Name": "wunjo",
-		"Amount": 2
-	},{
-		"Name": "hagalaz",
-		"Amount": 2
-	},{
-		"Name": "naudhiz",
-		"Amount": 2
-	},{
-		"Name": "isa",
-		"Amount": 2
-	},{
-		"Name": "jera",
-		"Amount": 2
-	},{
+	"Text": "Easy!\n\nIt is not going to stay that way though.\nIn the top left corner of the screen you see your defense value as well as your gold.\nFor every enemy that reaches your village you loose one defence point.\nIf defence drops to 0 you loose.\nLuckily you have the option to increase your defences by spending gold (button on the top left) before you start a wave.\nYou might have noticed, that our treasury is quite empty right now though.\nI recommend building a wheat farm to produce some income.\nTo do that, place a jera rune anywhere on the playing field.\nYou will have to harvest it manually by clicking it on the tablet once the wheat is fully grown.\nOh and don't forget to extend your defensive lines best you can. The enemy will not get any weaker!",
+	"UnlockedRunes": [{
 		"Name": "ihwaz",
 		"Amount": 2
 	},{
-		"Name": "perthro",
-		"Amount": 2
-	},{
-		"Name": "algiz",
-		"Amount": 2
-	},{
-		"Name": "sowilo",
-		"Amount": 2
-	},{
-		"Name": "tiwaz",
-		"Amount": 2
-	},{
-		"Name": "berkano",
-		"Amount": 2
-	},{
-		"Name": "ehwaz",
-		"Amount": 2
-	},{
-		"Name": "mannaz",
-		"Amount": 2
-	},{
-		"Name": "laguz",
-		"Amount": 2
+		"Name": "fehu",
+		"Amount": 1
 	},{
 		"Name": "ingwaz",
-		"Amount": 2
-	},{
-		"Name": "othala",
-		"Amount": 2
-	},{
-		"Name": "dagaz",
-		"Amount": 2
+		"Amount": 1
 	}]
 }
 

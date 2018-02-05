@@ -1,0 +1,48 @@
+﻿{
+	"LevelNumber": 4,
+	"MapInfo":{
+		"Path": [[0.1, 0.1], [0.1, 0.9], [0.9, 0.9]],
+		"Village":[0.9, 0.1]
+	},
+	"Waves": [{
+		"MobLookup":
+		  [
+			{
+			  "Speed": 10,
+			  "Health": 50,
+			  "Scale": 1,
+			  "ElementList": ["fire"],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 40,
+			  "Health": 25,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 20,
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "wolf_root"
+			}
+		  ],
+		"SpawnPatterns":
+		  [
+			[5, 0],
+			[5, 1]
+		  ]
+		}
+	],
+	"Text": "Amazing. The local wildlife did not stand a chance! ",
+	"UnlockedRunes": [{
+		"Name": "ehwaz",
+		"Amount": 1
+	},{
+		"Name": "fehu",
+		"Amount": 1
+	}]
+}
+

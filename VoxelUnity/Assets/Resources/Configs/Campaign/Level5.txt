@@ -1,0 +1,204 @@
+{
+	"LevelNumber": 5,
+	"MapInfo":{
+		"Path": [[0.1, 0.1], [0.1, 0.9], [0.9, 0.9]],
+		"Village":[0.9, 0.1]
+	},
+	"Waves": [{
+		"MobLookup":
+		  [
+			{
+			  "Speed": 5,
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 100,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 200,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 200,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 300,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 300,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 400,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 400,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 500,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 500,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 600,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 600,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 700,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 700,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			}
+		  ],
+		"SpawnPatterns":
+		  [
+			[50, 0],
+			[50, 1],
+			[50, 2],
+			[50, 3],
+			[50, 4],
+			[50, 5],
+			[50, 6],
+			[50, 7],
+			[50, 8],
+			[50, 9],
+			[50, 10],
+			[50, 11],
+			[50, 12],
+			[50, 13],
+		  ]
+		}
+	],
+	"Text": "Free play\n",
+	UnlockedRunes: [{
+		
+		"Name": "fehu",
+		"Amount": 2
+	},{
+		"Name": "uruz",
+		"Amount": 2
+	},{
+		"Name": "thurisaz",
+		"Amount": 2
+	},{
+		"Name": "ansuz",
+		"Amount": 2
+	},{
+		"Name": "raido",
+		"Amount": 2
+	},{
+		"Name": "kenaz",
+		"Amount": 2
+	},{
+		"Name": "gebo",
+		"Amount": 2
+	},{
+		"Name": "wunjo",
+		"Amount": 2
+	},{
+		"Name": "hagalaz",
+		"Amount": 2
+	},{
+		"Name": "naudhiz",
+		"Amount": 2
+	},{
+		"Name": "isa",
+		"Amount": 2
+	},{
+		"Name": "jera",
+		"Amount": 2
+	},{
+		"Name": "ihwaz",
+		"Amount": 2
+	},{
+		"Name": "perthro",
+		"Amount": 2
+	},{
+		"Name": "algiz",
+		"Amount": 2
+	},{
+		"Name": "sowilo",
+		"Amount": 2
+	},{
+		"Name": "tiwaz",
+		"Amount": 2
+	},{
+		"Name": "berkano",
+		"Amount": 2
+	},{
+		"Name": "ehwaz",
+		"Amount": 2
+	},{
+		"Name": "mannaz",
+		"Amount": 2
+	},{
+		"Name": "laguz",
+		"Amount": 2
+	},{
+		"Name": "ingwaz",
+		"Amount": 2
+	},{
+		"Name": "othala",
+		"Amount": 2
+	},{
+		"Name": "dagaz",
+		"Amount": 2
+	}]
+}
+
