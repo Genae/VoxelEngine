@@ -38,7 +38,6 @@
 		          <Label Alignment="Left" Text="Phonetic: {SelectedDescription.Phonetic}" Height="20px" FontColor="black"></Label>
 		          <Label Alignment="Left" Text="Meaning: {SelectedDescription.Meaning}" Height="20px" FontColor="black"></Label>
 		          <Label Alignment="Left" Text="Available Runes: {SelectedDescription.UnlockedCount}" Height="20px" FontColor="black"></Label>
-		          <Label Alignment="Left" Text="Usage: {SelectedDescription.Usage}" Height="20px" FontColor="black"></Label>
 		        </Group>
 		        <Group Orientation="Horizontal">
 			        <Button Click="Place" Text="Place" IsVisible="{PlaceEnabled}"></Button>

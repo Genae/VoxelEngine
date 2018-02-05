@@ -3,6 +3,7 @@ using Assets.Scripts.EngineLayer;
 using Assets.Scripts.GameLogicLayerTD;
 using MarkLight;
 using MarkLight.Views.UI;
+using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
@@ -11,7 +12,7 @@ namespace Assets.Scripts.UI
         public _bool Visible;
         public _string Text;
 	    public _string Text2;
-	    public _string Image;
+	    public Sprite Image;
         public static CampaignText Instance;
 	    private RuneDescription[] _runeDescriptions;
 
@@ -30,14 +31,13 @@ namespace Assets.Scripts.UI
 	    {
 	        Text2.Value = "";
 	        Text.Value = "";
-	        Image.Value = "";
             if (CampaignManager.Instance.NewlyUnlocked.Count > 0)
 	        {
 	            var unlocked = CampaignManager.Instance.NewlyUnlocked[0];
 	            CampaignManager.Instance.NewlyUnlocked.RemoveAt(0);
 	            Text.Value = "<size=50>You unlocked " + unlocked + "!</size>";
 	            var runeDescription = _runeDescriptions.First(r => r.ID.Equals(unlocked.ToLower()));
-	            Image.Value = runeDescription.Image;
+	            SetValue(() => Image, runeDescription.Image);
                 Text2.Value = "Description: " + runeDescription.Usage;
 	            return;
 	        }

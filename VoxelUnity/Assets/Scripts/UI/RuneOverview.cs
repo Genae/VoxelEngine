@@ -128,9 +128,9 @@ namespace Assets.Scripts.UI
             Alpha = UnlockedCount > 0 ? 1 : 0.2f;
         }
 
-        public string Image
+        public Sprite Image
         {
-            get { return "Assets/Resources/Runes/Sprites/" + ID + ".png"; }
+            get { return Resources.Load<Sprite>("Runes/Sprites/" + ID); }
             set { }
         }
     }
