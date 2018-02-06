@@ -23,7 +23,7 @@
 	],
 	"Text": "Easy!\n\nIt is not going to stay that way though.\nIn the top left corner of the screen you see your defense value as well as your gold.\nFor every enemy that reaches your village you loose one defence point.\nIf defence drops to 0 you loose.\nLuckily you have the option to increase your defences by spending gold (button on the top left) before you start a wave.\nYou might have noticed, that our treasury is quite empty right now though.\nI recommend building a wheat farm to produce some income.\nTo do that, place a jera rune anywhere on the playing field.\nYou will have to harvest it manually by clicking it on the tablet once the wheat is fully grown.\nOh and don't forget to extend your defensive lines best you can. The enemy will not get any weaker!",
 	"UnlockedRunes": [{
-		"Name": "ihwaz",
+		"Name": "ehwaz",
 		"Amount": 2
 	},{
 		"Name": "fehu",

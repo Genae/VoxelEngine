@@ -1,0 +1,131 @@
+{
+	"LevelNumber": 6,
+	"MapInfo":{
+		"Path": [[0.1, 0.1], [0.1, 0.9], [0.9, 0.9]],
+		"Village":[0.9, 0.1]
+	},
+	"Waves": [{
+		"MobLookup":
+		  [
+			{
+			  "Speed": 5,
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 100,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 200,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 200,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 300,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 300,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 400,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 400,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 500,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 500,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 600,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 600,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 700,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 700,
+			  "Scale": 0.5,
+			  "ElementList": ["fire"],
+			  "Model": "roman_normal_root"
+			}
+		  ],
+		"SpawnPatterns":
+		  [
+			[50, 0],
+			[50, 1],
+			[50, 2],
+			[50, 3],
+			[50, 4],
+			[50, 5],
+			[50, 6],
+			[50, 7],
+			[50, 8],
+			[50, 9],
+			[50, 10],
+			[50, 11],
+			[50, 12],
+			[50, 13],
+		  ]
+		}
+	],
+	"Text": "Free play\n",
+	UnlockedRunes: []
+}
+

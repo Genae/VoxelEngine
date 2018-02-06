@@ -57,8 +57,17 @@
 		"Name": "algiz",
 		"Amount": 1
 	},{
-		"Name": "laguz",
+		"Name": "hagalaz",
 		"Amount": 1
+	},{
+		"Name": "thurisaz",
+		"Amount": 1
+	},{
+		"Name": "isa",
+		"Amount": 1
+	},{
+		"Name": "sowilo",
+		"Amount": 2
 	}]
 }
 
