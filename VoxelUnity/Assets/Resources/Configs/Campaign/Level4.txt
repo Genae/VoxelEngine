@@ -9,21 +9,21 @@
 		  [
 			{
 			  "Speed": 10,
-			  "Health": 50,
+			  "Health": 75,
 			  "Scale": 1,
 			  "ElementList": [],
 			  "Model": "villager_normal_root"
 			},
 			{
 			  "Speed": 7,
-			  "Health": 25,
+			  "Health": 100,
 			  "Scale": 1,
 			  "ElementList": [],
 			  "Model": "roman_normal_root"
 			},
 			{
 			  "Speed": 7,
-			  "Health": 25,
+			  "Health": 100,
 			  "Scale": 1,
 			  "ElementList": ["fire"],
 			  "Model": "roman_torch_root"

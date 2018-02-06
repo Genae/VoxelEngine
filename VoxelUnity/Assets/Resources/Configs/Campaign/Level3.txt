@@ -9,13 +9,13 @@
 		  [
 			{
 			  "Speed": 5,
-			  "Health": 300,
+			  "Health": 150,
 			  "Scale": 1,
 			  "ElementList": [],
 			  "Model": "bear_root"
 			},{
 			  "Speed": 5,
-			  "Health": 600,
+			  "Health": 300,
 			  "Scale": 1.5,
 			  "ElementList": ["earth"],
 			  "Model": "bear_root"
@@ -29,7 +29,7 @@
 			},
 			{
 			  "Speed": 10,
-			  "Health": 100,
+			  "Health": 75,
 			  "Scale": 1,
 			  "ElementList": [],
 			  "Model": "wolf_root"
