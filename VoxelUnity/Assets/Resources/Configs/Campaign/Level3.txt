@@ -21,14 +21,14 @@
 			  "Model": "bear_root"
 			},
 			{
-			  "Speed": 40,
+			  "Speed": 20,
 			  "Health": 25,
 			  "Scale": 1,
 			  "ElementList": [],
 			  "Model": "bunny_root"
 			},
 			{
-			  "Speed": 20,
+			  "Speed": 10,
 			  "Health": 100,
 			  "Scale": 1,
 			  "ElementList": [],

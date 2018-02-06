@@ -8,7 +8,7 @@
         <Button Text="START" Alpha="0.5" Click="ClickStart" IsDisabled="{Running}"/>
         <Button Text="CLEAR" Alpha="0.5" Click="ClickClear"/>
       </Group>
-      <Label IsVisible="{Visible}" Text="{ErrorText}" Width="300px" Height =" 300px"></Label>
+      <Label IsVisible="{Visible}" Text="{ErrorText}" Width="300px" Height="300px"></Label>
     </UserInterface>
     <EventSystem />
 </UITDScene>

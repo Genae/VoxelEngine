@@ -8,7 +8,7 @@
 		"MobLookup":
 		  [
 			{
-			  "Speed": 20,
+			  "Speed": 10,
 			  "Health": 100,
 			  "Scale": 1,
 			  "ElementList": [],

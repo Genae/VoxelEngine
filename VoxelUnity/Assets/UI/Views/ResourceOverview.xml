@@ -5,6 +5,10 @@
     <Button Click="IncreaseDefense" Text="Increase Defense (Cost: {Lives})" Width="230px" IsDisabled="{Disabled}"></Button>
   </Group>
   <Group Width="100%" Height="100%" Alpha="0.7" BackgroundColor="grey" IsVisible="{Lost}"></Group>
-  <Label FontSize="100" Text="You Lost!" Alignment="Center" IsVisible="{Lost}"></Label>
+  <Group Alignment="Center" Orientation="Vertical" Margin="70px,70px,70px,70px">
+    <Label FontSize="100" Text="You Lost!" Alignment="Center" IsVisible="{Lost}"></Label>
+    <Button Click="RetryLevel" Text="Retry Level" Width="230px" IsVisible="{Lost}"></Button>
+  </Group>
+  
   
 </ResourceOverview>

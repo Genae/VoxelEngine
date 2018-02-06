@@ -21,7 +21,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             _cm = CampaignManager.Instance;
             currentWave = _cm.GetNextWave();
         }
-
+        
         void Update()
         {
             if (!spawn)

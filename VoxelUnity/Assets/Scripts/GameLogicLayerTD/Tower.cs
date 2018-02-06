@@ -210,6 +210,7 @@ public class Tower : MonoBehaviour
             currentCooldown *= 2;
             var proj = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             proj.name = "AoE";
+            proj.GetComponentInChildren<MeshRenderer>().material.color = Color.grey;
             proj.transform.position = transform.position + Vector3.up*3;
             proj.transform.localScale = new Vector3(Range * rangeMultiplier * 0.2f * 2, 0.1f, Range * rangeMultiplier * 0.2f * 2);
             proj.AddComponent<AoE>();
@@ -230,6 +231,7 @@ public class Tower : MonoBehaviour
             var tdMinion = minionsInRange.OrderByDescending(m => m.DistanceMoved).First();
             var proj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             proj.name = "Projectile";
+            proj.GetComponentInChildren<MeshRenderer>().material.color = Color.grey;
             proj.transform.position = transform.position + Vector3.up * 10; //projectile spawn height
             proj.transform.localScale = Vector3.one * 0.7f;
             proj.AddComponent<Projectile>().Init(tdMinion.gameObject, this, splashRadius, atkspeed);

@@ -8,21 +8,21 @@
 		"MobLookup":
 		  [
 			{
-			  "Speed": 15,
+			  "Speed": 10,
 			  "Health": 50,
 			  "Scale": 1,
 			  "ElementList": [],
 			  "Model": "villager_normal_root"
 			},
 			{
-			  "Speed": 10,
+			  "Speed": 7,
 			  "Health": 25,
 			  "Scale": 0.5,
 			  "ElementList": [],
 			  "Model": "roman_normal_root"
 			},
 			{
-			  "Speed": 10,
+			  "Speed": 7,
 			  "Health": 25,
 			  "Scale": 0.5,
 			  "ElementList": ["fire"],

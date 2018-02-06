@@ -23,7 +23,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             Instance = this;
             _levels = ConfigImporter.GetAllConfigs<Level>("Configs/Campaign").ToDictionary(l => l.LevelNumber);
         }
-        
+
         void Start()
         {
             SetLevel(CurrentLevel);
@@ -40,7 +40,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             }
             else
             {
-                UnlockedThisTime = _levels[CurrentLevel-1].UnlockedRunes.ToDictionary(ur => ur.Name, ur => ur.Amount);
+                UnlockedThisTime = _levels[CurrentLevel - 1].UnlockedRunes.ToDictionary(ur => ur.Name, ur => ur.Amount);
             }
             for (var i = 0; i < CurrentLevel; i++)
             {
@@ -51,7 +51,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                         if (!UnlockedRunes.ContainsKey(unlockedRune.Name))
                         {
                             UnlockedRunes[unlockedRune.Name] = 0;
-                            if(i == CurrentLevel - 1)
+                            if (i == CurrentLevel - 1)
                                 NewlyUnlocked.Add(unlockedRune.Name);
                         }
                         UnlockedRunes[unlockedRune.Name] += unlockedRune.Amount;
@@ -64,10 +64,10 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         public Wave GetNextWave()
         {
-            Debug.Log("getting wave " +  _currentWave + " in level " + CurrentLevel);
+            Debug.Log("getting wave " + _currentWave + " in level " + CurrentLevel);
             if (_levels[CurrentLevel].Waves.Length <= _currentWave)
             {
-                if(WaveManager.AliveMinions.Count == 0)
+                if (WaveManager.AliveMinions.Count == 0 && ResourceOverview.Instance.Lives > 0)
                     SetLevel(CurrentLevel + 1);
                 return null;
             }
@@ -79,11 +79,16 @@ namespace Assets.Scripts.GameLogicLayerTD
             Debug.Log(level);
             CurrentLevel = level;
             _currentWave = 0;
-            if(TDMap.Instance != null)
+            if (TDMap.Instance != null)
                 TDMap.Instance.Clear();
             CampaignText.Instance.Text.Value = _levels[level].Text;
             CampaignText.Instance.Visible.Value = true;
             UnlockRunes();
+        }
+
+        public void ResetLevel()
+        {
+            SetLevel(CurrentLevel);
         }
 
         public MapInfo GetMapInfo()
@@ -102,16 +107,16 @@ namespace Assets.Scripts.GameLogicLayerTD
             var list = new List<Vector3>();
             foreach (var pos in Path)
             {
-                list.Add(new Vector3(pos[0]*size.Width + size.MinX, 0, pos[1]*size.Heigth + size.MinZ));
+                list.Add(new Vector3(pos[0] * size.Width + size.MinX, 0, pos[1] * size.Heigth + size.MinZ));
             }
-            if(Village.Length != 0)
+            if (Village.Length != 0)
                 list.Add(new Vector3(Village[0] * size.Width + size.MinX, 0, Village[1] * size.Heigth + size.MinZ));
             return list;
         }
 
         public Vector3 GetVillagePos(MapSize size)
         {
-            if(Village.Length == 0)
+            if (Village.Length == 0)
                 return Vector3.zero;
             return new Vector3(250, 0.01f, 250);
         }

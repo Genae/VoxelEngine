@@ -19,6 +19,13 @@ namespace Assets.Scripts.UI
         {
         }
 
+        public void RetryLevel()
+        {
+            Lost.Value = false;
+            Lives.Value = 10;
+            CampaignManager.Instance.ResetLevel();
+        }
+
         void Start()
         {
             Gold.Value = 10;
