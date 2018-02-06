@@ -33,28 +33,17 @@ namespace Assets.Scripts.UI
             var tdMap = Map.Instance.gameObject.AddComponent<TDMap>();
             tdMap.BuildMap();
         }
-
-        private bool CheckRaido()
-        {
-            if (RuneRegistry.Runes.OfType<Raido>().Count() < 4)
-            {
-                ErrorText.Value = "Please place more raido runes";
-                Cooldown = _timeVisible;
-                return false;
-            }
-            return true;
-        }
-
+        
         private bool CheckMannaz()
         {
-            if (CampaignManager.Instance.CurrentLevel == 0)
-                return true;
             if (RuneRegistry.Runes.OfType<Mannaz>().Count() != 1)
             {
                 ErrorText.Value = "Please place exactly 1 mannaz rune";
                 Cooldown = _timeVisible;
                 return false;
             }
+            if (CampaignManager.Instance.CurrentLevel == 0)
+                return true;
             var pos = RuneRegistry.Runes.OfType<Mannaz>().First().transform.position;
             var mapInfo = CampaignManager.Instance.GetMapInfo();
             var size = TDMap.GetSize(mapInfo.Village);

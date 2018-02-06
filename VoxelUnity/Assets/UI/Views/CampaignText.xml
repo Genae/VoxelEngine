@@ -3,7 +3,7 @@
     <Panel Id="ScrollMe" Width="800" Height="850" CanScrollHorizontally="false">
       <Group Orientation="Vertical" Width="800" Height="1400" Alignment="Top">
         <Label AdjustToText="Height" Width="500" Text="{Text}" HorizontalOverflow="Wrap" Alignment="Top" FontColor="black" SupportRichText="true" FontSize="30"></Label>
-        <Image Sprite="{Image}" Margin="3" Width="300px" Height="300px"/>
+        <Image Sprite="{Image}" Margin="3" Width="300px" Height="300px" IsVisible="{ShowImage}"/>
         <Label AdjustToText="Height" Width="500" Text="{Text2}" HorizontalOverflow="Wrap" Alignment="Top" FontColor="black" SupportRichText="true" FontSize="30"></Label>
       </Group>
     </Panel>

@@ -13,6 +13,7 @@ namespace Assets.Scripts.UI
         public _string Text;
 	    public _string Text2;
 	    public Sprite Image;
+	    public _bool ShowImage;
         public static CampaignText Instance;
 	    private RuneDescription[] _runeDescriptions;
 
@@ -32,6 +33,7 @@ namespace Assets.Scripts.UI
 	        Text2.Value = "";
 	        Text.Value = "";
 	        SetValue(() => Image, null);
+	        ShowImage.Value = false;
             if (CampaignManager.Instance.NewlyUnlocked.Count > 0)
 	        {
 	            var unlocked = CampaignManager.Instance.NewlyUnlocked[0];
@@ -39,6 +41,7 @@ namespace Assets.Scripts.UI
 	            Text.Value = "<size=50>You unlocked " + unlocked + "!</size>";
 	            var runeDescription = _runeDescriptions.First(r => r.ID.Equals(unlocked.ToLower()));
 	            SetValue(() => Image, runeDescription.Image);
+	            ShowImage.Value = true;
                 Text2.Value = "Description: " + runeDescription.Usage;
 	            return;
 	        }
@@ -50,7 +53,9 @@ namespace Assets.Scripts.UI
 	                Text.Value += utt.Value + "x <b>" + utt.Key + "</b> (you now have " + CampaignManager.Instance.UnlockedRunes[utt.Key] + ")\n";
 	            }
 	            CampaignManager.Instance.UnlockedThisTime.Clear();
-	            return;
+	            SetValue(() => Image, null);
+	            ShowImage.Value = false;
+                return;
 	        }
             Visible.Value = false;
         }

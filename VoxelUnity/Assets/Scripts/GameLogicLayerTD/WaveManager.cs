@@ -17,11 +17,16 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         void Start()
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
             AliveMinions = new List<TDMinion>();
             _cm = CampaignManager.Instance;
             currentWave = _cm.GetNextWave();
         }
-        
+
         void Update()
         {
             if (!spawn)

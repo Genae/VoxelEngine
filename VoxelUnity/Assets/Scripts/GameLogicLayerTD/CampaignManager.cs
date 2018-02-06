@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Assets.Scripts.EngineLayer;
 using Assets.Scripts.UI;
+using Newtonsoft.Json;
 
 namespace Assets.Scripts.GameLogicLayerTD
 {
@@ -71,7 +72,7 @@ namespace Assets.Scripts.GameLogicLayerTD
                     SetLevel(CurrentLevel + 1);
                 return null;
             }
-            return _levels[CurrentLevel].Waves[_currentWave++];
+            return _levels[CurrentLevel].Waves[_currentWave++].Copy();
         }
 
         public void SetLevel(int level)
@@ -82,6 +83,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             if (TDMap.Instance != null)
                 TDMap.Instance.Clear();
             CampaignText.Instance.Text.Value = _levels[level].Text;
+            CampaignText.Instance.Image = null;
             CampaignText.Instance.Visible.Value = true;
             UnlockRunes();
         }
@@ -162,6 +164,11 @@ namespace Assets.Scripts.GameLogicLayerTD
                 return null;
             internalPatternIndex++;
             return MobLookup[SpawnPatterns[patternIndex][internalPatternIndex]];
+        }
+
+        public Wave Copy()
+        {
+            return JsonConvert.DeserializeObject<Wave>(JsonConvert.SerializeObject(this));
         }
     }
 
