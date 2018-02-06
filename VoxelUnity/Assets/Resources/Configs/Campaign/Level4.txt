@@ -17,14 +17,14 @@
 			{
 			  "Speed": 7,
 			  "Health": 25,
-			  "Scale": 0.5,
+			  "Scale": 1,
 			  "ElementList": [],
 			  "Model": "roman_normal_root"
 			},
 			{
 			  "Speed": 7,
 			  "Health": 25,
-			  "Scale": 0.5,
+			  "Scale": 1,
 			  "ElementList": ["fire"],
 			  "Model": "roman_torch_root"
 			}
