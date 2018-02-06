@@ -22,7 +22,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         {
             Marker = marker;
             var position = marker.transform.position;
-            var _size = 7;
+            var _size = 13;
             _farm = new GameObject("Farm").AddComponent<Farm>();
             _farm.transform.parent = GameObject.Find("Map").transform;
             var fehu = Marker.GetUpgradeRunes().OfType<Fehu>();

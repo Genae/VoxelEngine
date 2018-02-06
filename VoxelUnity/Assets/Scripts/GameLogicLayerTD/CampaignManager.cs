@@ -32,11 +32,11 @@ namespace Assets.Scripts.GameLogicLayerTD
         private void UnlockRunes()
         {
             UnlockedRunes.Clear();
-            UnlockedRunes["mannaz"] = 4;
+            UnlockedRunes["mannaz"] = 1;
             if (CurrentLevel == 0)
             {
                 NewlyUnlocked.Add("mannaz");
-                UnlockedThisTime["mannaz"] = 4;
+                UnlockedThisTime["mannaz"] = 1;
             }
             else
             {

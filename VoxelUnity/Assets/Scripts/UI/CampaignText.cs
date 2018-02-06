@@ -31,6 +31,7 @@ namespace Assets.Scripts.UI
 	    {
 	        Text2.Value = "";
 	        Text.Value = "";
+	        SetValue(() => Image, null);
             if (CampaignManager.Instance.NewlyUnlocked.Count > 0)
 	        {
 	            var unlocked = CampaignManager.Instance.NewlyUnlocked[0];
