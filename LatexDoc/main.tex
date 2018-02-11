@@ -1,0 +1,98 @@
+\documentclass[headsepline,footsepline,footinclude=false,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc]{scrbook}
+\usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage[final]{microtype}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{cleveref}
+\usepackage{wrapfig}
+\usepackage{verbatim}
+\usepackage[%
+  backend=biber,
+  url=false,
+  style=numeric,
+  maxnames=4,
+  minnames=3,
+  maxbibnames=99,
+  firstinits,
+  uniquename=init]{biblatex}
+  
+\bibliography{bibliography/literature}
+
+\begin{document}
+
+\begin{titlepage}
+  \oddsidemargin=\evensidemargin\relax
+  \textwidth=\dimexpr\paperwidth-2\evensidemargin-2in\relax
+  \hsize=\textwidth\relax
+
+  \centering
+
+  {\Large\MakeUppercase {Master Practical Course at}} \\
+  {\Large\MakeUppercase {Technische Universität München (TUM)}}
+
+  \vspace{35mm}
+  {\Huge\bfseries Rune TD}
+  
+  \vspace{10mm}
+  {\LARGE\bfseries Serious Celtic Augmented Reality} \\
+  {\LARGE\bfseries Tower Defense Game}
+
+  \vspace{30mm}
+  {\LARGE Stefan Stark}
+  
+  \vspace{5mm}
+  {\LARGE Florian Höschl}
+  
+  \vspace{5mm}
+  {\LARGE Dennis-Florian Herr}
+  
+  \vspace{5mm}
+  {\LARGE Michael Felleisen}
+  
+  \vspace{20mm}
+  {\LARGE Adviser:}
+  
+  \vspace{5mm}
+  {\LARGE Prof. Gudrun Klinker, Ph.D.}
+  
+  \vspace{5mm}
+  {\LARGE Dipl.-Inf. David A. Plecher, M.A.}
+
+  \vspace{20mm}
+
+\end{titlepage}
+
+\frontmatter{}
+
+%\input{chapters/00_abstract}
+
+\microtypesetup{protrusion=false}
+%\tableofcontents{}
+\microtypesetup{protrusion=true}
+
+\mainmatter{}
+
+\input{chapters/introduction}
+%\input{chapters/02_background}
+%\input{chapters/03_relatedwork}
+%\input{chapters/04_approach}
+\input{chapters/game}
+\input{chapters/mechanics}
+\input{chapters/userstudy}
+%\input{chapters/08_futurework}
+%\input{chapters/09_conclusion}
+% add chapters like this
+
+\appendix{}
+%\input{chapters/10_appendix}
+
+\microtypesetup{protrusion=false}
+%\listoffigures{}
+%\listoftables{}
+\microtypesetup{protrusion=true}
+\printbibliography{}
+
+
+\end{document}
+
