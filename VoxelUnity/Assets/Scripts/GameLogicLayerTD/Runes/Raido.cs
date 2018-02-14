@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Assets.Scripts.UI;
-
-namespace Assets.Scripts.GameLogicLayerTD.Runes
+﻿namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class Raido : Rune //path
     {

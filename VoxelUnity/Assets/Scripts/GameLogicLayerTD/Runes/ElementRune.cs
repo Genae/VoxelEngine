@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace Assets.Scripts.GameLogicLayerTD.Runes
+﻿namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class ElementRune : UpgradeRune
     {
