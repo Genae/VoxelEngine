@@ -245,3 +245,5 @@ VoxelUnity/VoxelUnity.Editor.csproj
 /VoxelUnity/Assets/Editor/Vuforia/**/*.meta
 /VoxelUnity/Assets/Plugins/**/*.meta
 /VoxelUnity/Assets/Resources/Configs/RuneDescriptions/RuneCheatSheet.json.meta.orig
+/VoxelUnity/Assets/Plugins.meta
+/VoxelUnity/QCAR/somedata16

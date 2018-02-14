@@ -1,0 +1,56 @@
+﻿{
+	"LevelNumber": 104,
+	"MapInfo":{
+		"Path": [[0.1, 0.9], [0.1, 0.5], [0.9, 0.9] , [0.9, 0.5] , [0.5, 0.5]],
+		"Village":[0.5, 0.1]
+	},
+	"Waves": [{
+		"MobLookup":
+		  [
+			{
+			  "Speed": 10,
+			  "Health": 75,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "villager_normal_root"
+			},
+			{
+			  "Speed": 7,
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 7,
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": ["fire"],
+			  "Model": "roman_torch_root"
+			}
+		  ],
+		"SpawnPatterns":
+		  [
+			[5, 1],
+			[5, 2],
+			[5,1],
+			[5,0]
+		  ]
+		}
+	],
+	"Text": "Amazing. The local wildlife did not stand a chance!\n\nI am kidding. The real challenge starts now.\nOur coast guards reported some roman ships landing close by.\nTheir vanguard could be here any minute.\n\nLuckily the druids have finished researching some more upgrade runes just in time. We are going to need them.",
+	"UnlockedRunes": [{
+		"Name": "laguz",
+		"Amount": 3
+	},{
+		"Name": "kenaz",
+		"Amount": 3
+	},{
+		"Name": "wunjo",
+		"Amount": 3
+	},{
+		"Name": "ihwaz",
+		"Amount": 3
+	}]
+}
+

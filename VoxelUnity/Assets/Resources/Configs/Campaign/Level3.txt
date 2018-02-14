@@ -1,7 +1,7 @@
 ﻿{
 	"LevelNumber": 3,
 	"MapInfo":{
-		"Path": [[0.1, 0.9], [0.1, 0.5], [0.9, 0.9] , [0.9, 0.5] , [0.5, 0.5]],
+		"Path": [[0.1, 0.9], [0.9, 0.9], [0.5, 0.5]],
 		"Village":[0.5, 0.1]
 	},
 	"Waves": [{
@@ -52,22 +52,14 @@
 		  ]
 		}
 	],
-	"Text": "All right. If you did not slack off on your wheat harvesting duties we should have some gold to spend now.\n And we are going to need it.\nRumor has it, that the bear population in the neighbouring forest is getting out of hand.\nSome of them are going to have to leave their home and start roaming the area.\nWe have to be prepared!\nUpgrade your Towers by placing ehwaz runes next to them.\nThat ought to up their shot speed.\n\nIf you don't want to manually harvest the farm anymore you can upgrade it to a cattle farm by placing a fehu rune next to it.\nCattle is generating a steady amount of income without requiring any maintenance.\nAlternatively the wheat farm can be upgraded to a wine farm by placing a ingwaz rune next to it.\nThat makes the farm more profitable, however it grows slower and has to be harvested manually still.",
+	"Text": "All right. If you did not slack off on your wheat harvesting duties we should have some gold to spend now.\n And we are going to need it.\nRumor has it, that the bear population in the neighbouring forest is getting out of hand.\nSome of them are going to have to leave their home and start roaming the area.\nWe have to be prepared!\nUpgrade your Towers by placing ehwaz runes next to them.\nThat ought to up their shot speed.",
 	"UnlockedRunes": [{
-		"Name": "algiz",
-		"Amount": 1
-	},{
 		"Name": "hagalaz",
-		"Amount": 1
+		"Amount": 2
 	},{
 		"Name": "thurisaz",
-		"Amount": 1
-	},{
-		"Name": "isa",
-		"Amount": 1
-	},{
-		"Name": "sowilo",
 		"Amount": 2
-	}]
+	}
+	]
 }
 

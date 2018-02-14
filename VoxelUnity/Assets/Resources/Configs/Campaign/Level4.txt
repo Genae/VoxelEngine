@@ -1,56 +1,43 @@
 ﻿{
 	"LevelNumber": 4,
 	"MapInfo":{
-		"Path": [[0.1, 0.9], [0.1, 0.5], [0.9, 0.9] , [0.9, 0.5] , [0.5, 0.5]],
+		"Path": [[0.1, 0.9], [0.9, 0.9], [0.5, 0.5]],
 		"Village":[0.5, 0.1]
 	},
 	"Waves": [{
 		"MobLookup":
 		  [
 			{
-			  "Speed": 10,
+			  "Speed": 15,
+			  "SpawnTime": 0.2,
+			  "Health": 30,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "bunny_root"
+			},
+			{
+			  "Speed": 14,
 			  "Health": 75,
 			  "Scale": 1,
 			  "ElementList": [],
-			  "Model": "villager_normal_root"
-			},
-			{
-			  "Speed": 7,
-			  "Health": 100,
-			  "Scale": 1,
-			  "ElementList": [],
-			  "Model": "roman_normal_root"
-			},
-			{
-			  "Speed": 7,
-			  "Health": 100,
-			  "Scale": 1,
-			  "ElementList": ["fire"],
-			  "Model": "roman_torch_root"
+			  "Model": "wolf_root"
 			}
 		  ],
 		"SpawnPatterns":
 		  [
-			[5, 1],
-			[5, 2],
-			[5,1],
-			[5,0]
+			[50, 0],
+			[1,1]
 		  ]
 		}
 	],
-	"Text": "Amazing. The local wildlife did not stand a chance!\n\nI am kidding. The real challenge starts now.\nOur coast guards reported some roman ships landing close by.\nTheir vanguard could be here any minute.\n\nLuckily the druids have finished researching some more upgrade runes just in time. We are going to need them.",
+	"Text": "Good job. The bear problem seems to be under control for now. However in our effort to defend from the bears, several wolfes were killed as well. This might sould like a good thing but let me tell you, we are going to have a massive rabbit boom if there are not enough natural predators around. We will have to guard our grannary. Our present defense system is not fit to deal with the vast amount of rabbits and their signature speed. Some form of area damage is necessary.",
 	"UnlockedRunes": [{
-		"Name": "laguz",
-		"Amount": 3
+		"Name": "fehu",
+		"Amount": 1
 	},{
-		"Name": "kenaz",
-		"Amount": 3
-	},{
-		"Name": "wunjo",
-		"Amount": 3
-	},{
-		"Name": "ihwaz",
-		"Amount": 3
-	}]
+		"Name": "ingwaz",
+		"Amount": 1
+	}
+	]
 }
 

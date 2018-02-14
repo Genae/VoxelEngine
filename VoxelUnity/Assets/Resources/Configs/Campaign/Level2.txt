@@ -25,12 +25,7 @@
 	"UnlockedRunes": [{
 		"Name": "ehwaz",
 		"Amount": 2
-	},{
-		"Name": "fehu",
-		"Amount": 1
-	},{
-		"Name": "ingwaz",
-		"Amount": 1
-	}]
+	}
+	]
 }
 
