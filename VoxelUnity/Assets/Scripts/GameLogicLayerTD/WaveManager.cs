@@ -40,7 +40,6 @@ namespace Assets.Scripts.GameLogicLayerTD
             currentCooldown -= Time.deltaTime;
             if (currentCooldown > 0)
                 return;
-            currentCooldown = cooldown;
             spawn = SpawnUnit(TDMap.Instance.Path);
         }
 
@@ -50,7 +49,10 @@ namespace Assets.Scripts.GameLogicLayerTD
             var mobStats = currentWave.GetMobStats();
             if (mobStats == null)
                 return false;
-            var go = Instantiate(GetModel(mobStats.Model)) as GameObject;
+            if (mobStats.SpawnTime <= 0)
+                mobStats.SpawnTime = 1f;
+             currentCooldown = cooldown*mobStats.SpawnTime;
+            var go = Instantiate(GetModel(mobStats.Model));
             var minion = go.AddComponent<TDMinion>();
             AliveMinions.Add(minion);
             minion.Init(instancePath, mobStats.ElementList.ToList(), mobStats.Speed, mobStats.Health, mobStats.Scale);

@@ -179,5 +179,6 @@ namespace Assets.Scripts.GameLogicLayerTD
         public string Model;
         public float Scale;
         public ElementType[] ElementList;
+        public float SpawnTime;
     }
 }
