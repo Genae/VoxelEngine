@@ -9,7 +9,7 @@
 		  [
 			{
 			  "Speed": 15,
-			  "SpawnTime": 0.2,
+			  "SpawnTime": 0.1,
 			  "Health": 30,
 			  "Scale": 1,
 			  "ElementList": [],

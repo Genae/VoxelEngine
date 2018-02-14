@@ -1,0 +1,66 @@
+﻿{
+	"LevelNumber": 7,
+	"MapInfo":{
+		"Path": [[0.1, 0.9], [0.1, 0.5], [0.9, 0.9] , [0.9, 0.5] , [0.5, 0.5]],
+		"Village":[0.5, 0.1]
+	},
+	"Waves": [{
+		"MobLookup":
+		  [
+			{
+			  "Speed": 10,
+			  "Health": 100,
+			  "Scale": 1,
+			  "ElementList": ["fire"],
+			  "Model": "roman_torch_root"
+			},
+			{
+			  "Speed": 10,
+			  "Health": 120,
+			  "Scale": 1,
+			  "ElementList": [],
+			  "Model": "roman_normal_root"
+			},
+			{
+			  "Speed": 5,
+			  "Health": 600,
+			  "Scale": 1,
+			  "ElementList": ["air"],
+			  "Model": "ram_root"
+			},
+			{
+			  "Speed": 6,
+			  "Health": 300,
+			  "Scale": 1,
+			  "ElementList": ["air"],
+			  "Model": "catapult_root"
+			}
+		  ],
+		"SpawnPatterns":
+		  [
+			[5, 1],
+			[1, 3],
+			[1,0],
+			[5,1],
+			[1,2],
+			[3,0],
+			[2,3],
+			[5,1],
+			[5,0],
+			[2,3],
+			[1,2]
+		  ]
+		}
+	],
+	"Text": "These catapults and rams are harder to deal with then expected. I think it is time we take advantage of the elements. I reckon a fire upgrade is just what we need to vaporize those pesky siege weapons. Also, just in case the romans try to pull something with fire themselves, the water upgrade is ready as well.",
+	"UnlockedRunes": [
+	{
+		"Name": "laguz",
+		"Amount": 1
+	},{
+		"Name": "laguz",
+		"Amount": 1
+	}
+	]
+}
+
