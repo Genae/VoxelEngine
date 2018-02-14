@@ -12,13 +12,25 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
         {
         }
 
-        void Start()
+        public override void Start()
         {
-            _rangeIndicator = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            _rangeIndicator.transform.parent = transform;
-            meshRenderer = _rangeIndicator.GetComponent<MeshRenderer>();
-            SetFade(meshRenderer.material);
-            meshRenderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.1f);
+            base.Start();
+            var child = gameObject.transform.Find("RangeIndicator");
+            if (child == null)
+            {
+                _rangeIndicator = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                _rangeIndicator.name = "RangeIndicator";
+                _rangeIndicator.transform.parent = transform;
+                _rangeIndicator.transform.rotation = Quaternion.identity;
+                meshRenderer = _rangeIndicator.GetComponent<MeshRenderer>();
+                SetFade(meshRenderer.material);
+                meshRenderer.material.color = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+            }
+            else
+            {
+                _rangeIndicator = child.gameObject;
+                meshRenderer = _rangeIndicator.GetComponent<MeshRenderer>();
+            }
         }
 
         public override void Update()
@@ -34,8 +46,8 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
                 var rangeMultiplier = Mathf.Pow(1.5f, thurisaz.Count);
                 range = range * rangeMultiplier * Tower.ThurisazRangeMultiplier;
             }
-            _rangeIndicator.transform.position = transform.position + Vector3.up * 3;
-            _rangeIndicator.transform.localScale = new Vector3(range * 2, 0.1f, range * 2);
+            _rangeIndicator.transform.position = new Vector3(transform.position.x, 3, transform.position.z);
+            _rangeIndicator.transform.localScale = new Vector3(range * 2, 0.1f, range * 2) / _rangeIndicator.transform.parent.lossyScale.x;
         }
 
         private void SetFade(Material material)

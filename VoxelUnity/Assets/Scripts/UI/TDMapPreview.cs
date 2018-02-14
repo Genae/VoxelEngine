@@ -59,7 +59,7 @@ namespace Assets.Scripts.UI
             if (RunePreview == null)
             {
                 RunePreview = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                RunePreview.GetComponent<MeshRenderer>().material = Resources.Load(string.Format("Runes/Materials/mannaz"), typeof(Material)) as Material;
+                RunePreview.GetComponent<MeshRenderer>().material = Resources.Load("Runes/Materials/mannaz", typeof(Material)) as Material;
                 SetFade(RunePreview.GetComponent<MeshRenderer>().material);
                 RunePreview.GetComponent<MeshRenderer>().material.color = new Color(1, 1, 1, 0.5f);
                 RunePreview.name = "preview";
