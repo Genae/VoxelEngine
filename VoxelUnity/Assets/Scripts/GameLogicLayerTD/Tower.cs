@@ -8,8 +8,10 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public Algiz Marker;
+    //Statics
+    public static int Range = 50;
+    public static float ThurisazRangeMultiplier = 0.2f;
 
-    public int Range = 50;
     public float currentCooldown;
     public float cooldown = 1;
     public float atkspeed = 1;
@@ -22,6 +24,7 @@ public class Tower : MonoBehaviour
 
     public TDMinion BeamTarget;
     public float BeamMultiplier;
+    public float RangeMultiplier;
     private LineRenderer _lr;
 
     public float BoostTime = 0;
@@ -56,6 +59,12 @@ public class Tower : MonoBehaviour
         if (gebo.Any())
         {
             moneyOnHit = gebo.Count;
+        }
+
+        var thurisaz = upgradeRunes.OfType<Thurisaz>().ToList();
+        if (thurisaz.Any())
+        {
+            RangeMultiplier = Mathf.Pow(1.5f, thurisaz.Count);
         }
 
         var hagalaz = upgradeRunes.OfType<Hagalaz>().ToList();
@@ -202,8 +211,7 @@ public class Tower : MonoBehaviour
         var hagalaz = Marker.GetUpgradeRunes().OfType<Hagalaz>().ToList();
         if (thurisaz.Any()) //ground attack
         {
-            var rangeMultiplier = Mathf.Pow(1.5f, thurisaz.Count);
-            minionsInRange = minionsInRange.Where(minion => (minion.transform.position - transform.position).magnitude < Range * rangeMultiplier * 0.4f).ToList();
+            minionsInRange = minionsInRange.Where(minion => (minion.transform.position - transform.position).magnitude < Range * RangeMultiplier * ThurisazRangeMultiplier).ToList();
             foreach (var minion in minionsInRange)
             {
                 HitMinion(minion);
@@ -213,7 +221,7 @@ public class Tower : MonoBehaviour
             proj.name = "AoE";
             proj.GetComponentInChildren<MeshRenderer>().material.color = Color.grey;
             proj.transform.position = transform.position + Vector3.up*3;
-            proj.transform.localScale = new Vector3(Range * rangeMultiplier * 0.4f * 2, 0.1f, Range * rangeMultiplier * 0.4f * 2);
+            proj.transform.localScale = new Vector3(Range * RangeMultiplier * ThurisazRangeMultiplier * 2, 0.1f, Range * RangeMultiplier * ThurisazRangeMultiplier * 2);
             proj.AddComponent<AoE>();
         }
         else if (sowilo.Any())

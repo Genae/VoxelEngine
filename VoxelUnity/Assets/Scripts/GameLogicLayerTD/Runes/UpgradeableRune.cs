@@ -6,12 +6,12 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 {
     public class UpgradeableRune : Rune
     {
-        private List<UpgradeRune> _upgradeRunes = new List<UpgradeRune>();
+        protected List<UpgradeRune> UpgradeRunes = new List<UpgradeRune>();
 
         public override void Update()
         {
             base.Update();
-            _upgradeRunes.Clear();
+            UpgradeRunes.Clear();
             var mr = transform.parent.GetComponent<MeshRenderer>();
             if(mr != null)
                 mr.material.color = GetUpgradeRunes().Count > 0 ? Color.blue : Color.white;
@@ -19,18 +19,18 @@ namespace Assets.Scripts.GameLogicLayerTD.Runes
 
         public List<UpgradeRune> GetUpgradeRunes()
         {
-            if (_upgradeRunes.Count == 0)
-                _upgradeRunes = RuneRegistry.Runes.OfType<UpgradeRune>().ToList();
-            if (_upgradeRunes.Count > 0)
-                _upgradeRunes = _upgradeRunes.Where(u => transform.Equals(u.UpgradeTarget)).ToList();
+            if (UpgradeRunes.Count == 0)
+                UpgradeRunes = RuneRegistry.Runes.OfType<UpgradeRune>().ToList();
+            if (UpgradeRunes.Count > 0)
+                UpgradeRunes = UpgradeRunes.Where(u => transform.Equals(u.UpgradeTarget)).ToList();
 
-            foreach (var perthoRune in _upgradeRunes.OfType<Pethro>().ToList())
+            foreach (var perthoRune in UpgradeRunes.OfType<Pethro>().ToList())
             {
                 var result = perthoRune.Transform(this);
-                _upgradeRunes.Remove(perthoRune);
-                _upgradeRunes.Add(result);
+                UpgradeRunes.Remove(perthoRune);
+                UpgradeRunes.Add(result);
             }
-            return _upgradeRunes;
+            return UpgradeRunes;
         }
 
         public UpgradeableRune(string name) : base(name)
