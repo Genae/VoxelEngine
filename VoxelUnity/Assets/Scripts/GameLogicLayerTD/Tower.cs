@@ -199,10 +199,11 @@ public class Tower : MonoBehaviour
     {
         var thurisaz = Marker.GetUpgradeRunes().OfType<Thurisaz>().ToList();
         var sowilo = Marker.GetUpgradeRunes().OfType<Sowilo>().ToList();
+        var hagalaz = Marker.GetUpgradeRunes().OfType<Hagalaz>().ToList();
         if (thurisaz.Any()) //ground attack
         {
             var rangeMultiplier = Mathf.Pow(1.5f, thurisaz.Count);
-            minionsInRange = minionsInRange.Where(minion => (minion.transform.position - transform.position).magnitude < Range * rangeMultiplier * 0.2f).ToList();
+            minionsInRange = minionsInRange.Where(minion => (minion.transform.position - transform.position).magnitude < Range * rangeMultiplier * 0.4f).ToList();
             foreach (var minion in minionsInRange)
             {
                 HitMinion(minion);
@@ -212,7 +213,7 @@ public class Tower : MonoBehaviour
             proj.name = "AoE";
             proj.GetComponentInChildren<MeshRenderer>().material.color = Color.grey;
             proj.transform.position = transform.position + Vector3.up*3;
-            proj.transform.localScale = new Vector3(Range * rangeMultiplier * 0.2f * 2, 0.1f, Range * rangeMultiplier * 0.2f * 2);
+            proj.transform.localScale = new Vector3(Range * rangeMultiplier * 0.4f * 2, 0.1f, Range * rangeMultiplier * 0.4f * 2);
             proj.AddComponent<AoE>();
         }
         else if (sowilo.Any())
@@ -220,11 +221,30 @@ public class Tower : MonoBehaviour
             if (BeamTarget == null)
             {
                 BeamTarget = minionsInRange.OrderByDescending(m => m.DistanceMoved).First();
-                BeamMultiplier = 0.5f;
+                BeamMultiplier = 0.3f;
             }
             HitMinion(BeamTarget, BeamMultiplier);
             BeamMultiplier *= Mathf.Pow(1.1f, sowilo.Count);
-            currentCooldown *= 0.2f;
+            currentCooldown *= 0.5f;
+        }
+        else if(hagalaz.Any())// Hagel
+        {
+            var tdMinion = minionsInRange.OrderByDescending(m => m.DistanceMoved).First();
+            var proj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            proj.name = "Projectile";
+            proj.GetComponentInChildren<MeshRenderer>().material.color = Color.grey;
+            proj.transform.position = tdMinion.transform.position + Vector3.up * 30; //projectile spawn height
+            proj.transform.localScale = Vector3.one * 0.7f;
+            proj.AddComponent<Projectile>().Init(tdMinion.gameObject, this, splashRadius, atkspeed);
+            for (var i = 0; i < 10; i++)
+            {
+                var projs = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                projs.name = "Projectile";
+                projs.GetComponentInChildren<MeshRenderer>().material.color = new Color(0f, 0f, 0.2f);
+                projs.transform.parent = proj.transform;
+                projs.transform.localPosition = new Vector3(Random.Range(0.1f, splashRadius), Random.Range(5f, -25f), 0);
+                projs.transform.RotateAround(proj.transform.position, Vector3.up, Random.Range(0, 360));
+            }
         }
         else // projectile
         {
