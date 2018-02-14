@@ -30,10 +30,23 @@ namespace Assets.Scripts.UI
                 return;
             if (!CheckUnlocked())
                 return;
+            if (!CheckMaxCount())
+                return;
             var tdMap = Map.Instance.gameObject.AddComponent<TDMap>();
             tdMap.BuildMap();
         }
-        
+
+        private bool CheckMaxCount()
+        {
+            if (RuneRegistry.Runes.Count > 15)
+            {
+                ErrorText.Value = "Please do not place more than 15 runes.";
+                Cooldown = _timeVisible;
+                return false;
+            }
+            return true;
+        }
+
         private bool CheckMannaz()
         {
             if (RuneRegistry.Runes.OfType<Mannaz>().Count() != 1)
