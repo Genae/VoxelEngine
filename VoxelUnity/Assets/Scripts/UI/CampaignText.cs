@@ -42,7 +42,7 @@ namespace Assets.Scripts.UI
 	            var runeDescription = _runeDescriptions.First(r => r.ID.Equals(unlocked.ToLower()));
 	            SetValue(() => Image, runeDescription.Image);
 	            ShowImage.Value = true;
-                Text2.Value = "Description: " + runeDescription.Usage;
+                Text2.Value = "Meaning:" + runeDescription.Meaning + "\nDescription: " + runeDescription.Usage;
 	            return;
 	        }
 	        if (CampaignManager.Instance.UnlockedThisTime.Count > 0)

@@ -35,23 +35,31 @@ namespace Assets.Scripts.GameLogicLayerTD
             {
                 var c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f));
                 var cowComp = c.AddComponent<Cow>();
-                cowComp.IncomeOnCooldown = 2;
+                cowComp.IncomeOnCooldown = 7;
+                c.transform.parent = _farm.transform.parent;
                 c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(4, 0, 1));
+                c.transform.parent = _farm.transform.parent;
                 c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(2, 0, 3));
-                c.transform.RotateAround(Vector3.up, 90);
+                c.transform.Rotate(Vector3.up, 90);
+                c.transform.parent = _farm.transform.parent;
                 c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(0, 0, 2));
-                c.transform.RotateAround(Vector3.up, 90);
+                c.transform.Rotate(Vector3.up, 90);
+                c.transform.parent = _farm.transform.parent;
                 c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(-2, 0, 2));
-                c.transform.RotateAround(Vector3.up, 180);
+                c.transform.Rotate(Vector3.up, 180);
+                c.transform.parent = _farm.transform.parent;
                 c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(-2, 0, -3));
-                c.transform.RotateAround(Vector3.up, 180);
+                c.transform.Rotate(Vector3.up, 180);
+                c.transform.parent = _farm.transform.parent;
                 c = ObjectManager.PlaceItemOfType("Cow", position + Vector3.up * (height + 0.5f) + new Vector3(0, 0, -4));
-                c.transform.RotateAround(Vector3.up, 270);
+                c.transform.Rotate(Vector3.up, 270);
+                c.transform.parent = _farm.transform.parent;
                 if (uruz.Any())
                 {
                     c = ObjectManager.PlaceItemOfType("Ox", position + Vector3.up * (height + 0.5f) + new Vector3(3, 0, -4));
-                    c.transform.RotateAround(Vector3.up, 270);
-                    cowComp.IncomeOnCooldown += uruz.Count();
+                    c.transform.Rotate(Vector3.up, 270);
+                    c.transform.parent = _farm.transform.parent;
+                    cowComp.IncomeOnCooldown += uruz.Count;
                 }
             }
             else
@@ -60,9 +68,10 @@ namespace Assets.Scripts.GameLogicLayerTD
                 {
                     _farm.CropType = CropManager.Instance.GetCropByName("Sunflower");
                     Income = 130;
-                    if (wunjo.Any())
+                    var wunjos = wunjo as Wunjo[] ?? wunjo.ToArray();
+                    if (wunjos.Any())
                     {
-                        Income = (int)(Income * Mathf.Pow(1.3f, wunjo.Count()));
+                        Income = (int)(Income * Mathf.Pow(1.3f, wunjos.Length));
                     }
                 }
                 else if (ingwaz.Any())

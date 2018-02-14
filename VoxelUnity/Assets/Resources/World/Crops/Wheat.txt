@@ -1,5 +1,5 @@
 {
 	"Name": "Wheat",
-	"StageTime": 5.0,
+	"StageTime": 3.0,
 	"StageCount": 5
 }
