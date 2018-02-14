@@ -20,7 +20,7 @@
                RadioButtonWidth="0" RadioButtonHeight="0" TextAlignment="Center" Disabled-FontStyle="Italic" Disabled-FontColor="Gray80" />
 
   <RadioButton Style="SmallButton" BackgroundColor="#7d7d7d" Checked-BackgroundColor="Gray90" Checked-FontColor="#000000" Margin="-5,-5,-5,-5"
-               RadioButtonColor="#ffffff" RadioButtonOffset="0,0,0,0" Font="Fonts/Cyrodiil.otf" FontSize="18" FontColor="#ffffff" FontStyle="Normal" Spacing="0"
+               RadioButtonColor="#ffffff" RadioButtonOffset="0,0,0,0" Font="Fonts/Cyrodiil.otf" FontSize="40" FontColor="#ffffff" FontStyle="Normal" Spacing="0"
                RadioButtonWidth="0" RadioButtonHeight="0" TextAlignment="Center" Disabled-FontStyle="Italic" Disabled-FontColor="Gray80" />
 
   <Image Style="ShowcaseButtonContent" Sprite="Sprites/RainbowSquare.psd" Width="20" Height="20" Offset="10,0,0,0" Alignment="Left" />

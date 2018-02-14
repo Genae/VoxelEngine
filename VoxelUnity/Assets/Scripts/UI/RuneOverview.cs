@@ -82,23 +82,19 @@ namespace Assets.Scripts.UI
         public void Selected0()
 	    {
             SetValue(() => SelectedDescription, Runes0.SelectedItem);
-            Debug.Log(SelectedDescription.Name);
             
 	    }
 	    public void Selected1()
 	    {
 	        SetValue(() => SelectedDescription, Runes1.SelectedItem);
-	        Debug.Log(SelectedDescription.Name);
         }
 	    public void Selected2()
 	    {
 	        SetValue(() => SelectedDescription, Runes2.SelectedItem);
-	        Debug.Log(SelectedDescription.Name);
         }
 	    public void Selected3()
 	    {
 	        SetValue(() => SelectedDescription, Runes3.SelectedItem);
-	        Debug.Log(SelectedDescription.Name);
         }
 
 		public void Wiki()

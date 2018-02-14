@@ -46,7 +46,6 @@ namespace Assets.Scripts.UI
         {
             if (!_renderPreview)
                 return;
-            Debug.Log("preview");
             var mapInfo = _cm.GetMapInfo();
             var size = TDMap.GetSize(mapInfo.Village);
             var path = mapInfo.GetPath(size);

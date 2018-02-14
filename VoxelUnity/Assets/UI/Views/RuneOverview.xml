@@ -1,5 +1,5 @@
 <RuneOverview>
-  <Button Alignment="BottomLeft" Text="Runes" Click="Open"></Button>
+  <Button Alignment="BottomLeft" Text="Runes" Click="Open" FontSize="40"></Button>
 
   <ViewSwitcher Id="ContentViewSwitcher" TransitionOut="SlideOut" TransitionIn="SlideIn" 
                   TransitionOutReverse="SlideOutReverse" TransitionInReverse="SlideInReverse">

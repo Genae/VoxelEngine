@@ -1,14 +1,14 @@
 <UITDARScene>
-    <UserInterface UIScaleMode="ScaleWithScreenSize" ReferenceResolution="1920,1080">
+    <UserInterface UIScaleMode="ScaleWithScreenSize" ReferenceResolution="1280,720">
       <RuneOverview PlaceEnabled="false"/>
       <GameSpeed />
       <CampaignText />
       <ResourceOverview />
       <Group Spacing="15px" Alignment="Bottom" Orientation="Horizontal">
-        <Button Text="START" Alpha="0.5" Click="ClickStart" IsDisabled="{Running}"/>
-        <Button Text="CLEAR" Alpha="0.5" Click="ClickClear"/>
+        <Button Text="START" Click="ClickStart" FontSize="40" IsDisabled="{Running}"/>
+        <Button Text="CLEAR" Click="ClickClear" FontSize="40"/>
       </Group>
-      <Label IsVisible="{Visible}" Text="{ErrorText}" Width="300px" Height =" 300px"></Label>
+      <Label IsVisible="{Visible}" Text="{ErrorText}" Width="300px" Height ="300px" FontSize="40"></Label>
     </UserInterface>
     <EventSystem />
 </UITDARScene>
