@@ -228,7 +228,7 @@ public class Tower : MonoBehaviour
         {
             if (BeamTarget == null)
             {
-                BeamTarget = minionsInRange.OrderByDescending(m => m.DistanceMoved).First();
+                BeamTarget = minionsInRange.OrderByDescending(m => m.Health).First();
                 BeamMultiplier = 0.3f;
             }
             HitMinion(BeamTarget, BeamMultiplier);

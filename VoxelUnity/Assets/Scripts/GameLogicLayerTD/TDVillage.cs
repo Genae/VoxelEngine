@@ -12,11 +12,11 @@ public class TDVillage {
 
 	public TDVillage(GameObject marker)
 	{
-	    TDFarm.FlattenTerrain(marker.transform.position, 55);
+	    var height = TDFarm.FlattenTerrain(marker.transform.position, 55);
 		Village = new GameObject("Village").AddComponent<Village>();
 	    Marker = marker.GetComponentInChildren<Mannaz>();
 	    Village.Init(Marker);
-	    Village.transform.position = new Vector3(marker.transform.position.x, 0, marker.transform.position.z);
+	    Village.transform.position = new Vector3(marker.transform.position.x, height, marker.transform.position.z);
 	    Village.transform.parent = GameObject.Find("Map").transform;
 	    var prefab = Object.Instantiate(GameObject.Find("village"));
         //TODO Placeholder stuff

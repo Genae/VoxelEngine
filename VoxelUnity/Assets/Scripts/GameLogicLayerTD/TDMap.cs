@@ -23,7 +23,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         public List<TDVillage> Villages = new List<TDVillage>();
         public List<TDFarm> Farms = new List<TDFarm>();
         public List<Vector3> Path = new List<Vector3>();
-        public static int MapSize = 125;
+        public static int MapSize = 129;
 
         void Awake()
         {
@@ -80,7 +80,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             while (Map.Instance.CreateMap(null, null).MoveNext()) ;
             
 
-            var ds = new DiamondSquare(0.01f, size, size);
+            var ds = new DiamondSquare(0.1f, mapSize.Width, mapSize.Heigth);
             var height = ds.Generate(new System.Random());
 
             Debug.Log(mapSize.MinX + "/" + mapSize.MaxX + "   " + mapSize.MinZ + "/" + mapSize.MaxZ);
@@ -89,7 +89,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             {
                 for (var z = Mathf.Max(mapSize.MinZ, 0); z < Mathf.Min(mapSize.MaxZ, size); z++)
                 {
-                    for (var h = 0; h <= (int)(height[x, z] * 3 - 0.01f); h++)
+                    for (var h = 0; h <= (int)(height[x- mapSize.MinX, z- mapSize.MinZ] * 5 - 0.01f); h++)
                        World.At(x, h, z).SetVoxel(grass);
                 }
             }
@@ -130,7 +130,7 @@ namespace Assets.Scripts.GameLogicLayerTD
             var list = Bezier.GetBSplinePoints(positions, 10f);
             for (var i = 1; i < list.Count; i++)
             {
-                ResourceManager.DrawCapsule(list[i - 1], list[i], 3f, dirt, grass);
+                ResourceManager.DrawCapsule(list[i - 1], list[i], 4f, dirt, grass);
             }
             Path = BuildWalkablePath(list);
         }

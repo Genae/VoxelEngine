@@ -13,7 +13,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         private int wayIndex = 0;
         private Vector3 targetVector;
         private float _speed = 10;
-        private float _health = 100;
+        public float Health = 100;
         private float _scale = 1;
         public float DistanceMoved = 0f;
         private float _slowIntensity = 1f;
@@ -24,7 +24,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         public void Init(List<Vector3> path, List<ElementType> elementList, float speed, float health, float scale)
         {
             _speed = speed;
-            _health = health;
+            Health = health;
             _scale = scale;
             SetPath(path);
             transform.position = path[0];
@@ -38,7 +38,7 @@ namespace Assets.Scripts.GameLogicLayerTD
         void Start()
         {
             _healthbar = gameObject.AddComponent<Healthbar>();
-            _healthbar.Init(_health, _health);
+            _healthbar.Init(Health, Health);
         }
 
         void OnDestroy()
@@ -55,15 +55,15 @@ namespace Assets.Scripts.GameLogicLayerTD
 
         public bool ApplyDmg(float dmg, List<ElementType> projElementList)
         {
-            _health -= DamageCalculator.Calc(dmg, projElementList, _elementList);
-            _healthbar.UpdateCurrentHealth(_health);
+            Health -= DamageCalculator.Calc(dmg, projElementList, _elementList);
+            _healthbar.UpdateCurrentHealth(Health);
             AliveCheck();
-            return _health <= 0;
+            return Health <= 0;
         }
 
         private void AliveCheck()
         {
-            if (_health <= 0)
+            if (Health <= 0)
             {
                 Destroy(gameObject);
             }
