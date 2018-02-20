@@ -52,14 +52,11 @@
 		  ]
 		}
 	],
-	"Text": "These catapults and rams are harder to deal with then expected. I think it is time we take advantage of the elements. I reckon a fire upgrade is just what we need to vaporize those pesky siege weapons. Also, just in case the romans try to pull something involving fire themselves, the water upgrade is ready as well.",
+	"Text": "Finally! By the power of the runes, we defeated them. But wait, what is that? The mythical beings of the land sky and seas are attacking us! It seems we have upset the balance of power in nature. The elements are going to be more important to our defense then ever.",
 	"UnlockedRunes": [
 	{
-		"Name": "gebo",
-		"Amount": 2
-	},{
-		"Name": "othala",
-		"Amount": 2
+		"Name": "perthro",
+		"Amount": 4
 	}
 	]
 }

@@ -52,7 +52,7 @@
 		  ]
 		}
 	],
-	"Text": "Allright that was close. We should probably diversify our food. If you don't want to manually harvest the farm anymore you can upgrade it to a cattle farm by placing a fehu rune next to it.\nCattle is generating a steady amount of income without requiring any maintenance.\nAlternatively the wheat farm can be upgraded to a wine farm by placing a ingwaz rune next to it.\nThat makes the farm more profitable, however it grows slower and has to be harvested manually still.",
+	"Text": "Allright that was close. We should probably diversify our food. If you don't want to manually harvest the farm anymore you can upgrade it to a cattle farm by placing a fehu rune next to it.\nCattle is generating a steady amount of income without requiring any maintenance.\nAlternatively the wheat farm can be upgraded to a wine farm by placing an ingwaz rune next to it.\nThat makes the farm more profitable, however it grows slower and has to be harvested manually still.",
 	"UnlockedRunes": [
 	{
 		"Name": "algiz",

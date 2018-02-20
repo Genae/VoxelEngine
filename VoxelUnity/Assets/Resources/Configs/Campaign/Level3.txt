@@ -52,7 +52,7 @@
 		  ]
 		}
 	],
-	"Text": "All right. If you did not slack off on your wheat harvesting duties we should have some gold to spend now.\n And we are going to need it.\nRumor has it, that the bear population in the neighbouring forest is getting out of hand.\nSome of them are going to have to leave their home and start roaming the area.\nWe have to be prepared!\nUpgrade your Towers by placing ehwaz runes next to them.\nThat ought to up their shot speed.",
+	"Text": "All right. If you did not slack off on your wheat harvesting duties we should have some gold to spend now.\n And we are going to need it.\nRumor has it, that the bear population in the neighbouring forest is getting out of hand.\nSome of them are going to start roaming the area.\nWe have to be prepared!\nUpgrade your Towers by placing ehwaz runes next to them.\nThat ought to up their shot speed.",
 	"UnlockedRunes": [{
 		"Name": "hagalaz",
 		"Amount": 2
