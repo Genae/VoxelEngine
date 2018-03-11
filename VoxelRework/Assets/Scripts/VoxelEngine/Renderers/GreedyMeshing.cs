@@ -26,7 +26,7 @@ namespace Assets.Scripts.VoxelEngine.Renderers
     }
     public class GreedyMeshing
     {
-        public static MeshData CreateMesh(IVoxelContainer container, Dictionary<ChunkSide, Chunk> neighbours, MaterialCollection materialCollection, int? slice, bool topSlice, out List<Vector3> upVoxels)
+        public static MeshData CreateMesh(IVoxelContainer container, Dictionary<ChunkSide, Chunk> neighbours, MaterialCollection materialCollection, int? slice, out List<Vector3> upVoxels)
         {
             //create planes
             if (neighbours == null)
@@ -42,17 +42,25 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                 };
             }
             var size = container.GetSize();
-            var planes = InitializePlanes(container, neighbours, materialCollection, slice, topSlice, out upVoxels);
+            var planes = InitializePlanes(container, neighbours, materialCollection, slice, out upVoxels);
 
             //Planes to Rects
             var rects = new List<Rect>[6][];
-            for (var side = 0; side < 6; side++)
+            if(slice == null)
             {
-                rects[side] = new List<Rect>[side < 2 ? size.x : (side < 4 ? size.z : size.y)];
-                for (var depth = 0; depth < rects[side].Length; depth++)
+                for (var side = 0; side < 6; side++)
                 {
-                    rects[side][depth] = CreateRectsForPlane(planes[side][depth]);
+                    rects[side] = new List<Rect>[side < 2 ? size.x : (side < 4 ? size.z : size.y)];
+                    for (var depth = 0; depth < rects[side].Length; depth++)
+                    {
+                        rects[side][depth] = CreateRectsForPlane(planes[side][depth]);
+                    }
                 }
+            }
+            else
+            {
+                rects[4] = new List<Rect>[size.y];
+                rects[4][slice.Value] = CreateRectsForPlane(planes[4][slice.Value]);
             }
 
             //Rects to Mesh
@@ -60,19 +68,26 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             var trianglesL = new Dictionary<int, List<int>>();
             var normalsL = new List<Vector3>();
             var uvsL = new List<Vector2>();
-            for (var side = 0; side < 6; side++)
+            if(slice == null)
             {
-                for (var depth = 0; depth < rects[side].Length; depth++)
+                for (var side = 0; side < 6; side++)
                 {
-                    AddRectsToMesh(side, depth, rects[side][depth], materialCollection, ref verticesL, ref trianglesL, ref normalsL, ref uvsL);
+                    for (var depth = 0; depth < rects[side].Length; depth++)
+                    {
+                        AddRectsToMesh(side, depth, rects[side][depth], materialCollection, ref verticesL, ref trianglesL, ref normalsL, ref uvsL);
+                    }
                 }
+            }
+            else
+            {
+                AddRectsToMesh(4, slice.Value, rects[4][slice.Value], materialCollection, ref verticesL, ref trianglesL, ref normalsL, ref uvsL);
             }
 
             var meshData = new MeshData(verticesL.ToArray(), trianglesL.ToDictionary(v => v.Key, v => v.Value.ToArray()), normalsL.ToArray(), uvsL.ToArray(), planes);
             return meshData;
         }
 
-        private static ushort[][][,] InitializePlanes(IVoxelContainer container, Dictionary<ChunkSide, Chunk> neigbours, MaterialCollection materialCollection, int? slice, bool topSlice, out List<Vector3> upVoxels)
+        private static ushort[][][,] InitializePlanes(IVoxelContainer container, Dictionary<ChunkSide, Chunk> neigbours, MaterialCollection materialCollection, int? slice, out List<Vector3> upVoxels)
         {
             //initialize Plane Arrays
             var size = container.GetSize();
@@ -86,63 +101,87 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                     planes[side][depth] = new ushort[side < 2 ? size.y : size.x, side == 2 || side == 3 ? size.y : size.z];
                 }
             }
-            for (var x = 0; x < size.x; x++)
+            if(slice == null)
             {
-                for (var y = 0; y < size.y; y++)
+                for (var x = 0; x < size.x; x++)
+                {
+                    for (var y = 0; y < size.y; y++)
+                    {
+                        for (var z = 0; z < size.z; z++)
+                        {
+                            SetPlaneValue(container, neigbours, materialCollection, false, x, y, z, planes, size, ref upVoxels);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (var x = 0; x < size.x; x++)
                 {
                     for (var z = 0; z < size.z; z++)
                     {
-                        if (slice != null && (slice.Value <= y && !topSlice || slice.Value > y && topSlice))
-                            continue;
-                        var id = container.GetVoxelData(new Vector3Int(x, y, z));
-                        var material = materialCollection.GetById(id);
-                        if (id != 0)
-                        {
-                            if (x == size.x - 1 && IsTransparent(0, y, z, neigbours[ChunkSide.Px], materialCollection, material) || x != size.x - 1 && IsTransparent(x + 1, y, z, container, materialCollection, material)) //px
-                            {
-                                planes[0][x][y, z] = id;
-                            }
-                            if (x == 0 && IsTransparent(size.x - 1, y, z, neigbours[ChunkSide.Nx], materialCollection, material) || x != 0 && IsTransparent(x - 1, y, z, container, materialCollection, material)) //nx
-                            {
-                                planes[1][x][y, z] = id;
-                            }
-                            if (z == size.z - 1 && IsTransparent(x, y, 0, neigbours[ChunkSide.Pz], materialCollection, material) || z != size.z - 1 && IsTransparent(x, y, z + 1, container, materialCollection, material)) //pz
-                            {
-                                planes[2][z][x, y] = id;
-                            }
-                            if (z == 0 && IsTransparent(x, y, size.z-1, neigbours[ChunkSide.Nz], materialCollection, material) || z != 0 && IsTransparent(x, y, z - 1, container, materialCollection, material)) //nz
-                            {
-                                planes[3][z][x, y] = id;
-                            }
-                            if (y == size.y - 1 && IsTransparent(x, 0, z, neigbours[ChunkSide.Py], materialCollection, material, slice.HasValue ? slice - size.y : null) || y != size.y - 1 && IsTransparent(x, y + 1, z, container, materialCollection, material, slice)) //py
-                            {
-                                if (y < size.y - 1 && container.GetVoxelData(new Vector3Int(x, y + 1, z)) == 0)
-                                    upVoxels.Add(new Vector3(x, y + 1, z));
-                                planes[4][y][x, z] = id;
-                            }
-                            if (y == 0 && IsTransparent(x, size.y - 1, z, neigbours[ChunkSide.Ny], materialCollection, material) || y != 0 && IsTransparent(x, y - 1, z, container, materialCollection, material)) //ny
-                            {
-                                planes[5][y][x, z] = id;
-                            }
-                        }
-                        else
-                        {
-                            if (y == 0 && (neigbours[ChunkSide.Ny] == null || neigbours[ChunkSide.Ny].GetVoxelData(new Vector3Int(x, size.y - 1, z)) == 0))
-                            {
-                                upVoxels.Add(new Vector3(x, y, z));
-                            }
-                        }
+                        SetPlaneValue(container, neigbours, materialCollection, true, x, slice.Value, z, planes, size, ref upVoxels);
                     }
                 }
             }
             return planes;
         }
 
-        private static bool IsTransparent(int x, int y, int z, IVoxelContainer container, MaterialCollection matCol, LoadedVoxelMaterial mat, int? slice = null)
+        private static void SetPlaneValue(IVoxelContainer container, Dictionary<ChunkSide, Chunk> neigbours, MaterialCollection materialCollection, bool slice, int x, int y, int z, ushort[][][,] planes, Vector3Int size, ref List<Vector3> upVoxels)
+        {
+            var id = container.GetVoxelData(new Vector3Int(x, y, z));
+            var material = materialCollection.GetById(id);
+            if (id != 0)
+            {
+                if (!slice)
+                {
+                    if (x == size.x - 1 && IsTransparent(0, y, z, neigbours[ChunkSide.Px], materialCollection, material) || x != size.x - 1 && IsTransparent(x + 1, y, z, container, materialCollection, material)) //px
+                    {
+                        planes[0][x][y, z] = id;
+                    }
+                    if (x == 0 && IsTransparent(size.x - 1, y, z, neigbours[ChunkSide.Nx], materialCollection, material) || x != 0 && IsTransparent(x - 1, y, z, container, materialCollection, material)) //nx
+                    {
+                        planes[1][x][y, z] = id;
+                    }
+                    if (z == size.z - 1 && IsTransparent(x, y, 0, neigbours[ChunkSide.Pz], materialCollection, material) || z != size.z - 1 && IsTransparent(x, y, z + 1, container, materialCollection, material)) //pz
+                    {
+                        planes[2][z][x, y] = id;
+                    }
+                    if (z == 0 && IsTransparent(x, y, size.z - 1, neigbours[ChunkSide.Nz], materialCollection, material) || z != 0 && IsTransparent(x, y, z - 1, container, materialCollection, material)) //nz
+                    {
+                        planes[3][z][x, y] = id;
+                    }
+                    if (y == size.y - 1 && (slice || IsTransparent(x, 0, z, neigbours[ChunkSide.Py], materialCollection, material)) || y != size.y - 1 && (slice || IsTransparent(x, y + 1, z, container, materialCollection, material))) //py
+                    {
+                        if (y < size.y - 1 && container.GetVoxelData(new Vector3Int(x, y + 1, z)) == 0)
+                            upVoxels.Add(new Vector3(x, y + 1, z));
+                        planes[4][y][x, z] = id;
+                    }
+                    if (y == 0 && IsTransparent(x, size.y - 1, z, neigbours[ChunkSide.Ny], materialCollection, material) || y != 0 && IsTransparent(x, y - 1, z, container, materialCollection, material)) //ny
+                    {
+                        planes[5][y][x, z] = id;
+                    }
+                }
+                if (y == size.y - 1 && (slice || IsTransparent(x, 0, z, neigbours[ChunkSide.Py], materialCollection, material)) || y != size.y - 1 && (slice || IsTransparent(x, y + 1, z, container, materialCollection, material))) //py
+                {
+                    if (y < size.y - 1 && container.GetVoxelData(new Vector3Int(x, y + 1, z)) == 0)
+                        upVoxels.Add(new Vector3(x, y + 1, z));
+                    planes[4][y][x, z] = id;
+                }
+
+            }
+            else
+            {
+                if (y == 0 && (neigbours[ChunkSide.Ny] == null || neigbours[ChunkSide.Ny].GetVoxelData(new Vector3Int(x, size.y - 1, z)) == 0))
+                {
+                    upVoxels.Add(new Vector3(x, y, z));
+                }
+            }
+        }
+
+        private static bool IsTransparent(int x, int y, int z, IVoxelContainer container, MaterialCollection matCol, LoadedVoxelMaterial mat)
         {
             if (container == null)
-                return true;
-            if (slice != null && slice <= y)
                 return true;
             var id = container.GetVoxelData(new Vector3Int(x, y, z));
             if (id == mat.Id)

@@ -34,14 +34,14 @@ namespace Assets.Scripts.VoxelEngine.Renderers
 
             if (_sliced == null)
             {
-                _sliced = new GameObject(gameObject.name + " top");
+                _sliced = new GameObject(gameObject.name + " slice");
                 _sliced.SetActive(false);
                 _sliced.transform.parent = transform.parent;
-                _sliced.transform.localPosition = transform.position;
+                _sliced.transform.localPosition = transform.position - (Vector3.up * 0.00001f);
                 _slicedRenderer = _sliced.GetComponent<MeshRenderer>() != null ? _sliced.GetComponent<MeshRenderer>() : _sliced.AddComponent<MeshRenderer>();
                 _slicedCollider = _sliced.GetComponent<MeshCollider>() != null ? _sliced.GetComponent<MeshCollider>() : _sliced.AddComponent<MeshCollider>();
                 _slicedFilter = _sliced.GetComponent<MeshFilter>() != null ? _sliced.GetComponent<MeshFilter>() : _sliced.AddComponent<MeshFilter>();
-                _slicedRenderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
+                //_slicedRenderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
             }
         }
         
@@ -49,20 +49,25 @@ namespace Assets.Scripts.VoxelEngine.Renderers
         public void BuildMesh(MaterialCollection materials, Dictionary<ChunkSide, Chunk> neighbours, Chunk chunk, int slice, bool rebuild)
         {
             NeedsUpdate = false;
-            _meshRenderer.shadowCastingMode = slice <= 0 ? ShadowCastingMode.ShadowsOnly : ShadowCastingMode.On;
-            if (slice <= 0 || slice > ChunkDataSettings.YSize && !rebuild)
-            {
-                return;
-            }
-
             List<Vector3> upVoxels;
-            var meshdata = GreedyMeshing.CreateMesh(chunk, neighbours, materials, slice, false, out upVoxels);
-            ApplyMeshData(materials, meshdata, ref _mesh, _meshRenderer, _meshCollider, _meshFilter);
-            gameObject.SetActive(meshdata.Vertices.Length != 0);
-
-            meshdata = GreedyMeshing.CreateMesh(chunk, neighbours, materials, slice, true, out upVoxels);
-            ApplyMeshData(materials, meshdata, ref _slicedMesh, _slicedRenderer, _slicedCollider, _slicedFilter);
-            _sliced.SetActive(meshdata.Vertices.Length != 0);
+            MeshData meshdata;
+            //_meshRenderer.shadowCastingMode = slice <= 0 ? ShadowCastingMode.ShadowsOnly : ShadowCastingMode.On;
+            if (rebuild)
+            {
+                meshdata = GreedyMeshing.CreateMesh(chunk, neighbours, materials, null, out upVoxels);
+                ApplyMeshData(materials, meshdata, ref _mesh, _meshRenderer, _meshCollider, _meshFilter);
+                gameObject.SetActive(meshdata.Vertices.Length != 0);
+            }
+            if(slice >= 0 && slice < ChunkDataSettings.YSize)
+            {
+                meshdata = GreedyMeshing.CreateMesh(chunk, neighbours, materials, slice, out upVoxels);
+                ApplyMeshData(materials, meshdata, ref _slicedMesh, _slicedRenderer, _slicedCollider, _slicedFilter);
+                _sliced.SetActive(meshdata.Vertices.Length != 0);
+            }
+            else
+            {
+                _sliced.SetActive(false);
+            }
         }
 
         private static void ApplyMeshData(MaterialCollection materials, MeshData meshdata, ref Mesh mesh, MeshRenderer meshRenderer, MeshCollider meshCollider, MeshFilter meshFilter)

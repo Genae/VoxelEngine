@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -71,6 +72,14 @@ namespace Assets.Scripts.VoxelEngine.Materials
             if (!VoxelMaterialIndex.ContainsKey(name.ToLower()))
                 return 0;
             return VoxelMaterialIndex[name.ToLower()].Id;
+        }
+
+        internal void SetSlice(int slice)
+        {
+            foreach(var mat in Atlases.Keys)
+            {
+                mat.SetFloat("_Slice", slice + 0.5001f);
+            }
         }
     }
 

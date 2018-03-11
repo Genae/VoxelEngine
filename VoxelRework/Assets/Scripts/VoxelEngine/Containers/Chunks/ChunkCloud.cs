@@ -144,11 +144,13 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
         public void SetSlice(int slice)
         {
             _slice = slice;
+            _materialCollection.SetSlice(slice);
             foreach (var mesh in _chunksMeshes)
             {
                 var mySlice = slice - mesh.Key.y * ChunkDataSettings.YSize;
                 mesh.Value.BuildMesh(_materialCollection, GetNeighbours(mesh.Key.x, mesh.Key.y, mesh.Key.z), _chunks[mesh.Key.x, mesh.Key.y, mesh.Key.z], mySlice, false);
             }
+            
         }
     }
 }

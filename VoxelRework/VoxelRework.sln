@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelEngine", "VoxelEngine.csproj", "{22976E03-54FC-961F-036A-3FFC93DEE343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.PackageManagerUI.Editor", "Unity.PackageManagerUI.Editor.csproj", "{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing.csproj", "{D4DF8A78-D6A8-899A-FAA1-4CB5E8A3FADA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22976E03-54FC-961F-036A-3FFC93DEE343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22976E03-54FC-961F-036A-3FFC93DEE343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22976E03-54FC-961F-036A-3FFC93DEE343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22976E03-54FC-961F-036A-3FFC93DEE343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4DF8A78-D6A8-899A-FAA1-4CB5E8A3FADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4DF8A78-D6A8-899A-FAA1-4CB5E8A3FADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4DF8A78-D6A8-899A-FAA1-4CB5E8A3FADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4DF8A78-D6A8-899A-FAA1-4CB5E8A3FADA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
