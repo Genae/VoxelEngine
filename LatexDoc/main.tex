@@ -96,11 +96,12 @@ urldate=comp]{biblatex}
 	\input{chapters/futurework}
 	\newpage
 	\phantomsection % so hyperref can anchor to the bibliography
-	\addcontentsline{toc}{section}{\bibname}
+	\addcontentsline{toc}{section}{\refname}
 	\printbibliography 
 	\clearpage
 	\appendix
-	\include{appendix}
+	\renewcommand{\sectionbreak}{}
+	\input{appendix}
 	
 \end{document}
 
