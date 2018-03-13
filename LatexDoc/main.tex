@@ -1,100 +1,106 @@
-\documentclass[headsepline,footsepline,footinclude=false,oneside,fontsize=11pt,paper=a4,listof=totoc,bibliography=totoc]{scrbook}
+\documentclass[12pt]{article}
+\usepackage{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage[hidelinks]{hyperref}
-\usepackage[final]{microtype}
-\usepackage{caption}
+\usepackage{a4}
+\usepackage{lscape}
+\usepackage{pdflscape}
+\usepackage[none]{hyphenat} %hyphenation
+\sloppy
+\usepackage{parskip} %no indentation after paragraphs
+%\usepackage{umlaute}
+\usepackage{afterpage} %for using \afterpage{\clearpage} (don't push images to the end of a chapter)
+
+%\usepackage[numbers]{natbib}  removed for \usepackage{cite}
 \usepackage{graphicx}
-\usepackage{cleveref}
+\usepackage{picins} %provides precise control over the placement of inline graphics
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{dsfont} %math symbols
+\usepackage{tabularx}
+\usepackage{floatflt} %float text around figures and tables
+% Florian Schulze, 06.06.2012
+% v1.0, latest edit: 06.06.2012
+
+\usepackage{pdfpages}
+\usepackage{enumitem} %resume counting from previous enumerate block
+\usepackage{amsmath,amssymb}
+\usepackage[format=default,font=footnotesize,labelfont=bf]{caption}
+\usepackage{listings} %for listing source code
+\usepackage{color}
+\usepackage{algorithm} %wrap algpseudocode and enrich with label etc.
+\usepackage{float} % for [H] after floats
+\usepackage{hyperref}
+\usepackage{lscape}
+\usepackage{url}
 \usepackage{wrapfig}
-\usepackage{verbatim}
-\usepackage[%
-  backend=biber,
-  url=false,
-  style=numeric,
-  maxnames=4,
-  minnames=3,
-  maxbibnames=99,
-  firstinits,
-  uniquename=init]{biblatex}
-  
-\bibliography{bibliography/literature}
+\usepackage{csquotes}
+\usepackage{xfrac}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+
+\usepackage{chngcntr}
+\counterwithin{table}{section}
+\counterwithin{figure}{section}
+
+\usepackage[backend=biber,
+citestyle=numeric, 
+bibstyle=numeric,
+sorting=none,
+maxbibnames=5,
+urldate=comp]{biblatex}
+\addbibresource{bibliography/literature.bib}
+
+\titleformat{\section}{\vspace*{1cm}\LARGE\bfseries}{\thesection}{1em}{}
+\newcommand{\sectionbreak}{\clearpage}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+\titleformat*{\paragraph}{\large\bfseries}
+\titleformat*{\subparagraph}{\large\bfseries}
+
+
+\pagestyle{plain}
+
+\textwidth16cm
+\textheight22cm
+
 
 \begin{document}
-
-\begin{titlepage}
-  \oddsidemargin=\evensidemargin\relax
-  \textwidth=\dimexpr\paperwidth-2\evensidemargin-2in\relax
-  \hsize=\textwidth\relax
-
-  \centering
-
-  {\Large\MakeUppercase {Master Practical Course at}} \\
-  {\Large\MakeUppercase {Technische Universität München (TUM)}}
-
-  \vspace{35mm}
-  {\Huge\bfseries Rune TD}
-  
-  \vspace{10mm}
-  {\LARGE\bfseries Serious Celtic Augmented Reality} \\
-  {\LARGE\bfseries Tower Defense Game}
-
-  \vspace{30mm}
-  {\LARGE Stefan Stark}
-  
-  \vspace{5mm}
-  {\LARGE Florian Höschl}
-  
-  \vspace{5mm}
-  {\LARGE Dennis Herr}
-  
-  \vspace{5mm}
-  {\LARGE Michael Felleisen}
-  
-  \vspace{20mm}
-  {\LARGE Adviser:}
-  
-  \vspace{5mm}
-  {\LARGE Prof. Gudrun Klinker, Ph.D.}
-  
-  \vspace{5mm}
-  {\LARGE Dipl.-Inf. David A. Plecher, M.A.}
-
-  \vspace{20mm}
-
-\end{titlepage}
-
-\frontmatter{}
-
-%\input{chapters/00_abstract}
-
-\microtypesetup{protrusion=false}
-%\tableofcontents{}
-\microtypesetup{protrusion=true}
-
-\mainmatter{}
-
-\input{chapters/introduction}
-%\input{chapters/02_background}
-%\input{chapters/03_relatedwork}
-%\input{chapters/04_approach}
-\input{chapters/game}
-\input{chapters/mechanics}
-\input{chapters/problems}
-\input{chapters/userstudy}
-\input{chapters/futurework}
-%\input{chapters/08_futurework}
-%\input{chapters/09_conclusion}
-% add chapters like this
-
-\appendix{}
-%\input{chapters/10_appendix}
-
-\microtypesetup{protrusion=false}
-%\listoffigures{}
-%\listoftables{}
-\microtypesetup{protrusion=true}
-%\printbibliography{}
-
-
+	
+	%\nocite{*} %include uncited references in bibliography
+	\thispagestyle{empty}
+	
+	\pagenumbering{gobble}
+	\input{titlepage}
+	\pagenumbering{roman}
+	
+	\renewcommand{\thesection}{\arabic{section}}
+	\newpage
+	\pagenumbering{gobble}
+	
+	\tableofcontents
+	
+	\newpage
+	\setlength{\baselineskip}{3ex}
+	\pagenumbering{arabic}
+	\setcounter{page}{2}
+	\input{chapters/introduction}
+	\input{chapters/game}
+	\input{chapters/mechanics}
+	\input{chapters/problems}
+	\input{chapters/userstudy}
+	\input{chapters/futurework}
+	\newpage
+	\phantomsection % so hyperref can anchor to the bibliography
+	\addcontentsline{toc}{section}{\bibname}
+	\printbibliography 
+	\clearpage
+	\appendix
+	\include{appendix}
+	
 \end{document}
 
