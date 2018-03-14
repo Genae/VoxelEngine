@@ -29,7 +29,7 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             _cloud.StartBatch();
             for (var x = -30; x < 30; x++)
             {
-                for (var y = 0; y < 3; y++)
+                for (var y = -5; y < 5; y++)
                 {
                     for (var z = -30; z < 30; z++)
                     {
@@ -37,11 +37,11 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                     }
                 }
             }
-            for (var x = -1; x < 1; x++)
+            for (var x = -20; x < 2; x++)
             {
-                for (var y = -1; y < 1; y++)
+                for (var y = -20; y < 2; y++)
                 {
-                    for (var z = -1; z < 1; z++)
+                    for (var z = -20; z < 2; z++)
                     {
                         _cloud.SetVoxel(OpaqueMaterial, new Vector3Int(x, y, z));
                     }

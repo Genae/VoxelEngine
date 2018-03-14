@@ -5,9 +5,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D4DF8A78-D6A8-899A-FAA1-4CB5E8A3FADA}</ProjectGuid>
+    <ProjectGuid>{43CE4B77-0ED1-06DF-D6D8-916516C0693A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Testing</AssemblyName>
+    <AssemblyName>com.unity.postprocessing.Runtime</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
@@ -261,15 +261,6 @@
     </Reference>
     <Reference Include="UnityEditor.Networking">
       <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
       <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
@@ -681,15 +672,61 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="VoxelEngine.csproj">
-      <Project>{22976E03-54FC-961F-036A-3FFC93DEE343}</Project>
-      <Name>VoxelEngine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\Testing\VoxelEngine\ChunkDataTests.cs" />
-    <Compile Include="Assets\Testing\VoxelEngine\ChunkTests.cs" />
-    <Compile Include="Assets\Testing\VoxelEngine\RenderTesting.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Attributes\DisplayNameAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Attributes\MaxAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Attributes\MinMaxAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Attributes\PostProcessAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\AmbientOcclusion.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\AutoExposure.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\Bloom.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\ChromaticAberration.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\ColorGrading.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\DepthOfField.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\Dithering.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\FastApproximateAntialiasing.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\Fog.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\Grain.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\MotionBlur.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\MultiScaleVO.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\ScalableAO.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\ScreenSpaceReflections.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\SubpixelMorphologicalAntialiasing.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\TemporalAntialiasing.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Effects\Vignette.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Monitors\HistogramMonitor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Monitors\LightMeterMonitor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Monitors\Monitor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Monitors\VectorscopeMonitor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Monitors\WaveformMonitor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\ParameterOverride.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessBundle.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessDebug.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessDebugLayer.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessEffectRenderer.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessEffectSettings.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessEvent.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessLayer.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessManager.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessProfile.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessRenderContext.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessResources.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\PostProcessVolume.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\ColorUtilities.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\HableCurve.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\HaltonSeq.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\LogHistogram.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\MeshUtilities.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\PropertySheet.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\PropertySheetFactory.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\RuntimeUtilities.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\ShaderIDs.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\Spline.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\TargetPool.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\TextureFormatUtilities.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\TextureLerper.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.postprocessing@0.1.7\PostProcessing\Runtime\Utils\XRSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SliceShader.shader" />

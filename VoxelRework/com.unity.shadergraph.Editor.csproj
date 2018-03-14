@@ -5,9 +5,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D4DF8A78-D6A8-899A-FAA1-4CB5E8A3FADA}</ProjectGuid>
+    <ProjectGuid>{D96C2258-4FCA-B87A-9AD2-8E7768562927}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Testing</AssemblyName>
+    <AssemblyName>com.unity.shadergraph.Editor</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
@@ -16,7 +16,7 @@
     </TargetFrameworkProfile>
     <CompilerResponseFile>
     </CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2018.1.0b10</UnityVersion>
     <RootNamespace>
@@ -261,15 +261,6 @@
     </Reference>
     <Reference Include="UnityEditor.Networking">
       <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Timeline">
       <HintPath>C:/Unity Editors/2018.1.0b10/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
@@ -681,15 +672,315 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="VoxelEngine.csproj">
-      <Project>{22976E03-54FC-961F-036A-3FFC93DEE343}</Project>
-      <Name>VoxelEngine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\Testing\VoxelEngine\ChunkDataTests.cs" />
-    <Compile Include="Assets\Testing\VoxelEngine\ChunkTests.cs" />
-    <Compile Include="Assets\Testing\VoxelEngine\RenderTesting.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\AssetCallbacks\CreateShaderGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\AssetCallbacks\CreateShaderSubGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\AbstractMaterialGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\AbstractMaterialGraphAsset.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\AbstractShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\BitangentMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\ColorMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\ColorRGBMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\ColorShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\CubemapInputMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\CubemapMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\CubemapShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\DynamicVectorMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\FloatShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\IMaterialGraphAsset.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\IMaterialSlotHasValue.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\IShaderGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\IShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\MaterialGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\MaterialGraphAsset.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Matrix2MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Matrix3MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Matrix4MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\NormalMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\PositionMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Precision.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\PreviewMode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\PreviewProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\SamplerStateMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\SamplerStateShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\ScreenPositionMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\SerializableCubemap.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\SerializableGuid.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\SerializableMesh.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\SerializableTexture.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\ShaderGraphRequirements.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\SpaceMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\TangentMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Texture2DInputMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Texture2DMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\TextureSamplerState.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\TextureShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\UVMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Vector1MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Vector2MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Vector2ShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Vector3MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Vector3ShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Vector4MaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\Vector4ShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\VectorShaderProperty.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\VertexColorMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Graphs\ViewDirectionMaterialSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\GenerationMode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IGenerateProperties.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IGeneratesBodyCode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IGeneratesFunction.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireBitangent.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireMeshUV.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireNormal.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequirePosition.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireScreenPosition.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireTangent.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireTime.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireVertexColor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\IMayRequireViewDirection.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\MaterialGraphChange.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Interfaces\NeededCoordinateSpace.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\LightweightPipeline\LightweightFastBlinnMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\LightweightPipeline\LightWeightPBRSubShader.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\LightweightPipeline\LightWeightUnlitSubShader.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\LightweightPipeline\PBRMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\LightweightPipeline\UnlitMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\AbstractMaterialNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Adjustment\ChannelMixerNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Adjustment\ContrastNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Adjustment\HueNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Adjustment\ReplaceColorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Adjustment\SaturationNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Adjustment\WhiteBalanceNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Blend\BlendMode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Blend\BlendNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Mask\ChannelMaskNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Mask\ColorMaskNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Normal\NormalBlendNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Normal\NormalCreateNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Normal\NormalStrengthNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Normal\NormalUnpackNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Artistic\Utility\ColorspaceConversion.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Channel\CombineNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Channel\FlipNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Channel\SplitNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Channel\SwizzleNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\CodeFunctionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\FunctionMultiInput.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\GeometryNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\IMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Basic\ColorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Basic\ConstantNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Basic\TimeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Basic\Vector1Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Basic\Vector2Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Basic\Vector3Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Basic\Vector4Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\BitangentVectorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\NormalVectorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\PositionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\ScreenPositionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\TangentVectorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\UVNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\VertexColorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Geometry\ViewDirectionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Matrix\Matrix2Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Matrix\Matrix3Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Matrix\Matrix4Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Matrix\TransformationMatrixNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\PropertyNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Scene\AmbientNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Scene\CameraNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Scene\FogNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Scene\LightProbeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Scene\ObjectNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Scene\ReflectionProbeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Scene\ScreenNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Texture\CubemapAssetNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Texture\SampleCubemapNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Texture\SamplerStateNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Texture\SampleTexture2DNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Input\Texture\Texture2DAssetNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\IPropertyFromNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\MasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\AbsoluteNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\ExponentialNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\LengthNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\LogNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\ModuloNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\NegateNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\NormalizeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\PosterizeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\ReciprocalNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Advanced\ReciprocalSquareRootNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Basic\AddNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Basic\DivideNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Basic\MultiplyNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Basic\PowerNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Basic\SquareRootNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Basic\SubtractNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Derivative\DDXNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Derivative\DDXYNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Derivative\DDYNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Interpolation\InverseLerpNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Interpolation\LerpNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Interpolation\SmoothstepNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Matrix\MatrixMultiplyByVectorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Matrix\MatrixMultiplyNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Matrix\MatrixTransposeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\ClampNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\FractionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\MaximumNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\MinimumNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\OneMinusNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\RandomRangeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\RemapNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Range\SaturateNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Round\CeilingNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Round\FloorNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Round\RoundNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Round\SignNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Round\StepNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Round\TruncateNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\ArccosineNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\ArcsineNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\Arctangent2Node.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\ArctangentNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\CosineNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\DegreesToRadiansNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\HyperbolicCosineNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\HyperbolicSineNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\HyperbolicTangentNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\RadiansToDegreesNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\SineNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Trigonometry\TangentNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\CrossProductNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\DistanceNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\DotProductNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\FresnelEffectNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\ProjectionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\ReflectionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\RejectionNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Math\Vector\TransformNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Procedural\CheckerboardNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Procedural\Noise\SimpleNoiseNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Procedural\Noise\VoronoiNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Procedural\Shape\EllipseNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Procedural\Shape\PolygonNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Procedural\Shape\RectangleNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Procedural\Shape\RoundedRectangleNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\PropertyType.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\ShaderStage.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\SlotValue.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\TitleAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Utility\PreviewNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\Utility\SubGraphNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\UV\FlipbookNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\UV\PolarCoordinatesNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\UV\RadialShearNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\UV\RotateNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\UV\SpherizeNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\UV\TilingAndOffsetNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Nodes\UV\TwirlNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SubGraph\AbstractSubGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SubGraph\AbstractSubGraphNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SubGraph\MaterialSubGraphAsset.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SubGraph\SubGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SubGraph\SubGraphOutputNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SurfaceModel\ExportTextureMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SurfaceModel\MetallicMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SurfaceModel\ProjectSpecificMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SurfaceModel\SpecularMasterNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\SurfaceModel\SurfaceMaterialOptions.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Util\CubemapPropertyChunk.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Util\PropertyCollector.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Util\ShaderGenerator.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Util\ShaderStringBuilder.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Data\Util\TextureType.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\DefaultShaderIncludes.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\ChannelEnumControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\ChannelMixerControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\ColorControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\CubemapControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\DefaultControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\EnumControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\EnumConversionControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\IControlAttribute.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\ObjectControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\PropertyControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\TextureControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\ToggleControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Controls\VectorControl.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\EdgeConnectorListener.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\INodeModificationListener.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Inspector\AbstractNodeEditorView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Inspector\GraphInspectorView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Inspector\NodeEditorHeaderView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Inspector\ShaderPropertyView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Inspector\StandardNodeEditorView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Inspector\SurfaceMasterNodeEditorView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Manipulators\Draggable.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Manipulators\GraphDropTarget.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Manipulators\Scrollable.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\MaterialGraphEditWindow.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\MaterialGraphPreviewGenerator.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\PreviewManager.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\PreviewRate.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\SearchWindowProvider.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\FloatField.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\GradientEdge.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\GraphEditorView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\MaterialGraphView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\MaterialNodeView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\PortInputView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\PreviewSceneResources.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\PreviewTextureView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\ShaderPort.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\Slots\ColorRGBSlotControlView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\Slots\ColorSlotControlView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\Slots\CubemapSlotControlView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\Slots\MultiFloatSlotControlView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\Slots\TextureSlotControlView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Drawing\Views\Slots\UVSlotControlView.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Importers\ShaderGraphImporter.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Importers\ShaderGraphImporterEditor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Importers\ShaderSubGraphImporter.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Importers\ShaderSubGraphImporterEditor.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\LightWeightShaderPaths.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Assets\IGraphAsset.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Assets\SerializableGraphAsset.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Implementation\Edge.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Implementation\NodeUtils.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Implementation\SerializableGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Implementation\SerializableGraphObject.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Implementation\SerializableNode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Implementation\SerializableSlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Implementation\SlotType.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\DrawState.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\GraphChange.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\GraphDrawingData.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\IEdge.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\IGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\IGraphObject.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\INode.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\IOnAssetEnabled.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\ISlot.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Interfaces\SlotReference.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\DictionaryPool.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\ListPool.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\Logging.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\ObjectPool.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\PooledObject.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\QueuePool.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\SerializationHelper.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\SerializableGraph\Util\StackPool.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Util\CopyPasteGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Util\CreateSerializableGraph.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Util\GraphTypeMapper.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Util\TypeMapper.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Util\TypeMapping.cs" />
+    <Compile Include="C:\ProgramData\Unity\cache\packages\packages.unity.com\com.unity.shadergraph@0.1.9\Editor\Util\UIUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SliceShader.shader" />
