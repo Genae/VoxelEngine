@@ -37,7 +37,7 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                 _sliced = new GameObject(gameObject.name + " slice");
                 _sliced.SetActive(false);
                 _sliced.transform.parent = transform.parent;
-                _sliced.transform.localPosition = transform.position - (Vector3.up * 0.00001f);
+                _sliced.transform.localPosition = transform.position - (Vector3.up * 0.1f);
                 _slicedRenderer = _sliced.GetComponent<MeshRenderer>() != null ? _sliced.GetComponent<MeshRenderer>() : _sliced.AddComponent<MeshRenderer>();
                 _slicedCollider = _sliced.GetComponent<MeshCollider>() != null ? _sliced.GetComponent<MeshCollider>() : _sliced.AddComponent<MeshCollider>();
                 _slicedFilter = _sliced.GetComponent<MeshFilter>() != null ? _sliced.GetComponent<MeshFilter>() : _sliced.AddComponent<MeshFilter>();

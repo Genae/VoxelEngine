@@ -78,7 +78,7 @@ namespace Assets.Scripts.VoxelEngine.Materials
         {
             foreach(var mat in Atlases.Keys)
             {
-                mat.SetFloat("_Slice", slice + 0.5001f);
+                mat.SetFloat("_Slice", slice + 0.4999f);
             }
         }
     }
