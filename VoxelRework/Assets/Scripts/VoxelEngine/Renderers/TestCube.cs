@@ -33,7 +33,7 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                 {
                     for (var z = -30; z < 30; z++)
                     {
-                        _cloud.SetVoxel(TransparentMaterial, new Vector3Int(x, y, z));
+                        //_cloud.SetVoxel(TransparentMaterial, new Vector3Int(x, y, z));
                     }
                 }
             }

@@ -345,12 +345,13 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                 // ReSharper disable once PossibleLossOfFraction
                 var material = materialCollection.GetById(rect.Type);
                 var uvcoord = new Vector2((int)(material.AtlasPosition / MaterialCollectionSettings.AtlasSize) / (float)MaterialCollectionSettings.AtlasSize, material.AtlasPosition % MaterialCollectionSettings.AtlasSize / (float)MaterialCollectionSettings.AtlasSize);
+                var uvSize = 1f / MaterialCollectionSettings.AtlasSize;
                 uvs.AddRange(new[]
                 {
-                    new Vector2(uvcoord.x + 0.1f/MaterialCollectionSettings.AtlasSize, uvcoord.y+ 0.1f/MaterialCollectionSettings.AtlasSize),
-                    new Vector2(uvcoord.x + 0.1f/MaterialCollectionSettings.AtlasSize, uvcoord.y+ 0.1f/MaterialCollectionSettings.AtlasSize),
-                    new Vector2(uvcoord.x + 0.1f/MaterialCollectionSettings.AtlasSize, uvcoord.y+ 0.1f/MaterialCollectionSettings.AtlasSize),
-                    new Vector2(uvcoord.x + 0.1f/MaterialCollectionSettings.AtlasSize, uvcoord.y+ 0.1f/MaterialCollectionSettings.AtlasSize)
+                    new Vector2(uvcoord.x - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize, uvcoord.y - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize),
+                    new Vector2(uvcoord.x - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize, uvcoord.y + 0.0f/MaterialCollectionSettings.AtlasSize),
+                    new Vector2(uvcoord.x + 0.0f/MaterialCollectionSettings.AtlasSize, uvcoord.y - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize),
+                    new Vector2(uvcoord.x + 0.0f/MaterialCollectionSettings.AtlasSize, uvcoord.y + 0.0f/MaterialCollectionSettings.AtlasSize)
                 });
             }
         }

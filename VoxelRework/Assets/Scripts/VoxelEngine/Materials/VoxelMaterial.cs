@@ -7,6 +7,7 @@ namespace Assets.Scripts.VoxelEngine.Materials
     {
         public Material Material;
         public Color Color;
+        public Texture2D Texture;
         public bool Transparent;
     }
 }

@@ -14,11 +14,11 @@ namespace Assets.Scripts.VoxelEngine.Materials
     {
         public List<LoadedVoxelMaterial> VoxelMaterials;
         public Dictionary<string, LoadedVoxelMaterial> VoxelMaterialIndex;
-        public Dictionary<Material, Atlas> Atlases;
+        public List<Atlas> Atlases;
 
         public MaterialCollection()
         {
-            Atlases = new Dictionary<Material, Atlas>();
+            Atlases = new List<Atlas>();
             VoxelMaterials = new List<LoadedVoxelMaterial>
             {
                 new LoadedVoxelMaterial(ScriptableObject.CreateInstance<VoxelMaterial>())
@@ -45,16 +45,23 @@ namespace Assets.Scripts.VoxelEngine.Materials
             if (VoxelMaterialIndex.ContainsKey(voxelMaterial.name.ToLower()))
                 return;
             var loadedVoxelMaterial = new LoadedVoxelMaterial(voxelMaterial);
-            if (!Atlases.ContainsKey(loadedVoxelMaterial.Material))
-            {
-                Atlases[loadedVoxelMaterial.Material] = new Atlas(loadedVoxelMaterial.Material);
-            }
-            if (Atlases[loadedVoxelMaterial.Material].AddVoxelMaterial(loadedVoxelMaterial))
+            if (GetAtlas(loadedVoxelMaterial).AddVoxelMaterial(loadedVoxelMaterial))
             {
                 loadedVoxelMaterial.Id = (ushort)VoxelMaterials.Count;
                 VoxelMaterials.Add(loadedVoxelMaterial);
                 VoxelMaterialIndex[voxelMaterial.name.ToLower()] = loadedVoxelMaterial;
             }
+        }
+
+        public Atlas GetAtlas(LoadedVoxelMaterial loadedVoxelMaterial)
+        {
+            var atlas = Atlases.FirstOrDefault(a => a.Material.Equals(loadedVoxelMaterial.Material) && loadedVoxelMaterial.TextureSize.Equals(a.TextureSize));
+            if (atlas == null)
+            {
+                atlas = new Atlas(loadedVoxelMaterial.Material, loadedVoxelMaterial.TextureSize);
+                Atlases.Add(atlas);
+            }
+            return atlas;
         }
 
         public LoadedVoxelMaterial GetById(ushort voxelData)
@@ -76,7 +83,7 @@ namespace Assets.Scripts.VoxelEngine.Materials
 
         internal void SetSlice(int slice)
         {
-            foreach(var mat in Atlases.Keys)
+            foreach(var mat in Atlases.Select(a => a.Material))
             {
                 mat.SetFloat("_Slice", slice + 0.4999f);
             }
@@ -86,30 +93,39 @@ namespace Assets.Scripts.VoxelEngine.Materials
     public class Atlas
     {
         public Material Material;
+        public Vector2Int TextureSize;
         public ushort Count;
-        public Color[] Colors = new Color[MaterialCollectionSettings.AtlasSize * MaterialCollectionSettings.AtlasSize];
+        public List<Color[]> Colors;
 
-        public Atlas(Material material)
+        public Atlas(Material material, Vector2Int textureSize)
         {
             Material = material;
+            TextureSize = textureSize;
+            Colors = new List<Color[]>();
         }
 
         public bool AddVoxelMaterial(LoadedVoxelMaterial loadedVoxelMaterial)
         {
             if (Colors.Contains(loadedVoxelMaterial.Color))
                 return false;
-            loadedVoxelMaterial.AtlasPosition = Count;
-            Colors[Count++] = loadedVoxelMaterial.Color;
+            loadedVoxelMaterial.AtlasPosition = Count++;
 
             var texture = (Texture2D)loadedVoxelMaterial.Material.mainTexture;
             if(texture == null)
-                texture = new Texture2D(MaterialCollectionSettings.AtlasSize, MaterialCollectionSettings.AtlasSize, TextureFormat.ARGB32, false);
-            texture.SetPixel(loadedVoxelMaterial.AtlasPosition / MaterialCollectionSettings.AtlasSize, loadedVoxelMaterial.AtlasPosition % MaterialCollectionSettings.AtlasSize, loadedVoxelMaterial.Color);
+                texture = new Texture2D(MaterialCollectionSettings.AtlasSize * TextureSize.x, MaterialCollectionSettings.AtlasSize * TextureSize.y, TextureFormat.ARGB32, false);
+            SetPixels(texture, loadedVoxelMaterial);
+            
             texture.wrapMode = TextureWrapMode.Clamp;
             texture.filterMode = FilterMode.Point;
             texture.Apply();
             loadedVoxelMaterial.Material.mainTexture = texture;
             return true;
+        }
+        
+        private void SetPixels(Texture2D texture, LoadedVoxelMaterial loadedVoxelMaterial)
+        {
+            texture.SetPixels((loadedVoxelMaterial.AtlasPosition / MaterialCollectionSettings.AtlasSize) * TextureSize.x, (loadedVoxelMaterial.AtlasPosition % MaterialCollectionSettings.AtlasSize) * TextureSize.y, TextureSize.x, TextureSize.y, loadedVoxelMaterial.Color);
+            Colors.Add(loadedVoxelMaterial.Color);
         }
     }
 
@@ -125,16 +141,22 @@ namespace Assets.Scripts.VoxelEngine.Materials
             set { _voxelMaterial.Transparent = value; }
         }
 
-        public Color Color
+        public Color[] Color
         {
-            get { return _voxelMaterial.Color; }
-            set { _voxelMaterial.Color = value; }
+            get
+            {
+                if(_voxelMaterial.Texture == null)
+                    return new[]{_voxelMaterial.Color};
+                return _voxelMaterial.Texture.GetPixels();
+            }
         }
         public Material Material
         {
             get { return _voxelMaterial.Material; }
             set { _voxelMaterial.Material = value; }
         }
+
+        public Vector2Int TextureSize => _voxelMaterial.Texture == null ? Vector2Int.one : new Vector2Int(_voxelMaterial.Texture.width, _voxelMaterial.Texture.height);
 
         public LoadedVoxelMaterial(VoxelMaterial material)
         {
