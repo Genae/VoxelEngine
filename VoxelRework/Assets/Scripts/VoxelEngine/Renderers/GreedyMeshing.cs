@@ -12,10 +12,10 @@ namespace Assets.Scripts.VoxelEngine.Renderers
         public Vector3[] Vertices;
         public Dictionary<int, int[]> Triangles;
         public Vector3[] Normals;
-        public Vector2[] Uvs;
+        public Vector2[][] Uvs;
         public ushort[][][,] Planes;
 
-        public MeshData(Vector3[] verticies, Dictionary<int, int[]> triangles, Vector3[] normals, Vector2[] uvs, ushort[][][,] planes)
+        public MeshData(Vector3[] verticies, Dictionary<int, int[]> triangles, Vector3[] normals, Vector2[][] uvs, ushort[][][,] planes)
         {
             Vertices = verticies;
             Triangles = triangles;
@@ -67,7 +67,12 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             var verticesL = new List<Vector3>();
             var trianglesL = new Dictionary<int, List<int>>();
             var normalsL = new List<Vector3>();
-            var uvsL = new List<Vector2>();
+            var uvsL = new[]
+            {
+                new List<Vector2>(),
+                new List<Vector2>(),
+                new List<Vector2>()
+            };
             if(slice == null)
             {
                 for (var side = 0; side < 6; side++)
@@ -83,7 +88,7 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                 AddRectsToMesh(4, slice.Value, rects[4][slice.Value], materialCollection, ref verticesL, ref trianglesL, ref normalsL, ref uvsL);
             }
 
-            var meshData = new MeshData(verticesL.ToArray(), trianglesL.ToDictionary(v => v.Key, v => v.Value.ToArray()), normalsL.ToArray(), uvsL.ToArray(), planes);
+            var meshData = new MeshData(verticesL.ToArray(), trianglesL.ToDictionary(v => v.Key, v => v.Value.ToArray()), normalsL.ToArray(), uvsL.Select(uv => uv.ToArray()).ToArray(), planes);
             return meshData;
         }
 
@@ -272,7 +277,7 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             }
         }
 
-        private static void AddRectsToMesh(int side, int depth, List<Rect> rects, MaterialCollection materialCollection, ref List<Vector3> vertices, ref Dictionary<int, List<int>> triangles, ref List<Vector3> normals, ref List<Vector2> uvs)
+        private static void AddRectsToMesh(int side, int depth, List<Rect> rects, MaterialCollection materialCollection, ref List<Vector3> vertices, ref Dictionary<int, List<int>> triangles, ref List<Vector3> normals, ref List<Vector2>[] uvs)
         {
             foreach (var rect in rects)
             {
@@ -344,15 +349,12 @@ namespace Assets.Scripts.VoxelEngine.Renderers
 
                 // ReSharper disable once PossibleLossOfFraction
                 var material = materialCollection.GetById(rect.Type);
-                var uvcoord = new Vector2((int)(material.AtlasPosition / MaterialCollectionSettings.AtlasSize) / (float)MaterialCollectionSettings.AtlasSize, material.AtlasPosition % MaterialCollectionSettings.AtlasSize / (float)MaterialCollectionSettings.AtlasSize);
-                var uvSize = 1f / MaterialCollectionSettings.AtlasSize;
-                uvs.AddRange(new[]
-                {
-                    new Vector2(uvcoord.x - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize, uvcoord.y - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize),
-                    new Vector2(uvcoord.x - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize, uvcoord.y + 0.0f/MaterialCollectionSettings.AtlasSize),
-                    new Vector2(uvcoord.x + 0.0f/MaterialCollectionSettings.AtlasSize, uvcoord.y - 0.0f/MaterialCollectionSettings.AtlasSize + uvSize),
-                    new Vector2(uvcoord.x + 0.0f/MaterialCollectionSettings.AtlasSize, uvcoord.y + 0.0f/MaterialCollectionSettings.AtlasSize)
-                });
+                var atlasPos = new Vector2((int)(material.AtlasPosition / MaterialCollectionSettings.AtlasSize), material.AtlasPosition % MaterialCollectionSettings.AtlasSize);
+                var size = new Vector2(rect.Width, rect.Height);
+
+                uvs[0].AddRange(new[] { new Vector2(1, 1), new Vector2(1, 0), new Vector2(0, 1), new Vector2(0, 0) });
+                uvs[1].AddRange(new[] { atlasPos, atlasPos, atlasPos, atlasPos });
+                uvs[2].AddRange(new[] { size, size, size, size });
             }
         }
 

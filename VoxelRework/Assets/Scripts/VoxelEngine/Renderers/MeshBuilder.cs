@@ -78,7 +78,9 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             mesh.vertices = meshdata.Vertices;
             mesh.normals = meshdata.Normals;
             mesh.subMeshCount = meshdata.Triangles.Keys.Count;
-            mesh.uv = meshdata.Uvs;
+            mesh.uv = meshdata.Uvs[0];
+            mesh.uv2 = meshdata.Uvs[1];
+            mesh.uv3 = meshdata.Uvs[2];
             mesh.colors = new Color[meshdata.Vertices.Length];
 
             var keyArray = meshdata.Triangles.Keys.ToArray();

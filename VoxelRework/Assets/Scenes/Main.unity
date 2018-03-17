@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e272074bfdaf3479ee15b8df2e835c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpaqueMaterial: {fileID: 11400000, guid: c5c9d5ebf6b47144a917a04f8b626ec2, type: 2}
+  OpaqueMaterial: {fileID: 11400000, guid: 96fc980d03c9de947b98fc1a5b847580, type: 2}
   TransparentMaterial: {fileID: 11400000, guid: d465483907e654c44b5ef48c211a9f5f,
     type: 2}
   Slice: 10
