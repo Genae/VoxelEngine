@@ -351,7 +351,8 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                 var material = materialCollection.GetById(rect.Type);
                 var atlasPos = new Vector2((int)(material.AtlasPosition / MaterialCollectionSettings.AtlasSize), material.AtlasPosition % MaterialCollectionSettings.AtlasSize);
                 var size = new Vector2(rect.Width, rect.Height);
-
+                if(side >= 4)
+                    size = new Vector2(rect.Height, rect.Width);
                 uvs[0].AddRange(new[] { new Vector2(1, 1), new Vector2(1, 0), new Vector2(0, 1), new Vector2(0, 0) });
                 uvs[1].AddRange(new[] { atlasPos, atlasPos, atlasPos, atlasPos });
                 uvs[2].AddRange(new[] { size, size, size, size });
