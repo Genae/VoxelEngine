@@ -140,10 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e272074bfdaf3479ee15b8df2e835c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpaqueMaterial: {fileID: 11400000, guid: 96fc980d03c9de947b98fc1a5b847580, type: 2}
-  TransparentMaterial: {fileID: 11400000, guid: d465483907e654c44b5ef48c211a9f5f,
-    type: 2}
-  Slice: 10
+  BiomeConfiguration: {fileID: 11400000, guid: 2e914512f0be92d46ba39b4d907702ec, type: 2}
+  Slice: 100
 --- !u!4 &590296694
 Transform:
   m_ObjectHideFlags: 0
@@ -238,7 +236,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 960268124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: 0}
+  m_LocalPosition: {x: 0, y: -253, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}

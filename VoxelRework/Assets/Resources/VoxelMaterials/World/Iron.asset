@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Name: Iron
   m_EditorClassIdentifier: 
   Material: {fileID: 2100000, guid: f1c8b3de02f11a940877285f78bcc712, type: 2}
-  Color: {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 0}
+  Color: {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 1}
+  Texture: {fileID: 0}
   Transparent: 0

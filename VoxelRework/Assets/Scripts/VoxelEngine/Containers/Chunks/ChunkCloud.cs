@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.VoxelEngine.Materials;
 using Assets.Scripts.VoxelEngine.Renderers;
 using UnityEngine;
+using UnityEngine.XR.WSA;
 
 namespace Assets.Scripts.VoxelEngine.Containers.Chunks
 {
@@ -17,6 +18,8 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
         //batch
         private bool _batchMode;
         private List<Vector3Int> _batchedChunks = new List<Vector3Int>();
+        
+        private object Lock = new object();
 
         public ChunkCloud(MaterialCollection materialCollection, Transform map)
         {
@@ -24,6 +27,24 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             _map = map;
             _chunks = new Grid3D<Chunk>();
             _chunksMeshes = new Grid3D<MeshBuilder>();
+        }
+
+        public int? GetTopVoxel(int x, int z, int maxy, int miny)
+        {
+            var cx = (x + (x < 0 ? 1 : 0)) / ChunkDataSettings.XSize - (x < 0 ? 1 : 0);
+            var cyMax = (maxy + (maxy < 0 ? 1 : 0)) / ChunkDataSettings.YSize - (maxy < 0 ? 1 : 0);
+            var cyMin = (miny + (miny < 0 ? 1 : 0)) / ChunkDataSettings.YSize - (miny < 0 ? 1 : 0);
+            var cz = (z + (z < 0 ? 1 : 0)) / ChunkDataSettings.ZSize - (z < 0 ? 1 : 0);
+
+            for (var cy = cyMax; cy >= cyMin; cy--)
+            {
+                if (_chunks[cx, cy, cz] == null)
+                    continue;
+                var top = _chunks[cx, cy, cz].GetTopVoxel(x%ChunkDataSettings.XSize, z%ChunkDataSettings.ZSize);
+                if (top != null)
+                    return top;
+            }
+            return null;
         }
 
         public void SetVoxel(VoxelMaterial material, Vector3Int pos)
@@ -42,27 +63,25 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             if (_chunks[cx, cy, cz] == null)
             {
                 _chunks[cx, cy, cz] = new Chunk();
-                var go = new GameObject($"Chunk [{cx}, {cy}, {cz}]");
-                go.transform.parent = _map;
-                go.transform.localPosition = new Vector3(cx * ChunkDataSettings.XSize, cy * ChunkDataSettings.YSize, cz*ChunkDataSettings.ZSize);
-                _chunksMeshes[cx, cy, cz] = go.AddComponent<MeshBuilder>();
-                _chunksMeshes[cx, cy, cz].Init();
             }
             var p = new Vector3Int(Mod(pos.x, ChunkDataSettings.XSize), Mod(pos.y, ChunkDataSettings.YSize), Mod(pos.z, ChunkDataSettings.ZSize));
             var neighbours = _chunks[cx, cy, cz].SetVoxelData(p, material, _materialCollection);
             if (_batchMode)
             {
                 var cp = new Vector3Int(cx, cy, cz);
-                if (!_chunksMeshes[cx, cy, cz].NeedsUpdate)
+                if (!_chunks[cx, cy, cz].NeedsUpdate)
                 {
-                    _chunksMeshes[cx, cy, cz].NeedsUpdate = true;
-                    _batchedChunks.Add(cp);
+                    _chunks[cx, cy, cz].NeedsUpdate = true;
+                    lock (Lock)
+                    {
+                        _batchedChunks.Add(cp);
+                    }
                 }
             }
             else
             {
                 var mySlice = _slice - cy * ChunkDataSettings.YSize;
-                _chunksMeshes[cx, cy, cz].BuildMesh(_materialCollection, GetNeighbours(cx, cy, cz), _chunks[cx, cy, cz], mySlice, true);
+                GetMeshBuilder(cx, cy, cz).BuildMesh(_materialCollection, GetNeighbours(cx, cy, cz), _chunks[cx, cy, cz], mySlice, true);
             }
             foreach (var neighbour in neighbours)
             {
@@ -71,19 +90,42 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
                 {
                     if (_batchMode)
                     {
-                        if (!_chunksMeshes[nPos.x, nPos.y, nPos.z].NeedsUpdate)
+                        if (!_chunks[nPos.x, nPos.y, nPos.z].NeedsUpdate)
                         {
-                            _chunksMeshes[nPos.x, nPos.y, nPos.z].NeedsUpdate = true;
-                            _batchedChunks.Add(nPos);
+                            _chunks[nPos.x, nPos.y, nPos.z].NeedsUpdate = true;
+                            lock (Lock)
+                            {
+                                _batchedChunks.Add(nPos);
+                            }
                         }
                     }
                     else
                     {
                         var mySlice = _slice - nPos.y * ChunkDataSettings.YSize;
-                        _chunksMeshes[nPos.x, nPos.y, nPos.z].BuildMesh(_materialCollection, GetNeighbours(nPos.x, nPos.y, nPos.z), _chunks[nPos.x, nPos.y, nPos.z], mySlice, true);
+                        GetMeshBuilder(nPos.x, nPos.y, nPos.z).BuildMesh(_materialCollection, GetNeighbours(nPos.x, nPos.y, nPos.z), _chunks[nPos.x, nPos.y, nPos.z], mySlice, true);
                     }
                 }
             }
+        }
+
+        private MeshBuilder GetMeshBuilder(int x, int y, int z)
+        {
+            if (_chunksMeshes[x, y, z] == null)
+            {
+                _chunksMeshes[x, y, z] = BuildChunkMeshBuilder(x, y, z);
+            }
+            return _chunksMeshes[x, y, z];
+        }
+
+        private MeshBuilder BuildChunkMeshBuilder(int cx, int cy, int cz)
+        {
+            var go = new GameObject($"Chunk [{cx}, {cy}, {cz}]");
+            go.transform.parent = _map;
+            go.transform.localPosition = new Vector3(cx * ChunkDataSettings.XSize, cy * ChunkDataSettings.YSize,
+                cz * ChunkDataSettings.ZSize);
+            var mb = go.AddComponent<MeshBuilder>();
+            mb.Init();
+            return mb;
         }
 
         private static int Mod(int num, ushort mod)
@@ -136,7 +178,8 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             foreach (var batchedChunk in _batchedChunks)
             {
                 var mySlice = _slice - batchedChunk.y * ChunkDataSettings.YSize;
-                _chunksMeshes[batchedChunk.x, batchedChunk.y, batchedChunk.z].BuildMesh(_materialCollection, GetNeighbours(batchedChunk.x, batchedChunk.y, batchedChunk.z), _chunks[batchedChunk.x, batchedChunk.y, batchedChunk.z], mySlice, true);
+                GetMeshBuilder(batchedChunk.x, batchedChunk.y, batchedChunk.z).BuildMesh(_materialCollection, GetNeighbours(batchedChunk.x, batchedChunk.y, batchedChunk.z), _chunks[batchedChunk.x, batchedChunk.y, batchedChunk.z], mySlice, true);
+                _chunks[batchedChunk.x, batchedChunk.y, batchedChunk.z].NeedsUpdate = false;
             }
             _batchedChunks.Clear();
         }

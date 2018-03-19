@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Name: Copper
   m_EditorClassIdentifier: 
   Material: {fileID: 2100000, guid: f1c8b3de02f11a940877285f78bcc712, type: 2}
-  Color: {r: 0.72156864, g: 0.4509804, b: 0.2, a: 0}
+  Color: {r: 0.72156864, g: 0.4509804, b: 0.2, a: 1}
+  Texture: {fileID: 0}
   Transparent: 0

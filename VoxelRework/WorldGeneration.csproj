@@ -5,9 +5,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{22976E03-54FC-961F-036A-3FFC93DEE343}</ProjectGuid>
+    <ProjectGuid>{3FACA899-5B74-5778-48B5-8421A98AFFC4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>VoxelEngine</AssemblyName>
+    <AssemblyName>WorldGeneration</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
@@ -672,18 +672,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\Chunks\Chunk.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\Chunks\ChunkCloud.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\Chunks\ChunkData.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\Chunks\ChunkMetaData.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\Chunks\ChunkSide.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\Grid3D.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\IVoxelContainer.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Containers\VoxelContainer.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Materials\MaterialCollection.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Materials\VoxelMaterial.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Renderers\GreedyMeshing.cs" />
-    <Compile Include="Assets\Scripts\VoxelEngine\Renderers\MeshBuilder.cs" />
+    <ProjectReference Include="VoxelEngine.csproj">
+      <Project>{22976E03-54FC-961F-036A-3FFC93DEE343}</Project>
+      <Name>VoxelEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\WorldGeneration\BiomeConfiguration.cs" />
+    <Compile Include="Assets\Scripts\WorldGeneration\TestCube.cs" />
+    <Compile Include="Assets\Scripts\WorldGeneration\WorldGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SliceShader.shader" />

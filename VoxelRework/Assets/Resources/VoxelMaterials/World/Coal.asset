@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Name: Coal
   m_EditorClassIdentifier: 
   Material: {fileID: 2100000, guid: 5208833755898244f9fc725f9fce5b53, type: 2}
-  Color: {r: 0, g: 0, b: 0, a: 0}
+  Color: {r: 0, g: 0, b: 0, a: 1}
+  Texture: {fileID: 0}
   Transparent: 0

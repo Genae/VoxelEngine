@@ -1,0 +1,10 @@
+{
+    "name": "WorldGeneration",
+    "references": [
+        "VoxelEngine"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

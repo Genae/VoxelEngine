@@ -17,6 +17,8 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             MetaData = new ChunkMetaData();
         }
 
+        public bool NeedsUpdate { get; set; }
+
         public Vector3Int GetSize()
         {
             return new Vector3Int(ChunkDataSettings.XSize, ChunkDataSettings.YSize, ChunkDataSettings.ZSize);
@@ -60,8 +62,16 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
 
             return Enum.GetValues(typeof(ChunkSide)).Cast<ChunkSide>().ToList();
         }
-        
 
-        
+
+        public int? GetTopVoxel(int x, int z)
+        {
+            for (int y = ChunkDataSettings.YSize; y >= 0; y--)
+            {
+                if (GetVoxelData(new Vector3Int(x, y, z)) != 0)
+                    return y;
+            }
+            return null;
+        }
     }
 }

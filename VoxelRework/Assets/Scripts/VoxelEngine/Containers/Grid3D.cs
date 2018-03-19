@@ -9,11 +9,12 @@ namespace Assets.Scripts.VoxelEngine.Containers
     {
         private readonly Dictionary<int, Dictionary<int, Dictionary<int, T>>> _nodes = new Dictionary<int, Dictionary<int, Dictionary<int, T>>>();
         private Vector3Int _size;
-        
+        public object Lock = new object();
+
         public T this[int xPos, int yPos, int zPos]
         {
             get { return Get(xPos, yPos, zPos); }
-            set { Set(xPos, yPos, zPos, value);}
+            set { lock (Lock) {Set(xPos, yPos, zPos, value);}}
         }
 
         public T Get(int xPos, int yPos, int zPos)
@@ -21,7 +22,7 @@ namespace Assets.Scripts.VoxelEngine.Containers
             return _nodes.ContainsKey(xPos) && _nodes[xPos].ContainsKey(yPos) && _nodes[xPos][yPos].ContainsKey(zPos) ? _nodes[xPos][yPos][zPos] : null;
         }
 
-        public void Set(int xPos, int yPos, int zPos, T value)
+        private void Set(int xPos, int yPos, int zPos, T value)
         {
             _size = default(Vector3Int);
             if (!_nodes.ContainsKey(xPos))
@@ -30,7 +31,8 @@ namespace Assets.Scripts.VoxelEngine.Containers
                 _nodes[xPos][yPos] = new Dictionary<int, T>();
             _nodes[xPos][yPos][zPos] = value;
         }
-        
+
+
         public T GetNearestItem(Vector3Int pos, int maxRadius)
         {
             for (var dX = 0; dX <= maxRadius; dX++)
