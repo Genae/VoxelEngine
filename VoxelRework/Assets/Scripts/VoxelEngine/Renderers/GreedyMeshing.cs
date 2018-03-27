@@ -134,44 +134,46 @@ namespace Assets.Scripts.VoxelEngine.Renderers
 
         private static void SetPlaneValue(IVoxelContainer container, Dictionary<ChunkSide, Chunk> neigbours, MaterialCollection materialCollection, bool slice, int x, int y, int z, ushort[][][,] planes, Vector3Int size, ref List<Vector3> upVoxels)
         {
-            var id = container.GetVoxelData(new Vector3Int(x, y, z));
+            var idWithHeight = container.GetVoxelData(new Vector3Int(x, y, z));
+            var id = (ushort)((ushort)(idWithHeight << 3) >> 3);
+            var height = (ushort) (8 - (ushort) (idWithHeight >> 13));
             var material = materialCollection.GetById(id);
             if (id != 0)
             {
                 if (!slice)
                 {
-                    if (x == size.x - 1 && IsTransparent(0, y, z, neigbours[ChunkSide.Px], materialCollection, material) || x != size.x - 1 && IsTransparent(x + 1, y, z, container, materialCollection, material)) //px
+                    if (x == size.x - 1 && IsTransparent(0, y, z, neigbours[ChunkSide.Px], materialCollection, material, height) || x != size.x - 1 && IsTransparent(x + 1, y, z, container, materialCollection, material, height)) //px
                     {
-                        planes[0][x][y, z] = id;
+                        planes[0][x][y, z] = idWithHeight;
                     }
-                    if (x == 0 && IsTransparent(size.x - 1, y, z, neigbours[ChunkSide.Nx], materialCollection, material) || x != 0 && IsTransparent(x - 1, y, z, container, materialCollection, material)) //nx
+                    if (x == 0 && IsTransparent(size.x - 1, y, z, neigbours[ChunkSide.Nx], materialCollection, material, height) || x != 0 && IsTransparent(x - 1, y, z, container, materialCollection, material, height)) //nx
                     {
-                        planes[1][x][y, z] = id;
+                        planes[1][x][y, z] = idWithHeight;
                     }
-                    if (z == size.z - 1 && IsTransparent(x, y, 0, neigbours[ChunkSide.Pz], materialCollection, material) || z != size.z - 1 && IsTransparent(x, y, z + 1, container, materialCollection, material)) //pz
+                    if (z == size.z - 1 && IsTransparent(x, y, 0, neigbours[ChunkSide.Pz], materialCollection, material, height) || z != size.z - 1 && IsTransparent(x, y, z + 1, container, materialCollection, material, height)) //pz
                     {
-                        planes[2][z][x, y] = id;
+                        planes[2][z][x, y] = idWithHeight;
                     }
-                    if (z == 0 && IsTransparent(x, y, size.z - 1, neigbours[ChunkSide.Nz], materialCollection, material) || z != 0 && IsTransparent(x, y, z - 1, container, materialCollection, material)) //nz
+                    if (z == 0 && IsTransparent(x, y, size.z - 1, neigbours[ChunkSide.Nz], materialCollection, material, height) || z != 0 && IsTransparent(x, y, z - 1, container, materialCollection, material, height)) //nz
                     {
-                        planes[3][z][x, y] = id;
+                        planes[3][z][x, y] = idWithHeight;
                     }
-                    if (y == size.y - 1 && (slice || IsTransparent(x, 0, z, neigbours[ChunkSide.Py], materialCollection, material)) || y != size.y - 1 && (slice || IsTransparent(x, y + 1, z, container, materialCollection, material))) //py
+                    if (y == size.y - 1 && (slice || IsTransparent(x, 0, z, neigbours[ChunkSide.Py], materialCollection, material, height)) || y != size.y - 1 && (slice || IsTransparent(x, y + 1, z, container, materialCollection, material, height))) //py
                     {
                         if (y < size.y - 1 && container.GetVoxelData(new Vector3Int(x, y + 1, z)) == 0)
                             upVoxels.Add(new Vector3(x, y + 1, z));
-                        planes[4][y][x, z] = id;
+                        planes[4][y][x, z] = idWithHeight;
                     }
-                    if (y == 0 && IsTransparent(x, size.y - 1, z, neigbours[ChunkSide.Ny], materialCollection, material) || y != 0 && IsTransparent(x, y - 1, z, container, materialCollection, material)) //ny
+                    if (y == 0 && IsTransparent(x, size.y - 1, z, neigbours[ChunkSide.Ny], materialCollection, material, height) || y != 0 && IsTransparent(x, y - 1, z, container, materialCollection, material, height)) //ny
                     {
-                        planes[5][y][x, z] = id;
+                        planes[5][y][x, z] = idWithHeight;
                     }
                 }
-                if (y == size.y - 1 && (slice || IsTransparent(x, 0, z, neigbours[ChunkSide.Py], materialCollection, material)) || y != size.y - 1 && (slice || IsTransparent(x, y + 1, z, container, materialCollection, material))) //py
+                if (y == size.y - 1 && (slice || IsTransparent(x, 0, z, neigbours[ChunkSide.Py], materialCollection, material, height)) || y != size.y - 1 && (slice || IsTransparent(x, y + 1, z, container, materialCollection, material, height))) //py
                 {
                     if (y < size.y - 1 && container.GetVoxelData(new Vector3Int(x, y + 1, z)) == 0)
                         upVoxels.Add(new Vector3(x, y + 1, z));
-                    planes[4][y][x, z] = id;
+                    planes[4][y][x, z] = idWithHeight;
                 }
 
             }
@@ -184,11 +186,15 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             }
         }
 
-        private static bool IsTransparent(int x, int y, int z, IVoxelContainer container, MaterialCollection matCol, LoadedVoxelMaterial mat)
+        private static bool IsTransparent(int x, int y, int z, IVoxelContainer container, MaterialCollection matCol, LoadedVoxelMaterial mat, ushort height)
         {
             if (container == null)
                 return true;
             var id = container.GetVoxelData(new Vector3Int(x, y, z));
+            var myHeight = (ushort)(8 - (ushort)(id >> 13));
+            id = (ushort) ((ushort) (id << 3) >> 3);
+            if (height != myHeight)
+                return true;
             if (id == mat.Id)
                 return false;
             return id == 0 || matCol.GetById(id).Transparent;
@@ -283,12 +289,19 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             {
                 var offset = vertices.Count;
                 Vector3 vertA = Vector3.zero, vertB = Vector3.zero, vertC = Vector3.zero, vertD = Vector3.zero, norm = Vector3.zero;
+                var blockHeight = 0f;
+                if (rect.BlockHeight != 0)
+                {
+                    blockHeight = (8 - rect.BlockHeight) / 8f;
+                }
+                if (side == 5)
+                    blockHeight = 0;
                 switch (side)
                 {
                     case 0:
                     case 1:
-                        vertA = new Vector3(depth + 0.5f - side, rect.X - 0.5f + rect.Width, rect.Y - 0.5f);
-                        vertB = new Vector3(depth + 0.5f - side, rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height);
+                        vertA = new Vector3(depth + 0.5f - side, rect.X - 0.5f + rect.Width - blockHeight, rect.Y - 0.5f);
+                        vertB = new Vector3(depth + 0.5f - side, rect.X - 0.5f + rect.Width - blockHeight, rect.Y - 0.5f + rect.Height);
                         vertC = new Vector3(depth + 0.5f - side, rect.X - 0.5f, rect.Y - 0.5f);
                         vertD = new Vector3(depth + 0.5f - side, rect.X - 0.5f, rect.Y - 0.5f + rect.Height);
                         norm = new Vector3(side % 2 != 0 ? -1 : 1, 0, 0);
@@ -296,21 +309,20 @@ namespace Assets.Scripts.VoxelEngine.Renderers
                     case 2:
                     case 3:
                         vertA = new Vector3(rect.X - 0.5f + rect.Width, rect.Y - 0.5f, depth + 0.5f - side % 2);
-                        vertB = new Vector3(rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height, depth + 0.5f - side % 2);
+                        vertB = new Vector3(rect.X - 0.5f + rect.Width, rect.Y - 0.5f + rect.Height - blockHeight, depth + 0.5f - side % 2);
                         vertC = new Vector3(rect.X - 0.5f, rect.Y - 0.5f, depth + 0.5f - side % 2);
-                        vertD = new Vector3(rect.X - 0.5f, rect.Y - 0.5f + rect.Height, depth + 0.5f - side % 2);
+                        vertD = new Vector3(rect.X - 0.5f, rect.Y - 0.5f + rect.Height - blockHeight, depth + 0.5f - side % 2);
                         norm = new Vector3(0, 0, side % 2 != 0 ? -1 : 1);
                         break;
                     case 4:
                     case 5:
-                        vertA = new Vector3(rect.X - 0.5f, depth + 0.5f - side % 2, rect.Y - 0.5f + rect.Height);
-                        vertB = new Vector3(rect.X - 0.5f + rect.Width, depth + 0.5f - side % 2, rect.Y - 0.5f + rect.Height);
-                        vertC = new Vector3(rect.X - 0.5f, depth + 0.5f - side % 2, rect.Y - 0.5f);
-                        vertD = new Vector3(rect.X - 0.5f + rect.Width, depth + 0.5f - side % 2, rect.Y - 0.5f);
+                        vertA = new Vector3(rect.X - 0.5f, depth + 0.5f - side % 2 - blockHeight, rect.Y - 0.5f + rect.Height);
+                        vertB = new Vector3(rect.X - 0.5f + rect.Width, depth + 0.5f - side % 2 - blockHeight, rect.Y - 0.5f + rect.Height);
+                        vertC = new Vector3(rect.X - 0.5f, depth + 0.5f - side % 2 - blockHeight, rect.Y - 0.5f);
+                        vertD = new Vector3(rect.X - 0.5f + rect.Width, depth + 0.5f - side % 2 - blockHeight, rect.Y - 0.5f);
                         norm = new Vector3(0, side % 2 != 0 ? -1 : 1, 0);
                         break;
                 }
-
                 vertices.AddRange(new[]
                 {
                     new Vector3(vertA.x, vertA.y, vertA.z),
@@ -366,6 +378,7 @@ namespace Assets.Scripts.VoxelEngine.Renderers
         public int X, Y;
         public int Width, Height;
         public ushort Type;
+        public ushort BlockHeight;
 
         public Rect(int x, int y, ushort type)
         {
@@ -373,7 +386,8 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             Y = y;
             Width = 1;
             Height = 1;
-            Type = type;
+            Type = (ushort)((ushort)(type << 3) >> 3);
+            BlockHeight = (ushort)(8 - (ushort) (type >> 13));
         }
 
         protected bool Equals(Rect other)

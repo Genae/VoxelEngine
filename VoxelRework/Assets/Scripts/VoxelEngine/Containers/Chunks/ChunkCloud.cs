@@ -15,7 +15,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
         {
             var t = base.GetVoxelType(pos);
             var h = (ushort)(8-(t >> 13));
-            return new FluidType((ushort)((t << 3) >> 3), h);
+            return new FluidType((ushort)((ushort)(t << 3) >> 3), h);
         }
 
         public ushort GetFluidHeight(Vector3Int pos)
@@ -27,7 +27,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
         public override ushort GetVoxelType(Vector3Int pos)
         {
             var t = base.GetVoxelType(pos);
-            return (ushort)((t << 3) >> 3);
+            return (ushort)((ushort)(t << 3) >> 3);
         }
 
         public void SetVoxel(LoadedVoxelMaterial material, Vector3Int pos, ushort height)
@@ -44,7 +44,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
         {
             var h = (ushort)(8 - height);
             material += (ushort)(h << 13);
-            base.SetVoxel(material, pos);
+            SetVoxel(material, pos);
         }
 
 

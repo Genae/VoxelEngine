@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.VoxelEngine.Containers;
 using Assets.Scripts.VoxelEngine.Containers.Chunks;
 using Assets.Scripts.VoxelEngine.Materials;
@@ -52,7 +51,7 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
                 }
                 else
                 {
-                    FluidChunks.SetVoxel(mat, pos);
+                    FluidChunks.SetVoxel(mat, pos, height);
                     FluidUpdater.SetVoxel(mat, height, pos);
                 }
             }

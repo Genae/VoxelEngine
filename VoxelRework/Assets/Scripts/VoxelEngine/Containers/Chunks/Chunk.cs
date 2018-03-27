@@ -34,7 +34,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             var list = new List<ChunkSide>();
             var oldVal = GetVoxelData(pos);
             _data.SetVoxelData(pos, data);
-            var changed = (data == 0 ^ oldVal == 0) || (materialCollection.GetById(oldVal).Transparent ^ materialCollection.GetById(data).Transparent);
+            var changed = (data == 0 ^ oldVal == 0) || (materialCollection.GetById((ushort)((ushort)(oldVal << 3) >> 3)).Transparent ^ materialCollection.GetById((ushort)((ushort)(data << 3) >> 3)).Transparent);
 
             if (changed)
             {
