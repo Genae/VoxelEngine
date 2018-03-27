@@ -10,29 +10,26 @@ namespace Assets.Scripts.WorldGeneration
     {
         public LayerConfiguration[] Layers;
         public VoxelMaterial FillMaterial;
-        private string _fillMaterialName;
-        private string[] _layerNames;
+        private VoxelMaterial[] _layers;
 
-        public string GetLayer(int layer)
+        public VoxelMaterial GetLayer(int layer)
         {
-            if(layer >= _layerNames.Length)
-                return _fillMaterialName;
-            return _layerNames[layer];
+            if(layer >= _layers.Length)
+                return FillMaterial;
+            return _layers[layer];
         }
 
         public void Init()
         {
-            var layers = new List<string>();
-            _fillMaterialName = FillMaterial.name;
+            var layers = new List<VoxelMaterial>();
             foreach (var layerConfig in Layers)
             {
-                layerConfig.Init();
                 for (var i = 0; i < layerConfig.Count; i++)
                 {
-                    layers.Add(layerConfig.MaterialName);
+                    layers.Add(layerConfig.Material);
                 }
             }
-            _layerNames = layers.ToArray();
+            _layers = layers.ToArray();
         }
     }
 
@@ -40,12 +37,6 @@ namespace Assets.Scripts.WorldGeneration
     public class LayerConfiguration
     {
         public VoxelMaterial Material;
-
         public int Count;
-        public string MaterialName { get; private set; }
-        public void Init()
-        {
-            MaterialName = Material.name;
-        }
     }
 }

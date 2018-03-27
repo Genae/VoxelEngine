@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Assets.Scripts.VoxelEngine.Containers.Chunks;
+using Assets.Scripts.VoxelEngine.DataAccess;
 using Assets.Scripts.VoxelEngine.Materials;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -12,11 +13,10 @@ namespace Assets.Scripts.WorldGeneration
     public class WorldGenerator
     {
         public static int WorldSeed = 0;
-        public static void GenerateWorld(out ChunkCloud cloud, MaterialCollection collection, BiomeConfiguration configuration)
+        public static void GenerateWorld(out World world, MaterialCollection collection, BiomeConfiguration configuration)
         {
             Random.InitState(WorldSeed);
-            var go = new GameObject("map");
-            cloud = new ChunkCloud(collection, go.transform);
+            world = new World(collection);
 
             var mapSize = 300;
             var mapHeight = 100;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.WorldGeneration
 
             configuration.Init();
 
-            cloud.StartBatch();
+            world.StartBatch();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             var cuboidCount = 100;
@@ -63,7 +63,7 @@ namespace Assets.Scripts.WorldGeneration
             }
             foreach (var cuboid in cuboids)
             {
-                tasks.Add(BuildRect(cloud, cuboid, configuration));
+                tasks.Add(BuildRect(world, cuboid, configuration));
             }
             Task.WaitAll(tasks.ToArray());
             stopwatch.Stop();
@@ -82,7 +82,7 @@ namespace Assets.Scripts.WorldGeneration
             Task.WaitAll(tasks.ToArray());
             stopwatch.Stop();
             Debug.Log("finished Biome" + stopwatch.ElapsedMilliseconds);*/
-            cloud.FinishBatch();
+            world.FinishBatch();
 
 
             /*
@@ -105,7 +105,7 @@ namespace Assets.Scripts.WorldGeneration
             };
         }
 
-        private static Task BuildRect(ChunkCloud cloud, Cuboid c, BiomeConfiguration configuration)
+        private static Task BuildRect(World world, Cuboid c, BiomeConfiguration configuration)
         {
             return Task.Run(() =>
             {
@@ -117,7 +117,7 @@ namespace Assets.Scripts.WorldGeneration
                         for (var y = c.Pos.y + c.Size.y-1; y >= c.Pos.y; y--)
                         {
                             var mat = configuration.GetLayer(i++);
-                            cloud.SetVoxel(mat, new Vector3Int(x, y, z));
+                            world.SetVoxel(mat, new Vector3Int(x, y, z));
                         }
                     }
                     

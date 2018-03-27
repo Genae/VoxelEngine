@@ -242,3 +242,5 @@ VoxelUnity/Assets/Plugins/WSA/x86.meta
 VoxelUnity/Assets/Plugins/WSA/x64.meta
 VoxelUnity/VoxelUnity.csproj
 VoxelUnity/VoxelUnity.Editor.csproj
+/VoxelRework/*.csproj
+/VoxelRework/VoxelRework.sln

@@ -41,14 +41,14 @@ namespace Assets.Scripts.VoxelEngine.Materials
 
         public void LoadVoxelMaterial(VoxelMaterial voxelMaterial)
         {
-            if (VoxelMaterialIndex.ContainsKey(voxelMaterial.name.ToLower()))
+            if (VoxelMaterialIndex.ContainsKey(voxelMaterial.Name))
                 return;
             var loadedVoxelMaterial = new LoadedVoxelMaterial(voxelMaterial);
             if (GetAtlas(loadedVoxelMaterial).AddVoxelMaterial(loadedVoxelMaterial))
             {
                 loadedVoxelMaterial.Id = (ushort)VoxelMaterials.Count;
                 VoxelMaterials.Add(loadedVoxelMaterial);
-                VoxelMaterialIndex[voxelMaterial.name.ToLower()] = loadedVoxelMaterial;
+                VoxelMaterialIndex[voxelMaterial.Name] = loadedVoxelMaterial;
             }
         }
 
@@ -70,14 +70,19 @@ namespace Assets.Scripts.VoxelEngine.Materials
 
         public ushort GetId(VoxelMaterial voxelMaterial)
         {
-            return GetId(voxelMaterial.name);
+            return GetIdInternal(voxelMaterial.Name);
         }
 
         public ushort GetId(string name)
         {
-            if (!VoxelMaterialIndex.ContainsKey(name.ToLower()))
+            return GetIdInternal(name.ToLower());
+        }
+
+        private ushort GetIdInternal(string name)
+        {
+            if (!VoxelMaterialIndex.ContainsKey(name))
                 return 0;
-            return VoxelMaterialIndex[name.ToLower()].Id;
+            return VoxelMaterialIndex[name].Id;
         }
 
         internal void SetSlice(int slice)

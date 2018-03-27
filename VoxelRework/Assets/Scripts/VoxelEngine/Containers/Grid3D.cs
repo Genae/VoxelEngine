@@ -14,12 +14,15 @@ namespace Assets.Scripts.VoxelEngine.Containers
         public T this[int xPos, int yPos, int zPos]
         {
             get { return Get(xPos, yPos, zPos); }
-            set { lock (Lock) {Set(xPos, yPos, zPos, value);}}
         }
 
         public T Get(int xPos, int yPos, int zPos)
         {
-            return _nodes.ContainsKey(xPos) && _nodes[xPos].ContainsKey(yPos) && _nodes[xPos][yPos].ContainsKey(zPos) ? _nodes[xPos][yPos][zPos] : null;
+            Dictionary<int, Dictionary<int, T>> xDir;
+            Dictionary<int, T> yDir;
+            T val = null;
+            var success = _nodes.TryGetValue(xPos, out xDir) && xDir.TryGetValue(yPos, out yDir) && yDir.TryGetValue(zPos, out val);
+            return val;
         }
 
         private void Set(int xPos, int yPos, int zPos, T value)
@@ -30,6 +33,21 @@ namespace Assets.Scripts.VoxelEngine.Containers
             if (!_nodes[xPos].ContainsKey(yPos))
                 _nodes[xPos][yPos] = new Dictionary<int, T>();
             _nodes[xPos][yPos][zPos] = value;
+        }
+        
+        public T Init(int xPos, int yPos, int zPos, T value)
+        {
+            lock (Lock)
+            {
+                _size = default(Vector3Int);
+                if (!_nodes.ContainsKey(xPos))
+                    _nodes[xPos] = new Dictionary<int, Dictionary<int, T>>();
+                if (!_nodes[xPos].ContainsKey(yPos))
+                    _nodes[xPos][yPos] = new Dictionary<int, T>();
+                if (!_nodes[xPos][yPos].ContainsKey(zPos))
+                    _nodes[xPos][yPos][zPos] = value;
+                return _nodes[xPos][yPos][zPos];
+            }
         }
 
 

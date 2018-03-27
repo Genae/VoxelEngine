@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.VoxelEngine.Containers.Chunks;
+﻿using Assets.Scripts.VoxelEngine.DataAccess;
 using Assets.Scripts.VoxelEngine.Materials;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace Assets.Scripts.WorldGeneration
     {
         private MaterialCollection _collection;
         public BiomeConfiguration BiomeConfiguration;
-        private ChunkCloud _cloud;
+        private World _world;
         private int _oldSlice;
         public int Slice = 10;
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts.WorldGeneration
         {
             _oldSlice = Slice;
             _collection = new MaterialCollection();
-            WorldGenerator.GenerateWorld(out _cloud, _collection, BiomeConfiguration);
+            WorldGenerator.GenerateWorld(out _world, _collection, BiomeConfiguration);
         }
 
 
@@ -35,7 +35,7 @@ namespace Assets.Scripts.WorldGeneration
             }
             if (_oldSlice != Slice && _init < 0)
             {
-                _cloud.SetSlice(Slice);
+                _world.SetSlice(Slice);
                 _oldSlice = Slice;
             }
         }
