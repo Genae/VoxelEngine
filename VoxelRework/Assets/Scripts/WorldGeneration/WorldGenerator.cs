@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Assets.Scripts.VoxelEngine.Containers.Chunks;
 using Assets.Scripts.VoxelEngine.DataAccess;
 using Assets.Scripts.VoxelEngine.Materials;
 using UnityEngine;
@@ -24,7 +23,7 @@ namespace Assets.Scripts.WorldGeneration
             var centerSize = 100;
             var centerHeight = 30;
 
-            configuration.Init();
+            configuration.Init(collection);
 
             world.StartBatch();
             var stopwatch = new Stopwatch();
@@ -69,24 +68,13 @@ namespace Assets.Scripts.WorldGeneration
             stopwatch.Stop();
             Debug.Log("finished Stone " + stopwatch.ElapsedMilliseconds);
 
-            /*stopwatch.Reset();
-            stopwatch.Start();
-            tasks.Clear();
-            for (var x = -mapSize / ChunkDataSettings.XSize - 1; x < mapSize / ChunkDataSettings.XSize + 1; x++)
+            var waterCube = new Cuboid()
             {
-                for (var z = -mapSize / ChunkDataSettings.ZSize - 1; z < mapSize / ChunkDataSettings.ZSize + 1; z++)
-                {
-                    tasks.Add(BuildChunks(x, z, mapHeight, cloud, configuration));
-                }
-            }
-            Task.WaitAll(tasks.ToArray());
-            stopwatch.Stop();
-            Debug.Log("finished Biome" + stopwatch.ElapsedMilliseconds);*/
+                Pos = new Vector3Int(0, 50, 0),
+                Size = new Vector3Int(1, 1, 1)
+            };
+            BuildRect(world, waterCube, null, configuration.GetFluid()).Wait();
             world.FinishBatch();
-
-
-            /*
-            */
         }
 
         private static Cuboid[] SplitCenterCube(int centerSize, int centerHeight)
@@ -105,7 +93,7 @@ namespace Assets.Scripts.WorldGeneration
             };
         }
 
-        private static Task BuildRect(World world, Cuboid c, BiomeConfiguration configuration)
+        private static Task BuildRect(World world, Cuboid c, BiomeConfiguration configuration = null, LoadedVoxelMaterial mat = null)
         {
             return Task.Run(() =>
             {
@@ -116,14 +104,19 @@ namespace Assets.Scripts.WorldGeneration
                         var i = 0;
                         for (var y = c.Pos.y + c.Size.y-1; y >= c.Pos.y; y--)
                         {
-                            var mat = configuration.GetLayer(i++);
+                            if (configuration != null)
+                            {
+                                mat = configuration.GetLayer(i);
+                            }
                             world.SetVoxel(mat, new Vector3Int(x, y, z));
+                            i++;
                         }
                     }
                     
                 }
             });
         }
+
 
         /*
         private static Task BuildChunks(int x, int z, int mapHeight, ChunkCloud cloud, BiomeConfiguration configuration)

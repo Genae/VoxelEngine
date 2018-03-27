@@ -14,6 +14,7 @@ namespace Assets.Scripts.VoxelEngine.Containers
         public T this[int xPos, int yPos, int zPos]
         {
             get { return Get(xPos, yPos, zPos); }
+            set { Set(xPos, yPos, zPos, value);}
         }
 
         public T Get(int xPos, int yPos, int zPos)
@@ -27,12 +28,15 @@ namespace Assets.Scripts.VoxelEngine.Containers
 
         private void Set(int xPos, int yPos, int zPos, T value)
         {
-            _size = default(Vector3Int);
-            if (!_nodes.ContainsKey(xPos))
-                _nodes[xPos] = new Dictionary<int, Dictionary<int, T>>();
-            if (!_nodes[xPos].ContainsKey(yPos))
-                _nodes[xPos][yPos] = new Dictionary<int, T>();
-            _nodes[xPos][yPos][zPos] = value;
+            lock (Lock)
+            {
+                _size = default(Vector3Int);
+                if (!_nodes.ContainsKey(xPos))
+                    _nodes[xPos] = new Dictionary<int, Dictionary<int, T>>();
+                if (!_nodes[xPos].ContainsKey(yPos))
+                    _nodes[xPos][yPos] = new Dictionary<int, T>();
+                _nodes[xPos][yPos][zPos] = value;
+            }
         }
         
         public T Init(int xPos, int yPos, int zPos, T value)
@@ -108,7 +112,7 @@ namespace Assets.Scripts.VoxelEngine.Containers
                 return;
             if (!_nodes[position.x].ContainsKey(position.y))
                 return;
-            _nodes[position.x][position.y].Remove(position.z);
+            var success = _nodes[position.x][position.y].Remove(position.z);
             if (_nodes[position.x][position.y].Count == 0)
                 _nodes[position.x].Remove(position.y);
             if (_nodes[position.x].Count == 0)

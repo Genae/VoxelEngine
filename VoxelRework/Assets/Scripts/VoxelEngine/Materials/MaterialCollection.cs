@@ -92,6 +92,11 @@ namespace Assets.Scripts.VoxelEngine.Materials
                 mat.SetFloat("_Slice", slice + 0.4999f);
             }
         }
+
+        public LoadedVoxelMaterial GetMaterial(VoxelMaterial mat)
+        {
+            return VoxelMaterials[GetIdInternal(mat.Name)];
+        }
     }
 
     public class Atlas
@@ -161,6 +166,7 @@ namespace Assets.Scripts.VoxelEngine.Materials
         }
 
         public Vector2Int TextureSize => _voxelMaterial.Texture == null ? Vector2Int.one : new Vector2Int(_voxelMaterial.Texture.width, _voxelMaterial.Texture.height);
+        public bool Fluid => _voxelMaterial.Fluid;
 
         public LoadedVoxelMaterial(VoxelMaterial material)
         {

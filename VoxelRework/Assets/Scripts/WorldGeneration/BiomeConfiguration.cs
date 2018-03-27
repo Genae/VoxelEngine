@@ -10,26 +10,37 @@ namespace Assets.Scripts.WorldGeneration
     {
         public LayerConfiguration[] Layers;
         public VoxelMaterial FillMaterial;
-        private VoxelMaterial[] _layers;
+        public VoxelMaterial Fluid;
 
-        public VoxelMaterial GetLayer(int layer)
+        private LoadedVoxelMaterial[] _layers;
+        private LoadedVoxelMaterial _fill;
+        private LoadedVoxelMaterial _fluid;
+
+        public LoadedVoxelMaterial GetLayer(int layer)
         {
             if(layer >= _layers.Length)
-                return FillMaterial;
+                return _fill;
             return _layers[layer];
         }
 
-        public void Init()
+        public void Init(MaterialCollection collection)
         {
-            var layers = new List<VoxelMaterial>();
+            _fill = collection.GetMaterial(FillMaterial);
+            _fluid = collection.GetMaterial(Fluid);
+            var layers = new List<LoadedVoxelMaterial>();
             foreach (var layerConfig in Layers)
             {
                 for (var i = 0; i < layerConfig.Count; i++)
                 {
-                    layers.Add(layerConfig.Material);
+                    layers.Add(collection.GetMaterial(layerConfig.Material));
                 }
             }
             _layers = layers.ToArray();
+        }
+
+        public LoadedVoxelMaterial GetFluid()
+        {
+            return _fluid;
         }
     }
 

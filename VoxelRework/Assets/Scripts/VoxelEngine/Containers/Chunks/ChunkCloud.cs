@@ -30,10 +30,11 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             return (ushort)((t << 3) >> 3);
         }
 
-        public void SetVoxel(VoxelMaterial material, Vector3Int pos, ushort height)
+        public void SetVoxel(LoadedVoxelMaterial material, Vector3Int pos, ushort height)
         {
-            SetVoxel(MaterialCollection.GetId(material), pos, height);
+            SetVoxel(material.Id, pos, height);
         }
+
         public void SetVoxel(string material, Vector3Int pos, ushort height)
         {
             SetVoxel(MaterialCollection.GetId(material), pos, height);
@@ -61,7 +62,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
         public FluidType(ushort type, ushort height)
         {
             Type = type;
-            Height = height;
+            Height = (ushort)(type == 0 ? 0 : height);
         }
     }
 
@@ -116,9 +117,9 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             return _chunks[cx, cy, cz].GetVoxelData(p);
         }
 
-        public void SetVoxel(VoxelMaterial material, Vector3Int pos)
+        public void SetVoxel(LoadedVoxelMaterial material, Vector3Int pos)
         {
-            SetVoxel(MaterialCollection.GetId(material), pos);
+            SetVoxel(material.Id, pos);
         }
         public void SetVoxel(string material, Vector3Int pos)
         {
@@ -199,7 +200,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             return mb;
         }
 
-        private static int Mod(int num, ushort mod)
+        public static int Mod(int num, ushort mod)
         {
             return (num % mod + mod) % mod;
         }
