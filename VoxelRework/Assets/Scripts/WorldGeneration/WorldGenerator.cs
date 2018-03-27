@@ -68,12 +68,12 @@ namespace Assets.Scripts.WorldGeneration
             stopwatch.Stop();
             Debug.Log("finished Stone " + stopwatch.ElapsedMilliseconds);
 
-            var waterCube = new Cuboid()
+            /*var waterCube = new Cuboid()
             {
                 Pos = new Vector3Int(0, 50, 0),
-                Size = new Vector3Int(1, 1, 1)
+                Size = new Vector3Int(100, 3, 100)
             };
-            BuildRect(world, waterCube, null, configuration.GetFluid()).Wait();
+            BuildRect(world, waterCube, null, configuration.GetFluid()).Wait();*/
             world.FinishBatch();
         }
 

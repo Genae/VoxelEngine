@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.VoxelEngine.Containers;
 using Assets.Scripts.VoxelEngine.Containers.Chunks;
 using Assets.Scripts.VoxelEngine.Materials;
@@ -80,6 +81,7 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
     {
         private readonly Grid3D<FluidUpdater> _chunks = new Grid3D<FluidUpdater>();
         public World World;
+        private float cooldown = 0.1f;
 
         public void SetVoxel(LoadedVoxelMaterial mat, ushort height, Vector3Int pos)
         {
@@ -92,9 +94,13 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
 
         void Update()
         {
-            foreach (var chunk in _chunks.OrderBy(c => c.Key.y).ToArray())
+            if ((cooldown -= Time.deltaTime) <= 0)
             {
-                chunk.Value.RunUpdate(Time.deltaTime, World);
+                cooldown = 1f;
+                foreach (var chunk in _chunks.OrderBy(c => c.Key.y).ToArray())
+                {
+                    chunk.Value.RunUpdate(Time.deltaTime, World);
+                }
             }
         }
     }
@@ -102,7 +108,6 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
     public class FluidUpdater
     {
         private readonly Grid3D<Fluid> _fluids = new Grid3D<Fluid>();
-        private float cooldown = 1;
 
         public void SetVoxel(LoadedVoxelMaterial mat, ushort height, Vector3Int pos)
         {
@@ -118,18 +123,14 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
 
         public void RunUpdate(float deltaTime, World world)
         {
-            if ((cooldown -= deltaTime) <= 0)
-            {
-                cooldown = 0.1f;
-                UpdateFluids(deltaTime, world);
-            }
+            UpdateFluids(deltaTime, world);
         }
 
         private void UpdateFluids(float deltaTime, World world)
         {
             world.StartBatch();
             Debug.Log("Update Fluids");
-            foreach (var fluid in _fluids.OrderBy(c => c.Key.y).ToArray())
+            foreach (var fluid in _fluids.OrderBy(c => c.Key.y).ThenBy(c => Random.Range(0, 10)).ToArray())
             {
                 fluid.Value.RunUpdate(deltaTime, fluid.Key, world);
             }
@@ -158,87 +159,66 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
                 {
                     Gravity(worldPos, world, fluidBelow, below);
                 }
-                else
+                if(Height > 0)
                 {
-                    Spread(worldPos, world);
+                    Spread(worldPos, world, true);
                 }
             }
             else
             {
-                Spread(worldPos, world);
+                Spread(worldPos, world, false);
             }
         }
 
-        private void Spread(Vector3Int worldPos, World world)
+        private void Spread(Vector3Int worldPos, World world, bool waterbelow)
         {
+            var dic = new Dictionary<Vector3Int, FluidType>();
             var px = new Vector3Int(worldPos.x + 1, worldPos.y, worldPos.z);
-            var fpx = world.GetVoxelMaterial(px).Id == 0 ? world.GetFluidAtPos(px) : null;
+            dic[px] = world.GetVoxelMaterial(px).Id == 0 ? world.GetFluidAtPos(px) : null;
             var nx = new Vector3Int(worldPos.x - 1, worldPos.y, worldPos.z);
-            var fnx = world.GetVoxelMaterial(nx).Id == 0 ? world.GetFluidAtPos(nx) : null;
+            dic[nx] = world.GetVoxelMaterial(nx).Id == 0 ? world.GetFluidAtPos(nx) : null;
             var pz = new Vector3Int(worldPos.x, worldPos.y, worldPos.z + 1);
-            var fpz = world.GetVoxelMaterial(pz).Id == 0 ? world.GetFluidAtPos(pz) : null;
+            dic[pz] = world.GetVoxelMaterial(pz).Id == 0 ? world.GetFluidAtPos(pz) : null;
             var nz = new Vector3Int(worldPos.x, worldPos.y, worldPos.z - 1);
-            var fnz = world.GetVoxelMaterial(nz).Id == 0 ? world.GetFluidAtPos(nz) : null;
+            dic[nz] = world.GetVoxelMaterial(nz).Id == 0 ? world.GetFluidAtPos(nz) : null;
 
-            var avg = 0;
-            var count = 0;
-            if (fpx != null && fpx.Height < Height)
-            {
-                avg += fpx.Height;
-                count++;
-            }
-            if (fnx != null && fnx.Height < Height)
-            {
-                avg += fnx.Height;
-                count++;
-            }
-            if (fpz != null && fpz.Height < Height)
-            {
-                avg += fpz.Height;
-                count++;
-            }
-            if (fnz != null && fnz.Height < Height)
-            {
-                avg += fnz.Height;
-                count++;
-            }
+            var lower = dic.Where(d => d.Value != null).Where(d => d.Value.Height < Height).OrderBy(d => d.Value.Height).ToArray();
+            var count = lower.Length;
             if (count == 0)
                 return;
-            avg = avg / count;
-
-            var transfer = (Height - avg) / (count + 1);
+            var avg = lower.Sum(d => d.Value.Height) / count;
+            
+            var transferTotal = Height - avg;
             var transfered = 0;
-            if (fpx != null && fpx.Height < Height)
+            var myHeight = 0;
+            if (transferTotal > 0 && !waterbelow)
             {
-                world.SetVoxel(Mat, px, (ushort)(fpx.Height + transfer));
-                transfered += transfer;
+                var transfer = transferTotal / (count + 1f);
+                ushort transferAmount = (ushort)((ushort)transfer >= transfer ? transfer : transfer + 1);
+                transferAmount = (ushort)(transferTotal - transfered < transferAmount ? transferTotal - transfered : transferAmount);
+                myHeight = transferAmount;
+                transfered += transferAmount;
             }
-            if (fnx != null && fnx.Height < Height)
+            foreach (var low in lower)
             {
-                world.SetVoxel(Mat, nx, (ushort)(fnx.Height + transfer));
-                transfered += transfer;
-            }
-            if (fpz != null && fpz.Height < Height)
-            {
-                world.SetVoxel(Mat, pz, (ushort)(fpz.Height + transfer));
-                transfered += transfer;
-            }
-            if (fnz != null && fnz.Height < Height)
-            {
-                world.SetVoxel(Mat, nz, (ushort)(fnz.Height + transfer));
-                transfered += transfer;
+                var transfer = transferTotal / (count + 1f);
+                ushort transferAmount = (ushort)((ushort) transfer >= transfer ? transfer : transfer + 1);
+                transferAmount = (ushort)(transferTotal - transfered < transferAmount ? transferTotal - transfered : transferAmount);
+                world.SetVoxel(Mat, low.Key, (ushort)(low.Value.Height + transferAmount));
+                transfered += transferAmount;
             }
             if (transfered > 0)
             {
-                world.SetVoxel(Mat, worldPos, (ushort)(Height - transfered));
+                world.SetVoxel(Mat, worldPos, (ushort)(Height - transfered + myHeight));
             }
 
         }
 
         private void Gravity(Vector3Int worldPos, World world, FluidType fluidBelow, Vector3Int below)
         {
-            var transfer = (ushort) Mathf.Max(8 - fluidBelow.Height, Height);
-            world.SetVoxel(Mat, worldPos, (ushort) (Height - transfer));
+            var transfer = (ushort) Mathf.Min(8 - fluidBelow.Height, Height);
+            Height = (ushort)(Height - transfer);
+            world.SetVoxel(Mat, worldPos, Height);
             world.SetVoxel(Mat, below, (ushort) (fluidBelow.Height + transfer));
         }
     }
