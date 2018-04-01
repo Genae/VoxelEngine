@@ -17,3 +17,4 @@ MonoBehaviour:
   - Material: {fileID: 11400000, guid: 3cee06f47d7964149932c7b6ef090cc5, type: 2}
     Count: 3
   FillMaterial: {fileID: 11400000, guid: 80df68241fb07034aa3dfadb93d9f533, type: 2}
+  Fluid: {fileID: 11400000, guid: ff1f11c07df54324e81a84b3af2856d2, type: 2}

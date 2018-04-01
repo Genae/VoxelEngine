@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: e1275f7fb33d3ae4d9e43ba246f9b21b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - geomShader: {fileID: 4800000, guid: dd91166cb2b77254b896da1904921236, type: 3}
+  - sprite: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

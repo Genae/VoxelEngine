@@ -122,6 +122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 590296694}
   - component: {fileID: 590296693}
+  - component: {fileID: 590296696}
+  - component: {fileID: 590296695}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -135,7 +137,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 590296692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8e272074bfdaf3479ee15b8df2e835c, type: 3}
   m_Name: 
@@ -155,6 +157,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &590296695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 590296692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1275f7fb33d3ae4d9e43ba246f9b21b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  geomShader: {fileID: 4800000, guid: dd91166cb2b77254b896da1904921236, type: 3}
+  sprite: {fileID: 2800000, guid: cb9f0124f4a23da4ca63f5ab0c9ebf0f, type: 3}
+  size: 0.1
+  color: {r: 1, g: 0.6, b: 0.3, a: 0.03}
+--- !u!114 &590296696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 590296692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c41293113710e46b01bd54f4894949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  computeShader: {fileID: 7200000, guid: c690bf832b213c34b804ff8093c5896a, type: 3}
+  PointShader: {fileID: 4800000, guid: 88ea1212cf2eeb04ca26d630dddb54c5, type: 3}
+  DebugRender: 0
+  cubeMultiplier: 5
 --- !u!1 &960268124
 GameObject:
   m_ObjectHideFlags: 0
