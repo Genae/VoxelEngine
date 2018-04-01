@@ -25,9 +25,7 @@ public class VoxelComputeShaderOutput : MonoBehaviour
 
     public Shader PointShader;
     Material PointMaterial;
-
-    public bool DebugRender = false;
-
+    
     public int cubeMultiplier = 5;
 
     /// <summary>
@@ -43,13 +41,7 @@ public class VoxelComputeShaderOutput : MonoBehaviour
     void Start()
     {
         CSKernel = computeShader.FindKernel("CSMain");
-
-        if (DebugRender)
-        {
-            PointMaterial = new Material(PointShader);
-            PointMaterial.SetVector("_worldPos", transform.position);
-        }
-
+        
         InitializeBuffers();
     }
 
@@ -89,26 +81,10 @@ public class VoxelComputeShaderOutput : MonoBehaviour
         computeShader.SetBuffer(CSKernel, "mapBuffer", mapBuffer);
 
         computeShader.SetVector("group_size", new Vector3(cubeMultiplier, cubeMultiplier, cubeMultiplier));
-
-        if (DebugRender)
-            PointMaterial.SetBuffer("buf_Points", outputBuffer);
-
+        
         transform.position -= (Vector3.one * 10 * cubeMultiplier) *.5f;
     }
     
-    void OnRenderObject()
-    {
-
-        if (DebugRender)
-        {
-            Dispatch();
-            PointMaterial.SetPass(0);
-            PointMaterial.SetVector("_worldPos", transform.position);
-
-            Graphics.DrawProcedural(MeshTopology.Points, VertCount);
-        }
-    }
-
     public void Dispatch()
     {
         if (!SystemInfo.supportsComputeShaders)
