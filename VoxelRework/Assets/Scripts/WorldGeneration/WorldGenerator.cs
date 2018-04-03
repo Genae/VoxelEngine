@@ -74,7 +74,11 @@ namespace Assets.Scripts.WorldGeneration
                 Size = new Vector3Int(100, 3, 100)
             };
             BuildRect(world, waterCube, null, configuration.GetFluid()).Wait();*/
+            stopwatch.Reset();
+            stopwatch.Restart();
             world.FinishBatch();
+            stopwatch.Stop();
+            Debug.Log("finished Rendering " + stopwatch.ElapsedMilliseconds);
         }
 
         private static Cuboid[] SplitCenterCube(int centerSize, int centerHeight)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Assets.Scripts.VoxelEngine.Materials;
 using Assets.Scripts.VoxelEngine.Renderers;
 using UnityEngine;
@@ -148,7 +149,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
             else
             {
                 var mySlice = _slice - cy * ChunkDataSettings.YSize;
-                GetMeshBuilder(cx, cy, cz).BuildMesh(MaterialCollection, GetNeighbours(cx, cy, cz), chunk, mySlice, true);
+                GetMeshBuilder(cx, cy, cz).BuildMeshAndApply(MaterialCollection, GetNeighbours(cx, cy, cz), chunk, mySlice, true);
             }
             foreach (var neighbour in neighbours)
             {
@@ -169,7 +170,7 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
                     else
                     {
                         var mySlice = _slice - nPos.y * ChunkDataSettings.YSize;
-                        GetMeshBuilder(nPos.x, nPos.y, nPos.z).BuildMesh(MaterialCollection, GetNeighbours(nPos.x, nPos.y, nPos.z), _chunks[nPos.x, nPos.y, nPos.z], mySlice, true);
+                        GetMeshBuilder(nPos.x, nPos.y, nPos.z).BuildMeshAndApply(MaterialCollection, GetNeighbours(nPos.x, nPos.y, nPos.z), _chunks[nPos.x, nPos.y, nPos.z], mySlice, true);
                     }
                 }
             }
@@ -247,11 +248,20 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
         public void FinishBatch()
         {
             _batchMode = false;
+            var tasks = new Task[_batchedChunks.Count];
+            var i = 0;
             foreach (var batchedChunk in _batchedChunks)
             {
                 var mySlice = _slice - batchedChunk.y * ChunkDataSettings.YSize;
-                GetMeshBuilder(batchedChunk.x, batchedChunk.y, batchedChunk.z).BuildMesh(MaterialCollection, GetNeighbours(batchedChunk.x, batchedChunk.y, batchedChunk.z), _chunks[batchedChunk.x, batchedChunk.y, batchedChunk.z], mySlice, true);
+                
+                tasks[i++] = GetMeshBuilder(batchedChunk.x, batchedChunk.y, batchedChunk.z).BuildMesh(MaterialCollection, GetNeighbours(batchedChunk.x, batchedChunk.y, batchedChunk.z), _chunks[batchedChunk.x, batchedChunk.y, batchedChunk.z], mySlice, true); ; 
                 _chunks[batchedChunk.x, batchedChunk.y, batchedChunk.z].NeedsUpdate = false;
+            }
+            Task.WaitAll(tasks);
+            foreach (var batchedChunk in _batchedChunks)
+            {
+                var mySlice = _slice - batchedChunk.y * ChunkDataSettings.YSize;
+                GetMeshBuilder(batchedChunk.x, batchedChunk.y, batchedChunk.z).ApplyMeshData(MaterialCollection, mySlice, true);
             }
             _batchedChunks.Clear();
         }
@@ -265,7 +275,12 @@ namespace Assets.Scripts.VoxelEngine.Containers.Chunks
                 var mySlice = slice - mesh.Key.y * ChunkDataSettings.YSize;
                 mesh.Value.BuildMesh(MaterialCollection, GetNeighbours(mesh.Key.x, mesh.Key.y, mesh.Key.z), _chunks[mesh.Key.x, mesh.Key.y, mesh.Key.z], mySlice, false);
             }
-            
+            foreach (var mesh in _chunksMeshes)
+            {
+                var mySlice = slice - mesh.Key.y * ChunkDataSettings.YSize;
+                mesh.Value.ApplyMeshData(MaterialCollection, mySlice, false);
+            }
+
         }
     }
 }

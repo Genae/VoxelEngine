@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Assets.Scripts.VoxelEngine.Containers.Chunks;
 using Assets.Scripts.VoxelEngine.Materials;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Assets.Scripts.VoxelEngine.Renderers
 {
@@ -20,8 +20,10 @@ namespace Assets.Scripts.VoxelEngine.Renderers
         private MeshRenderer _slicedRenderer;
         private MeshCollider _slicedCollider;
         private MeshFilter _slicedFilter;
-        
+
         //cache Mesh
+        private MeshData _meshData;
+        private MeshData _meshDataSlice;
 
         public void Init()
         {
@@ -42,23 +44,38 @@ namespace Assets.Scripts.VoxelEngine.Renderers
             }
         }
         
-
-        public void BuildMesh(MaterialCollection materials, Dictionary<ChunkSide, Chunk> neighbours, Chunk chunk, int slice, bool rebuild)
+        public void BuildMeshAndApply(MaterialCollection materials, Dictionary<ChunkSide, Chunk> neighbours, Chunk chunk, int slice, bool rebuild)
         {
-            List<Vector3> upVoxels;
-            MeshData meshdata;
-            //_meshRenderer.shadowCastingMode = slice <= 0 ? ShadowCastingMode.ShadowsOnly : ShadowCastingMode.On;
+            BuildMesh(materials, neighbours, chunk, slice, rebuild);
+            ApplyMeshData(materials, slice, rebuild);
+        }
+
+        public Task BuildMesh(MaterialCollection materials, Dictionary<ChunkSide, Chunk> neighbours, Chunk chunk, int slice, bool rebuild)
+        {
+            return Task.Run(() =>
+            {
+                if (rebuild)
+                {
+                    _meshData = GreedyMeshing.CreateMesh(chunk, neighbours, materials, null);
+                }
+                if (slice >= 0 && slice < ChunkDataSettings.YSize)
+                {
+                    _meshDataSlice = GreedyMeshing.CreateMesh(chunk, neighbours, materials, slice);
+                }
+            });            
+        }
+
+        public void ApplyMeshData(MaterialCollection materials, int slice, bool rebuild)
+        {
             if (rebuild)
             {
-                meshdata = GreedyMeshing.CreateMesh(chunk, neighbours, materials, null, out upVoxels);
-                ApplyMeshData(materials, meshdata, ref _mesh, _meshRenderer, _meshCollider, _meshFilter);
-                gameObject.SetActive(meshdata.Vertices.Length != 0);
+                ApplyMeshData(materials, _meshData, ref _mesh, _meshRenderer, _meshCollider, _meshFilter);
+                gameObject.SetActive(_meshData.Vertices.Length != 0);
             }
-            if(slice >= 0 && slice < ChunkDataSettings.YSize)
+            if (slice >= 0 && slice < ChunkDataSettings.YSize)
             {
-                meshdata = GreedyMeshing.CreateMesh(chunk, neighbours, materials, slice, out upVoxels);
-                ApplyMeshData(materials, meshdata, ref _slicedMesh, _slicedRenderer, _slicedCollider, _slicedFilter);
-                _sliced.SetActive(meshdata.Vertices.Length != 0);
+                ApplyMeshData(materials, _meshDataSlice, ref _slicedMesh, _slicedRenderer, _slicedCollider, _slicedFilter);
+                _sliced.SetActive(_meshDataSlice.Vertices.Length != 0);
             }
             else
             {

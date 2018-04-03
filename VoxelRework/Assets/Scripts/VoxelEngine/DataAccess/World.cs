@@ -96,11 +96,14 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
         {
             if ((cooldown -= Time.deltaTime) <= 0)
             {
+                Debug.Log("Update Fluids");
+                World.StartBatch();
                 cooldown = 1f;
                 foreach (var chunk in _chunks.OrderBy(c => c.Key.y).ToArray())
                 {
                     chunk.Value.RunUpdate(Time.deltaTime, World);
                 }
+                World.FinishBatch();
             }
         }
     }
@@ -128,13 +131,10 @@ namespace Assets.Scripts.VoxelEngine.DataAccess
 
         private void UpdateFluids(float deltaTime, World world)
         {
-            world.StartBatch();
-            Debug.Log("Update Fluids");
             foreach (var fluid in _fluids.OrderBy(c => c.Key.y).ThenBy(c => Random.Range(0, 10)).ToArray())
             {
                 fluid.Value.RunUpdate(deltaTime, fluid.Key, world);
             }
-            world.FinishBatch();
         }
     }
 
