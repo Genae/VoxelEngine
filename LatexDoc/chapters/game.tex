@@ -40,23 +40,33 @@ For example the Algiz rune has the meanings \textit{`Elk', `Protection', `Defens
 Though, it must be noted here though that runes can have multiple meanings and the meaning is not always absolutely clear.
 Rieckhoff and Biel point out that there is not Celtic historiography, literature or religious writings.~\cite{rieckhoff-runes} The absence of a large basis of usage, makes interpreting runes especially difficult.
 \footnotetext{Unfortunately, we had to skip some runes as there was no reasonable way of mapping the rune to an in-game functionality.}
+A complete table of the runes we used, the original meaning we used as a basis and their usage in-game can be found in Appendix TODO.
 
-To properly play the game a player must recognize a rune and it's function in-game. This supports in combination with the coverage of most runes and a close relation to their traditional meaning the learning success of the player.
+To properly play the game a player must recognize a rune and it's function in-game.
+The player has as much time as he needs to study, recognize and properly place the runes in the preparation phase.\footnotemark
+In combination with the coverage of most runes in-game and a close relation of their traditional meaning to the in-game usage, this measures support the learning success of the player.
 
+\footnotetext{Though this can help him learn the runes, this was also a necessity due to the nature of augmented reality on a tablet computer.}
 
 \subsection{Tower Defense}
 \label{sec:game_design:subsec:tower_defense}
 
-The Tower Defense concepts we are using are very basic. Towers can be manually placed and upgraded in various ways, using gold, to kill monsters that are walking on a specific path towards the players base. If a monster reaches the base alive, it does damage to the players health and if the health drops to zero the player looses and has to start over. 
-The distinguishing feature of our tower defense is that the player does not earn gold by killing monsters, but by planting and harvesting different farms.
+We use the basic and popular tower defense concepts for our core gameplay mechanics. Towers are manually placed on the map (through the position of the rune markers relative to the augmented reality map) and shoot incoming waves of enemies. The enemies have to be killed before they can reach the village, which is positioned with the \textit{`Mannaz'} rune marker and the anchor point of the augmented reality map.
+If enemies reach the village, players loose health. When health reaches zero, the game is lost and the player has to start over.
 
+Players can upgrade their towers by placing buff runes close to their tower rune. For example the \textit{`Kenaz'} rune adds fire damage to the tower it's linked to.
+Additionally players can earn gold by building farms and harvesting them during the game phase, which adds additional interactivity to the game phase.
+The gold can be used to buy additional lives during the preparation phase.
 
+Although we would've liked to implemented additional mechanics, because of the difficulties encountered (cf. Section~\ref{sec:problems}), we decided to stick with this basic tower defense principle, which works with our augmented reality setup and is intuitive to use.
 
 \subsection{Campaign}
 \label{sec:game_design:subsec:campaign}
 
 Because of the sheer number of runes the player has to learn before he is able to actually play the game, we slowly introduce the runes step by step in a campaign/ tutorial mode. That way, no one is overwhelmed by too many different rune symbols, their meanings and their meanings in-game, but is able to learn in small manageable steps. \\
 After playing the campaign, a free-play mode is unlocked to offer a challenge for more experienced players without playing the campaign again. \\
+
+Way points change per level. player has to adapt. 
 
 \subsection{History}
 \label{sec:game_design:subsec:history}
