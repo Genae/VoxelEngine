@@ -1,0 +1,43 @@
+\section{Implementation}
+Unity. Vuforia extended tracking. Voxel Engine. Marker generation. Map placement. Upgrade handling. marklight (+rich text). 
+
+\subsection{Marker Generation}
+Since we chose Vuforia for marker tracking, all markers had to be unique. The game design however requires multiple markers for each rune, as most buildings and upgrades can be in play multiple times. Furthermore the markers have to be readable and unambiguously assignable to a specific rune by the player. \\
+
+Our solution was the marker design seen in game. The rune represented by the marker is placed in the center and fills most of the space. In order to make them unique, the marker borders are seamed with small versions of all 24 runes in random order. Because many markers had to be created like this (4 per rune) we created a Java Script program to do the random placement of the rune images. This design has the additional advantage of always giving the player an overview of all runes, as well as making the correct orientation of the center rune more obvious.
+
+\subsection{UI}
+To create the games' user interface we used MarkLight.\cite{marklight} MarkLight is a Unity framework offering a declarative design language similar in syntax to HTML. It can be used to create user interfaces with code only, bypassing the need to drag and drop UI-elements in the Unity scene view. \\
+In order to further separate the UI from the core code, most text is handled using separate JSON files. This includes primarily the Wiki, as well as the campaign flavour text. Fortunately MarkLight supports the Unity Rich Text markup format, so we used it to make the partly huge walls of text easyer to read.\cite{unity-rich-text}\\
+At this point it should be noted, that all the content presented in the ingame wiki is taken from the wikipedia page corresponding to the rune, as well as the overview page of the elder futhark.\cite{elder-futhark}\\
+Another important job the UI had to fulfill was showing the player if one or several of the markers has lost tracking. For this purpose every marker detected by Vuforia gets a colored sphere attached.
+\begin{itemize}
+	\item green means the marker is actively tracked
+	\item yellow means the marker is tracked using extended tracking only
+	\item red means tracking was lost or position is invalid
+\end{itemize}
+It is important, that all runes the player wishes to start the level with have at least a yellow tracking level.
+
+\subsection{Rune Combining}
+There are 3 types of upgradeable runes: towers, farms and the village rune. All other runes are either elemental (which are used to change the damage type of towers) or upgrade runes that change the behavior.
+
+Every upgrade rune has a list of valid upgradeable runes which it can connect to. Out of that list it will select the closest one if it is not out of range. This is visualized by a linerenderer.
+
+Every upgradeable rune will collect a list of all connected upgrades when the START button is pressed so they are not changed while the game is running. This list will be consulted to identify the behavior and stats of the upgradeable runes.
+
+
+\subsection{Voxel Framework}
+
+We decided to use a Voxel Framework as a base for our project for multiple reasons:
+\begin{itemize}
+	\item We had already started to build a Voxel Framework so we were able to reuse most of the code.
+	\item It is easier to generate nice looking Assets for a Voxel style game.
+	\item Objects from the Voxel Framework can be changed at runtime (e.g. creating a farm on the terrain changes the grass to dirt.)
+\end{itemize}
+
+
+Most objects that are used in the game, such as the towers or the terrain, are displayed by the Voxel Framework. The data for every object is stored in a 3D Grid. Every data point stores the information about the material at its position. From this grid we generate one optimized mesh that uses a Texture Atlas and UV coordinates to display the color information of the objects. 
+
+The terrain is split into multiple chunks to reduce the complexity of the mesh optimization and therefore improve the performance. Every chunk has its own mesh but the all share the same materials and textures to reduce the amount of draw calls.
+
+Besides the rendering the Voxel Framework also includes basic terrain generation which we adapted to our needs for this project. Furthermore it supports growing plants on farms.
