@@ -12,7 +12,7 @@ Learning is supported by a connection between the matter and the game mechanic, 
 
 The game is designed as a classical Tower Defense (TD) game. Players build towers to defend their city from increasingly difficult hordes of enemies.
 This is explained in more detail in Section~\ref{sec:game_design:subsec:tower_defense}.
-We use augmented reality to give the player control over the towers and buildings with printed physical markers, our `rune markers' cf. Section~\ref{sec:game_design:subsec:runes}.
+We use augmented reality to give the player control over the towers and buildings with printed physical markers, our `rune markers' (cf. Section~\ref{sec:game_design:subsec:runes}).
 This is meant to increase the learning success by bringing the runes into focus while providing a refreshing game experience through novel control mechanics.
 Knowledge about runes and Celtic history is presented gradually using a game campaign, where the player unlocks new runes and additionally information after increasingly more difficult levels. This is thoroughly explained in Section~\ref{sec:game_design:subsec:campaign}.
 
@@ -23,8 +23,28 @@ TODO:
 \subsection{Runes and Rune Markers}
 \label{sec:game_design:subsec:runes}
 
-Almost every rune out of the 26 letter rune alphabet has a special meaning in the game itself, very close to the traditional meaning of the rune in ancient times.\\
-To name but one, the \emph{Kenaun} rune, also called \emph{Kenaz} has the traditional meaning \emph{torch} and in-game upgrades standard towers to fire towers.
+As the primary goal of playing the game is to learn about Celtic runes, the runes are the core of our game experience.
+Therefore we split the game into two distinct phases:
+A preparation phase where the player interacts with physical representations of the runes, our rune markers, and a game phase where the player interacts with the augmented reality device.
+
+\begin{wrapfigure}{R}{0.38\textwidth}
+	\centering
+	\includegraphics[width=0.35\textwidth]{figures/algiz0.jpeg}
+	\caption{\label{fig:rune-marker} An Algiz rune marker for building towers}
+\end{wrapfigure}
+
+Our rune markers are printed out representations of runes that each have a unique effect in the game and need to be properly positioned by the player. Figure~\ref{fig:rune-marker} shows a rune marker for the \textit{`Algiz'} rune, which is used to build and position towers.
+As a player can use some runes multiple times, the rune markers have an additional unique boarder that enables the augmented reality tracking to distinguish similar runes.
+
+As the basis for our runes and rune markers we used the 24 runes of the \textit{`Elder Futhark'}~\cite{elder-futhark}, the oldest form of the runic alphabets.
+Almost\footnotemark all of the 24 runes have a special meaning in the game that closely relates to their original meaning.
+For example the Algiz rune has the meanings \textit{`Elk', `Protection', `Defense'}~\cite{algiz} and is used to build towers.
+Though, it must be noted here though that runes can have multiple meanings and the meaning is not always absolutely clear.
+Rieckhoff and Biel point out that there is not Celtic historiography, literature or religious writings.~\cite{rieckhoff-runes} The absence of a large basis of usage, makes interpreting runes especially difficult as.
+\footnotetext{Unfortunately, we had to skip some runes as there was no reasonable way of mapping the rune to an in-game functionality.}
+
+To properly play the game a player must recognize a rune and it's function in-game. This supports in combination with the coverage of most runes and a close relation to their traditional meaning the learning success of the player.
+
 
 \subsection{Tower Defense}
 \label{sec:game_design:subsec:tower_defense}
