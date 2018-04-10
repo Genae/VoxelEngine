@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelUnity", "VoxelUnity.csproj", "{1B81D985-9A05-303F-1E1E-67A5CFA6A6DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxelUnity.Editor", "VoxelUnity.Editor.csproj", "{67038B34-8600-C58A-21CE-1E51B9897BB8}"
