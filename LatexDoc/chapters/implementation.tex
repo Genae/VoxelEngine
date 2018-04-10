@@ -8,6 +8,7 @@ For marker tracking we are using the Vuforia Augmented Reality library for Unity
 The library is fairly easy to use and offers great functionality for marker tracking and markerless tracking. The only disadvantage it has is a maximum number of uploadable markers which is at a hundred. With 96 different markers we came very close to that limit.
 
 \subsection{Marker Generation}
+\label{sec:implementation:marker_generation}
 Since we chose Vuforia for marker tracking, all markers had to be unique. The game design however requires multiple markers for each rune, as most buildings and upgrades can be in play multiple times. Furthermore the markers have to be readable and unambiguously assignable to a specific rune by the player.
 
 Our solution was the marker design seen in Section~\ref{sec:game_design:subsec:runes}. The rune represented by the marker is placed in the center and fills most of the space. In order to make them unique, the marker borders are seamed with small versions of all 24 runes in random order. Because many markers had to be created like this (4 per rune) we created a Java Script program to do the random placement of the rune images. This design has the additional advantage of always giving the player an overview of all runes, as well as making the correct orientation of the center rune more obvious.
