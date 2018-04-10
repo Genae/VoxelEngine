@@ -14,7 +14,7 @@ The game is designed as a classical Tower Defense (TD) game. Players build tower
 This is explained in more detail in Section~\ref{sec:game_design:subsec:tower_defense}.
 We use augmented reality to give the player control over the towers and buildings with printed physical markers, our `rune markers' (cf. Section~\ref{sec:game_design:subsec:runes}).
 This is meant to increase the learning success by bringing the runes into focus while providing a refreshing game experience through novel control mechanics.
-Knowledge about runes and Celtic history is presented gradually using a game campaign, where the player unlocks new runes and additionally information after increasingly more difficult levels. This is thoroughly explained in Section~\ref{sec:game_design:subsec:campaign}.
+Knowledge about runes and Celtic history is presented gradually using a game campaign, where the player unlocks new runes and additional information after increasingly more difficult levels. This is thoroughly explained in Section~\ref{sec:game_design:subsec:campaign}.
 
 Finally we based the style of the game on available historical data about Celtic cities, defenses and enemies, which is covered in Section~\ref{sec:game_design:subsec:history}.
 
@@ -32,15 +32,15 @@ A preparation phase where the player interacts with physical representations of 
 \end{wrapfigure}
 
 Our rune markers are printed out representations of runes that each have a unique effect in the game and need to be properly positioned by the player. Figure~\ref{fig:rune-marker} shows a rune marker for the \textit{`Algiz'} rune, which is used to build and position towers in-game.
-As a player can use some runes multiple times, the rune markers have an additional unique boarder that enables the augmented reality tracking to distinguish similar runes.
+The player can use some runes multiple times, since the rune markers have an additional unique border that enables the augmented reality tracking to distinguish the same rune on multiple rune markers.
 
 As the basis for our runes and rune markers we used the 24 runes of the \textit{`Elder Futhark'}~\cite{elder-futhark}, the oldest form of the runic alphabets.
 Almost\footnotemark all of the 24 runes have a special meaning in the game that closely relates to their original meaning.
 For example the Algiz rune has the meanings \textit{`Elk', `Protection', `Defense'}~\cite{algiz} and is used to build towers.
 Though, it must be noted here though that runes can have multiple meanings and the meaning is not always absolutely clear.
-Rieckhoff and Biel point out that there is not Celtic historiography, literature or religious writings.~\cite{rieckhoff-runes} The absence of a large basis of usage, makes interpreting runes especially difficult.
-\footnotetext{Unfortunately, we had to skip some runes as there was no reasonable way of mapping the rune to an in-game functionality.}
-A complete table of the runes we used, the original meaning we used as a basis and their usage in-game can be found in Appendix~\ref{appendix-a}.
+Rieckhoff and Biel point out that there is no Celtic historiography, literature or religious writings.~\cite{rieckhoff-runes} The absence of a large basis of usage, makes interpreting runes especially difficult.
+\footnotetext{Unfortunately, we had to skip a small number of runes as there was no reasonable way of mapping the rune to an in-game functionality.}
+A complete table of the runes we used, the original meaning we used as a basis, and their usage in-game can be found in the Appendix~\ref{appendix-a}.
 
 To properly play the game a player must recognize a rune and it's function in-game.
 The player has as much time as he needs to study, recognize and properly place the runes in the preparation phase.\footnotemark
@@ -65,7 +65,7 @@ Although, we would've liked to implement advanced mechanics we decided to stick 
 \subsection{Campaign}
 \label{sec:game_design:subsec:campaign}
 
-The game and also the learning process is structured into increasingly difficult levels. At each level the player unlocks new runes, gets information about the runes historical meaning and it's use in-game.
+The game as well as the learning process is structured into levels with increasing difficulty. At each level the player unlocks new runes, gets information about the runes historical meaning and it's use in-game.
 E.g. in the first level the player unlocks the \textit{`Mannaz'} and \textit{`Algiz'} rune so he can build the village and his first tower. In the second level he unlocks another \textit{`Algiz'} rune for a second tower and a \textit{`Jera'} rune to build a farm he can harvest during the game phase.
 The player gets textual information in a dialog window and an enlarged image of the new rune.
 He has to immediately learn to recognize the rune to be able to find the rune marker with the rune and use it to construct or enhance buildings.
@@ -86,7 +86,6 @@ They get attacked by wolves and bears in the beginning and later by invading Rom
 The attackers may also be accompanied by mythical creatures the Celts believed in like the Kelpie, a equine water spirit.
 
 Figure~\ref{fig:house-comparison} shows a comparison between our house asset and the illustrated reconstruction from Manching as found in~\cite{kraemer-oppidum-maching}.
-Though we had to make the house a little bit taller, because the angles for the roof that look good are limited by the voxel design.
 
 \begin{figure}[ht]
 	\centering
