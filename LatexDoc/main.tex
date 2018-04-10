@@ -55,8 +55,8 @@ maxbibnames=5,
 urldate=comp]{biblatex}
 \addbibresource{bibliography/literature.bib}
 
-\titleformat{\section}{\vspace*{1cm}\LARGE\bfseries}{\thesection}{1em}{}
-\newcommand{\sectionbreak}{\clearpage}
+\titleformat{\section}{\vspace*{0.5cm}\LARGE\bfseries}{\thesection}{1em}{}
+%\newcommand{\sectionbreak}{\clearpage}
 \titleformat*{\subsection}{\Large\bfseries}
 \titleformat*{\subsubsection}{\large\bfseries}
 \titleformat*{\paragraph}{\large\bfseries}
@@ -100,7 +100,7 @@ urldate=comp]{biblatex}
 	\printbibliography 
 	\clearpage
 	\appendix
-	\renewcommand{\sectionbreak}{}
+	%\renewcommand{\sectionbreak}{}
 	\input{appendix}
 	
 \end{document}

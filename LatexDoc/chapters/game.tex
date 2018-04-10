@@ -55,21 +55,44 @@ We use the basic and popular tower defense concepts for our core gameplay mechan
 If enemies reach the village, players loose health. When health reaches zero, the game is lost and the player has to start over.
 
 Players can upgrade their towers by placing buff runes close to their tower rune. For example the \textit{`Kenaz'} rune adds fire damage to the tower it's linked to.
+As enemies are vulnerable to different damage types, e.g. a wooden siege weapon is vulnerable to fire damage, players have to carefully consider their elemental upgrades.
 Additionally players can earn gold by building farms and harvesting them during the game phase, which adds additional interactivity to the game phase.
 The gold can be used to buy additional lives during the preparation phase.
 
-Although we would've liked to implemented additional mechanics, because of the difficulties encountered (cf. Section~\ref{sec:problems}), we decided to stick with this basic tower defense principle, which works with our augmented reality setup and is intuitive to use.
+Although, we would've liked to implement advanced mechanics we decided to stick with this basic tower defense principles, which works with our augmented reality setup and is intuitive to use, because of the difficulties encountered (cf. Section~\ref{sec:problems}).
 
 
 \subsection{Campaign}
 \label{sec:game_design:subsec:campaign}
 
-Because of the sheer number of runes the player has to learn before he is able to actually play the game, we slowly introduce the runes step by step in a campaign/ tutorial mode. That way, no one is overwhelmed by too many different rune symbols, their meanings and their meanings in-game, but is able to learn in small manageable steps. \\
-After playing the campaign, a free-play mode is unlocked to offer a challenge for more experienced players without playing the campaign again. \\
+The game and also the learning process is structured into increasingly difficult levels. At each level the player unlocks new runes, gets information about the runes historical meaning and it's use in-game.
+E.g. in the first level the player unlocks the \textit{`Mannaz'} and \textit{`Algiz'} rune so he can build the village and his first tower. In the second level he unlocks another \textit{`Algiz'} rune for a second tower and a \textit{`Jera'} rune to build a farm he can harvest during the game phase.
+The player gets textual information in a dialog window and an enlarged image of the new rune.
+He has to immediately learn to recognize the rune to be able to find the rune marker with the rune and use it to construct or enhance buildings.
+For additional references the player can open a \textit{`wiki'}, where he can find all information about runes and the game in a structured format.
+We chose this structured campaign approach, because we quickly realized while testing that 24 runes with different meanings is overwhelming when directly available and a slower introduction in small manageable steps yields better results.
 
-\subsection{History}
+Each level also spawns new and tougher enemies, so the player is forced to use his runes wisely to beat the level and advance in the campaign.
+After beating the campaign, a free-play mode is unlocked to offer a challenge with all runes available.
+
+
+\subsection{Historical Reference}
 \label{sec:game_design:subsec:history}
 
+We created a mostly historical accurate setting for the game. Because we used a self-made voxel engine (cf. Section~\ref{sec:implementation:voxelframework} to render our game, we were able to create the game assets by ourselves.
 
-Manching nachempfunden
+Our Celtic village is based on reconstructions of the \textit{`Oppidum of Manching'} as illustrated in~\cite{kraemer-oppidum-maching}. The tower and stone walls were modeled after historically funded illustrations from~\cite{kraemer-oppidum-maching}\cite{rieckhoff-walls1}\cite{rieckhoff-walls2}\cite{rieckhoff-tower}. As enemies we created attackers that the Celts may have actually encountered.
+They get attacked by wolves and bears in the beginning and later by invading Roman foot soldiers and siege weapons.
+The attackers may also be accompanied by mythical creatures the Celts believed in like the Kelpie, a equine water spirit.
+
+
+
+INSERT PICTURE HERE
+
+INSERT SCREENSHOT HERE
+
+
+
+
+
 
