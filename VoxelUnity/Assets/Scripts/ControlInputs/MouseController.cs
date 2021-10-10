@@ -38,7 +38,7 @@ namespace Assets.Scripts.ControlInputs
         public void Awake()
         {
             Tools = new Dictionary<string, Tool>();
-            var configs = ConfigImporter.GetAllConfigs<ToolConfig[]>("Configs/Runes");
+            var configs = ConfigImporter.GetAllConfigs<ToolConfig[]>("Configs/Tools");
             var parent = new GameObject("Tools");
             parent.transform.parent = transform;
             foreach (var config in configs)
@@ -48,7 +48,7 @@ namespace Assets.Scripts.ControlInputs
                     AddTools(toolConfig, parent.transform);
                 }
             }
-            SelectTool<PlaceRuneTool>();
+            SelectTool<FarmTool>();
         }
 
         private void AddTools(ToolConfig toolConfig, Transform parent)

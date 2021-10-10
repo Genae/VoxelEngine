@@ -1,0 +1,9 @@
+<ResponsiveUIExample xmlns="Delight" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="Delight ../Delight.xsd" EnableScriptEvents="True" 
+                     TestWidth="t:ElementSize = 100px">
+
+  <Region Width="$ {@IsPortrait} ? XML(100%) : XML(50%)" BackgroundColor="Green" />
+  <Region IsActive="$ {@ScreenWidth} LT 500 ? true : false" BackgroundColor="Green" />
+
+  <Label Text="$ ({@ScreenWidth} GT 100).ToString()" />      
+     
+</ResponsiveUIExample>

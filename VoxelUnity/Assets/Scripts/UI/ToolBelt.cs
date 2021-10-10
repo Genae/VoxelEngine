@@ -1,25 +1,27 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.ControlInputs;
 using Assets.Scripts.EngineLayer;
-using MarkLight;
-using MarkLight.Views.UI;
+using Delight;
+using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
 	public class ToolBelt : UIView
 	{
-	    public ObservableList<ToolConfig> MainGroup;
-	    public ObservableList<ToolConfig> SecondaryGroup = new ObservableList<ToolConfig>();
+	    public List<ToolConfig> MainGroup;
+	    public ToolConfig SelectedItemMain;
+	    public List<ToolConfig> SecondaryGroup = new List<ToolConfig>();
+	    public ToolConfig SelectedItemSecondary;
 	    public Dictionary<string, ToolConfig[]> AllSecondaryGroups = new Dictionary<string, ToolConfig[]>();
-	    public _int xOffset;
+	    public int xOffset;
 
 	    private MouseController _controller;
 
         void Awake()
         {
-            _controller = FindObjectOfType<MouseController>();
+            _controller = Object.FindObjectOfType<MouseController>();
             var configs = ConfigImporter.GetAllConfigs<ToolConfig[]>("Configs/Tools");
-            MainGroup = new ObservableList<ToolConfig>();
+            MainGroup = new List<ToolConfig>();
             foreach (var config in configs)
             {
                 foreach (var toolConfig in config)
@@ -36,9 +38,9 @@ namespace Assets.Scripts.UI
 
 	    public void SelectedMain()
 	    {
-	        var list = AllSecondaryGroups[MainGroup.SelectedItem.Name];
+	        var list = AllSecondaryGroups[SelectedItemMain.Name];
 
-	        xOffset.Value = (int) ((MainGroup.SelectedIndex + 0.5f - MainGroup.Count / 2f) * 100);
+	        xOffset = (int) ((MainGroup.IndexOf(SelectedItemMain) + 0.5f - MainGroup.Count / 2f) * 100);
 
 	        SecondaryGroup.Clear();
             SecondaryGroup.AddRange(list);
@@ -47,7 +49,7 @@ namespace Assets.Scripts.UI
 	    }
 	    public void SelectedSecondary()
 	    {
-	        _controller.SelectTool(SecondaryGroup.SelectedItem.Tool);
+	        _controller.SelectTool(SelectedItemSecondary.Tool);
         }
     }
 

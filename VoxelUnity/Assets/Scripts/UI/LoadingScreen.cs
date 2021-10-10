@@ -1,12 +1,13 @@
-﻿using MarkLight;
-using MarkLight.Views.UI;
+﻿using System;
+using Delight;
 
 namespace Assets.Scripts.UI
 {
+	[ExtensionOfNativeClass]
 	public class LoadingScreen : UIView
 	{
-	    public _string StatusText;
-	    public _float Progress;
+	    public string StatusText;
+	    public float Progress;
 	}
 
 }
