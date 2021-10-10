@@ -44,7 +44,7 @@ namespace Assets.Scripts.UI
 
 	        SecondaryGroup.Clear();
             SecondaryGroup.AddRange(list);
-            _controller.SelectedTool = null;
+            //_controller.SelectedTool = null;
 
 	    }
 	    public void SelectedSecondary()

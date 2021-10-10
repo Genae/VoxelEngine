@@ -48,7 +48,7 @@ namespace Assets.Scripts.ControlInputs
                     AddTools(toolConfig, parent.transform);
                 }
             }
-            SelectTool<FarmTool>();
+            SelectTool<AddBlocksTool>();
         }
 
         private void AddTools(ToolConfig toolConfig, Transform parent)

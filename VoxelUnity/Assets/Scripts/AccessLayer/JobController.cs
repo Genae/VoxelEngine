@@ -54,7 +54,7 @@ namespace Assets.Scripts.AccessLayer
         {
             if (OpenJobs.ContainsKey(jobType) && !OpenJobs[jobType].IsEmpty())
             {
-                foreach (var job in OpenJobs[jobType])
+                foreach (var job in OpenJobs[jobType].ToArray())
                 {
                     if (!job.GetPossibleWorkLocations().Any())
                     {
