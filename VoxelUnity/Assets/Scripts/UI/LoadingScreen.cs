@@ -1,9 +1,8 @@
 ﻿using System;
-using Delight;
 
 namespace Assets.Scripts.UI
 {
-	public class LoadingScreen : UIView
+	public class LoadingScreen
 	{
 	    public string StatusText;
 	    public float Progress;

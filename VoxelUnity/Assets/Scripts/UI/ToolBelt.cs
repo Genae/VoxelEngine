@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.ControlInputs;
 using Assets.Scripts.EngineLayer;
-using Delight;
 using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
-	public class ToolBelt : UIView
+	public class ToolBelt
 	{
 	    public List<ToolConfig> MainGroup;
 	    public ToolConfig SelectedItemMain;

@@ -14,6 +14,7 @@ namespace Assets.Scripts.AccessLayer
         protected readonly List<Class> FreeSolvers = new List<Class>();
         protected List<PositionedJob>[,,] Jobs;
         public static JobController Instance;
+        public static object Lock = new object();
 
         void Awake()
         {
@@ -54,13 +55,16 @@ namespace Assets.Scripts.AccessLayer
         {
             if (OpenJobs.ContainsKey(jobType) && !OpenJobs[jobType].IsEmpty())
             {
-                foreach (var job in OpenJobs[jobType].ToArray())
+                lock (Lock)
                 {
-                    if (!job.GetPossibleWorkLocations().Any())
+                    foreach (var job in OpenJobs[jobType])
                     {
-                        continue;
+                        if (!job.GetPossibleWorkLocations().Any())
+                        {
+                            continue;
+                        }
+                        return job;
                     }
-                    return job;
                 }
             }
             return null;

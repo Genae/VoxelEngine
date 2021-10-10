@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.AccessLayer;
-using Delight;
 using UnityEngine;
 
 namespace Assets.Scripts.EngineLayer.AI.GOAP
@@ -37,7 +36,10 @@ namespace Assets.Scripts.EngineLayer.AI.GOAP
             WaitForPlanState = new WaitingForPlanState();
             StateMachine.PushState(IdleState);
             AvailableActions = new HashSet<GOAPAction>();
-            AvailableActions.AddRange(DataProvider.GetPossibleActions());
+            foreach (var possibleAction in DataProvider.GetPossibleActions())
+            {
+                AvailableActions.Add(possibleAction);
+            }
         }
 
         // Update is called once per frame

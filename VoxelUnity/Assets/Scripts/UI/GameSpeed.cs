@@ -1,9 +1,8 @@
-﻿using Delight;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.UI
 {
-	public class GameSpeed : UIView
+	public class GameSpeed
     {
         public void ClickNormal()
         {

@@ -41,32 +41,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Delight\Source\Editor\ViewPresenterInspector.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\DesignerView.cs" />
-     <Compile Include="Assets\Delight\Content\Views\UI\Editor\DelightDesigner_g.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\ConsoleLogger.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\ContentParser.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\ContentAssetProcessor.cs" />
-     <Compile Include="Assets\Delight\Content\Views\UI\Editor\XmlEditorUndoInfo.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\ContentObjectModel.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\DelightMenuItems.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\AssetBundleTreeView.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\MasterConfig.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\EditorEventListener.cs" />
-     <Compile Include="Assets\Delight\Content\Views\UI\Editor\XmlEditor_g.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\CodeGenerator.cs" />
-     <Compile Include="Assets\Delight\Content\Views\UI\Editor\DelightDesigner.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\AutoCompleteOption.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\DelightControlPanel.cs" />
-     <Compile Include="Assets\Delight\Content\Views\UI\Editor\DesignerToolbar_g.cs" />
-     <Compile Include="Assets\Delight\Content\Views\UI\Editor\DesignerToolbar.cs" />
      <Compile Include="Assets\Scripts\EngineLayer\Voxels\MultiblockHandling\Editor\NoPlayObjectLoader.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\XmlParseError.cs" />
-     <Compile Include="Assets\Delight\Source\Editor\Parser\TemplateItemInfo.cs" />
-     <Compile Include="Assets\Delight\Content\Views\UI\Editor\XmlEditor.cs" />
-     <None Include="Assets\Delight\Content\Views\UI\Editor\DelightDesigner.xml" />
-     <None Include="Assets\Delight\Content\Views\UI\Editor\XmlEditor.xml" />
-     <None Include="Assets\Delight\Content\Views\UI\Editor\DesignerToolbar.xml" />
      <Reference Include="UnityEngine">
      <HintPath>C:/Unity Editors/2020.3.20f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -298,14 +273,8 @@
      <Reference Include="UnityEditor.WindowsStandalone.Extensions">
      <HintPath>C:/Unity Editors/2020.3.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
      </Reference>
-     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.Analytics.StandardEvents">
      <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Library/PackageCache/com.unity.analytics@3.5.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
-     </Reference>
-     <Reference Include="System.Memory">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/System.Memory.dll</HintPath>
      </Reference>
      <Reference Include="log4netPlastic">
      <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Library/PackageCache/com.unity.collab-proxy@1.5.7/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
@@ -316,38 +285,8 @@
      <Reference Include="Unity.Analytics.Editor">
      <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Library/PackageCache/com.unity.analytics@3.5.3/Unity.Analytics.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Microsoft.CodeAnalysis">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/Microsoft.CodeAnalysis.dll</HintPath>
-     </Reference>
-     <Reference Include="Microsoft.CodeAnalysis.Scripting">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/Microsoft.CodeAnalysis.Scripting.dll</HintPath>
-     </Reference>
      <Reference Include="Unity.Plastic.Antlr3.Runtime">
      <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Library/PackageCache/com.unity.collab-proxy@1.5.7/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
-     </Reference>
-     <Reference Include="Microsoft.CodeAnalysis.CSharp">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/Microsoft.CodeAnalysis.CSharp.dll</HintPath>
-     </Reference>
-     <Reference Include="protobuf-net">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Delight/Source/Editor/Parser/protobuf-net.dll</HintPath>
-     </Reference>
-     <Reference Include="System.Buffers">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/System.Buffers.dll</HintPath>
-     </Reference>
-     <Reference Include="System.Runtime.Loader">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/System.Runtime.Loader.dll</HintPath>
-     </Reference>
-     <Reference Include="Microsoft.CodeAnalysis.CSharp.Scripting">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll</HintPath>
-     </Reference>
-     <Reference Include="System.Threading.Tasks.Extensions">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/System.Threading.Tasks.Extensions.dll</HintPath>
-     </Reference>
-     <Reference Include="System.Reflection.Metadata">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/System.Reflection.Metadata.dll</HintPath>
-     </Reference>
-     <Reference Include="System.Collections.Immutable">
-     <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Assets/Plugins/Roslyn/System.Collections.Immutable.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Analytics.Tracker">
      <HintPath>D:/Dateien/Git/VoxelEngine/VoxelUnity/Library/PackageCache/com.unity.analytics@3.5.3/Unity.Analytics.Tracker.dll</HintPath>
