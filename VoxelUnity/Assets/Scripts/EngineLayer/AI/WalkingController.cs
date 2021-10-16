@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding.Graphs;
-using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
+using Algorithms.Pathfinding.Graphs;
+using Algorithms.Pathfinding.Pathfinder;
+using Algorithms.Pathfinding.Utils;
+using EngineLayer.Voxels.Containers;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.AI
+namespace EngineLayer.AI
 {
     public class WalkingController : MonoBehaviour
     {

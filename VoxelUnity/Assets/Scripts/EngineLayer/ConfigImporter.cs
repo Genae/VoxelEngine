@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer
+namespace EngineLayer
 {
     public class ConfigImporter
     {

@@ -1,6 +1,6 @@
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Nodes;
+using Algorithms.MapGeneration.FortuneVoronoi.Nodes;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Events
+namespace Algorithms.MapGeneration.FortuneVoronoi.Events
 {
     internal class VCircleEvent : VEvent
     {

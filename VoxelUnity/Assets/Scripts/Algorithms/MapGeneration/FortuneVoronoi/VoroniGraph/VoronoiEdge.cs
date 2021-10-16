@@ -1,8 +1,8 @@
 using System;
-using Assets.Scripts.Algorithms.MapGeneration.Graph;
+using Algorithms.MapGeneration.Graph;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph
+namespace Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph
 {
     public class VoronoiEdge : Edge
     {

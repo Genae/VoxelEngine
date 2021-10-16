@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Events;
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Nodes;
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
-using Assets.Scripts.Algorithms.MapGeneration.Graph;
+using Algorithms.MapGeneration.FortuneVoronoi.Events;
+using Algorithms.MapGeneration.FortuneVoronoi.Nodes;
+using Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
+using Algorithms.MapGeneration.Graph;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi
+namespace Algorithms.MapGeneration.FortuneVoronoi
 {
     public abstract class Fortune
 	{

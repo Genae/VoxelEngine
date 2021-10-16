@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Assets.Scripts.Algorithms.MapGeneration
+namespace Algorithms.MapGeneration
 {
     internal class Voronoi
     {

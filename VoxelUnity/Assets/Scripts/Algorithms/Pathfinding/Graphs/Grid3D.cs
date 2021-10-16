@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
+using Algorithms.Pathfinding.Utils;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
+namespace Algorithms.Pathfinding.Graphs
 {
     public class Grid3D<T> : IEnumerable<T> where T: class
     {

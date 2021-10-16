@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Utils
+namespace Algorithms.Pathfinding.Utils
 {
     public class PriorityQueue<T> : IEnumerable<T>
     {

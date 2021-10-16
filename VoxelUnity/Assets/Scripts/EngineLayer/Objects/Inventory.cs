@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using Assets.Scripts.AccessLayer;
+using AccessLayer;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Objects
+namespace EngineLayer.Objects
 {
     public class Inventory : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.EngineLayer;
-using Assets.Scripts.GameLogicLayer.Tools;
+using AccessLayer.Tools;
+using EngineLayer;
+using GameLogicLayer.Tools;
 using UnityEngine;
 
-namespace Assets.Scripts.ControlInputs
+namespace ControlInputs
 {
     public class MouseController : MonoBehaviour
     {

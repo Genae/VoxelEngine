@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.Algorithms.MapGeneration
+namespace Algorithms.MapGeneration
 {
     class DiamondCutPattern
     {

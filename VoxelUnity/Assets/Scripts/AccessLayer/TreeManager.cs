@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.EngineLayer;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
-using Assets.Scripts.EngineLayer.Voxels.Data;
-using Assets.Scripts.GameLogicLayer;
-using Assets.Scripts.GameLogicLayer.Objects.TreeOfLife;
-using Assets.Scripts.GameLogicLayer.Objects.Trees;
+using EngineLayer;
+using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Chunks;
+using EngineLayer.Voxels.Data;
+using GameLogicLayer;
+using GameLogicLayer.Objects.TreeOfLife;
+using GameLogicLayer.Objects.Trees;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer
+namespace AccessLayer
 {
     public class TreeManager
     {

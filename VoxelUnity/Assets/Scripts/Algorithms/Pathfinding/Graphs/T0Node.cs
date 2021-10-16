@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
+using Algorithms.Pathfinding.Utils;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
+namespace Algorithms.Pathfinding.Graphs
 {
     public class T0Node : Node
     {

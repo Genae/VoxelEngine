@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.AccessLayer;
-using Assets.Scripts.AccessLayer.Material;
+﻿using AccessLayer;
+using AccessLayer.Material;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Objects.TreeOfLife
+namespace GameLogicLayer.Objects.TreeOfLife
 {
     public class TreeOfLife : MonoBehaviour {
 

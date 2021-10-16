@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Objects.TreeOfLife
+namespace GameLogicLayer.Objects.TreeOfLife
 {
     public class Stem {
         public TreeNode[] Nodes;

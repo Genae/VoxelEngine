@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.EngineLayer.AI.GOAP;
-using Assets.Scripts.GameLogicLayer;
+﻿using EngineLayer.AI.GOAP;
+using GameLogicLayer;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer.Jobs
+namespace AccessLayer.Jobs
 {
     public abstract class SolveJobAction: GOAPAction
     {

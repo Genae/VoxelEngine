@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer.Tools
+namespace AccessLayer.Tools
 {
     public class OverlayManager
     {

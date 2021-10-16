@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
+namespace Algorithms.Pathfinding.Graphs
 {
     public class Edge
     {

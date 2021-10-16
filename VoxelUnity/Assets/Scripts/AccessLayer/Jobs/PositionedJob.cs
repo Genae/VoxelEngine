@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.EngineLayer.Util;
+using AccessLayer.Tools;
+using EngineLayer.Util;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer.Jobs
+namespace AccessLayer.Jobs
 {
     public abstract class PositionedJob : Job
     {

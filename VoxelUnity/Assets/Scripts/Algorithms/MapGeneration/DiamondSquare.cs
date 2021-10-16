@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Assets.Scripts.Algorithms.MapGeneration
+namespace Algorithms.MapGeneration
 {
     class DiamondSquare
     {

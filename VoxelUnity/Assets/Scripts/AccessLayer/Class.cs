@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Jobs;
-using Assets.Scripts.Algorithms.Pathfinding.Graphs;
-using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.EngineLayer.AI.GOAP;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
+using AccessLayer.Jobs;
+using Algorithms.Pathfinding.Graphs;
+using Algorithms.Pathfinding.Pathfinder;
+using Algorithms.Pathfinding.Utils;
+using EngineLayer.AI.GOAP;
+using EngineLayer.Voxels.Containers;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer
+namespace AccessLayer
 {
     public abstract class Class : MonoBehaviour, IGOAP
     {

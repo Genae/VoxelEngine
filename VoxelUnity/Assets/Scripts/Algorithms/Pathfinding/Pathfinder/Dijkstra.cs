@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding.Graphs;
+using Algorithms.Pathfinding.Graphs;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
+namespace Algorithms.Pathfinding.Pathfinder
 {
     public class Dijkstra
     {

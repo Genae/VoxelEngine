@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.AccessLayer.Jobs;
-using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.EngineLayer.Objects;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
+﻿using AccessLayer.Jobs;
+using AccessLayer.Tools;
+using EngineLayer.Objects;
+using EngineLayer.Voxels.Containers;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Actions
+namespace GameLogicLayer.Actions
 {
     public class MiningAction : SolveJobAction
     {

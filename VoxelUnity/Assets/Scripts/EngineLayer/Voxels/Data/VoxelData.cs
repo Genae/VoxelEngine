@@ -1,4 +1,4 @@
-namespace Assets.Scripts.EngineLayer.Voxels.Data
+namespace EngineLayer.Voxels.Data
 {
     public class VoxelData
     {

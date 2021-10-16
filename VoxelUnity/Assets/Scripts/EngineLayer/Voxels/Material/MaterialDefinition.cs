@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Material
+namespace EngineLayer.Voxels.Material
 {
     public class MaterialDefinition : MonoBehaviour
     {

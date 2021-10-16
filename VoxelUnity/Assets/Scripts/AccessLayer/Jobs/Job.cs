@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer.Jobs
+namespace AccessLayer.Jobs
 {
     public abstract class Job
     {

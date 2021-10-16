@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.AI.GOAP
+namespace EngineLayer.AI.GOAP
 {
     public abstract class GOAPAction
     {

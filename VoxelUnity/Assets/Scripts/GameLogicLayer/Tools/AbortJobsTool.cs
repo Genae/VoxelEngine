@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Assets.Scripts.AccessLayer;
-using Assets.Scripts.AccessLayer.Tools;
+using AccessLayer;
+using AccessLayer.Tools;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Tools
+namespace GameLogicLayer.Tools
 {
     public class AbortJobsTool : AreaTool
     {

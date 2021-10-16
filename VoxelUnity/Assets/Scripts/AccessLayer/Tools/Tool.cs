@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Chunks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.AccessLayer.Tools
+namespace AccessLayer.Tools
 {
     public abstract class Tool : MonoBehaviour
     {

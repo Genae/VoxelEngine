@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.EngineLayer.Voxels.Data;
+using AccessLayer.Material;
+using EngineLayer.Voxels.Data;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Containers.Chunks
+namespace EngineLayer.Voxels.Containers.Chunks
 {
     public class Chunk : VoxelContainer
     {

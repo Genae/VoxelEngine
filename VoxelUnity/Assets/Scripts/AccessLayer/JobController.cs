@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Jobs;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+using AccessLayer.Jobs;
+using Algorithms.Pathfinding.Utils;
+using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Chunks;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer
+namespace AccessLayer
 {
     public class JobController : MonoBehaviour
     {

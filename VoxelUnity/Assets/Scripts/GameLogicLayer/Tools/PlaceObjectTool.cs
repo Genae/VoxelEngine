@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.AccessLayer;
-using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+﻿using AccessLayer;
+using AccessLayer.Tools;
+using AccessLayer.Worlds;
+using EngineLayer.Voxels.Containers.Chunks;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Tools
+namespace GameLogicLayer.Tools
 {
     public class PlaceObjectTool : Tool {
 

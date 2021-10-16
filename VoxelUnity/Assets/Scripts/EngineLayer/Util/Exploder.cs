@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
+﻿using AccessLayer.Material;
+using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Multiblock;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Util
+namespace EngineLayer.Util
 {
     public class Exploder : MonoBehaviour
     {

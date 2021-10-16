@@ -1,8 +1,8 @@
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.EngineLayer.Voxels.Data;
+using AccessLayer.Worlds;
+using EngineLayer.Voxels.Data;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Containers.Chunks
+namespace EngineLayer.Voxels.Containers.Chunks
 {
     public class ChunkBorder
     {

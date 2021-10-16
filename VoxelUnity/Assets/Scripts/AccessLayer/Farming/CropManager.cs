@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.EngineLayer;
+using EngineLayer;
 
-namespace Assets.Scripts.AccessLayer.Farming
+namespace AccessLayer.Farming
 {
     public class CropManager
     {

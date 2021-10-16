@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.EngineLayer.Util;
+﻿using EngineLayer.Util;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer.Jobs
+namespace AccessLayer.Jobs
 {
     public class JobMarker : MonoBehaviour
     {

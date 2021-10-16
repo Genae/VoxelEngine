@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer;
-using Assets.Scripts.EngineLayer.AI.GOAP;
-using Assets.Scripts.GameLogicLayer.Actions;
+using AccessLayer;
+using EngineLayer.AI.GOAP;
+using GameLogicLayer.Actions;
 
-namespace Assets.Scripts.GameLogicLayer
+namespace GameLogicLayer
 {
     class JobAutoSolver : Class
     {

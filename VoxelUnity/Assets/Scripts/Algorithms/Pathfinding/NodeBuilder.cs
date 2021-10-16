@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
-using Assets.Scripts.EngineLayer.Voxels.Data;
+using Algorithms.Pathfinding.Utils;
+using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Chunks;
+using EngineLayer.Voxels.Data;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.Pathfinding
+namespace Algorithms.Pathfinding
 {
     public class NodeBuilder
     {

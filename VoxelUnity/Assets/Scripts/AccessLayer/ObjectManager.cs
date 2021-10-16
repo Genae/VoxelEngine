@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.EngineLayer;
-using Assets.Scripts.EngineLayer.Objects;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
+using AccessLayer.Worlds;
+using Algorithms.Pathfinding.Utils;
+using EngineLayer;
+using EngineLayer.Objects;
+using EngineLayer.Voxels.Containers.Multiblock;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer
+namespace AccessLayer
 {
     public class ObjectManager
     {

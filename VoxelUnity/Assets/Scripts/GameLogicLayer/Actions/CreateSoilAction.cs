@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.AccessLayer.Jobs;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.AccessLayer.Worlds;
+﻿using AccessLayer.Jobs;
+using AccessLayer.Material;
+using AccessLayer.Tools;
+using AccessLayer.Worlds;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Actions
+namespace GameLogicLayer.Actions
 {
     public class CreateSoilAction : SolveJobAction
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer;
+using AccessLayer;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.AI.GOAP
+namespace EngineLayer.AI.GOAP
 {
     public sealed class GOAPAgent : MonoBehaviour
     {

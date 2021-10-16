@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms
+namespace Algorithms
 {
     public abstract class Promise
     {

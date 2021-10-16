@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.Graph
+namespace Algorithms.MapGeneration.Graph
 {
     public class Graph
     {

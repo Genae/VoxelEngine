@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
-using Assets.Scripts.EngineLayer.Voxels.Data;
-using Assets.Scripts.EngineLayer.Voxels.Material;
-using Assets.Scripts.EngineLayer.Voxels.MultiblockHandling;
+using AccessLayer.Material;
+using EngineLayer.Voxels.Containers.Multiblock;
+using EngineLayer.Voxels.Material;
+using EngineLayer.Voxels.MultiblockHandling;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer
+namespace AccessLayer
 {
     public class MultiblockLoader
     {

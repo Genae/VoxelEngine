@@ -1,6 +1,6 @@
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
+using Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Nodes
+namespace Algorithms.MapGeneration.FortuneVoronoi.Nodes
 {
     internal class VEdgeNode : VNode
     {

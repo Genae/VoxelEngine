@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Assets.Scripts.Algorithms;
+using Algorithms;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.AI.GOAP
+namespace EngineLayer.AI.GOAP
 {
     public class GOAPPlanner
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Events
+namespace Algorithms.MapGeneration.FortuneVoronoi.Events
 {
     internal class VDataEvent : VEvent
     {

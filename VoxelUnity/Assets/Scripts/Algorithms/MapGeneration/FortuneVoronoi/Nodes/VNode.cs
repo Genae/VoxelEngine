@@ -1,10 +1,10 @@
 ﻿using System;
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Events;
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
-using Assets.Scripts.Algorithms.MapGeneration.Graph;
+using Algorithms.MapGeneration.FortuneVoronoi.Events;
+using Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
+using Algorithms.MapGeneration.Graph;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Nodes
+namespace Algorithms.MapGeneration.FortuneVoronoi.Nodes
 {
     internal abstract class VNode
     {

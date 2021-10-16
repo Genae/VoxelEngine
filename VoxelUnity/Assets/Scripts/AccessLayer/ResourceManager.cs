@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
-using Assets.Scripts.EngineLayer.Voxels.Data;
-using Assets.Scripts.EngineLayer.Voxels.Material;
+using AccessLayer.Material;
+using AccessLayer.Worlds;
+using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Chunks;
+using EngineLayer.Voxels.Data;
+using EngineLayer.Voxels.Material;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer
+namespace AccessLayer
 {
     public class ResourceManager
     {

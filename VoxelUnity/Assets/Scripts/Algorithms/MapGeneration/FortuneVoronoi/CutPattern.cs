@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
+using Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi
+namespace Algorithms.MapGeneration.FortuneVoronoi
 {
     class CutPattern
     {

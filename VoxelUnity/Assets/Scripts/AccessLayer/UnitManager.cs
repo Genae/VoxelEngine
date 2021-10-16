@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+﻿using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Chunks;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer
+namespace AccessLayer
 {
     public class UnitManager
     {

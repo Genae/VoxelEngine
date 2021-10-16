@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.EngineLayer.Voxels.Data;
-using Assets.Scripts.EngineLayer.Voxels.Material;
+using AccessLayer.Material;
+using EngineLayer.Voxels.Data;
+using EngineLayer.Voxels.Material;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms
+namespace Algorithms
 {
     public static class GreedyMeshing
     {

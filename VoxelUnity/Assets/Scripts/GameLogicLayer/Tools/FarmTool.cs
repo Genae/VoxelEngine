@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using Assets.Scripts.AccessLayer;
-using Assets.Scripts.AccessLayer.Farming;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.GameLogicLayer.Actions;
+using AccessLayer;
+using AccessLayer.Farming;
+using AccessLayer.Material;
+using AccessLayer.Tools;
+using AccessLayer.Worlds;
+using GameLogicLayer.Actions;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Tools
+namespace GameLogicLayer.Tools
 {
     public class FarmTool : AreaTool {
         

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
+using Algorithms.Pathfinding;
+using Algorithms.Pathfinding.Utils;
+using EngineLayer.Voxels.Containers;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Data
+namespace EngineLayer.Voxels.Data
 {
     public class LocalAStarNetwork
     {

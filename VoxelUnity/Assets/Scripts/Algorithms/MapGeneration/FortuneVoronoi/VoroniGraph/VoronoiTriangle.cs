@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph
+namespace Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph
 {
     public class VoronoiTriangle
     {

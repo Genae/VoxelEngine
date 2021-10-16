@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.AccessLayer;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock;
-using Assets.Scripts.EngineLayer.Voxels.Material;
+using AccessLayer;
+using AccessLayer.Material;
+using EngineLayer.Voxels.Containers.Multiblock;
+using EngineLayer.Voxels.Material;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Objects.Trees
+namespace GameLogicLayer.Objects.Trees
 {
     public class RandomizedTree
     {

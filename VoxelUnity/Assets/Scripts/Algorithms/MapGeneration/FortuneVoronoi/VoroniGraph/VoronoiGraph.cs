@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph
+namespace Algorithms.MapGeneration.FortuneVoronoi.VoroniGraph
 {
     public class VoronoiGraph : Graph.Graph
     {

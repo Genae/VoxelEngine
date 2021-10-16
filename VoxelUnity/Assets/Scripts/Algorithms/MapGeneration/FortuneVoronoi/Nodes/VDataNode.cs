@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration.FortuneVoronoi.Nodes
+namespace Algorithms.MapGeneration.FortuneVoronoi.Nodes
 {
     internal class VDataNode : VNode
     {

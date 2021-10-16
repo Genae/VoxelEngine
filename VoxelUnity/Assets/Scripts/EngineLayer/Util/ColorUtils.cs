@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Util
+namespace EngineLayer.Util
 {
     public class ColorUtils
     {

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.ControlInputs;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+using ControlInputs;
+using EngineLayer.Voxels.Containers.Chunks;
 using UnityEngine;
 
-namespace Assets.Scripts.AccessLayer.Tools
+namespace AccessLayer.Tools
 {
     public abstract class AreaTool : Tool
     {

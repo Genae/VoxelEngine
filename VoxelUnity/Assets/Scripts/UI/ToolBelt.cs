@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Assets.Scripts.ControlInputs;
-using Assets.Scripts.EngineLayer;
+using ControlInputs;
+using EngineLayer;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI
+namespace UI
 {
 	public class ToolBelt: MonoBehaviour
 	{

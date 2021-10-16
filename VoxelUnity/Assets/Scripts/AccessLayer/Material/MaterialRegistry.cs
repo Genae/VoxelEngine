@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.EngineLayer;
-using Assets.Scripts.EngineLayer.Util;
-using Assets.Scripts.EngineLayer.Voxels.Material;
+using EngineLayer;
+using EngineLayer.Util;
+using EngineLayer.Voxels.Material;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts.AccessLayer.Material
+namespace AccessLayer.Material
 {
     public class MaterialRegistry
     {

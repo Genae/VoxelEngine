@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Linq;
-using Assets.Scripts.AccessLayer;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.Algorithms;
-using Assets.Scripts.EngineLayer;
-using Assets.Scripts.EngineLayer.Voxels.Containers;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
-using Assets.Scripts.UI;
+using AccessLayer;
+using AccessLayer.Material;
+using AccessLayer.Worlds;
+using Algorithms;
+using EngineLayer;
+using EngineLayer.Voxels.Containers;
+using EngineLayer.Voxels.Containers.Chunks;
+using UI;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer
+namespace GameLogicLayer
 {
     public class GameLoader : MonoBehaviour
     {

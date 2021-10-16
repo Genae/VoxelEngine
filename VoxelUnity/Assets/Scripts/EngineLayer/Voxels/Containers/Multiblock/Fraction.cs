@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.EngineLayer.Util;
+﻿using EngineLayer.Util;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Containers.Multiblock
+namespace EngineLayer.Voxels.Containers.Multiblock
 {
     public class Fraction : MonoBehaviour {
         private float _force;

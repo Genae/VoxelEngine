@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.Algorithms;
-using Assets.Scripts.EngineLayer.Util;
-using Assets.Scripts.EngineLayer.Voxels.Data;
+using AccessLayer.Material;
+using Algorithms;
+using EngineLayer.Util;
+using EngineLayer.Voxels.Data;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Containers
+namespace EngineLayer.Voxels.Containers
 {
     public class VoxelContainer : MonoBehaviour
     {

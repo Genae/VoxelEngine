@@ -1,9 +1,9 @@
 using System.Collections;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
+using AccessLayer.Material;
+using AccessLayer.Worlds;
+using EngineLayer.Voxels.Containers.Chunks;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Data
+namespace EngineLayer.Voxels.Data
 {
     public class MapData
     {

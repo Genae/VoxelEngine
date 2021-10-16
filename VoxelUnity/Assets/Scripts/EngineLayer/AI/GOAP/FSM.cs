@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.AI.GOAP
+namespace EngineLayer.AI.GOAP
 {
     public class FSM
     {

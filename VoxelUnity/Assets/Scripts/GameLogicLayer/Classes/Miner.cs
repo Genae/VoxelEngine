@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.AccessLayer;
-using Assets.Scripts.EngineLayer.AI.GOAP;
-using Assets.Scripts.GameLogicLayer.Actions;
+using AccessLayer;
+using EngineLayer.AI.GOAP;
+using GameLogicLayer.Actions;
 
-namespace Assets.Scripts.GameLogicLayer.Classes
+namespace GameLogicLayer.Classes
 {
     public class Miner : Class
     {

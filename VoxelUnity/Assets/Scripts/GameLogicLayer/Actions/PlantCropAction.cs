@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.AccessLayer.Farming;
-using Assets.Scripts.AccessLayer.Jobs;
-using Assets.Scripts.AccessLayer.Tools;
+﻿using AccessLayer.Farming;
+using AccessLayer.Jobs;
+using AccessLayer.Tools;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Actions
+namespace GameLogicLayer.Actions
 {
     public class PlantCropAction : SolveJobAction
     {

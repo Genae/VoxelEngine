@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Assets.Scripts.Algorithms.Pathfinding.Agents;
-using Assets.Scripts.Algorithms.Pathfinding.Graphs;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
+using Algorithms.Pathfinding.Agents;
+using Algorithms.Pathfinding.Graphs;
+using Algorithms.Pathfinding.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Pathfinder
+namespace Algorithms.Pathfinding.Pathfinder
 {
     public class Path : Promise, IDisposable
     {

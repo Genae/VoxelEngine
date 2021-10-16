@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
-using Assets.Scripts.Algorithms.Pathfinding.Utils;
+using Algorithms.Pathfinding.Pathfinder;
+using Algorithms.Pathfinding.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Graphs
+namespace Algorithms.Pathfinding.Graphs
 {
     public class VoxelGraph
     {

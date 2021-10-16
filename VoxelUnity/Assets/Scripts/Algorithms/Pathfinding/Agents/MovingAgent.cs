@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.Pathfinding.Graphs;
-using Assets.Scripts.Algorithms.Pathfinding.Pathfinder;
+using Algorithms.Pathfinding.Graphs;
+using Algorithms.Pathfinding.Pathfinder;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Agents
+namespace Algorithms.Pathfinding.Agents
 {
     public class MovingAgent
     {

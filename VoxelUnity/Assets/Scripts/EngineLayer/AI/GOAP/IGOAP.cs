@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Assets.Scripts.EngineLayer.AI.GOAP
+namespace EngineLayer.AI.GOAP
 {
     public interface IGOAP
     {

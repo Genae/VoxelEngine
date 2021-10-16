@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.Pathfinding.Utils
+namespace Algorithms.Pathfinding.Utils
 {
     public class Vector3I : IComparable<Vector3I>
     {

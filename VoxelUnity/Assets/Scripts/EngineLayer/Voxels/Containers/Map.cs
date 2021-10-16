@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Linq;
-using Assets.Scripts.AccessLayer.Material;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.Algorithms.MapGeneration;
-using Assets.Scripts.Algorithms.Pathfinding.Graphs;
-using Assets.Scripts.ControlInputs;
-using Assets.Scripts.EngineLayer.Voxels.Containers.Chunks;
-using Assets.Scripts.EngineLayer.Voxels.Data;
-using Assets.Scripts.EngineLayer.Voxels.Material;
-using Assets.Scripts.GameLogicLayer;
+using AccessLayer.Material;
+using AccessLayer.Worlds;
+using Algorithms.MapGeneration;
+using Algorithms.Pathfinding.Graphs;
+using ControlInputs;
+using EngineLayer.Voxels.Containers.Chunks;
+using EngineLayer.Voxels.Data;
+using EngineLayer.Voxels.Material;
+using GameLogicLayer;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.Containers
+namespace EngineLayer.Voxels.Containers
 {
     public class Map : MonoBehaviour
     {

@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.AccessLayer.Jobs;
-using Assets.Scripts.AccessLayer.Tools;
-using Assets.Scripts.AccessLayer.Worlds;
-using Assets.Scripts.EngineLayer.Voxels.Material;
+﻿using AccessLayer.Jobs;
+using AccessLayer.Tools;
+using AccessLayer.Worlds;
+using EngineLayer.Voxels.Material;
 using UnityEngine;
 
-namespace Assets.Scripts.GameLogicLayer.Actions
+namespace GameLogicLayer.Actions
 {
    
     public class BuildingAction : SolveJobAction

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Algorithms.MapGeneration.Graph;
+using Algorithms.MapGeneration.Graph;
 using UnityEngine;
 
-namespace Assets.Scripts.Algorithms.MapGeneration
+namespace Algorithms.MapGeneration
 {
     class SpanningTree : Graph.Graph 
     {

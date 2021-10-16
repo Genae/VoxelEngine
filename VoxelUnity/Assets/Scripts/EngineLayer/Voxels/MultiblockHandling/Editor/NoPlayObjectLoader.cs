@@ -1,9 +1,9 @@
 ﻿using System;
-using Assets.Scripts.AccessLayer;
+using AccessLayer;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.EngineLayer.Voxels.MultiblockHandling.Editor
+namespace EngineLayer.Voxels.MultiblockHandling.Editor
 {
     [ExecuteInEditMode]
 
