@@ -81,7 +81,6 @@
      <Compile Include="Assets\Scripts\AccessLayer\Class.cs" />
      <Compile Include="Assets\Scripts\GameLogicLayer\Actions\CreateSoilAction.cs" />
      <Compile Include="Assets\Scripts\Algorithms\Pathfinding\Agents\MovingAgent.cs" />
-     <Compile Include="Assets\Scripts\UI\UIMainScene.cs" />
      <Compile Include="Assets\Scripts\Algorithms\Pathfinding\Pathfinder\AStar.cs" />
      <Compile Include="Assets\Scripts\Algorithms\Pathfinding\Pathfinder\Path.cs" />
      <Compile Include="Assets\Scripts\EngineLayer\AI\WalkingController.cs" />
@@ -193,7 +192,6 @@
      <None Include="Assets\Resources\World\Trees\oak.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Sunflower\5.txt" />
      <None Include="Assets\Resources\Imported\Plants\Crops\Sunflower\2.txt" />
-     <None Include="Assets\UI\Views\UIMainScene.xml" />
      <None Include="Assets\Resources\World\Trees\birch.txt" />
      <Reference Include="UnityEngine">
      <HintPath>C:/Unity Editors/2020.3.20f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

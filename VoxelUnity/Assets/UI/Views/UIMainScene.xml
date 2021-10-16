@@ -1,8 +1,0 @@
-<UIMainScene>
-    <UserInterface>
-        <ToolBelt />
-        <GameSpeed/>
-        <LoadingScreen />
-    </UserInterface>
-    <EventSystem />
-</UIMainScene>
