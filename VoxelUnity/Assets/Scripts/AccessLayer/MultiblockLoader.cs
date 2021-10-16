@@ -59,7 +59,7 @@ namespace AccessLayer
         private List<VData> LoadVDataListFromFile(string path, string filename)
         {
             var files = Resources.Load<TextAsset>(path + filename);
-            string jsonstring = files.text;
+            var jsonstring = files.text;
             return JsonConvert.DeserializeObject<VData[]>(jsonstring).ToList();
         }
 

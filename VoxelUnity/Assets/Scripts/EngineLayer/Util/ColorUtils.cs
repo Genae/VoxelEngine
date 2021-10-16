@@ -2,7 +2,7 @@
 
 namespace EngineLayer.Util
 {
-    public class ColorUtils
+    public static class ColorUtils
     {
         private static float ReferenceX = 100;
         private static float ReferenceY = 100;
@@ -15,7 +15,7 @@ namespace EngineLayer.Util
             return ColorDistanceCIELab(XYZtoCIELab(RGBToXYZ(c1)), XYZtoCIELab(RGBToXYZ(c2)));
         }
 
-        protected static Vector3 RGBToXYZ(Color c)
+        public static Vector3 RGBToXYZ(Color c)
         {
             var varR = c.r;
             var varG = c.g;
@@ -37,7 +37,7 @@ namespace EngineLayer.Util
             return new Vector3(x, y, z);
         }
 
-        protected static Vector3 XYZtoCIELab(Vector3 c)
+        private static Vector3 XYZtoCIELab(Vector3 c)
         {
             var var_X = c.x / ReferenceX;
             var var_Y = c.y / ReferenceY;
@@ -56,7 +56,7 @@ namespace EngineLayer.Util
             return new Vector3(CIEL, CIEa, CIEb);
         }
 
-        protected static float ColorDistanceCIELab(Vector3 c, Vector3 c2)
+        public static float ColorDistanceCIELab(Vector3 c, Vector3 c2)
         {
             return (c - c2).magnitude;
         }

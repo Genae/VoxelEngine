@@ -11,7 +11,7 @@ namespace EngineLayer.Voxels.Containers.Chunks
         
         public static Chunk CreateChunk(int x, int y, int z, Map map)
         {
-            var chunk = new GameObject(string.Format("Chunk [{0}, {1}, {2}]", x, y, z));
+            var chunk = new GameObject($"Chunk [{x}, {y}, {z}]");
             var chunkC = chunk.gameObject.AddComponent<Chunk>();
             chunkC.CanBeHighlighted = false;
             chunkC.tag = "Chunk";
@@ -31,8 +31,8 @@ namespace EngineLayer.Voxels.Containers.Chunks
         public override void Update()
         {
             base.Update();
-            var chunkData = ContainerData as ChunkData;
-            if (chunkData != null) chunkData.CheckDirtyVoxels();
+            if (ContainerData is ChunkData chunkData) 
+                chunkData.CheckDirtyVoxels();
         }
     }
 }

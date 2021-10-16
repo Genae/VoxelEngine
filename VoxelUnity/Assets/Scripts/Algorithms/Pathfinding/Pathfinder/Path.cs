@@ -104,7 +104,7 @@ namespace Algorithms.Pathfinding.Pathfinder
             {
                 return;
             }
-            for (int i = fromNode + 1; i < Nodes.Count - 1; i++)
+            for (var i = fromNode + 1; i < Nodes.Count - 1; i++)
             {
                 if (fromNode == -1)
                     Debug.DrawLine(Nodes[i].Position, Nodes[i + 1].Position, color, 60000, true);

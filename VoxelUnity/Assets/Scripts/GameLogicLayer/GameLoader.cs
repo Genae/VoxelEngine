@@ -61,7 +61,7 @@ namespace GameLogicLayer
             //Characters
             SetStatus("Loading Characters", 0.96f);
             yield return null;
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
             {
                 UnitManager.SpawnUnitAtRandomPosition(Bunny);
             }

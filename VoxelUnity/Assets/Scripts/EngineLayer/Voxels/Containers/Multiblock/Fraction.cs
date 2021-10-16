@@ -11,11 +11,12 @@ namespace EngineLayer.Voxels.Containers.Multiblock
         {
             _force = force;
             _middle = middle;
-            transform.position = position;
-            transform.localScale = Vector3.one * scale;
+            var transform1 = transform;
+            transform1.position = position;
+            transform1.localScale = Vector3.one * scale;
             transform.GetComponent<MeshRenderer>().material.color = color;
-            Invoke("Explode", 0.1f);
-            Invoke("Destroy", Random.Range(3f, 4f));
+            Invoke(nameof(Explode), 0.1f);
+            Invoke(nameof(Destroy), Random.Range(3f, 4f));
         }
 
         public void Explode()

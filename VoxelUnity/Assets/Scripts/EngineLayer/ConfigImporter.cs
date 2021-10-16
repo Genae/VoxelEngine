@@ -8,7 +8,7 @@ namespace EngineLayer
     {
         public static List<T> GetAllConfigs<T>(string path)
         {
-            List<T> list = new List<T>();
+            var list = new List<T>();
             var files = Resources.LoadAll<TextAsset>(path);
             foreach (var file in files)
             {

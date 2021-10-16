@@ -72,11 +72,11 @@ namespace AccessLayer
             var maxz = (int)(Mathf.Max(start.z, end.z) + veinRadius);
             var direction = (start - end).normalized;
             var ray = new Ray(start, direction);
-            for (int x = minx; x < maxx; x++)
+            for (var x = minx; x < maxx; x++)
             {
-                for (int y = miny; y < maxy; y++)
+                for (var y = miny; y < maxy; y++)
                 {
-                    for (int z = minz; z < maxz; z++)
+                    for (var z = minz; z < maxz; z++)
                     {
                         if (!Map.Instance.IsInBounds(x, y, z))
                             continue;

@@ -29,7 +29,7 @@ namespace Algorithms
             list.Add(GetMidPointAt(verts[0], verts[1], 0.5f));
             var dynlist = new List<Vector3>();
 
-            for (int i = 1; i < verts.Count-1; i++)
+            for (var i = 1; i < verts.Count-1; i++)
             {
                 //get 3 points ready for bezier
                 dynlist.Clear();
@@ -50,7 +50,7 @@ namespace Algorithms
         public static List<Vector3> GetBezierPoints(List<Vector3> verts, float stepcount)
         {
             var vertcount = verts.Count;
-            float stepint = 1 / stepcount;
+            var stepint = 1 / stepcount;
             var list = new List<Vector3>();
 
             for (float i = 0; i < 1; i += stepint)
@@ -71,7 +71,7 @@ namespace Algorithms
             else
             {
                 var list = new List<Vector3>();
-                for (int i = 0; i < vertCount - 1; i++)
+                for (var i = 0; i < vertCount - 1; i++)
                 {
                     list.Add(GetMidPointAt(verts[i], verts[i+1], value));
                 }

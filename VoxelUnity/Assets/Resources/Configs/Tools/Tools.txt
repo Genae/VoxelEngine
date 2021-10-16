@@ -22,7 +22,11 @@
 			{
 				"Name": "Place Object",
 				"Tool": "GameLogicLayer.Tools.PlaceObjectTool"
-			}
+			},
+            {
+                "Name": "Place Water Source",
+                "Tool": "GameLogicLayer.Tools.PlaceWaterSourceTool"
+            }
 		]
 	},
 	{

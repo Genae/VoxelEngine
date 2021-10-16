@@ -21,7 +21,7 @@ namespace EngineLayer.Voxels.Data
         public ChunkData(Vector3 position) : base(Chunk.ChunkSize, position)
         {
             ChunkBorders = new ChunkBorder[6];
-            for (int i = 0; i < 6; i++)
+            for (var i = 0; i < 6; i++)
             {
                 ChunkBorders[i] = new ChunkBorder(this, i);
             }

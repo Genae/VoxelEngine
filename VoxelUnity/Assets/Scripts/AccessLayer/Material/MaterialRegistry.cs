@@ -13,7 +13,7 @@ namespace AccessLayer.Material
     {
         public static MaterialRegistry Instance
         {
-            get => _instance ?? (_instance = new MaterialRegistry());
+            get => _instance ??= new MaterialRegistry();
             set => _instance = value;
         }
         private static MaterialRegistry _instance;
@@ -66,13 +66,13 @@ namespace AccessLayer.Material
         public void Preload()
         {
             GetMaterials();
-            //LoadColorPallete();
+            //LoadColorPallet();
         }
 
-        private void LoadColorPallete()
+        private void LoadColorPalette()
         {
-            var colorPallete = Resources.Load<Texture2D>("Images/colorPalette");
-            foreach (var pixel in colorPallete.GetPixels())
+            var colorPallet = Resources.Load<Texture2D>("Images/colorPalette");
+            foreach (var pixel in colorPallet.GetPixels())
             {
                 if (!EntityMaterialsIndices.ContainsKey(pixel))
                 {
@@ -93,15 +93,15 @@ namespace AccessLayer.Material
 
         public Color GetSimilarColor(Color color)
         {
-            if(EntityMaterialsIndices.Count == 0)
-                //LoadColorPallete();
+            //if(EntityMaterialsIndices.Count == 0)
+                //LoadColorPallet();
             if (EntityMaterialsIndices.ContainsKey(color))
                 return color;
             if (_conversionCache.ContainsKey(color))
                 return _conversionCache[color];
 
             var closestDist = 100000f;
-            Color closestColor = Color.white;
+            var closestColor = Color.white;
             foreach (var colorP in EntityMaterialsIndices.Keys)
             {
                 var dist = ColorUtils.ColorDistance(color, colorP);

@@ -30,7 +30,7 @@ namespace AccessLayer
 
         public IEnumerator GenerateTrees(int amount, MapData map, GameLoader loader)
         {
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
                 if(loader!=null) loader.SetStatus("Spawning Trees", 0.85f + (i/(float)amount)*0.1f);
                 var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(2) * Chunk.ChunkSize));

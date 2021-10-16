@@ -96,7 +96,7 @@ namespace Algorithms.Pathfinding.Utils
 
         public override int GetHashCode()
         {
-            int hash = 17;
+            var hash = 17;
             hash = hash * 23 + x.GetHashCode();
             hash = hash * 23 + y.GetHashCode();
             hash = hash * 23 + z.GetHashCode();

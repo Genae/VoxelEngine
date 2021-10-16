@@ -12,7 +12,7 @@ namespace AccessLayer.Worlds
             var parent = af.transform;
             foreach (var ambientPlantConfiguration in biomeConfig.AmbientPlants)
             {
-                for (int i = 0; i < ambientPlantConfiguration.Amount; i++)
+                for (var i = 0; i < ambientPlantConfiguration.Amount; i++)
                 {
                     var pos = new Vector3(Random.Range(0, Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
                     Physics.Raycast(new Ray(pos, Vector3.down), out var hit, float.PositiveInfinity);

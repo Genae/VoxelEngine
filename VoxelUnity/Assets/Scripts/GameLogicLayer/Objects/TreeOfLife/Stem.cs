@@ -20,19 +20,19 @@ namespace GameLogicLayer.Objects.TreeOfLife
         }
 
         void CreateStem(int first, int second){
-            int mid = (first + second) / 2;
+            var mid = (first + second) / 2;
             if (mid == first)
                 return;
-            Vector3 midPos = midpointDisplacement (Nodes[first].position, Nodes[second].position);
-            TreeNode midNode = new TreeNode(midPos);
+            var midPos = midpointDisplacement (Nodes[first].position, Nodes[second].position);
+            var midNode = new TreeNode(midPos);
             Nodes[mid] = midNode;
             CreateStem (first, mid);
             CreateStem (mid, second);
         }
 
         Vector3 midpointDisplacement(Vector3 first, Vector3 second){
-            Vector3 dir = (second - first) / 2;
-            Vector3 rnd = Random.insideUnitSphere * (dir.magnitude / 1.5f);
+            var dir = (second - first) / 2;
+            var rnd = Random.insideUnitSphere * (dir.magnitude / 1.5f);
             rnd.y = 0;
             return first + dir + rnd;
         }
