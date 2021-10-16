@@ -13,8 +13,8 @@ namespace AccessLayer.Material
     {
         public static MaterialRegistry Instance
         {
-            get { return _instance ?? (_instance = new MaterialRegistry()); }
-            set { _instance = value; }
+            get => _instance ?? (_instance = new MaterialRegistry());
+            set => _instance = value;
         }
         private static MaterialRegistry _instance;
 
@@ -25,8 +25,8 @@ namespace AccessLayer.Material
 
         public UnityEngine.Material[] Materials
         {
-            get { return _materials ?? GetMaterials(); }
-            set { _materials = value; }
+            get => _materials ?? GetMaterials();
+            set => _materials = value;
         }
 
         private UnityEngine.Material[] GetMaterials()
@@ -37,15 +37,9 @@ namespace AccessLayer.Material
         }
 
         private Texture2D tex;
-        public UnityEngine.Material EntityMaterial
-        {
-            get { return Materials[(int)MaterialTyp.Entity]; }
-        }
+        public UnityEngine.Material EntityMaterial => Materials[(int)MaterialTyp.Entity];
 
-        public UnityEngine.Material HighlightMaterial
-        {
-            get { return Materials[(int)MaterialTyp.Highlight]; }
-        }
+        public UnityEngine.Material HighlightMaterial => Materials[(int)MaterialTyp.Highlight];
 
         public static int AtlasSize = 16;
         
@@ -200,15 +194,9 @@ namespace AccessLayer.Material
         public string Type;
         public Drop[] Drop;
         
-        public MaterialTyp MaterialTyp
-        {
-            get { return (MaterialTyp)Enum.Parse(typeof(MaterialTyp), Type); }
-        }
+        public MaterialTyp MaterialTyp => (MaterialTyp)Enum.Parse(typeof(MaterialTyp), Type);
 
-        public Color TrueColor
-        {
-            get { return rgb(Color[0], Color[1], Color[2]); }
-        }
+        public Color TrueColor => rgb(Color[0], Color[1], Color[2]);
 
         // ReSharper disable once InconsistentNaming
 

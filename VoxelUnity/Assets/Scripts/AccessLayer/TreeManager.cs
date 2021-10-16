@@ -34,8 +34,7 @@ namespace AccessLayer
             {
                 if(loader!=null) loader.SetStatus("Spawning Trees", 0.85f + (i/(float)amount)*0.1f);
                 var pos = new Vector3(Random.Range(0, map.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, map.Chunks.GetLength(2) * Chunk.ChunkSize));
-                RaycastHit hit;
-                Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
+                Physics.Raycast(new Ray(pos, Vector3.down), out var hit, float.PositiveInfinity);
                 if (hit.collider.tag.Equals("Chunk"))
                 {
                     GenerateTree(hit.point);
@@ -47,8 +46,7 @@ namespace AccessLayer
         public void BuildTreeOfLife()
         {
             var mapCenter = new Vector3(Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize / 2f, 1000, Map.Instance.MapData.Chunks.GetLength(2) * Chunk.ChunkSize / 2f);
-            RaycastHit hit;
-            Physics.Raycast(new Ray(mapCenter, Vector3.down), out hit, float.PositiveInfinity);
+            Physics.Raycast(new Ray(mapCenter, Vector3.down), out var hit, float.PositiveInfinity);
             if (hit.collider.tag.Equals("Chunk"))
             {
                 var tree = new GameObject("TreeOfLife");

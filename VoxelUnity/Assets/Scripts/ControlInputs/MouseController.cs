@@ -14,7 +14,7 @@ namespace ControlInputs
 
         public Tool SelectedTool
         {
-            get { return _selectedTool; }
+            get => _selectedTool;
             set
             {
                 if(_selectedTool != null)
@@ -48,7 +48,6 @@ namespace ControlInputs
                     AddTools(toolConfig, parent.transform);
                 }
             }
-            SelectTool<AddBlocksTool>();
         }
 
         private void AddTools(ToolConfig toolConfig, Transform parent)

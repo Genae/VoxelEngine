@@ -13,13 +13,14 @@ namespace EngineLayer.Voxels.Containers
         public static bool EnableDraw;
         public Mesh Mesh;
         private UnityEngine.Material[] _materials;
-        protected bool MeshNeedsUpdate;
+        private bool MeshNeedsUpdate;
         public ContainerData ContainerData;
         public bool CanBeHighlighted = true;
         private Color? _highlightColor;
-        public Color? HighlightColor
+
+        private Color? HighlightColor
         {
-            get { return _highlightColor; }
+            get => _highlightColor;
             set
             {
                 if (value != _highlightColor)
@@ -55,7 +56,7 @@ namespace EngineLayer.Voxels.Containers
             _highlightColor = value;
         }
 
-        public static VoxelContainer CreateContainer<T>(Vector3 pos, ContainerData data, UnityEngine.Material[] materials, string name = null) where T : VoxelContainer
+        protected static VoxelContainer CreateContainer<T>(Vector3 pos, ContainerData data, UnityEngine.Material[] materials, string name = null) where T : VoxelContainer
         {
             var container = new GameObject(string.Format(name!=null?name:"Container" + "[{0}, {1}, {2}]", pos.x, pos.y, pos.z));
             var containerC = container.gameObject.AddComponent<T>();
@@ -66,11 +67,9 @@ namespace EngineLayer.Voxels.Containers
 
         public virtual void Update()
         {
-            if (EnableDraw && MeshNeedsUpdate)
-            {
-                UpdateMesh();
-                MeshNeedsUpdate = false;
-            }
+            if (!EnableDraw || !MeshNeedsUpdate) return;
+            UpdateMesh();
+            MeshNeedsUpdate = false;
         }
 
         public void OnMouseOver()
@@ -87,7 +86,7 @@ namespace EngineLayer.Voxels.Containers
             HighlightColor = null;
         }
 
-        public void OnContainerUpdated()
+        private void OnContainerUpdated()
         {
             MeshNeedsUpdate = true;
             gameObject.SetActive(true);
@@ -112,12 +111,7 @@ namespace EngineLayer.Voxels.Containers
 
         protected virtual List<Vector3> UpdateMesh()
         {
-            Dictionary<int, int[]> triangles;
-            Vector3[] vertices;
-            Vector3[] normals;
-            Vector2[] uvs;
-            List<Vector3> upVoxels;
-            GreedyMeshing.CreateMesh(out vertices, out triangles, out normals, out uvs, out upVoxels, ContainerData, ContainerData.Size);
+            GreedyMeshing.CreateMesh(out var vertices, out var triangles, out var normals, out var uvs, out var upVoxels, ContainerData, ContainerData.Size);
 
             if(Mesh == null)
                 Mesh = new Mesh();
@@ -138,7 +132,6 @@ namespace EngineLayer.Voxels.Containers
             gameObject.GetComponent<MeshRenderer>().sharedMaterials = myMats;
             GetComponent<MeshFilter>().sharedMesh = Mesh;
             var mCollider = GetComponent<MeshCollider>() != null ? GetComponent<MeshCollider>() : gameObject.AddComponent<MeshCollider>();
-            mCollider.sharedMesh = null;
             mCollider.sharedMesh = Mesh;
             SetHighlightMaterial(_highlightColor);
             gameObject.SetActive(vertices.Length != 0);

@@ -13,8 +13,7 @@ namespace GameLogicLayer.Tools
         // Update is called once per frame
         void Update () {
 	        //_mouseScrollDelta += (int)Input.mouseScrollDelta.y;
-            Chunk chunkHit;
-            var pos = GetMouseOveredVoxelPos(out chunkHit);
+            var pos = GetMouseOveredVoxelPos(out var chunkHit);
             if (chunkHit != null)
             {
                 DrawPreview(pos);

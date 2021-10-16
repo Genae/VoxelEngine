@@ -70,8 +70,7 @@ namespace EngineLayer.Voxels.MultiblockHandling
                     for (var z = 0; z < Mathf.Round(zone.transform.localScale.z * FractionValue * bounds.size.z + 0.5f); z++)
                     {
                         var pos = new Vector3((x + offset) / FractionValue, (y + offset) / FractionValue, (z + offset) / FractionValue) + bounds.center - bounds.size/2;
-                        Color color;
-                        if (IsVoxelInModel(pos, dirList, out color))
+                        if (IsVoxelInModel(pos, dirList, out var color))
                         {
                             voxelPosList.Add(new VData(new DreierWecktor(x, y, z), new DreierWecktor((int)(color.r*256), (int)(color.g * 256), (int)(color.b * 256))));
                         }

@@ -9,10 +9,7 @@ namespace Algorithms.Pathfinding.Utils
         public int y;
         public int z;
 
-        public static Vector3I zero
-        {
-            get { return new Vector3I(0, 0, 0); }
-        }
+        public static Vector3I zero => new Vector3I(0, 0, 0);
 
         public Vector3I(int xPos, int yPos, int zPos)
         {
@@ -67,22 +64,10 @@ namespace Algorithms.Pathfinding.Utils
             }
         }
 
-        public float magnitude
-        {
-            get
-            {
-                return (float)Math.Sqrt(sqrMagnitude);
-            }
-        }
+        public float magnitude => (float)Math.Sqrt(sqrMagnitude);
 
-        public float sqrMagnitude
-        {
-            get
-            {
-                return x * x + y * y + z * z;
-            }
-        }
-        
+        public float sqrMagnitude => x * x + y * y + z * z;
+
         public static implicit operator Vector3(Vector3I v)
         {
             return new Vector3(v.x, v.y, v.z);

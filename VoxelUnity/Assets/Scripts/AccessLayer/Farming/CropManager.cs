@@ -6,10 +6,7 @@ namespace AccessLayer.Farming
     public class CropManager
     {
         private static CropManager _instance;
-        public static CropManager Instance
-        {
-            get { return _instance ?? (_instance = new CropManager()); }
-        }
+        public static CropManager Instance => _instance ?? (_instance = new CropManager());
 
         private readonly Dictionary<string, CropType> _crops = new Dictionary<string, CropType>();
 

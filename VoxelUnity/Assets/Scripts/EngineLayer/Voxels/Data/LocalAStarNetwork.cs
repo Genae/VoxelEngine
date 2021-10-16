@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Algorithms.Pathfinding;
 using Algorithms.Pathfinding.Utils;
@@ -9,7 +10,7 @@ namespace EngineLayer.Voxels.Data
 {
     public class LocalAStarNetwork
     {
-        public Vector3I[] Nodes = new Vector3I[0];
+        private Vector3I[] Nodes = Array.Empty<Vector3I>();
 
         public void RefreshNetwork(ChunkData chunk, List<Vector3> upVoxels)
         {

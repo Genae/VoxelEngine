@@ -17,10 +17,7 @@ namespace EngineLayer.AI
 
         private Map _map;
 
-        public bool IsIdle
-        {
-            get { return PathToTarget == null; }
-        }
+        public bool IsIdle => PathToTarget == null;
 
         void Start()
         {

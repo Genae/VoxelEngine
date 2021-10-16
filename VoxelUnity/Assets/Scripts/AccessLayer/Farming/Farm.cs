@@ -72,7 +72,7 @@ namespace AccessLayer.Farming
 
         public int Stage
         {
-            get { return _stage; }
+            get => _stage;
             set
             {
                 _stage = value;

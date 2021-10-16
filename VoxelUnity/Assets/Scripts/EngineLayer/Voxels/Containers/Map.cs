@@ -121,8 +121,8 @@ namespace EngineLayer.Voxels.Containers
         private VoxelMaterial _material;
         public VoxelMaterial Material
         { 
-            get { return _material ?? (_material = MaterialRegistry.Instance.GetMaterialFromName(ResourceType)); }
-            set { _material = value; }
+            get => _material ?? (_material = MaterialRegistry.Instance.GetMaterialFromName(ResourceType));
+            set => _material = value;
         }
     }
 }

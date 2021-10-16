@@ -26,8 +26,8 @@ namespace GameLogicLayer.Tools
                 _previewRotation = new GameObject("rotation");
                 _previewRotation.transform.parent = _preview.transform;
             }
-            Chunk chunkHit;
-            var pos = GetMouseOveredVoxelPos(out chunkHit);
+
+            var pos = GetMouseOveredVoxelPos(out var chunkHit);
             if (Input.GetKeyDown(KeyCode.R))
             {
                 _previewRotation.transform.RotateAround(pos, Vector3.up, 90);

@@ -11,7 +11,7 @@ namespace Algorithms.MapGeneration.FortuneVoronoi.Nodes
         private VNode _left, _right;
         public VNode Left
         {
-            get { return _left; }
+            get => _left;
             set
             {
                 _left = value;
@@ -20,7 +20,7 @@ namespace Algorithms.MapGeneration.FortuneVoronoi.Nodes
         }
         public VNode Right
         {
-            get { return _right; }
+            get => _right;
             set
             {
                 _right = value;

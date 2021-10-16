@@ -189,7 +189,7 @@ namespace Algorithms.Pathfinding.Pathfinder
 
         public override float Length
         {
-            get { return ExactPath != null ? ExactPath.Length : 0; }
+            get => ExactPath != null ? ExactPath.Length : 0;
             set { }
         }
 

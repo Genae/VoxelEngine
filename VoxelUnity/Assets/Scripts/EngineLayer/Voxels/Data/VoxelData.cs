@@ -4,18 +4,12 @@ namespace EngineLayer.Voxels.Data
     {
         private int _blockType;
 
-        internal bool IsActive
-        {
-            get { return _blockType != 0; }
-        }
+        internal bool IsActive => _blockType != 0;
 
         internal int BlockType
         {
-            get { return _blockType; }
-            set
-            {
-                _blockType = value;
-            }
+            get => _blockType;
+            set => _blockType = value;
         }
 
         internal VoxelData(int blockType)

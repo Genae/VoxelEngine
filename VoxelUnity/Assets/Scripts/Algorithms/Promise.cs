@@ -11,7 +11,7 @@ namespace Algorithms
         private bool _finished;
         public bool Finished
         {
-            get { return _finished || !Thread.IsAlive; }
+            get => _finished || !Thread.IsAlive;
             set
             {
                 _finished = value;

@@ -11,8 +11,7 @@ namespace AccessLayer
             while (true)
             {
                 var pos = new Vector3(Random.Range(0, Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize), 1000, Random.Range(0, Map.Instance.MapData.Chunks.GetLength(0) * Chunk.ChunkSize));
-                RaycastHit hit;
-                Physics.Raycast(new Ray(pos, Vector3.down), out hit, float.PositiveInfinity);
+                Physics.Raycast(new Ray(pos, Vector3.down), out var hit, float.PositiveInfinity);
                 if (hit.collider.tag.Equals("Chunk"))
                 {
                     var start = hit.point;

@@ -37,10 +37,7 @@ namespace EngineLayer.AI.GOAP
 
         public abstract bool Perform(float deltaTime, GameObject agent);
 
-        public bool RequiresInRange
-        {
-            get { return !_minRange.Equals(-1); }
-        }
+        public bool RequiresInRange => !_minRange.Equals(-1);
 
         public void SetMinRange(float minRange)
         {
@@ -72,21 +69,9 @@ namespace EngineLayer.AI.GOAP
             _effects.Remove(key);
         }
 
-        public Dictionary<string, object> Preconditions
-        {
-            get
-            {
-                return _preconditions;
-            }
-        }
+        public Dictionary<string, object> Preconditions => _preconditions;
 
-        public Dictionary<string, object> Effects
-        {
-            get
-            {
-                return _effects;
-            }
-        }
+        public Dictionary<string, object> Effects => _effects;
 
         public abstract void HasBeenChoosen();
     }

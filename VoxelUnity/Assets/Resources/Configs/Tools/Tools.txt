@@ -4,7 +4,7 @@
 		"Children": [
 			{
 				"Name": "CreateFarm",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.FarmTool"
+				"Tool": "GameLogicLayer.Tools.FarmTool"
 			}
 		]
 	},
@@ -13,15 +13,15 @@
 		"Children": [
 			{
 				"Name": "Build",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.AddBlocksTool"
+				"Tool": "GameLogicLayer.Tools.AddBlocksTool"
 			},
 			{
 				"Name": "Mine",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.DeleteTool"
+				"Tool": "GameLogicLayer.Tools.DeleteTool"
 			},
 			{
 				"Name": "Place Object",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.PlaceObjectTool"
+				"Tool": "GameLogicLayer.Tools.PlaceObjectTool"
 			}
 		]
 	},
@@ -30,11 +30,11 @@
 		"Children": [
 			{
 				"Name": "MouseOver",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.MouseoverTool"
+				"Tool": "GameLogicLayer.Tools.MouseoverTool"
 			},
 			{
 				"Name": "Abort",
-				"Tool": "Assets.Scripts.GameLogicLayer.Tools.AbortJobsTool"
+				"Tool": "GameLogicLayer.Tools.AbortJobsTool"
 			}
 		]
 	}

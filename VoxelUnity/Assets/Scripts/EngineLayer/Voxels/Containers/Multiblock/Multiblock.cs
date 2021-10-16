@@ -13,8 +13,7 @@ namespace EngineLayer.Voxels.Containers.Multiblock
         public static Multiblock InstantiateVoxels(Vector3 position, Dictionary<VoxelMaterial, List<Vector3>> voxels, string name)
         {
             var map = Map.Instance;
-            Vector3 zeroVec;
-            var size = GetSize(out zeroVec, voxels);
+            var size = GetSize(out var zeroVec, voxels);
             var data = new ContainerData(size, position + zeroVec);
             foreach (var type in voxels.Keys)
             {

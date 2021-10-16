@@ -104,8 +104,7 @@ namespace AccessLayer.Tools
         protected void StartArea()
         {
             _ySize = 0;
-            Chunk chunkHit;
-            var pos = GetMouseOveredVoxelPos(out chunkHit);
+            var pos = GetMouseOveredVoxelPos(out var chunkHit);
             if (chunkHit != null)
             {
                 _startPos = pos;

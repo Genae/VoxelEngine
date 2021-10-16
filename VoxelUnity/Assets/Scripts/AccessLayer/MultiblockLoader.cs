@@ -17,8 +17,8 @@ namespace AccessLayer
 
         protected static MultiblockLoader Instance
         {
-            get { return _instance ?? (_instance = new MultiblockLoader()); }
-            set { _instance = value; }
+            get => _instance ?? (_instance = new MultiblockLoader());
+            set => _instance = value;
         }
 
         public static Multiblock LoadMultiblock(string filename, Vector3 position = default(Vector3), Transform parent = null, float wind = 0f)

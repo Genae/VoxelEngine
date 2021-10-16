@@ -12,14 +12,9 @@ namespace Algorithms.MapGeneration.Graph
         private static readonly Vector2 VvInfinite = new Vector2(Single.PositiveInfinity, Single.PositiveInfinity);
         private static readonly Vector2 VvUnkown = new Vector2(Single.NaN, Single.NaN);
 
-        public bool IsInfinite
-        {
-            get { return IsInfiniteVertex(V1) && IsInfiniteVertex(V2); }
-        }
-        public bool IsPartlyInfinite
-        {
-            get { return IsInfiniteVertex(V1) || IsInfiniteVertex(V2); }
-        }
+        public bool IsInfinite => IsInfiniteVertex(V1) && IsInfiniteVertex(V2);
+
+        public bool IsPartlyInfinite => IsInfiniteVertex(V1) || IsInfiniteVertex(V2);
 
         public Edge(Vector2 v1, Vector2 v2)
         {

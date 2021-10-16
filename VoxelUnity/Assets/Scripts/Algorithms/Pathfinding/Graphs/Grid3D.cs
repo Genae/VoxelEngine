@@ -12,8 +12,8 @@ namespace Algorithms.Pathfinding.Graphs
         
         public T this[int xPos, int yPos, int zPos]
         {
-            get { return Get(xPos, yPos, zPos); }
-            set { Set(xPos, yPos, zPos, value);}
+            get => Get(xPos, yPos, zPos);
+            set => Set(xPos, yPos, zPos, value);
         }
 
         public T Get(int xPos, int yPos, int zPos)

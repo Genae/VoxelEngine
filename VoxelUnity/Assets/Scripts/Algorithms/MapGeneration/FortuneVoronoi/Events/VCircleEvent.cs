@@ -6,21 +6,9 @@ namespace Algorithms.MapGeneration.FortuneVoronoi.Events
     {
         public VDataNode NodeN, NodeL, NodeR;
         public double CenterX, CenterY;
-        public override double Y
-        {
-            get
-            {
-                return (CenterY + Fortune.Dist(NodeN.DataPoint[0], NodeN.DataPoint[1], CenterX, CenterY));
-            }
-        }
+        public override double Y => (CenterY + Fortune.Dist(NodeN.DataPoint[0], NodeN.DataPoint[1], CenterX, CenterY));
 
-        protected override double X
-        {
-            get
-            {
-                return CenterX;
-            }
-        }
+        protected override double X => CenterX;
 
         public bool Valid = true;
     }

@@ -7,15 +7,12 @@ namespace EngineLayer.Voxels.Data
 {
     public class MapData
     {
-        public ChunkData[,,] Chunks { get; private set; }
-        public int Size, Height;
-        public float Scale;
+        public ChunkData[,,] Chunks { get; }
+        private readonly float Scale;
         
         public MapData(int size, int height, float scaleMultiplier)
         {
             Chunks = new ChunkData[(int)(size * scaleMultiplier), (int)(height * scaleMultiplier), (int)(size * scaleMultiplier)];
-            Size = Chunks.GetLength(0);
-            Height = Chunks.GetLength(1);
             Scale = scaleMultiplier;
         }
 

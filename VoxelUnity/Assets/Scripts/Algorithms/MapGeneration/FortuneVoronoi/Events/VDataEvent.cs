@@ -9,21 +9,8 @@ namespace Algorithms.MapGeneration.FortuneVoronoi.Events
         {
             DataPoint = dp;
         }
-        public override double Y
-        {
-            get
-            {
-                return DataPoint[1];
-            }
-        }
+        public override double Y => DataPoint[1];
 
-        protected override double X
-        {
-            get
-            {
-                return DataPoint[0];
-            }
-        }
-
+        protected override double X => DataPoint[0];
     }
 }

@@ -37,10 +37,9 @@ namespace ControlInputs
 
         protected void Update()
         {
-            RaycastHit hit;
             //getting the height
             var ray = new Ray(transform.position, Vector3.down);
-            Physics.Raycast(ray, out hit, float.PositiveInfinity);
+            Physics.Raycast(ray, out var hit, float.PositiveInfinity);
             if (hit.collider != null)
             {
                 if(hit.transform.gameObject.tag == "Ground")
