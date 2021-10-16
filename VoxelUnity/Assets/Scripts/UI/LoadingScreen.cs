@@ -1,11 +1,17 @@
-﻿using System;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
-	public class LoadingScreen
+	public class LoadingScreen: MonoBehaviour
 	{
-	    public string StatusText;
-	    public float Progress;
+	    public Text StatusText;
+	    public Image ProgressBarImage;
+
+	    public void SetProgress(float progress)
+	    {
+		    ProgressBarImage.fillAmount = progress;
+	    }
 	}
 
 }

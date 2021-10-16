@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.UI
 {
-	public class GameSpeed
+	public class GameSpeed: MonoBehaviour
     {
         public void ClickNormal()
         {

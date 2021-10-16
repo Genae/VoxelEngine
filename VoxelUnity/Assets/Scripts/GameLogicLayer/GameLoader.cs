@@ -16,7 +16,7 @@ namespace Assets.Scripts.GameLogicLayer
     {
         public static bool GameLoaded = false;
         public GameObject Bunny;
-        //public LoadingScreen _loadingScreen;
+        public LoadingScreen _loadingScreen;
 
         void Awake()
         {
@@ -28,7 +28,7 @@ namespace Assets.Scripts.GameLogicLayer
         {
             Time.timeScale = 0;
             yield return null;
-            //_loadingScreen.IsVisible = true;
+            _loadingScreen.gameObject.SetActive(true);
 
             //Load Materials
             SetStatus("Loading Materials", 0.01f);
@@ -82,14 +82,14 @@ namespace Assets.Scripts.GameLogicLayer
             yield return null;
             GameLoaded = true;
 
-            //_loadingScreen.IsVisible = false;
+            _loadingScreen.gameObject.SetActive(false);
             SetCameraValues();
         }
 
         public void SetStatus(string text, float progress)
         {
-            //_loadingScreen.StatusText = text;
-            //_loadingScreen.Progress = progress;
+            _loadingScreen.StatusText.text = text;
+            _loadingScreen.SetProgress(progress);
         }
 
 

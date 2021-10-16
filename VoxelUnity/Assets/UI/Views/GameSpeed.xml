@@ -1,8 +1,0 @@
-<GameSpeed xmlns="MarkLight">
-  <Group Spacing="15px" Alignment="TopRight" Orientation="Horizontal">
-    <RadioButton Style="SmallButton" Text="&lt;&lt;" Alpha="0.5" Click="ClickSlow"/>
-    <RadioButton Style="SmallButton" Text="&gt;" Alpha="0.5" Click="ClickNormal"/>
-    <RadioButton Style="SmallButton" Text="&gt;&gt;" Alpha="0.5" Click="ClickFast"/>
-    <RadioButton Style="SmallButton" Text="&gt;&gt;&gt;" Alpha="0.5" Click="ClickVeryFast"/>
-  </Group>
-</GameSpeed>
